@@ -1,7 +1,6 @@
 import { Color3 } from '@babylonjs/core';
 import { MonsterHitController } from '@/core/monster/visual/MonsterHitController';
 import type { LabModule } from '@/labs/kit';
-import { createLabField } from '@/labs/kit';
 import { MONSTER_SELECTION } from '../monsterVisual.memory';
 import { MONSTER_VISUAL_SERVICE } from '../monster-visual/monsterVisual.service';
 import { monsterBattlefieldChanged, monsterSelectionChanged, monsterVisualActionChanged } from '../monsterVisual.protocol';
@@ -19,7 +18,7 @@ export const monsterHitLabModule: LabModule = {
     const panel = createMonsterPanel(context, 'monster-hit', '怪物受击表现');
     const duration = panel.number('持续时间（毫秒）', 'hit-duration', 1, 60000, 10), amplitude = panel.number('抖动幅度', 'hit-amplitude', 0, 100, .01);
     const frequency = panel.number('抖动频率', 'hit-frequency', 0, 200, 1), strength = panel.number('叠加强度', 'hit-strength', 0, 1, .05);
-    const color = document.createElement('input'); color.type = 'color'; color.dataset.monsterControl = 'hit-color'; panel.append(createLabField('受击颜色', color));
+    const color = panel.color('受击颜色', 'hit-color');
     let started = false;
     const render = () => {
       const value = settings.current; duration.value = String(value.durationMs); amplitude.value = String(value.shakeAmplitude);
@@ -40,6 +39,9 @@ export const monsterHitLabModule: LabModule = {
     panel.button('停止并恢复受击', 'hit-reset', () => { visual.cancel(selection.current.selectedId || undefined, 'hit'); visual.sync(); });
     context.communication.on(monsterBattlefieldChanged, render); context.communication.on(monsterSelectionChanged, render);
     context.communication.on(monsterVisualActionChanged, event => { if (event.kind === 'hit') { panel.status.textContent = '受击 · ' + event.outcome; panel.status.dataset.outcome = event.outcome; } });
-    return { start() { started = true; render(); }, dispose() { started = false; offAction(); uninstall(); state.dispose(); panel.root.remove(); } };
+    const rememberedSettings = panel.rememberState(settings, MONSTER_HIT_SETTINGS, [
+      [duration, 'durationMs'], [amplitude, 'shakeAmplitude'], [frequency, 'shakeFrequency'], [strength, 'overlayStrength'], [color, 'color'],
+    ], () => started, () => { state.changed(); if (started) render(); });
+    return { start() { started = true; render(); }, dispose() { rememberedSettings.dispose(); started = false; offAction(); uninstall(); state.dispose(); panel.root.remove(); } };
   },
 };

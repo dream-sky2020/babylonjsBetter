@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/labs/kit';
 import { DUNGEON_LIBRARIES_MEMORY } from '../dungeon-libraries/dungeonLibraries.memory';
 import { DUNGEON_RUNTIME_SAVES_MEMORY } from '../dungeon-map-loader/dungeonRuntimeSaves.memory';
@@ -15,6 +16,7 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
     const saves = context.memory.acquire(DUNGEON_RUNTIME_SAVES_MEMORY);
     const panel = context.ui.addPanel('dungeon-runtime-save-switch', '地牢运行时存档切换');
     const select = document.createElement('select');
+    let desiredPreset = '';
     const load = document.createElement('button');
     load.type = 'button';
     load.textContent = '原子切换到所选地牢';
@@ -34,6 +36,7 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
         option.textContent = `${preset.name} · ${preset.presetKey}`;
         return option;
       }));
+      select.selectedIndex = Math.max(0, [...select.options].findIndex(option => option.value === desiredPreset));
       status.textContent = '修改当前运行态后切换；返回时恢复玩家与阻碍的动态存档。';
       await refresh();
     };
@@ -58,9 +61,19 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
     });
     const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => { void refresh(); });
     const offMap = context.communication.on(dungeonMapChangedEvent, () => { void refresh(); });
+    const rememberedSettings = context.ui.registerSettings('dungeon-runtime-save-switch', [
+      controlSetting('preset', '目标地牢', select, {
+        read: () => select.value || desiredPreset,
+        write: value => { desiredPreset = String(value); },
+        valid: value => typeof value === 'string' && value.length <= 256,
+      }),
+    ], () => {
+      if (!select.options.length) return;
+      select.selectedIndex = Math.max(0, [...select.options].findIndex(option => option.value === desiredPreset));
+    });
     return {
       start,
-      dispose() { offChanged(); offMap(); },
+      dispose() { rememberedSettings.dispose(); offChanged(); offMap(); },
     };
   },
 };

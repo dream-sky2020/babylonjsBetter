@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": { "types": ["vite/client", "node"] },
-  "include": ["labs/kit/settings/**/*.ts", "labs/kit/labUi.ts", "labs/modules/dungeon/player-movement/playerMovement.labModule.ts", "labs/modules/dungeon/dungeon-first-person-camera/dungeonFirstPersonCamera.labModule.ts"],
+  "include": ["core/resources/virtual-modules.d.ts", "labs/modules/**/*.labModule.tsx", "labs/kit/settings/**/*.ts", "labs/kit/labUi.ts", "labs/modules/**/*.labModule.ts", "labs/kit/camera/labCameraSystem.ts", "labs/kit/keyboard/labKeyboardDebugPanel.ts"],
   "exclude": ["node_modules"]
 }

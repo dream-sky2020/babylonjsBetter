@@ -73,6 +73,7 @@ export const monsterBattlefieldLabModule: LabModule = {
       }
       await commit(next, command.kind === 'replace' ? 'replace' : 'update', changedId);
     });
+    let spawnPreference = '';
     const instance = panel.select('当前怪物', 'instance'), spawn = panel.select('新增怪物外观', 'spawn-config');
     instance.addEventListener('change', () => void panel.run(() => context.communication.request(monsterSelectionCommand, { selectedId: instance.value })));
     panel.button('添加怪物', 'add', async () => {
@@ -88,16 +89,22 @@ export const monsterBattlefieldLabModule: LabModule = {
       if (!libraries.current || !field.current) return;
       const monsters = field.current.monsters, selected = monsters.find(item => item.id === selection.current.selectedId);
       fillMonsterSelect(instance, monsters.map((item, index) => [item.id, (index + 1) + ' · ' + (libraries.current!.configs[item.monsterConfigKey]?.name ?? item.monsterConfigKey)]), selection.current.selectedId);
-      fillMonsterSelect(spawn, Object.entries(libraries.current.configs).map(([key, item]) => [key, item.name]), spawn.value || selected?.monsterConfigKey || '');
+      fillMonsterSelect(spawn, Object.entries(libraries.current.configs).map(([key, item]) => [key, item.name]), spawnPreference || selected?.monsterConfigKey || '');
       row.value = String(selected?.position.row ?? 0); column.value = String(selected?.position.column ?? 0); size.value = String(selected?.position.size ?? 1);
       column.max = String(field.current.width - 1); size.max = String(field.current.width); centered.checked = selected?.position.isOccupyingFullRowCentered ?? true;
       remove.disabled = position.disabled = !selected; panel.root.dataset.monsterCount = String(monsters.length);
       panel.status.textContent = '当前战场有 ' + monsters.length + ' 个怪物。';
     };
     context.communication.on(monsterLibrariesChanged, render);
+    spawn.addEventListener('change', () => { spawnPreference = spawn.value; });
+    const rememberedSettings = panel.remember([panel.setting(spawn, {
+      read: () => spawn.value || spawnPreference,
+      write: value => { spawnPreference = String(value); },
+      valid: value => typeof value === 'string' && value.length <= 256,
+    })], render);
     return { async start() {
       if (!field.current) field.replace(createMonsterPreviewBattlefield(Object.keys(libraries.require().configs)[0]));
       checkReferences(field.require()); started = true; repairSelection(); render(); await notify('replace');
-    }, dispose() { started = false; field.replace(null); registration.unregister(); selectionState.dispose(); panel.root.remove(); } };
+    }, dispose() { rememberedSettings.dispose(); started = false; field.replace(null); registration.unregister(); selectionState.dispose(); panel.root.remove(); } };
   },
 };

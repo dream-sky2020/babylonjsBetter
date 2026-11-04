@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_AGENT_NAVIGATION_MEMORY } from './dungeonAgentNavigation.memory';
 import { DUNGEON_TRAVERSAL_STATE_MEMORY } from '../dungeon-traversal/dungeonTraversal.memory';
 import { DUNGEON_MOVEMENT_STATE_MEMORY } from '../dungeon-movement/dungeonMovement.memory';
@@ -98,12 +99,8 @@ export const dungeonAgentLabModule: LabModule = {
     let agentSystem: DungeonAgentCommands | null = null;
 
     const panel = context.ui.addPanel('dungeon-agent', '可移动 Dungeon Agent');
-    const debugToggle = createLabSwitch('显示 Agent Debug 模型', true, {
-      preference: { ui: context.ui, key: 'dungeon-agent/debug-markers' },
-    });
-    const controllerToggle = createLabSwitch('启用 Agent Controller', true, {
-      preference: { ui: context.ui, key: 'dungeon-agent/controllers-enabled' },
-    });
+    const debugToggle = createLabSwitch('显示 Agent Debug 模型', true);
+    const controllerToggle = createLabSwitch('启用 Agent Controller', true);
     const chaseHint = document.createElement('p'); chaseHint.className = 'lab-hint';
     const selectedAgentSelect = document.createElement('select');
     const positionInput = createReadonlyInput();
@@ -860,7 +857,13 @@ export const dungeonAgentLabModule: LabModule = {
       publishControllerActions(actions);
     });
 
+    const rememberedSettings = context.ui.registerSettings('dungeon-agent', [
+      controlSetting('debug-markers', '显示 Agent Debug 模型', debugToggle.input, { defaultRemember: true, legacyKey: 'dungeon-agent/debug-markers' }),
+      controlSetting('controllers-enabled', '启用 Agent Controller', controllerToggle.input, { defaultRemember: true, legacyKey: 'dungeon-agent/controllers-enabled' }),
+      controlSetting('duration', '移动 / 转向耗时（秒）', durationInput),
+    ], () => { if (settingsMemory.current) { settingsMemory.current.controllersEnabled = controllerToggle.input.checked; settingsMemory.markChanged(); } renderMarkers(); refreshPanel(); });
     return () => {
+      rememberedSettings.dispose();
       offPreparation();
       prepared = null;
       offMapChanged();

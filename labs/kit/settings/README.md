@@ -1,6 +1,6 @@
 # 面板记住设置
 
-第一版接入玩家相机与玩家移动。点击标题旁「⋯」或右键标题，选择「管理需要记住的设置…」打开可搜索、连续勾选的清单。也可在菜单里全部记住、全部不记住、恢复推荐规则，并撤销最近一次规则修改。右键字段标签/行空白区域提供单项开关和默认值恢复，输入框内保留原生编辑菜单。标题普通点击继续展开/收起。
+组合式 Lab 中有可恢复设置的地牢、怪物和公共控制面板均接入。只读面板、一次性动作和对象属性编辑保留现有管理方式。点击标题旁「⋯」或右键标题，选择「管理需要记住的设置…」打开可搜索、连续勾选的清单。也可在菜单里全部记住、全部不记住、恢复推荐规则，并撤销最近一次规则修改。右键字段标签/行空白区域提供单项开关和默认值恢复，输入框内保留原生编辑菜单。标题普通点击继续展开/收起。
 
 「⋯」固定在模块标题栏最右侧。已记住的字段使用绿色输入框边框/底色，内部标签仅轻微变色，不加粗、不显示「已记住」标记；外部模块标题保持原样，数量以普通文字显示。关闭记住后立即移除字段颜色区分。
 
@@ -8,6 +8,6 @@
 
 规则和值以 `babylonjsBetter:lab-settings:${location.pathname}` v1 存在本机，不写地图、预设或 Snapshot。旧自动保存开关迁入同一机制并保持默认记住，其他字段默认不记住。Host 在 initialState 后、start 前恢复本机值；运行时明确导入的 Snapshot 后续生效。清单打开期间锁住游戏键盘输入，关闭时释放。
 
-模块调用 `context.ui.registerSettings(panelId, definitions, apply)`，返回句柄必须在模块清理时 dispose。每项必须显式声明稳定 key、名称、关联元素、read/write/valid；`controlSetting` 辅助声明布尔、数值和下拉控件。write 只修改设置，整组写完后调用一次 apply 重建派生状态；不要派发点击、执行移动或模拟输入来恢复。存在单位关联的字段使用自定义读写和校验。运行状态、按钮和当前对象数据不应登记。
+模块调用 `context.ui.registerSettings(panelId, definitions, apply)`，返回句柄必须在模块清理时 dispose。每项必须显式声明稳定 key、名称、关联元素、read/write/valid；`controlSetting` 辅助声明布尔、数值、颜色、文字和下拉控件；等待资源的下拉选项可先写入稳定标识，资源就绪后校验并同步。依赖同一份规则的动态列表可作为一个设置登记，列表增删后用 `capture(key)` 同步当前有效值。write 只修改设置，整组写完后调用一次 apply 重建派生状态；不要派发点击、执行移动或模拟输入来恢复。存在单位关联的字段使用自定义读写和校验。运行状态、按钮和当前对象数据不应登记。
 
-验证：`npm run test:lab-settings`、`npm run typecheck:lab-settings`，以及 `codex-tools/verifyLabSettings.cjs` 的真实页面回归。
+验证：`npm run test:lab-settings`、`npm run typecheck:lab-settings`，以及 `codex-tools/verifyLabSettings.cjs` 的真实地牢、怪物页面刷新回归。

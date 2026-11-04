@@ -2,6 +2,7 @@ const { resolveRepoPath } = require('./electronWorkspace.cjs');
 const { app, BrowserWindow } = require('electron');
 const fs = require('node:fs');
 const assert = require('node:assert/strict');
+const origin = process.env.LAB_VERIFICATION_ORIGIN ?? 'http://127.0.0.1:1184';
 app.commandLine.appendSwitch('use-angle', 'swiftshader'); app.commandLine.appendSwitch('enable-unsafe-swiftshader');
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 app.whenReady().then(async () => {
@@ -44,7 +45,7 @@ app.whenReady().then(async () => {
   const ready = async () => { await until(`!!document.querySelector('[data-lab-panel="monster-visual-objects"][data-monster-ready="true"]') && document.querySelector('.lab-global-status').textContent.startsWith('已组合')`); await until(`import('/codex-tools/labWorkbenchProbe.ts').then(probe => probe.visualObjectsSnapshot().ready)`); };
   let report;
   try {
-    await window.loadURL('http://127.0.0.1:1184/labs/composable/monster-visual-lab/index.html'); await ready();
+    await window.loadURL(`${origin}/labs/composable/monster-visual-lab/index.html`); await ready();
     const owners = await page(`[...document.querySelectorAll('[data-system-owner]')].map(element=>element.dataset.systemOwner)`);
     assert.deepEqual(owners.filter(id => id.startsWith('monster-')), ['monster-visual-objects']);
     assert.ok(!owners.some(id => /player|agent|grid/.test(id))); assert.ok(owners.includes('dungeon-map-loader'));
@@ -75,6 +76,23 @@ app.whenReady().then(async () => {
     await page(`document.querySelector('[data-lab-object-picking="${bodyKey}"]').click(); void 0;`);
     await select(bodyKey);
     checks.push('viewport layer selection defaults to monster root, supports per-layer opt-in and preserves tree editing');
+    const batchPicking = async (scope, action, rootEnabled, layersEnabled) => {
+      const menuId = `scene-picking-${scope}`;
+      await page(`document.querySelector('[data-object-id="${rootKey}"]').dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 140, clientY: 220 })); void 0;`);
+      await page(`document.querySelector('[data-command-menu-item="${menuId}"]').click(); document.querySelector('[data-command-menu-item="${menuId}-${action}"]').click(); void 0;`);
+      await until(`(() => {
+        const root = document.querySelector('[data-lab-object-picking="${rootKey}"]');
+        const layers = [...document.querySelectorAll('[data-lab-object-picking^="${rootKey}%2F"]')];
+        return root.getAttribute('aria-pressed') === '${rootEnabled}' && layers.length === 4
+          && layers.every(layer => layer.getAttribute('aria-pressed') === '${layersEnabled}');
+      })()`);
+    };
+    await batchPicking('subtree', 'disable', false, false);
+    await batchPicking('descendants', 'enable', false, true);
+    await batchPicking('subtree', 'enable', true, true);
+    await batchPicking('descendants', 'disable', true, false);
+    assert.equal(await page(`document.querySelector('[data-lab-transform-selected]').dataset.labTransformSelected`), bodyKey);
+    checks.push('context menu batches viewport selection for a subtree or its descendants and preserves the current tree selection');
     await field('position', 'x', .4); await field('rotation', 'z', 12); await field('scaling', 'y', .8);
     const body = () => snapshot().then(value => value.objects[0].layers.find(layer => layer.key === 'body'));
     assert.equal((await body()).transform.position[0], .4); assert.equal((await body()).transform.scaling[1], .8);
@@ -114,16 +132,29 @@ app.whenReady().then(async () => {
     await until(`document.querySelector('[data-lab-panel="system-lab-state"]').textContent.includes('已从“monster-state.json”恢复')`);
     assert.equal((await snapshot()).objects[0].transform.position[0], 4); assert.equal(await page(`document.querySelector('[data-lab-editing]').dataset.labEditing`), 'false');
     checks.push('invalid object import is atomic, valid import is undoable, module LabState restore cancels an unfinished gesture');
-    await window.loadURL('http://127.0.0.1:1184/labs/composable/monster-visual-lab/index.html'); await ready(); await select(rootKey);
+    await window.loadURL(`${origin}/labs/composable/monster-visual-lab/index.html`); await ready(); await select(rootKey);
     assert.equal((await snapshot()).objects.length, 2); assert.equal((await body()).transform.position[0], .4); assert.equal((await snapshot()).objects[0].transform.position[0], 4);
     checks.push('tree row visibility preserves selection, independent duplicate, delete/undo and local save/reload roundtrip');
-    // Map switches keep the monster document and its nodes alive.
     const beforeMap = (await body()).uniqueId;
-    const map = await page(`(()=>{const select=document.querySelector('[data-lab-panel="dungeon-config"] select');return [...select.options].find(option=>option.value!==select.value)?.value})()`);
-    if (map) { await page(`(()=>{const select=document.querySelector('[data-lab-panel="dungeon-config"] select');select.value=${JSON.stringify(map)};select.dispatchEvent(new Event('change'))})();`);
+    const originalMap = await page(`document.querySelector('[data-lab-panel="dungeon-config"] select').value`);
+    const otherMap = await page(`(()=>{const select=document.querySelector('[data-lab-panel="dungeon-config"] select');return [...select.options].find(option=>option.value!==select.value)?.value})()`);
+    assert.ok(otherMap);
+    const scenePicking = `document.querySelector('[data-lab-object-picking^="map-scene/"]')`;
+    await until(`!!${scenePicking}`);
+    const originalScene = await page(`${scenePicking}.dataset.labObjectPicking`);
+    const switchMap = async map => {
+      await page(`(()=>{const select=document.querySelector('[data-lab-panel="dungeon-config"] select');select.value=${JSON.stringify(map)};select.dispatchEvent(new Event('change'))})();`);
       await until(`document.querySelector('[data-lab-panel="dungeon-map-loader"] input').value === ${JSON.stringify(map)} && !document.querySelector('[data-lab-panel="dungeon-config"] .lab-panel-content > button').disabled`);
-      assert.equal((await body()).uniqueId, beforeMap); }
-    checks.push('map switching preserves monster objects and layer edits');
+    };
+    await page(`${scenePicking}.click(); void 0;`);
+    await until(`${scenePicking}?.getAttribute('aria-pressed') === 'false'`);
+    await switchMap(otherMap);
+    await until(`!!${scenePicking} && ${scenePicking}.dataset.labObjectPicking !== ${JSON.stringify(originalScene)}`);
+    assert.equal(await page(`${scenePicking}.getAttribute('aria-pressed')`), 'true');
+    await switchMap(originalMap);
+    await until(`${scenePicking}?.dataset.labObjectPicking === ${JSON.stringify(originalScene)} && ${scenePicking}.getAttribute('aria-pressed') === 'false'`);
+    assert.equal((await body()).uniqueId, beforeMap);
+    checks.push('returning to a map restores its viewport picking preferences and preserves monster objects and layer edits');
     assert.deepEqual(errors, []); assert.deepEqual(blockedWrites, []);
     const shot = await window.webContents.capturePage(undefined, { stayHidden: true, stayAwake: true }); fs.writeFileSync(resolveRepoPath('node_modules/.cache/monster-visual-objects.png'), shot.toPNG());
     report = { passed: true, checks, owners, requests: requests.filter(url => url.includes('/api/')), errors, blockedWrites };

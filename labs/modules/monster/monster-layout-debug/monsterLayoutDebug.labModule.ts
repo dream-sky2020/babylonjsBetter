@@ -18,6 +18,9 @@ export const monsterLayoutDebugLabModule: LabModule = {
     const state = persistMonsterState(context, 'monster-layout-debug', 'settings', MONSTER_LAYOUT_SETTINGS, settings, apply);
     context.communication.handle(monsterLayoutSettingsCommand, command => { settings.replace({ ...command }); state.changed(); apply(); });
     visible.addEventListener('change', () => void panel.run(() => context.communication.request(monsterLayoutSettingsCommand, { visible: visible.checked })));
-    return { start: apply, dispose() { uninstall(); state.dispose(); panel.root.remove(); } };
+    const rememberedSettings = panel.rememberState(settings, MONSTER_LAYOUT_SETTINGS, [
+      [visible, 'visible'],
+    ], () => true, () => { state.changed(); apply(); });
+    return { start: apply, dispose() { rememberedSettings.dispose(); uninstall(); state.dispose(); panel.root.remove(); } };
   },
 };

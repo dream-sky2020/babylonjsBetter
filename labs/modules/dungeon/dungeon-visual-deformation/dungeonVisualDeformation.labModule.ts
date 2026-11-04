@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_DEFORMATION_SETTINGS_MEMORY, readDungeonDeformationData } from './dungeonDeformation.memory';
 import { DEFAULT_DEFORMATION_SETTINGS, parseDeformationSettings, selectDeformationView, type DeformationSettings, type DeformationRule } from '@/core/render-deformation/deformation.ts';
 import { getVisualDeformationRegistry } from '@/core/render-deformation/visualDeformationRegistry.ts';
@@ -72,7 +73,7 @@ export const dungeonVisualDeformationLabModule: LabModule = {
       const fields = document.createElement('div'); fields.className = 'lab-deformation-rule-fields';
       fields.append(createLabField('匹配方式', selector), createLabField('匹配值', value), createLabField('强度（0 排除，1 完整补偿）', strength), remove);
       const entry = { root, selector, value, strength, ordinal, title, amount }; ruleInputs.push(entry);
-      remove.onclick = () => { ruleInputs.splice(ruleInputs.indexOf(entry), 1); root.remove(); refreshRuleSummaries(); };
+      remove.onclick = () => { ruleInputs.splice(ruleInputs.indexOf(entry), 1); root.remove(); refreshRuleSummaries(); rememberedSettings.capture('rules'); };
       selector.addEventListener('change', refreshRuleSummaries);
       value.addEventListener('input', refreshRuleSummaries);
       strength.addEventListener('input', refreshRuleSummaries);
@@ -86,6 +87,12 @@ export const dungeonVisualDeformationLabModule: LabModule = {
     panel.content.append(rulesSection, apply, reset, status, targets);
     const state: { draft: DeformationSettings | null } = { draft: null };
     let current = structuredClone(DEFAULT_DEFORMATION_SETTINGS);
+    let rememberedDraft: Partial<Omit<DeformationSettings, 'config'>> = {};
+    let rememberedConfig: Partial<DeformationSettings['config']> = {};
+    const readRules = () => ruleInputs.map(row => ({
+      selector: row.selector.value as DeformationRule['selector'], value: row.value.value,
+      strength: row.strength.valueAsNumber,
+    })).filter(rule => rule.selector !== 'id' || !rule.value.startsWith('runtime:'));
     const applicable = () => {
       numbers.get('shear')!.disabled = mode.value !== 'manual'; numbers.get('referencePitchDeg')!.disabled = mode.value !== 'automatic';
     };
@@ -115,6 +122,7 @@ export const dungeonVisualDeformationLabModule: LabModule = {
         button.onclick = () => {
           const rule = addRule({ selector: 'id', value: target.id, strength: 1 }, true);
           selection.value = 'rules'; targets.open = false;
+          rememberedSettings.capture('selection'); rememberedSettings.capture('rules');
           rule.scrollIntoView({ block: 'nearest' });
         };
         row.append(label, button); targetList.append(row);
@@ -125,6 +133,12 @@ export const dungeonVisualDeformationLabModule: LabModule = {
     const reconcile = () => {
       try {
         const mapSettings = settingsMemory.current;
+        if (mapSettings && (Object.keys(rememberedDraft).length || Object.keys(rememberedConfig).length)) {
+          const base = state.draft ?? (!mapSettings.error ? readDungeonDeformationData(mapSettings) : null)
+            ?? { ...DEFAULT_DEFORMATION_SETTINGS, enabled: true };
+          state.draft = parseDeformationSettings({ ...base, ...rememberedDraft, config: { ...base.config, ...rememberedConfig } });
+          rememberedDraft = {}; rememberedConfig = {}; registration.markChanged();
+        }
         if (!state.draft && mapSettings?.error) throw new Error(mapSettings.error);
         current = state.draft ?? (mapSettings ? readDungeonDeformationData(mapSettings) : null)
           ?? { ...structuredClone(DEFAULT_DEFORMATION_SETTINGS), enabled: true };
@@ -174,7 +188,33 @@ export const dungeonVisualDeformationLabModule: LabModule = {
       if (settingsMemory.current?.loadId === event.loadId) reconcile();
     });
     const offTargets = registry.subscribe(renderTargets); reconcile(); renderTargets();
+    const numberLabels = {
+      strength: '默认强度', referencePitchDeg: '参考俯角', heightScale: '高度倍率', shear: '手动倾斜量',
+    };
+    const rememberedSettings = context.ui.registerSettings('dungeon-visual-deformation', [
+      controlSetting('restore-outside-overhead', '离开俯视视角时恢复物体原形', restoreOutsideOverhead.input, {
+        write: value => { rememberedDraft.restoreOutsideOverhead = value === true; },
+      }),
+      controlSetting('selection', '作用范围', selection, { write: value => { rememberedDraft.selection = value as DeformationSettings['selection']; } }),
+      controlSetting('mode', '变形方式', mode, { write: value => { rememberedConfig.mode = value as DeformationSettings['config']['mode']; } }),
+      ...[...numbers].map(([key, input]) => controlSetting(key, numberLabels[key as keyof typeof numberLabels], input, {
+        write: value => { Object.assign(rememberedConfig, { [key]: value }); },
+      })),
+      {
+        key: 'rules', label: '匹配规则', elements: [rulesBox], read: readRules,
+        valid: value => {
+          if (!Array.isArray(value)) return false;
+          try {
+            return parseDeformationSettings({ ...DEFAULT_DEFORMATION_SETTINGS, rules: value }).rules
+              .every(rule => rule.selector !== 'id' || !rule.value.startsWith('runtime:'));
+          } catch { return false; }
+        },
+        write: value => { rememberedDraft.rules = parseDeformationSettings({ ...DEFAULT_DEFORMATION_SETTINGS, rules: value }).rules; },
+      },
+      controlSetting('target-search', '筛选对象', targetSearch),
+    ], () => { reconcile(); renderTargets(); });
     return () => {
+      rememberedSettings.dispose();
       offView(); offMap(); offTargets(); unmountTransitionControl(); lease?.release(); registration.unregister();
       context.services.delete(DUNGEON_VISUAL_DEFORMATION_SERVICE_KEY); panel.root.remove();
     };

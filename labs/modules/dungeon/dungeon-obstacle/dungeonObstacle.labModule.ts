@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DUNGEON_OBSTACLE_STATE_MEMORY } from '../dungeon-runtime/dungeonRuntime.memory';
 import { DUNGEON_OBSTACLES_MEMORY, type DungeonObstacleData, type DungeonObstaclesData } from './dungeonObstacles.memory';
@@ -29,9 +30,7 @@ export const dungeonObstacleLabModule: LabModule = {
     const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
     const control = context.services.get(DUNGEON_OBSTACLE_CONTROL_SERVICE_KEY);
     const panel = context.ui.addPanel('dungeon-obstacle', '地牢阻碍');
-    const debugToggle = createLabSwitch('显示静态阻碍 Debug', false, {
-      preference: { ui: context.ui, key: 'dungeon-obstacle/debug-boxes' },
-    });
+    const debugToggle = createLabSwitch('显示静态阻碍 Debug', false);
     const list = document.createElement('div');
     list.className = 'lab-obstacle-list';
     const json = createLabJson('尚未加载地图。');
@@ -129,7 +128,11 @@ export const dungeonObstacleLabModule: LabModule = {
       offChanges = control.subscribe(loaded.loadId, refresh);
       refresh();
     });
+    const rememberedSettings = context.ui.registerSettings('dungeon-obstacle', [
+      controlSetting('debug-boxes', '显示静态阻碍 Debug', debugToggle.input, { defaultRemember: true, legacyKey: 'dungeon-obstacle/debug-boxes' }),
+    ], () => { renderDebug(); });
     return () => {
+      rememberedSettings.dispose();
       debugToggle.input.removeEventListener('change', renderDebug);
       uninstall(); offMap(); offChanges?.(); viewConsumer.dispose(); context.services.delete(DUNGEON_OBSTACLE_VIEW_SERVICE_KEY);
       disposeDebug(); panel.root.remove();

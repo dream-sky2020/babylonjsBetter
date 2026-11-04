@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DUNGEON_TRAVERSAL_STATE_MEMORY, type DungeonTraversalStateData } from './dungeonTraversal.memory';
 import { DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY } from '@/core/dungeon-traversal/dungeonTraversalControl';
@@ -24,9 +25,7 @@ export const dungeonTraversalLabModule: LabModule = {
     const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
     const control = context.services.get(DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY);
     const panel = context.ui.addPanel('dungeon-traversal', '地牢通行');
-    const toggle = createLabSwitch('显示实占位与寻路预约', false, {
-      preference: { ui: context.ui, key: 'dungeon-traversal/debug' },
-    });
+    const toggle = createLabSwitch('显示实占位与寻路预约', false);
     const actorSelect = document.createElement('select');
     const directionSelect = document.createElement('select');
     directionSelect.replaceChildren(...DUNGEON_EIGHT_WAY_MOVEMENT_DIRECTIONS.map(direction =>
@@ -172,7 +171,12 @@ export const dungeonTraversalLabModule: LabModule = {
       if (!panel.content.hidden) { refreshSummary(); if (actorsDirty) { refreshActorSelect(); actorsDirty = false; } }
     });
     visibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
+    const rememberedSettings = context.ui.registerSettings('dungeon-traversal', [
+      controlSetting('debug', '显示实占位与寻路预约', toggle.input, { defaultRemember: true, legacyKey: 'dungeon-traversal/debug' }),
+      controlSetting('direction', '方向', directionSelect),
+    ], () => { onToggle(); });
     return () => {
+      rememberedSettings.dispose();
       inspect.removeEventListener('click', inspectNext); toggle.input.removeEventListener('change', onToggle);
       stopDebugTask(); uninstall();
       offMap(); offChanges?.(); visibilityObserver.disconnect(); viewConsumer.dispose();

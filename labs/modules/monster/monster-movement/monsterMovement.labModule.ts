@@ -49,6 +49,9 @@ export const monsterMovementLabModule: LabModule = {
     panel.button('重新读取移动预设', 'move-reload', loader.reload);
     context.communication.on(monsterBattlefieldChanged, render); context.communication.on(monsterSelectionChanged, render);
     context.communication.on(monsterVisualActionChanged, event => { if (event.kind === 'move') { panel.status.textContent = '移动 · ' + event.outcome; panel.status.dataset.outcome = event.outcome; } });
-    return { async start() { started = true; await loader.reload(); render(); }, dispose() { started = false; offAction(); uninstall(); loader.dispose(); state.dispose(); panel.root.remove(); } };
+    const rememberedSettings = panel.rememberState(settings, MONSTER_MOVEMENT_SETTINGS, [
+      [preset, 'presetKey'], [row, 'row'], [column, 'column'],
+    ], () => started, () => { state.changed(); if (started) render(); });
+    return { async start() { started = true; await loader.reload(); render(); }, dispose() { rememberedSettings.dispose(); started = false; offAction(); uninstall(); loader.dispose(); state.dispose(); panel.root.remove(); } };
   },
 };

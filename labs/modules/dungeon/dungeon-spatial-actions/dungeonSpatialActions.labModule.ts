@@ -1,5 +1,6 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { Color3,HemisphericLight,MeshBuilder,StandardMaterial,Vector3,type Mesh } from '@babylonjs/core';
-import type { LabModule } from '@/labs/kit';
+import { createLabField, type LabModule } from '@/labs/kit';
 import { createLabEvent } from '@/labs/kit/labCommunication.types';
 import { createSpatialExampleDocument } from '@/core/dungeon-spatial/dungeonSpatialExample';
 import { createDungeonRuntime } from '@/core/dungeon-runtime/dungeonRuntime';
@@ -27,7 +28,7 @@ export const dungeonSpatialActionsLabModule: LabModule={
     for(const [value,label] of [['push','推动'],['swap','换位'],['narrow','窄道换位']])scenario.add(new Option(label,value));
     const actor=document.createElement('select');for(const [value,label] of [['$dungeon-player','蓝色角色'],['box','橙色箱子'],['peer','绿色角色']])actor.add(new Option(label,value));
     const status=document.createElement('p'),summary=document.createElement('pre');summary.dataset.spatialSummary='true';
-    panel.content.append(scenario,actor,status,summary);
+    panel.content.append(createLabField('验证场景', scenario), createLabField('操控角色', actor), status, summary);
     let runtime: DungeonRuntime,loadId=0,paused=false,saved:DungeonRuntimeSaveState|null=null;
     let off=()=>{};const meshes=new Map<string,Mesh>(),materials:StandardMaterial[]=[];
     const spawn={tilePosition:{x:1,y:2},worldPosition:[1,0,2]} as unknown as DungeonPlayerSpawnBinding;
@@ -41,7 +42,9 @@ export const dungeonSpatialActionsLabModule: LabModule={
         const mesh=meshes.get(body.id);if(mesh){const pose=spatialPresentationPose(body);mesh.position.set(pose.x,.3,pose.y);mesh.setEnabled(body.enabled);}
       }
     };
+    let activeScenario = '';
     const reset=()=>{
+      activeScenario = scenario.value;
       off();meshes.forEach(mesh=>mesh.dispose());meshes.clear();materials.splice(0).forEach(m=>m.dispose());
       const doc=createSpatialExampleDocument(scenario.value as 'push'|'swap'|'narrow');
       let world!:DungeonTraversalOwnedData,actions!:DungeonMovementOwnedData,player!:DungeonPlayerStateData,obstacles!:DungeonObstacleStateData;
@@ -81,6 +84,10 @@ export const dungeonSpatialActionsLabModule: LabModule={
     const stopDraw=context.scheduler.register({id:'spatial-presentation',description:'显示连续姿态',phase:'presentation',order:100,run:draw});
     const stopSummary=context.scheduler.register({id:'spatial-summary',description:'可见空间摘要',phase:'debug',order:100,intervalSeconds:.25,
       run:()=>{if(!panel.content.hidden)summary.textContent=JSON.stringify([...runtime.traversal.spatial.bodies.values()].map(b=>({id:b.id,pose:b.pose,committed:b.logicalPosition})),null,2);}});
-    return()=>{off();stop();stopDraw();stopSummary();ground.dispose();groundMaterial.dispose();light.dispose();meshes.forEach(mesh=>mesh.dispose());materials.forEach(m=>m.dispose());worldMemory.replace(null);actionsMemory.replace(null);playerMemory.replace(null);obstacleMemory.replace(null);};
+    const rememberedSettings = context.ui.registerSettings('spatial-example', [
+      controlSetting('scenario', '验证场景', scenario),
+      controlSetting('actor', '操控角色', actor),
+    ], () => { if (activeScenario !== scenario.value) reset(); });
+    return()=>{rememberedSettings.dispose();off();stop();stopDraw();stopSummary();ground.dispose();groundMaterial.dispose();light.dispose();meshes.forEach(mesh=>mesh.dispose());materials.forEach(m=>m.dispose());worldMemory.replace(null);actionsMemory.replace(null);playerMemory.replace(null);obstacleMemory.replace(null);};
   },
 };

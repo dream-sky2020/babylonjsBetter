@@ -2,10 +2,11 @@ const { resolveRepoPath } = require('./electronWorkspace.cjs');
 const { app, BrowserWindow } = require('electron');
 const fs = require('node:fs');
 const assert = require('node:assert/strict');
+const origin = process.env.LAB_SETTINGS_ORIGIN ?? 'http://127.0.0.1:1184';
 app.commandLine.appendSwitch('use-angle', 'swiftshader');
 app.commandLine.appendSwitch('enable-unsafe-swiftshader');
 app.whenReady().then(async () => {
-  const win = new BrowserWindow({ show: false, width: 1440, height: 1000, webPreferences: { offscreen: true, backgroundThrottling: false } });
+  const win = new BrowserWindow({ show: false, width: 1440, height: 1000, webPreferences: { offscreen: true, backgroundThrottling: false, partition: 'lab-settings-verification' } });
   const errors = [], writes = [], checks = [];
   win.webContents.on('console-message', details => { if (details.level === 'error') errors.push(details.message); });
   win.webContents.session.webRequest.onBeforeRequest({ urls: ['http://127.0.0.1/*'] }, (details, callback) => {
@@ -19,13 +20,13 @@ app.whenReady().then(async () => {
   };
   const reload = async () => {
     await new Promise(resolve => { win.webContents.once('did-finish-load', resolve); win.reload(); });
-    await wait(`document.querySelectorAll('.lab-settings-trigger').length === 2 && document.querySelector('.lab-global-status')?.textContent.startsWith('已组合')`);
+    await wait(`document.querySelectorAll('.lab-settings-trigger').length >= 12 && document.querySelector('.lab-global-status')?.textContent.startsWith('已组合')`);
   };
   const menu = (panel, action) => page(`(()=>{document.querySelector('[data-lab-panel="${panel}"] .lab-settings-trigger').click();document.querySelector('[data-command-menu-item="${action}"]').click();})()`);
   let report;
   try {
-    await win.loadURL('http://127.0.0.1:1184/labs/composable/dungeon-agent-lab/index.html');
-    await wait(`document.querySelectorAll('.lab-settings-trigger').length === 2 && document.querySelector('.lab-global-status')?.textContent.startsWith('已组合')`);
+    await win.loadURL(`${origin}/labs/composable/dungeon-agent-lab/index.html`);
+    await wait(`document.querySelectorAll('.lab-settings-trigger').length >= 12 && document.querySelector('.lab-global-status')?.textContent.startsWith('已组合')`);
     await page(`localStorage.removeItem('babylonjsBetter:lab-settings:'+location.pathname);void 0;`); await reload();
     assert.equal(await page(`Array.from(document.querySelectorAll('.lab-card-header:has(.lab-settings-trigger)')).every(header=>{const button=header.querySelector('.lab-settings-trigger').getBoundingClientRect();return Array.from(header.children).every(child=>child.getBoundingClientRect().right<=button.right+1);})`), true);
     await menu('dungeon-player-camera', 'manage-settings');
@@ -77,6 +78,52 @@ app.whenReady().then(async () => {
     await page(`(()=>{const input=document.querySelector('[data-lab-setting="overhead-response"]');const e=new MouseEvent('contextmenu',{bubbles:true,cancelable:true});input.dispatchEvent(e);window.nativeContextPreserved=!e.defaultPrevented;input.closest('label').querySelector('span').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:900,clientY:200}));})()`);
     assert.equal(await page(`window.nativeContextPreserved`), true);
     assert.equal(await page(`!!document.querySelector('[data-command-menu-item="remember-setting"]')`), true);
+    const panels = () => page(`[...document.querySelectorAll('[data-lab-panel]:has(.lab-settings-trigger)')].map(panel => panel.dataset.labPanel)`);
+    const dungeonPanels = await panels();
+    for (const id of ['system-camera', 'system-keyboard-input', 'dungeon-config', 'dungeon-player-camera', 'player-movement',
+      'dungeon-agent', 'dungeon-movement', 'dungeon-grid-debug', 'dungeon-traversal', 'dungeon-obstacle',
+      'dungeon-transition', 'dungeon-overhead-view', 'dungeon-visual-deformation']) assert.ok(dungeonPanels.includes(id), id);
+    const selector = (panel, key) => `[data-lab-panel="${panel}"] [data-lab-setting="${key}"]`;
+    const edit = (panel, key, value, event = 'input') => page(`(() => {
+      const input = document.querySelector(${JSON.stringify(selector(panel, key))});
+      input.value = ${JSON.stringify(value)}; input.dispatchEvent(new Event(${JSON.stringify(event)}, {bubbles: true}));
+      return input.value;
+    })()`);
+    const value = (panel, key) => page(`document.querySelector(${JSON.stringify(selector(panel, key))}).value`);
+    for (const id of ['dungeon-config', 'dungeon-movement', 'dungeon-agent']) await menu(id, 'remember-all');
+    await edit('dungeon-agent', 'duration', '0.8');
+    await edit('dungeon-config', 'preset', 'dungeon_map_2', 'change');
+    await wait(`document.querySelector('[data-lab-panel="dungeon-config"]').textContent.includes('已加载')`);
+    await edit('dungeon-movement', 'commitProgress', '0.37');
+    await reload();
+    assert.equal(await value('dungeon-config', 'preset'), 'dungeon_map_2');
+    assert.equal(await value('dungeon-movement', 'commitProgress'), '0.37');
+    assert.equal(await value('dungeon-agent', 'duration'), '0.8');
+    checks.push('dungeon panel coverage and asynchronous map, movement and Agent settings restore');
+
+    await win.loadURL(`${origin}/codex-tools/monsterVisualRuntimePage.html`);
+    const monsterReady = `!!document.querySelector('[data-lab-panel="monster-death"][data-monster-ready="true"]')`;
+    await wait(monsterReady);
+    const monsterPanels = await panels();
+    for (const id of ['monster-battlefield', 'monster-visual', 'monster-layout-debug', 'monster-distance-stripes',
+      'monster-movement', 'monster-attack', 'monster-hit', 'monster-death']) assert.ok(monsterPanels.includes(id), id);
+    await menu('monster-hit', 'remember-all');
+    await menu('monster-attack', 'remember-all');
+    await edit('monster-hit', 'hit-duration', '810', 'change');
+    await edit('monster-hit', 'hit-color', '#377ac2', 'change');
+    const attackPreset = await page(`(() => { const select = document.querySelector('[data-lab-setting="attack"]'); return select.options[Math.min(1, select.options.length - 1)].value; })()`);
+    assert.ok(attackPreset);
+    await edit('monster-attack', 'attack', attackPreset, 'change');
+    await new Promise(resolve => { win.webContents.once('did-finish-load', resolve); win.reload(); });
+    await wait(monsterReady);
+    assert.equal(await value('monster-hit', 'hit-duration'), '810');
+    assert.equal(await value('monster-hit', 'hit-color'), '#377ac2');
+    assert.equal(await value('monster-attack', 'attack'), attackPreset);
+    assert.equal(await page(`!!document.querySelector('[data-outcome]')`), false);
+    checks.push('monster panels restore preset, duration and color without playing an action');
+    await win.loadURL(`${origin}/labs/composable/dungeon-player-spawn-lab/index.html`);
+    await wait(`document.querySelector('.lab-global-status')?.textContent.startsWith('已组合')`);
+    assert.ok((await panels()).includes('player-spawn'));
     assert.deepEqual(writes, []); assert.deepEqual(errors, []);
     report = { passed: true, checks, errors, writes, popup };
   } catch (error) { report = { passed: false, checks, error: error.stack, errors, writes }; }

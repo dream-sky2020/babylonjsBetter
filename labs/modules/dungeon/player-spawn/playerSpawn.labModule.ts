@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_PLAYER_SPAWN_MEMORY, type DungeonPlayerSpawnData } from './playerSpawn.memory';
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import { createLabJson, createLabSwitch, type LabModule } from '@/labs/kit';
@@ -11,9 +12,7 @@ export const playerSpawnLabModule: LabModule = {
   setup(context) {
     const spawnMemory = context.memory.acquire(DUNGEON_PLAYER_SPAWN_MEMORY);
     const panel = context.ui.addPanel('player-spawn', '玩家出生点');
-    const toggle = createLabSwitch('显示玩家出生格 Debug 盒', false, {
-      preference: { ui: context.ui, key: 'player-spawn/debug-box' },
-    });
+    const toggle = createLabSwitch('显示玩家出生格 Debug 盒', false);
     const json = createLabJson();
     panel.content.append(toggle.row, json);
     let current: DungeonPlayerSpawnData | null = null;
@@ -58,6 +57,9 @@ export const playerSpawnLabModule: LabModule = {
       }, null, 2);
       render();
     });
-    return () => { off(); toggle.input.removeEventListener('change', render); dispose(); };
+    const rememberedSettings = context.ui.registerSettings('player-spawn', [
+      controlSetting('debug-box', '显示玩家出生格 Debug 盒', toggle.input, { defaultRemember: true, legacyKey: 'player-spawn/debug-box' }),
+    ], () => { render(); });
+    return () => { rememberedSettings.dispose(); off(); toggle.input.removeEventListener('change', render); dispose(); };
   },
 };

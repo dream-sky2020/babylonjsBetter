@@ -52,6 +52,11 @@ export const monsterDissolvePreviewLabModule: LabModule = {
       run(dt) { if (context.scheduler.isPaused) return; preview.update(dt); uiTime += dt; if (uiTime >= .05) { uiTime = 0; render(); } } });
     const pauseObserver = context.scene.onBeforeRenderObservable.add(() => preview.setPaused(context.scheduler.isPaused));
     render();
+    const rememberedSettings = panel.remember([panel.setting(presets, {
+      read: () => settings.presetKey,
+      write: value => { settings.presetKey = String(value) || Object.keys(library)[0] || ''; },
+      valid: value => typeof value === 'string' && value.length <= 256 && (!ready || value === '' || !!library[value]),
+    })], () => { state.markChanged(); render(); });
     return { async start() {
       const raw = await loadConfig('monsterDissolvePresets.json', { devApiPath: '/api/monster-dissolve-presets', selectDevPayload: payload => {
         const value = payload as Record<string, unknown>; return value.data ?? value;
@@ -64,6 +69,6 @@ export const monsterDissolvePreviewLabModule: LabModule = {
       if (!library[settings.presetKey]) settings.presetKey = Object.keys(library)[0]!;
       fillMonsterSelect(presets, Object.entries(library).map(([key, preset]) => [key, preset.name]), settings.presetKey);
       ready = true; state.markChanged(); render(); panel.root.dataset.monsterReady = 'true';
-    }, dispose() { disposed = true; offSelection(); stop(); context.scene.onBeforeRenderObservable.remove(pauseObserver); preview.dispose(); state.unregister(); panel.root.remove(); } };
+    }, dispose() { rememberedSettings.dispose(); disposed = true; offSelection(); stop(); context.scene.onBeforeRenderObservable.remove(pauseObserver); preview.dispose(); state.unregister(); panel.root.remove(); } };
   },
 };

@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DUNGEON_MOVEMENT_STATE_MEMORY, type DungeonMovementStateData } from './dungeonMovement.memory';
 import { DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY } from '@/core/dungeon-movement/dungeonMovementControl';
@@ -22,9 +23,7 @@ export const dungeonMovementLabModule: LabModule = {
     const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
     const control = context.services.get(DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY);
     const panel = context.ui.addPanel('dungeon-movement', '地牢移动仲裁');
-    const toggle = createLabSwitch('显示移动目标格临时预留', false, {
-      preference: { ui: context.ui, key: 'dungeon-movement/debug' },
-    });
+    const toggle = createLabSwitch('显示移动目标格临时预留', false);
     const numberInput = (value: number, min?: number, max?: number) => {
       const input = document.createElement('input');
       input.type = 'number'; input.step = 'any'; input.value = String(value);
@@ -44,6 +43,7 @@ export const dungeonMovementLabModule: LabModule = {
       createLabField('玩家基础优先级', playerBasePriority),
       createLabField('移动进度优先级权重', progressWeight), apply, status, summary);
 
+    let rememberedConfig: Partial<DungeonMovementStateData['config']> = {};
     let current: DungeonMovementStateData | null = null;
     let root: TransformNode | null = null;
     let materials: StandardMaterial[] = [];
@@ -121,6 +121,11 @@ export const dungeonMovementLabModule: LabModule = {
         status.textContent = applied ? '已应用到本次运行的共享移动仲裁器。' : '地图已切换，请重新应用配置。';
       } catch (error) { status.textContent = error instanceof Error ? error.message : String(error); }
     };
+    const applyRememberedConfig = () => {
+      if (!current || !Object.keys(rememberedConfig).length) return;
+      control.updateConfig(current.loadId, rememberedConfig);
+      rememberedConfig = {};
+    };
     const onToggle = () => renderMarkers();
     apply.addEventListener('click', applyConfig);
     toggle.input.addEventListener('change', onToggle);
@@ -141,7 +146,7 @@ export const dungeonMovementLabModule: LabModule = {
           { loadId: loaded.loadId, sequence, change },
           change.requestId ? { correlationId: change.requestId } : undefined);
       });
-      syncConfig(); refreshSummary(); renderMarkers();
+      applyRememberedConfig(); syncConfig(); refreshSummary(); renderMarkers();
       status.textContent = `正在查看地图加载 #${event.loadId} 的移动仲裁。`;
     });
     const stopFrameTask = context.scheduler.register({
@@ -157,7 +162,18 @@ export const dungeonMovementLabModule: LabModule = {
       if (!panel.content.hidden) refreshSummary();
     });
     visibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
+    const rememberedSettings = context.ui.registerSettings('dungeon-movement', [
+      controlSetting('debug', '显示移动目标格临时预留', toggle.input, { defaultRemember: true, legacyKey: 'dungeon-movement/debug' }),
+      ...([
+        ['commitProgress', '移动提交进度', commitProgress],
+        ['playerBasePriority', '玩家基础优先级', playerBasePriority],
+        ['progressWeight', '移动进度优先级权重', progressWeight],
+      ] as const).map(([key, label, input]) => controlSetting(key, label, input, {
+        write: value => { rememberedConfig = { ...rememberedConfig, [key]: Number(value) }; input.value = String(value); },
+      })),
+    ], () => { applyRememberedConfig(); onToggle(); });
     return () => {
+      rememberedSettings.dispose();
       apply.removeEventListener('click', applyConfig); toggle.input.removeEventListener('change', onToggle);
       uninstall();
       offMap(); offChanges?.(); stopFrameTask();

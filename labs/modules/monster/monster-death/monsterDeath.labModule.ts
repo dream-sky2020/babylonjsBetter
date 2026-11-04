@@ -31,8 +31,8 @@ export const monsterDeathLabModule: LabModule = {
     const state = persistMonsterState(context, 'monster-death', 'settings', MONSTER_DEATH_SETTINGS, settings, () => { if (started) { visual.cancel(undefined, 'death'); render(); } });
     const loader = createMonsterPresetLoader(library, 'monsterDeathConfigs.json', '/api/monster-death-configs',
       raw => normalizeMonsterActionPresets<MonsterDeathPreset>(raw, item => { const definition = monsterDeathRegistry.get(item.modeId); return definition ? { ...item, parameters: normalizeMonsterDeathParameters(definition.parameters, item.parameters) } : null; }),
-      () => { visual.cancel(undefined, 'death'); if (!library.current?.[settings.current.presetKey]) { settings.replace({ presetKey: Object.keys(library.require())[0] ?? '' }); state.changed(); } render(); });
-    const reload = async () => { await loader.reload(); const raw = await loadConfig('monsterDissolvePresets.json', { devApiPath: '/api/monster-dissolve-presets', selectDevPayload: payload => { const value = payload as Record<string, unknown>; return value.data ?? value; } }); if (!started) return; dissolves = normalizeMonsterDissolveLibrary(raw); render(); };
+      () => { visual.cancel(undefined, 'death'); if (!library.current?.[settings.current.presetKey]) { settings.replace({ ...settings.current, presetKey: Object.keys(library.require())[0] ?? '' }); state.changed(); } render(); });
+    const reload = async () => { await loader.reload(); const raw = await loadConfig('monsterDissolvePresets.json', { devApiPath: '/api/monster-dissolve-presets', selectDevPayload: payload => { const value = payload as Record<string, unknown>; return value.data ?? value; } }); if (!started) return; dissolves = normalizeMonsterDissolveLibrary(raw); if (!dissolves[settings.current.dissolvePresetKey ?? '']) settings.replace({ ...settings.current, dissolvePresetKey: '' }); render(); };
     context.communication.handle(monsterDeathReload, reload);
     context.communication.handle(monsterDeathSettingsCommand, patch => { settings.replace({ ...settings.current, ...patch }); state.changed(); render(); });
     context.communication.handle(monsterDeathCommand, command => {
@@ -46,6 +46,9 @@ export const monsterDeathLabModule: LabModule = {
     panel.button('重新读取死亡和消散预设', 'death-reload', reload);
     context.communication.on(monsterBattlefieldChanged, render); context.communication.on(monsterSelectionChanged, render);
     context.communication.on(monsterVisualActionChanged, event => { if (event.kind === 'death') { panel.status.textContent = '死亡 · ' + event.outcome; panel.status.dataset.outcome = event.outcome; } });
-    return { async start() { started = true; await reload(); if (!started) return; render(); panel.root.dataset.monsterReady = 'true'; }, dispose() { started = false; offAction(); uninstall(); loader.dispose(); state.dispose(); panel.root.remove(); } };
+    const rememberedSettings = panel.rememberState(settings, MONSTER_DEATH_SETTINGS, [
+      [preset, 'presetKey'], [dissolveSelect, 'dissolvePresetKey'],
+    ], () => started, () => { state.changed(); if (started) render(); });
+    return { async start() { started = true; await reload(); if (!started) return; render(); panel.root.dataset.monsterReady = 'true'; }, dispose() { rememberedSettings.dispose(); started = false; offAction(); uninstall(); loader.dispose(); state.dispose(); panel.root.remove(); } };
   },
 };

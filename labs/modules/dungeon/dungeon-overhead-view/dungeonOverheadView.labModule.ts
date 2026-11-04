@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_OVERHEAD_SETTINGS_MEMORY, readDungeonOverheadSettingsData } from './dungeonOverhead.memory';
 import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DEFAULT_OVERHEAD_VIEW, parseOverheadView, resolveOverheadView, selectDungeonDisplayView, type DungeonOverheadViewConfig, type DungeonViewConsumer, type DungeonViewLease, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
@@ -65,6 +66,7 @@ export const dungeonOverheadViewLabModule: LabModule = {
     const reset = document.createElement('button'); reset.textContent = '恢复地图配置（无配置则原布局）';
     panel.content.append(apply, reset, status);
     const settings: Settings = { enabled: true, draft: null };
+    let rememberedDraft: Partial<DungeonOverheadViewConfig> = {};
     let leases: DungeonViewLease[] = [];
     let resolved: ResolvedDungeonView | null = null;
     let effective: ResolvedDungeonView | null = null;
@@ -109,6 +111,12 @@ export const dungeonOverheadViewLabModule: LabModule = {
       try {
         const loaded = mapSettingsMemory.current, grid = gridMemory.current;
         const ready = loaded && grid && loaded.loadId === grid.loadId;
+        if (ready && Object.keys(rememberedDraft).length) {
+          const overrides = rememberedDraft; rememberedDraft = {};
+          const base = settings.draft ?? (!loaded.error && loaded.hasMapSettings ? readDungeonOverheadSettingsData(loaded) : DEFAULT_OVERHEAD_VIEW);
+          try { settings.draft = parseOverheadView({ ...base, ...overrides }); registration.markChanged(); }
+          catch { /* Independently saved fields can be incompatible with the new map's projection. */ }
+        }
         if (settings.enabled && ready && !settings.draft && loaded.error) throw new Error(loaded.error);
         const config = settings.enabled && ready ? settings.draft
           ?? (loaded.hasMapSettings ? readDungeonOverheadSettingsData(loaded) : null) : null;
@@ -167,7 +175,21 @@ export const dungeonOverheadViewLabModule: LabModule = {
       if (mapSettingsMemory.current?.loadId === event.loadId) safelyReconcile();
     });
     safelyReconcile();
+    const rememberedSettings = context.ui.registerSettings('dungeon-overhead-view', [
+      controlSetting('enabled', '启用俯视显示协调', toggle.input, { write: value => { settings.enabled = value === true; } }),
+      controlSetting('restore-in-first-person', '切到第一人称时恢复原比例', restoreDisplayInFirstPerson.input, {
+        write: value => { rememberedDraft.restoreDisplayInFirstPerson = value === true; },
+      }),
+      ...[...fields].map(([key, input]) => controlSetting(key, labels[key], input, {
+        valid: value => {
+          try { parseOverheadView({ ...DEFAULT_OVERHEAD_VIEW, proportion: 'original', [key]: value }); return true; }
+          catch { return false; }
+        },
+        write: value => { Object.assign(rememberedDraft, { [key]: value }); },
+      })),
+    ], () => { safelyReconcile(); registration.markChanged(); });
     return () => {
+      rememberedSettings.dispose();
       offCamera(); offMap(); updating = true; release(); viewListeners.forEach(listener => listener()); viewListeners.clear(); registration.unregister();
       context.services.delete(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY); panel.root.remove();
     };

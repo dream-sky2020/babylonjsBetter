@@ -1,4 +1,4 @@
-export type SettingValue = boolean | number | string | null | { [key: string]: SettingValue };
+export type SettingValue = boolean | number | string | null | SettingValue[] | { [key: string]: SettingValue };
 export type RememberedSetting = { remember: boolean; value?: SettingValue };
 export type SettingDefinition = {
   key: string;
@@ -13,7 +13,7 @@ export type SettingDefinition = {
 
 const isValue = (value: unknown): value is SettingValue => value === null || typeof value === 'boolean'
   || typeof value === 'string' || typeof value === 'number' && Number.isFinite(value)
-  || !!value && typeof value === 'object' && !Array.isArray(value) && Object.values(value).every(isValue);
+  || !!value && typeof value === 'object' && Object.values(value).every(isValue);
 
 /** Page-local preferences, separate from LabState snapshots and authored documents. */
 export class LabSettingsStore {
@@ -50,11 +50,11 @@ export class LabSettingsStore {
 }
 
 export function controlSetting(key: string, label: string, control: HTMLInputElement | HTMLSelectElement,
-  options: Pick<SettingDefinition, 'defaultRemember' | 'legacyKey'> = {}): SettingDefinition {
+  options: Partial<Pick<SettingDefinition, 'defaultRemember' | 'legacyKey' | 'read' | 'write' | 'valid'>> = {}): SettingDefinition {
   const checkbox = control.tagName === 'INPUT' && (control as HTMLInputElement).type === 'checkbox';
   const numeric = control.tagName === 'INPUT' && (control as HTMLInputElement).type === 'number';
   return {
-    key, label, elements: [control], ...options,
+    key, label, elements: [control],
     read: () => checkbox ? (control as HTMLInputElement).checked
       : numeric ? (control.value.trim() ? Number(control.value) : NaN) : control.value,
     write: value => { if (checkbox) (control as HTMLInputElement).checked = value as boolean; else control.value = String(value); },
@@ -63,7 +63,11 @@ export function controlSetting(key: string, label: string, control: HTMLInputEle
       const input = control as HTMLInputElement;
       if (numeric) return typeof value === 'number' && Number.isFinite(value)
         && (!input.min || value >= Number(input.min)) && (!input.max || value <= Number(input.max));
-      return typeof value === 'string' && [...(control as HTMLSelectElement).options].some(option => option.value === value);
+      if (typeof value !== 'string') return false;
+      if (control.tagName === 'SELECT') return [...(control as HTMLSelectElement).options].some(option => option.value === value);
+      return input.type === 'color' ? /^#[0-9a-f]{6}$/i.test(value)
+        : ['text', 'search'].includes(input.type) && value.length <= (input.maxLength > 0 ? input.maxLength : 1000);
     },
+    ...options,
   };
 }

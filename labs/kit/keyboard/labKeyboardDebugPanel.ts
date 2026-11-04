@@ -1,3 +1,4 @@
+import { controlSetting } from '../settings/LabSettingsStore';
 import type { LabUi } from '../labUi.ts';
 import { createLabJson, createLabSwitch } from '../labUi.ts';
 import type { LabKeyboardRouter } from './LabKeyboardRouter.ts';
@@ -15,9 +16,7 @@ const focusDescription = (): string => {
 export const createLabKeyboardDebugPanel = (ui: LabUi, keyboard: LabKeyboardRouter): (() => void) => {
   const panel = ui.addPanel('system-keyboard-input', 'Keyboard Input', { defaultCollapsed: true });
   panel.root.classList.add('lab-system-panel');
-  const globalToggle = createLabSwitch('全局键盘输入', keyboard.globalEnabled, {
-    preference: { ui, key: 'lab:host/keyboard-global-enabled' },
-  });
+  const globalToggle = createLabSwitch('全局键盘输入', keyboard.globalEnabled);
   keyboard.setGlobalEnabled(globalToggle.input.checked);
   const summary = document.createElement('div');
   summary.className = 'lab-inline-status';
@@ -90,7 +89,11 @@ export const createLabKeyboardDebugPanel = (ui: LabUi, keyboard: LabKeyboardRout
   const renderAfterConsumerBlur = (): void => { requestAnimationFrame(requestRender); };
   consumers.addEventListener('focusout', renderAfterConsumerBlur);
   render();
+  const rememberedSettings = ui.registerSettings('system-keyboard-input', [
+    controlSetting('global-enabled', '全局键盘输入', globalToggle.input, { defaultRemember: true, legacyKey: 'lab:host/keyboard-global-enabled', read: () => keyboard.globalEnabled }),
+  ], () => keyboard.setGlobalEnabled(globalToggle.input.checked));
   return () => {
+    rememberedSettings.dispose();
     unsubscribe();
     document.removeEventListener('focusin', requestRender);
     consumers.removeEventListener('focusout', renderAfterConsumerBlur);

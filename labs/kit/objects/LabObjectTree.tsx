@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'reac
 import { createRoot } from 'react-dom/client';
 import { Camera, PointerEventTypes, TransformNode, Vector3, type Node, type Scene } from '@babylonjs/core';
 import { ObjectHierarchy, type EditorHierarchyItem } from '@/core/ui/editor-kit';
+import { openCommandMenuAtPoint, type CommandMenuHandle } from '@/core/ui/menu';
 import type { CameraLabController } from '@/core/camera/cameraLabController';
 import type { LabKeyboardRouter } from '../keyboard';
 import { LabObjects, type LabObjectRecord } from './LabObjects';
@@ -40,6 +41,8 @@ function LabObjectTree({ registry, scene, controller, keyboard, isInputPaused, e
   const snapshot = useSyncExternalStore(registry.subscribe, registry.getSnapshot);
   const [details, setDetails] = useState(false), [helpers, setHelpers] = useState(false);
   const [expanded, setExpanded] = useState(new Set<string>()), [rawSelected, setRawSelected] = useState<string | null>(null);
+  const contextMenu = useRef<CommandMenuHandle | null>(null);
+  useEffect(() => () => contextMenu.current?.close(), []);
   const knownGroups = useRef(new Set<string>());
   useEffect(() => {
     const added = snapshot.groups.map(group => `group:${group.id}`).filter(id => !knownGroups.current.has(id));
@@ -175,6 +178,23 @@ function LabObjectTree({ registry, scene, controller, keyboard, isInputPaused, e
       }}
       expandedIds={expanded} onExpandedChange={setExpanded} selectedIds={selectedKey ? [selectedKey] : []} searchPlaceholder="搜索场景、怪物、灯光…"
       onSelectionChange={ids => { const key = ids[0]; if (model.records.has(key)) { setRawSelected(null); registry.select(key); } else { registry.select(null, false); setRawSelected(key ?? null); } }}
+      onContextMenu={(event, key) => {
+        const record = model.records.get(key);
+        if (!record) return;
+        event.preventDefault();
+        const hasChildren = snapshot.records.some(child => child.providerId === record.providerId && child.parentId === record.id);
+        contextMenu.current?.close();
+        contextMenu.current = openCommandMenuAtPoint(event.clientX, event.clientY, [
+          { id: 'scene-picking-subtree', label: '本对象及全部后代', children: [
+            { id: 'scene-picking-subtree-enable', label: '允许在视口中选中', action: () => registry.setSceneSelectable(key, true, 'subtree') },
+            { id: 'scene-picking-subtree-disable', label: '禁止在视口中选中', action: () => registry.setSceneSelectable(key, false, 'subtree') },
+          ] },
+          { id: 'scene-picking-descendants', label: '仅全部后代', disabled: !hasChildren, children: [
+            { id: 'scene-picking-descendants-enable', label: '允许在视口中选中', action: () => registry.setSceneSelectable(key, true, 'descendants') },
+            { id: 'scene-picking-descendants-disable', label: '禁止在视口中选中', action: () => registry.setSceneSelectable(key, false, 'descendants') },
+          ] },
+        ], '批量设置视口选中');
+      }}
       onFocus={key => focus(model.nodes.get(key))} onClearSelection={() => { registry.select(null); setRawSelected(null); }}
       footer={<><span>双击或 F 聚焦</span><span>{selected?.edit?.channels.length ? '声明对象变换' : '只读变换'}</span></>} />
     <div className="lab-object-selection" data-lab-selected-object={selectedKey ?? ''}>

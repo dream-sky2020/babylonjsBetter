@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_GRID_MEMORY, type DungeonGridData } from './dungeonGrid.memory';
 import { Color3, StandardMaterial, TransformNode } from '@babylonjs/core';
 import { createDungeonGridDebugMeshes } from './dungeonGridDebugMesh.ts';
@@ -14,9 +15,7 @@ export const dungeonGridLabModule: LabModule = {
     const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
     // 沿用已发布面板 ID，保留用户已有的折叠布局偏好。
     const panel = context.ui.addPanel('dungeon-grid-debug', '地牢格子');
-    const toggle = createLabSwitch('显示全部格子 Debug 盒', false, {
-      preference: { ui: context.ui, key: 'dungeon-grid-debug/all-tiles' },
-    });
+    const toggle = createLabSwitch('显示全部格子 Debug 盒', false);
     const x = document.createElement('input');
     const y = document.createElement('input');
     for (const input of [x, y]) { input.type = 'number'; input.min = '0'; input.step = '1'; input.value = '0'; }
@@ -81,10 +80,17 @@ export const dungeonGridLabModule: LabModule = {
       current = loaded;
       x.max = String(loaded.width - 1);
       y.max = String(loaded.height - 1);
+      for (const input of [x, y]) if (input.valueAsNumber > Number(input.max)) input.value = input.max;
       describe();
       renderBoxes();
     });
+    const rememberedSettings = context.ui.registerSettings('dungeon-grid-debug', [
+      controlSetting('all-tiles', '显示全部格子 Debug 盒', toggle.input, { defaultRemember: true, legacyKey: 'dungeon-grid-debug/all-tiles' }),
+      controlSetting('inspect-x', '查看格子 X', x, { valid: value => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && (!x.max || value <= Number(x.max)) }),
+      controlSetting('inspect-y', '查看格子 Y', y, { valid: value => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && (!y.max || value <= Number(y.max)) }),
+    ], () => { describe(); renderBoxes(); });
     return () => {
+      rememberedSettings.dispose();
       toggle.input.removeEventListener('change', renderBoxes); x.removeEventListener('change', describe); y.removeEventListener('change', describe);
       off(); viewConsumer.dispose(); context.services.delete(DUNGEON_GRID_VIEW_SERVICE_KEY); disposeBoxes();
       panel.root.remove();

@@ -44,6 +44,8 @@ export type LabObject = {
 export type LabObjectProvider = {
   id: string;
   label: string;
+  /** Keep viewport picking overrides when a refresh temporarily unloads objects. IDs must remain stable across loads. */
+  retainSceneSelectionForMissingObjects?: boolean;
   objects(): readonly LabObject[];
   roots?(): readonly Node[];
   onSelect?(id: string | null): void | Promise<void>;
@@ -99,22 +101,25 @@ export class LabObjects {
     for (const [id, { ownerId, provider }] of this.entries) {
       groups.push({ id, label: provider.label });
       roots.push(...(provider.roots?.() ?? []).filter(node => !node.isDisposed()));
-      const ids = new Set<string>(), currentKeys = new Set<string>();
+      const ids = new Set<string>();
+      const currentKeys = provider.retainSceneSelectionForMissingObjects ? undefined : new Set<string>();
       for (const object of provider.objects()) {
         if (object.node.isDisposed()) continue;
         if (ids.has(object.id)) throw new Error(`对象提供者 ${id} 中存在重复 ID：${object.id}`);
         ids.add(object.id);
-        const key = keyOf(id, object.id); currentKeys.add(key);
+        const key = keyOf(id, object.id); currentKeys?.add(key);
         if (this.hidden.has(key)) object.node.setEnabled(false);
         const record = { ...object, key, providerId: id, ownerId, locked: this.locks.has(key), visible: object.node.isEnabled(), sceneSelectable: this.sceneSelection.get(key) ?? object.defaultSceneSelectable ?? true };
         records.push(record); this.nodeIndex.set(object.node, record);
         for (const pickNode of object.pickNodes ?? []) this.nodeIndex.set(pickNode, record);
       }
-      const previousKeys = this.knownProviderKeys.get(id);
-      let removed = false;
-      if (previousKeys) for (const key of previousKeys) if (!currentKeys.has(key)) removed = this.sceneSelection.delete(key) || removed;
-      this.knownProviderKeys.set(id, currentKeys);
-      if (removed) this.savePreferences();
+      if (currentKeys) {
+        const previousKeys = this.knownProviderKeys.get(id);
+        let removed = false;
+        if (previousKeys) for (const key of previousKeys) if (!currentKeys.has(key)) removed = this.sceneSelection.delete(key) || removed;
+        this.knownProviderKeys.set(id, currentKeys);
+        if (removed) this.savePreferences();
+      }
     }
     const keys = new Set(records.map(record => record.key));
     for (const key of this.locks) if (!keys.has(key)) this.locks.delete(key);
@@ -152,12 +157,41 @@ export class LabObjects {
       catch (error) { this.onError(error); }
     }
   }
-  setSceneSelectable(key: string, selectable: boolean) {
-    const record = this.getSnapshot().records.find(item => item.key === key);
-    if (!record || record.sceneSelectable === selectable) return;
-    if (selectable === (record.defaultSceneSelectable ?? true)) this.sceneSelection.delete(key);
-    else this.sceneSelection.set(key, selectable);
-    this.savePreferences(); this.changed();
+  setSceneSelectable(key: string, selectable: boolean, scope: 'self' | 'subtree' | 'descendants' = 'self') {
+    const { records } = this.getSnapshot();
+    const root = records.find(record => record.key === key);
+    if (!root) return;
+
+    const targets = [root];
+    if (scope !== 'self') {
+      const childrenByParent = new Map<string, LabObjectRecord[]>();
+      for (const record of records) {
+        if (record.providerId !== root.providerId || record.parentId == null) continue;
+        const siblings = childrenByParent.get(record.parentId);
+        if (siblings) siblings.push(record);
+        else childrenByParent.set(record.parentId, [record]);
+      }
+      const visited = new Set([root.id]);
+      for (const parent of targets) {
+        for (const child of childrenByParent.get(parent.id) ?? []) {
+          if (visited.has(child.id)) continue;
+          visited.add(child.id);
+          targets.push(child);
+        }
+      }
+    }
+
+    let updated = false;
+    for (const record of scope === 'descendants' ? targets.slice(1) : targets) {
+      if (record.sceneSelectable === selectable) continue;
+      if (selectable === (record.defaultSceneSelectable ?? true)) this.sceneSelection.delete(record.key);
+      else this.sceneSelection.set(record.key, selectable);
+      updated = true;
+    }
+    if (updated) {
+      this.savePreferences();
+      this.changed();
+    }
   }
   setLocked(key: string, locked: boolean) { if (locked) this.locks.add(key); else this.locks.delete(key); this.changed(); }
   setVisible(key: string, visible: boolean) {

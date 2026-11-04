@@ -17,7 +17,7 @@ test('storage validates records, isolates pages and reports failed writes', () =
   data.set('bad', '{'); assert.equal(new LabSettingsStore(storage, 'bad').get('anything'), undefined);
   data.set('bad', JSON.stringify({ version: 1, items: { 'x': { remember: true, value: [] }, 'y': { remember: 'yes', value: 1 } } }));
   const bad = new LabSettingsStore(storage, 'bad');
-  assert.deepEqual(bad.get('x'), { remember: true }); assert.equal(bad.get('y'), undefined);
+  assert.deepEqual(bad.get('x'), { remember: true, value: [] }); assert.equal(bad.get('y'), undefined);
   let errors = 0;
   new LabSettingsStore({ getItem() { throw Error(); }, setItem() { throw Error(); } }, 'x', () => errors++).flush();
   assert.equal(errors, 1);
@@ -67,8 +67,11 @@ test('registered panel settings survive reload, preserve native editing, migrate
     first.handle.dispose(); first.panel.root.remove();
     const second = mount(); second.ui.restoreRememberedSettings();
     assert.equal(second.response.value, '25'); assert.equal(second.enabled.checked, false);
-    second.policy('response', false); second.handle.dispose(); second.panel.root.remove();
+    second.policy('response', false); second.policy('enabled', false);
+    assert.equal(second.enabled.checked, false, 'forget keeps the current migrated value');
+    second.handle.dispose(); second.panel.root.remove();
     const third = mount(); third.ui.restoreRememberedSettings(); assert.equal(third.response.value, '50');
+    assert.equal(third.enabled.checked, true, 'turning off remember prevents legacy preference from migrating again');
     third.action('全部记住'); assert.equal(third.panel.root.querySelectorAll('[data-setting-remembered="true"]').length, 2);
     third.action('恢复推荐规则'); assert.equal(third.response.dataset.settingRemembered, 'false');
     assert.equal(third.enabled.dataset.settingRemembered, 'true');

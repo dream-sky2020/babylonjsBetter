@@ -1,3 +1,4 @@
+import { controlSetting } from '../settings/LabSettingsStore';
 import type { ArcRotateCamera } from '@babylonjs/core';
 import { createCameraLabController, type CameraLabController, type CameraLabControllerState, type CameraViewPreset, type CameraLabMode } from '@/core/camera/cameraLabController.ts';
 import { createFloatingCameraControlPanel, type FloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
@@ -59,13 +60,9 @@ export const createLabCameraSystem = (
 
   const panel = ui.addPanel('system-camera', 'Camera');
   panel.root.classList.add('lab-system-panel');
-  const floatingToggle = createLabSwitch('显示摄像机参数面板', false, {
-    preference: { ui, key: 'lab:host/camera-floating-panel' },
-  });
+  const floatingToggle = createLabSwitch('显示摄像机参数面板', false);
   const pointerToggle = createLabSwitch('启用鼠标与滚轮输入', true);
-  const keyboardToggle = createLabSwitch('启用摄像机键盘输入', false, {
-    preference: { ui, key: 'lab:host/camera-keyboard-enabled' },
-  });
+  const keyboardToggle = createLabSwitch('启用摄像机键盘输入', false);
   const interceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
   const preventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
   const priority = document.createElement('input');
@@ -150,6 +147,21 @@ export const createLabCameraSystem = (
   syncKeyboardControls();
   syncInput();
 
+  const rememberedSettings = ui.registerSettings('system-camera', [
+    controlSetting('floating-panel', '显示摄像机参数面板', floatingToggle.input, { defaultRemember: true, legacyKey: 'lab:host/camera-floating-panel' }),
+    controlSetting('pointer-input', '启用鼠标与滚轮输入', pointerToggle.input),
+    controlSetting('keyboard-input', '启用摄像机键盘输入', keyboardToggle.input, { defaultRemember: true, legacyKey: 'lab:host/camera-keyboard-enabled' }),
+    controlSetting('priority', '键盘输入优先级', priority),
+    controlSetting('intercept', '处理后拦截低优先级输入', interceptToggle.input),
+    controlSetting('prevent-default', '阻止浏览器默认行为', preventDefaultToggle.input),
+  ], () => {
+    const config = { priority: Number(priority.value), intercept: interceptToggle.input.checked,
+      preventDefault: preventDefaultToggle.input.checked };
+    keyboardDesiredEnabled = keyboardToggle.input.checked;
+    floatingPanel.setVisible(floatingToggle.input.checked);
+    keyboard.configureConsumer(keyboardRegistration.id, { ...config, enabled: keyboardDesiredEnabled && viewportInputEnabled });
+    syncInput();
+  });
   return {
     controller,
     floatingPanel,
@@ -168,6 +180,7 @@ export const createLabCameraSystem = (
       if (floatingPanel.visible) floatingPanel.updateStatus();
     },
     dispose: () => {
+      rememberedSettings.dispose();
       keyboardRegistration.dispose();
       offKeyboardChanged();
       floatingPanel.dispose();

@@ -162,7 +162,7 @@ export class LabUi {
     this.status.dataset.error = String(error);
   }
 
-  registerSettings(panelId: string, definitions: readonly SettingDefinition[], apply: () => void): { dispose(): void } {
+  registerSettings(panelId: string, definitions: readonly SettingDefinition[], apply: () => void): { capture(key: string): void; dispose(): void } {
     const panel = this.panels.get(panelId);
     if (!panel || this.panelSettings.has(panelId)) throw new Error(`设置面板不存在或重复注册：${panelId}`);
     if (!this.settingsStore) {
@@ -173,7 +173,7 @@ export class LabUi {
     }
     const handle = new LabPanelSettings(panelId, panel.root, definitions, this.settingsStore, apply, this.preferences.switches, this.workspace?.lockSettingsInput);
     this.panelSettings.set(panelId, handle);
-    return { dispose: () => { handle.dispose(); this.panelSettings.delete(panelId); } };
+    return { capture: key => handle.captureValue(key), dispose: () => { handle.dispose(); this.panelSettings.delete(panelId); } };
   }
 
   /** Apply local overrides once, after initial LabState and before scene start. */

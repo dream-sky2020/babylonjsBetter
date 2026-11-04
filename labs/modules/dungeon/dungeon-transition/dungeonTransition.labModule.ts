@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_LIBRARIES_MEMORY } from '../dungeon-libraries/dungeonLibraries.memory';
 import { DUNGEON_TRANSITION_DATA_MEMORY } from './dungeonTransition.memory';
 import { DUNGEON_PLAYER_STATE_MEMORY } from '../dungeon-runtime/dungeonRuntime.memory';
@@ -76,9 +77,7 @@ export const dungeonTransitionLabModule: LabModule = {
     const enterToggle = createLabSwitch('移动后触发 enter 出口', true);
     const interactToggle = createLabSwitch('启用 E 键交互出口', true);
     const moveAttemptToggle = createLabSwitch('受阻移动触发 move-attempt 出口', true);
-    const debugBoxesToggle = createLabSwitch('显示入口 / 出口 Debug 盒', false, {
-      preference: { ui: context.ui, key: 'dungeon-transition/debug-boxes' },
-    });
+    const debugBoxesToggle = createLabSwitch('显示入口 / 出口 Debug 盒', false);
     const debugLegend = document.createElement('small');
     debugLegend.textContent = 'Debug：绿色=入口；粉/橙/紫=格子/单向边/公用边出口。AUTO=穿过；E=交互；PUSH=撞向阻挡边；ALL=三种均可。';
     debugLegend.style.lineHeight = '1.55';
@@ -362,7 +361,15 @@ export const dungeonTransitionLabModule: LabModule = {
     });
 
     refreshDebug();
+    const rememberedSettings = context.ui.registerSettings('dungeon-transition', [
+      controlSetting('enabled', '启用地图传送', enabledToggle.input),
+      controlSetting('enter', '移动后触发 enter 出口', enterToggle.input),
+      controlSetting('interact', '启用 E 键交互出口', interactToggle.input),
+      controlSetting('move-attempt', '受阻移动触发 move-attempt 出口', moveAttemptToggle.input),
+      controlSetting('debug-boxes', '显示入口 / 出口 Debug 盒', debugBoxesToggle.input, { defaultRemember: true, legacyKey: 'dungeon-transition/debug-boxes' }),
+    ], () => { keyboardRegistration.setEnabled(interactToggle.input.checked); refreshDebug(); renderDebugBoxes(); });
     return () => {
+      rememberedSettings.dispose();
       disposed = true;
       offMapChanged();
       offRuntimeChanged();

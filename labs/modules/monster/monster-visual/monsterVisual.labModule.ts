@@ -104,7 +104,10 @@ export const monsterVisualLabModule: LabModule = {
       } }]);
     const stop = context.scheduler.register({ id: 'monster-visual-update', phase: 'presentation', order: 200, description: '统一推进已安装的怪物视觉能力',
       enabled: () => started && !settings.current.paused && !context.scheduler.isPaused, run: dt => runtime.update(dt) });
-    return { start() { started = true; sync(); objectRegistration?.select(selection.current.selectedId || null); render(); panel.root.dataset.monsterReady = 'true'; }, dispose() {
+    const rememberedSettings = panel.rememberState(settings, MONSTER_VISUAL_SETTINGS, [
+      [boxes, 'boundingBoxes'], [paused, 'paused'],
+    ], () => started, () => { state.changed(); if (started) { applySettings(); render(); } });
+    return { start() { started = true; sync(); objectRegistration?.select(selection.current.selectedId || null); render(); panel.root.dataset.monsterReady = 'true'; }, dispose() { rememberedSettings.dispose();
       objectRegistration?.dispose(); actions.cancel(); disposed = true; started = false; stop(); state.dispose(); runtime.dispose(); displayCache.clear(); panel.root.remove();
     } };
   },

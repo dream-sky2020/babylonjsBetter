@@ -39,6 +39,36 @@ test('background provider refresh cannot steal another provider selection', () =
   a.select('a'); a.select('a', { onlyIfSelected: true }); assert.equal(registry.getSnapshot().selectedKey, 'actors/a');
 });
 
+test('batch viewport selection reaches nested descendants and preserves the selected tree object', () => {
+  const registry = new LabObjects();
+  const root = node(), child = node(root), grandchild = node(child), unrelated = node();
+  registry.scope('scene').register({ id: 'scene', label: 'Scene', objects: () => [
+    { id: 'root', name: 'Root', node: root },
+    { id: 'child', name: 'Child', node: child, parentId: 'root' },
+    { id: 'grandchild', name: 'Grandchild', node: grandchild, parentId: 'child' },
+  ] });
+  registry.scope('other').register({ id: 'other', label: 'Other', objects: () => [
+    { id: 'root', name: 'Other root', node: unrelated },
+    { id: 'child', name: 'Other child', node: node(unrelated), parentId: 'root' },
+  ] });
+  registry.select('scene/grandchild');
+  const selections = () => registry.getSnapshot().records.map(record => record.sceneSelectable);
+
+  registry.setSceneSelectable('scene/root', false, 'descendants');
+  assert.deepEqual(selections(), [true, false, false, true, true]);
+  assert.equal(registry.findNode(grandchild, true)?.key, 'scene/root');
+
+  registry.setSceneSelectable('scene/root', false, 'subtree');
+  assert.deepEqual(selections(), [false, false, false, true, true]);
+  assert.equal(registry.findNode(grandchild, true), undefined);
+  assert.equal(registry.getSnapshot().selectedKey, 'scene/grandchild');
+
+  registry.setSceneSelectable('scene/root', true, 'descendants');
+  assert.deepEqual(selections(), [false, true, true, true, true]);
+  registry.setSceneSelectable('scene/root', true, 'subtree');
+  assert.deepEqual(selections(), [true, true, true, true, true]);
+});
+
 
 test('scene selection falls back to an enabled ancestor, stays editable in tree, and persists independently', () => {
   const values = new Map<string, string>();
@@ -64,4 +94,54 @@ test('scene selection falls back to an enabled ancestor, stays editable in tree,
     assert.equal(JSON.parse(values.get('test-picking')!).hasOwnProperty('objects/layer'), false);
     registry.dispose(); reloaded.registry.dispose();
   } finally { if (prior === undefined) delete (globalThis as { localStorage?: Storage }).localStorage; else Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: prior }); }
+});
+
+test('scene viewport preferences survive a scene switch and a reload while that scene is unloaded', () => {
+  const values = new Map<string, string>();
+  const prior = Object.getOwnPropertyDescriptor(globalThis, 'localStorage');
+  Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: {
+    getItem: (key: string) => values.get(key) ?? null,
+    setItem: (key: string, value: string) => values.set(key, value),
+  } });
+  try {
+    let scene = 'A';
+    const open = () => {
+      const registry = new LabObjects(() => {}, 'scene-picking');
+      const provider = registry.scope('loader').register({
+        id: 'map-scene', label: 'Scene', retainSceneSelectionForMissingObjects: true,
+        objects: () => [
+          { id: `${scene}/root`, name: 'Root', node: node() },
+          { id: `${scene}/wall`, name: 'Wall', node: node(), parentId: `${scene}/root` },
+          { id: `${scene}/light`, name: 'Light', node: node(), parentId: `${scene}/root`, defaultSceneSelectable: false },
+        ],
+      });
+      return { registry, provider, picking: () => registry.getSnapshot().records.map(record => record.sceneSelectable) };
+    };
+    const first = open();
+    first.registry.setSceneSelectable('map-scene/A%2Froot', false, 'subtree');
+    first.registry.setSceneSelectable('map-scene/A%2Flight', true);
+    assert.deepEqual(first.picking(), [false, false, true]);
+
+    scene = 'B';
+    first.provider.refresh();
+    assert.deepEqual(first.picking(), [true, true, false]);
+    first.registry.setSceneSelectable('map-scene/B%2Froot', false);
+    scene = 'A';
+    first.provider.refresh();
+    assert.deepEqual(first.picking(), [false, false, true]);
+
+    scene = 'B';
+    first.provider.refresh();
+    assert.deepEqual(first.picking(), [false, true, false]);
+    first.registry.dispose();
+    const reopened = open();
+    assert.deepEqual(reopened.picking(), [false, true, false]);
+    scene = 'A';
+    reopened.provider.refresh();
+    assert.deepEqual(reopened.picking(), [false, false, true]);
+    reopened.registry.dispose();
+  } finally {
+    if (prior) Object.defineProperty(globalThis, 'localStorage', prior);
+    else delete (globalThis as { localStorage?: Storage }).localStorage;
+  }
 });

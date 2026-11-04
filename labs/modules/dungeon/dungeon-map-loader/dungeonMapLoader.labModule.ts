@@ -220,6 +220,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
     };
     const objectRegistration = context.objects?.register({
       id: 'map-scene', label: '地图场景', roots: () => activeInstance ? [activeInstance.root] : [],
+      retainSceneSelectionForMissingObjects: true,
       objects: () => sceneEditing?.objects() ?? [],
     });
     const sceneDraftState = context.labState.registerReference({ moduleId: 'dungeon-map-loader', key: 'scene-transforms', version: 1,

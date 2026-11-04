@@ -20,6 +20,7 @@ export const monsterVisualObjectsLabModule: LabModule = {
     const storageKey = location.pathname.endsWith('/monster-visual-lab/index.html') ? STORAGE_KEY : `${STORAGE_KEY}:${location.pathname}`;
     const panel = createMonsterPanel(context, 'monster-visual-objects', '怪物视觉对象');
     const source = panel.select('创建使用的外观', 'object-source');
+    let preferredSource = '';
     let resources: MonsterVisualResources | null = null, binding: MonsterVisualObjects | null = null, registration: LabObjectRegistration | undefined;
     let activeId: string | null = null, disposed = false, restored = false, time = 0;
     const inspectors = new Set<() => void>();
@@ -130,13 +131,21 @@ export const monsterVisualObjectsLabModule: LabModule = {
     const stop = context.scheduler.register({ id: 'monster-visual-objects-time', phase: 'presentation', order: 200, description: '怪物视觉材质时间',
       run(dt) { if (!context.scheduler.isPaused) { time += dt; binding?.update(time); } } });
     render();
+    const rememberedSettings = panel.remember([panel.setting(source, {
+      read: () => source.value || preferredSource,
+      valid: value => typeof value === 'string' && value.length <= 256,
+      write: value => {
+        preferredSource = String(value);
+        if (source.options.length) source.selectedIndex = Math.max(0, [...source.options].findIndex(option => option.value === preferredSource));
+      },
+    })], () => {});
     return {
       async start() {
         const [configs, monsterStripes, stripes] = await Promise.all([requestMonsterLibrary(MONSTER_CONFIG_API_PATH), requestMonsterLibrary(MONSTER_STRIPE_PRESET_API_PATH), requestMonsterLibrary(STRIPE_PRESET_API_PATH)]);
         if (disposed) return;
         resources = { configs: normalizeMonsterConfigLibrary(configs), monsterStripes: normalizeMonsterStripePresetLibrary(monsterStripes), stripes: normalizeStripePresetLibrary(stripes) };
         const entries = Object.entries(resources.configs); if (!entries.length) throw new Error('没有可用的怪物视觉资源。');
-        fillMonsterSelect(source, entries.map(([key, value]) => [key, value.name]), entries[0]![0]);
+        fillMonsterSelect(source, entries.map(([key, value]) => [key, value.name]), preferredSource || entries[0]![0]);
         let warning = '';
         if (!restored) {
           try { const saved = localStorage.getItem(storageKey); if (saved) { draft.replace(JSON.parse(saved), true); restored = true; } }
@@ -149,7 +158,7 @@ export const monsterVisualObjectsLabModule: LabModule = {
         registration?.select(draft.value.objects[0]?.id ?? null); render();
         panel.root.dataset.monsterReady = 'true'; if (warning) { panel.status.textContent = warning; panel.status.dataset.error = 'true'; }
       },
-      dispose() { disposed = true; stop(); registration?.dispose(); binding?.dispose(); state.unregister(); inspectors.clear(); panel.root.remove(); },
+      dispose() { rememberedSettings.dispose(); disposed = true; stop(); registration?.dispose(); binding?.dispose(); state.unregister(); inspectors.clear(); panel.root.remove(); },
     };
   },
 };

@@ -1,3 +1,4 @@
+import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { createLabField, createLabStatus, type LabModule } from '@/labs/kit';
 import { DUNGEON_LIBRARIES_MEMORY } from '../dungeon-libraries/dungeonLibraries.memory';
 import {
@@ -14,6 +15,7 @@ export const dungeonConfigLabModule: LabModule = {
     }));
     const panel = context.ui.addPanel('dungeon-config', '地图与场景');
     const select = document.createElement('select');
+    let desiredPreset = '';
     const loadButton = document.createElement('button');
     loadButton.type = 'button';
     loadButton.textContent = '切换地图';
@@ -44,7 +46,19 @@ export const dungeonConfigLabModule: LabModule = {
     };
     loadButton.addEventListener('click', () => { void loadSelected(); });
     select.addEventListener('change', () => { void loadSelected(); });
+    const rememberedSettings = context.ui.registerSettings('dungeon-config', [
+      controlSetting('preset', '地图预设', select, {
+        read: () => select.value || desiredPreset,
+        write: value => { desiredPreset = String(value); },
+        valid: value => typeof value === 'string' && value.length <= 256,
+      }),
+    ], () => {
+      if (!select.options.length) return;
+      select.selectedIndex = Math.max(0, [...select.options].findIndex(option => option.value === desiredPreset));
+      void loadSelected();
+    });
     return {
+      dispose: () => rememberedSettings.dispose(),
       async start() {
         const catalog = readCatalog();
         select.replaceChildren(...catalog.map((preset) => {
@@ -54,6 +68,7 @@ export const dungeonConfigLabModule: LabModule = {
           return option;
         }));
         if (!select.options.length) throw new Error('配置中没有可用地图预设。');
+        select.selectedIndex = Math.max(0, [...select.options].findIndex(option => option.value === desiredPreset));
         await loadSelected(true);
       },
     };

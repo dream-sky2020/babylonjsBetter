@@ -111,6 +111,11 @@ export class LabPanelSettings {
     const item = this.definitions[index], value = item.read();
     if (this.remembered(index) && item.valid(value)) this.store.put(this.id(item), { remember: true, value });
   }
+  captureValue(key: string): void {
+    const index = this.definitions.findIndex(item => item.key === key);
+    if (index < 0 || !this.remembered(index)) return;
+    this.capture(index); this.store.flush(); this.refresh();
+  }
   private snapshotUndo(): void { this.undoRecords = this.definitions.map(item => this.store.get(this.id(item))); }
   private changeRule(index: number, remember: boolean): void {
     const id = this.id(this.definitions[index]), previous = this.store.get(id);
