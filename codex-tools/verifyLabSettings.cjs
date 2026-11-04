@@ -29,6 +29,32 @@ app.whenReady().then(async () => {
     await wait(`document.querySelectorAll('.lab-settings-trigger').length >= 12 && document.querySelector('.lab-global-status')?.textContent.startsWith('已组合')`);
     await page(`localStorage.removeItem('babylonjsBetter:lab-settings:'+location.pathname);void 0;`); await reload();
     assert.equal(await page(`Array.from(document.querySelectorAll('.lab-card-header:has(.lab-settings-trigger)')).every(header=>{const button=header.querySelector('.lab-settings-trigger').getBoundingClientRect();return Array.from(header.children).every(child=>child.getBoundingClientRect().right<=button.right+1);})`), true);
+    const stickyHeader = await page(`(() => {
+      const panel = document.querySelector('[data-lab-panel="dungeon-player-camera"]');
+      const scroller = panel.parentElement;
+      const toolbar = scroller.querySelector('.lab-panel-layout-actions');
+      const header = panel.querySelector('.lab-card-header');
+      const next = panel.nextElementSibling;
+      const edge = () => toolbar.getBoundingClientRect().bottom;
+      const place = (item, inset) => { scroller.scrollTop += item.getBoundingClientRect().top - edge() - inset; };
+      place(panel, -120);
+      const rect = header.getBoundingClientRect();
+      const pinned = Math.abs(rect.top - edge()) < 1 && panel.getBoundingClientRect().top < edge() - 100;
+      const clickable = header.contains(document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2));
+      place(next, rect.height / 2);
+      const outgoing = header.getBoundingClientRect();
+      const handedOff = outgoing.top < edge() - 1 && outgoing.bottom <= next.getBoundingClientRect().top + 1;
+      place(panel, -120);
+      header.querySelector('.lab-card-collapse').click();
+      const closed = header.getBoundingClientRect();
+      const staysVisible = panel.classList.contains('is-collapsed') && closed.top >= edge() - 1
+        && closed.bottom <= scroller.getBoundingClientRect().bottom + 1;
+      header.querySelector('.lab-card-collapse').click();
+      place(panel, -120);
+      return { pinned, clickable, handedOff, staysVisible };
+    })()`);
+    assert.deepEqual(stickyHeader, { pinned: true, clickable: true, handedOff: true, staysVisible: true });
+    checks.push('long module header sticks below the layout toolbar, yields to the next panel, and stays visible after collapse');
     await menu('dungeon-player-camera', 'manage-settings');
     await wait(`!!document.querySelector('.lab-settings-popup:popover-open')`);
     assert.equal(await page(`document.querySelectorAll('[data-lab-panel="dungeon-player-camera"] [data-remember-setting]').length`), 27);

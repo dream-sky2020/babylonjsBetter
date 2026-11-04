@@ -93,6 +93,7 @@ export class LabUi {
   private settingsStore?: LabSettingsStore;
   private readonly panelSettings = new Map<string, LabPanelSettings>();
   private readonly workspace?: LabUiWorkspace;
+  private readonly layoutToolbar: HTMLDivElement;
 
   readonly sidebar: HTMLElement;
   readonly status: HTMLDivElement;
@@ -105,7 +106,8 @@ export class LabUi {
     const path = typeof location === 'undefined' ? 'unknown' : location.pathname;
     this.storageKey = `babylonjsBetter:lab-ui:${path}`;
     this.preferences = this.readPreferences();
-    this.sidebar.append(this.createLayoutToolbar());
+    this.layoutToolbar = this.createLayoutToolbar();
+    this.sidebar.append(this.layoutToolbar);
   }
 
   addPanel(id: string, title: string, options: LabPanelOptions = {}): LabPanel {
@@ -145,7 +147,15 @@ export class LabUi {
       collapseButton,
       defaultCollapsed: options.defaultCollapsed ?? (id === 'system-camera'),
     };
-    header.addEventListener('click', () => this.setPanelCollapsed(entry, !root.classList.contains('is-collapsed'), true));
+    header.addEventListener('click', () => {
+      const collapsed = !root.classList.contains('is-collapsed');
+      this.setPanelCollapsed(entry, collapsed, true);
+      if (collapsed && root.parentElement === this.sidebar && this.sidebar.matches('.lab-controls .lab-panels')) {
+        const toolbarBottom = this.layoutToolbar.getBoundingClientRect().bottom;
+        const titleTop = header.getBoundingClientRect().top;
+        if (titleTop < toolbarBottom) this.sidebar.scrollTop += titleTop - toolbarBottom;
+      }
+    });
     header.append(heading, collapseButton);
     root.append(header, content);
     this.panels.set(id, entry);

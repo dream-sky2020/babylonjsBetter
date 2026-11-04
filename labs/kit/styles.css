@@ -219,12 +219,18 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-controls-tabs { display: flex; gap: 3px; flex-shrink: 0; padding: 4px; border-bottom: 1px solid #293b49; }
 .lab-controls-tabs button { flex: 1; }
 .lab-control-scroll { min-height: 0; overflow: auto; flex: 1; scrollbar-gutter: stable; }
+.lab-controls .lab-panels { --lab-panel-layout-height: 39px; scroll-padding-top: var(--lab-panel-layout-height); }
 .lab-host [hidden] { display: none !important; }
 .lab-workbench-splitter { min-width: 0; cursor: col-resize; touch-action: none; background: #263947; outline: none; }
 .lab-workbench-splitter:hover, .lab-workbench-splitter:focus-visible { background: #71c5ee; }
 .lab-workbench-layout[data-left-open=false] .lab-workbench-splitter.left, .lab-workbench-layout[data-right-open=false] .lab-workbench-splitter.right { visibility: hidden; }
 .lab-controls .lab-card { margin: 0; border: 0; border-bottom: 1px solid #314659; }
 .lab-controls .lab-card-header { min-height: 29px; padding: 0 7px; grid-template-columns: 15px minmax(0, 1fr) auto; }
+.lab-controls .lab-panels > .lab-card:not(.is-collapsed) > .lab-card-header {
+  position: sticky;
+  top: var(--lab-panel-layout-height);
+  z-index: 10;
+}
 .lab-controls .lab-card h2 { font-size: 11px; }
 .lab-controls .lab-panel-content { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 7px 8px 8px; }
 .lab-controls .lab-panel-content > :not(button) { grid-column: 1 / -1; }
@@ -235,7 +241,9 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-controls .lab-card button:not(.lab-card-collapse) { min-width: 0; height: auto; min-height: 28px; padding: 3px 6px; font-size: 11px; }
 .lab-controls .lab-inline-status { font-size: 10px; }
 .lab-controls .lab-json { padding: 6px; max-height: 220px; font-size: 10px; }
+[data-lab-panel="dungeon-movement"] .lab-json { height: 220px; scrollbar-gutter: stable; }
 .lab-controls .lab-panel-layout-actions { top: 0; margin: 0; padding: 4px; }
+.lab-controls .lab-panels > .lab-panel-layout-actions { box-sizing: border-box; block-size: var(--lab-panel-layout-height); }
 .lab-controls .lab-panel-help { position: relative; min-width: 0; margin: 0; border: 0; border-radius: 0; padding: 0; font-size: 10px; }
 .lab-controls .lab-card .lab-panel-help-trigger { width: auto; min-height: 24px; padding: 3px 4px; border: 0; background: transparent; color: #90afc4; font-weight: 400; }
 .lab-panel-help-body { position: fixed; inset: auto; margin: 0; width: min(360px, calc(100vw - 16px)); max-height: min(420px, calc(100vh - 16px)); overflow: auto; padding: 10px 12px; border: 1px solid #4b6477; background: #101b26; color: #d9e9f4; box-shadow: 0 5px 16px #0008; cursor: default; font-size: 12px; font-weight: 400; line-height: 1.6; overflow-wrap: anywhere; }
