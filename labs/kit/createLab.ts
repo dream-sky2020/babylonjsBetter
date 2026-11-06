@@ -34,6 +34,9 @@ import { LabObjects } from './objects/LabObjects';
 import { mountLabObjectTree } from './objects/LabObjectTree';
 import { LabObjectEditor } from './objects/LabObjectEditor';
 import { mountLabObjectEditorPanel } from './objects/LabObjectEditorPanel';
+import { LabConfig } from './config/LabConfig';
+import { loadLabConfig } from './config/labConfigTransport';
+import { mountLabConfigToolbar } from './config/labConfigToolbar';
 
 type ActiveModule = {
   readonly entry: LabExecutionPlanEntry;
@@ -109,6 +112,20 @@ const normalizeLifecycle = (
 export const createLab = async (options: CreateLabOptions): Promise<LabHost> => {
   // 在创建 Engine 和注册任何资源之前完成依赖图校验。
   const executionPlan = resolveLabExecutionPlan(options.modules, options.catalog);
+  let configuration: LabConfig | undefined;
+  let configRevision: string | null = null;
+  if (options.labId) {
+    try {
+      const loaded = options.configDocument ? { document: options.configDocument, revision: null } : await loadLabConfig(options.labId);
+      if (loaded.document.labId !== options.labId) throw new Error('Lab ID 与配置不匹配。');
+      configuration = new LabConfig(loaded.document); configRevision = loaded.revision;
+    } catch (error) {
+      const message = document.createElement('p'); message.textContent = `Lab 配置加载失败：${error instanceof Error ? error.message : String(error)}`;
+      const retry = document.createElement('button'); retry.textContent = '重新加载'; retry.onclick = () => location.reload();
+      options.root.replaceChildren(message, retry);
+      throw error;
+    }
+  }
   const executionMonitor = new LabExecutionMonitor(executionPlan);
 
   options.root.className = 'lab-host';
@@ -171,6 +188,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const ui = new LabUi(panels, status, { diagnostics: workbench.diagnostics,
     lockSettingsInput: () => { const lock = keyboard.acquireLock({ ownerId: 'lab:settings', label: '管理需要记住的设置' }); return () => lock.release(); },
     reveal: category => category === 'diagnostics' ? workbench.showDiagnostics() : workbench.showModules() });
+  if (configuration) ui.useConfig(configuration);
+  let disposeConfigToolbar = () => {};
   const objects = new LabObjects(error => ui.setStatus(error instanceof Error ? error.message : String(error), true));
   const disposeExecutionPlanPanel = createLabExecutionPlanPanel(ui, executionMonitor, runner, services, communication);
   const disposeCommunicationLogPanel = createLabCommunicationLogPanel(ui, communication.journal);
@@ -236,6 +255,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   stage.append(badge);
   const allModuleIds = new Set(executionPlan.entries.map(({ moduleId }) => moduleId));
   const context: LabContext = {
+    config: configuration,
     objects: objects.scope('lab:host'),
     memory: memory.scope('lab:host'),
     scheduler: { get isPaused() { return runner.isPaused; }, register: task => registerTask('lab:host', task) },
@@ -311,7 +331,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
 
     services.setPhase('restore');
     if (options.initialState !== undefined) await labState.restore(options.initialState);
-    ui.restoreRememberedSettings();
+    if (configuration) ui.restoreConfig();
+    else ui.restoreRememberedSettings();
 
     services.setPhase('start');
     for (const active of activeModules) {
@@ -325,6 +346,10 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       }
     }
 
+    if (configuration) {
+      ui.captureConfig(); configuration.acceptInitial();
+      disposeConfigToolbar = mountLabConfigToolbar(workbench.header, configuration, configRevision, () => ui.validateConfig(), () => ui.importRememberedConfig());
+    }
     services.setPhase('ready');
     engine.runRenderLoop(() => {
       const deltaSeconds = frameClock.next(engine.getDeltaTime() / 1000, document.hidden);
@@ -353,6 +378,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     });
     context.ui.setStatus(`已组合 ${executionPlan.entries.length} 个 Lab 模块。`);
   } catch (error) {
+    disposeConfigToolbar(); ui.disposeConfig();
     disposeFrameClock();
     disposeObjectTree();
     disposeTransformPanel(); objectEditor.dispose(); transformPanel.root.remove();
@@ -396,6 +422,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     dispose() {
       if (disposed) return;
       disposed = true;
+      disposeConfigToolbar(); ui.disposeConfig();
       disposeFrameClock();
       disposeObjectTree();
       disposeTransformPanel(); objectEditor.dispose(); transformPanel.root.remove();

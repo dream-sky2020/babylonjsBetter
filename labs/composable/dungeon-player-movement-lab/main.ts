@@ -5,7 +5,7 @@ import '@/labs/kit/styles.css';
 const root = document.querySelector('#root');
 if (!(root instanceof HTMLElement)) throw new Error('缺少 Lab 根节点 #root。');
 
-const host = await createLab({
+const host = await createLab({ labId: 'dungeon-player-movement-lab',
   root,
   title: '地牢玩家移动 Lab',
   description: '通过可组合模块自动加载场景、格子 Debug、玩家出生点、阻碍和玩家移动系统。',
@@ -14,4 +14,4 @@ const host = await createLab({
   catalog: dungeonLabModuleCatalog,
 });
 
-window.addEventListener('beforeunload', () => host.dispose(), { once: true });
+window.addEventListener('pagehide', event => { if (!event.persisted) host.dispose(); });

@@ -8,7 +8,7 @@ import { createDungeonMapData } from '../../../../core/map/dungeonMap.create.ts'
 import { migrateDungeonMapToDocumentV2 } from '../../../../core/map-document/dungeonMapDocument.migrate.ts';
 import { createDungeonRuntime } from '../../../../core/dungeon-runtime/dungeonRuntime.ts';
 
-test('player simulation reuses blocked inspection and defers bounded Debug summaries, including hidden panels', async () => {
+for (const configMode of [false, true]) test(`player simulation and detached panels (${configMode ? 'Lab config' : 'legacy host'})`, async () => {
   const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/player-movement-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<aside></aside><div id="status"></div>', { url: 'http://localhost/player-test' });
@@ -32,16 +32,20 @@ test('player simulation reuses blocked inspection and defers bounded Debug summa
     engine = new NullEngine(); scene = new Scene(engine); assembly = new assemblyApi.DungeonRuntimeAssembly();
     const services = new Map(), memory = new LabMemoryRegistry(), handlers = new Map(), tasks = new Map();
     const ui = new LabUi(document.querySelector('aside'), document.getElementById('status'));
+    const { LabConfig } = await load('/labs/kit/config/LabConfig.ts');
+    const config = configMode ? new LabConfig({ format: 'lab-config', version: 1, labId: 'player-test', modules: {} }) : undefined;
+    if (config) ui.useConfig(config);
     let active = null, keyboardOptions;
     services.set(assemblyApi.DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, assembly);
     services.set(playerApi.DUNGEON_PLAYER_CONTROL_SERVICE_KEY, playerApi.createDungeonPlayerControl(() => active));
     services.set(movementApi.DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY, movementApi.createDungeonMovementControl(() => active && ({ loadId: 1, resolver: active.runtime.movementResolver })));
-    cleanup = playerMovementLabModule.setup({ scene, services, ui, memory: memory.scope('player-movement'),
+    cleanup = playerMovementLabModule.setup({ scene, services, ui, config, memory: memory.scope('player-movement'),
       scheduler: { isPaused: false, register(task) { tasks.set(task.phase, task); return () => tasks.delete(task.phase); } },
       communication: { on(event, fn) { handlers.set(event, fn); return () => handlers.delete(event); }, publish: async () => {}, request: async () => ({ committed: true }) },
       keyboard: { register(options) { keyboardOptions = options; return { id: options.id, dispose() {}, setEnabled() {}, setPriority() {}, setIntercept() {}, setPreventDefault() {} }; },
         subscribe: () => () => {}, getConsumer: () => keyboardOptions },
     });
+    if (config) { ui.restoreConfig(); config.acceptInitial(); }
     const layout = { mapAnchorMode: 'first-tile', mapOffset: [0, 0, 0], tileSize: [1, 1, 1], tileSpacing: [1, 1] };
     const doc = migrateDungeonMapToDocumentV2({ presetKey: 'test', name: 'Test', map: createDungeonMapData({ id: 'test', width: 1000, height: 1 }) }).document;
     const runtime = createDungeonRuntime(doc, { sceneEnvironmentComponent: layout, tilePosition: { x: 0, y: 0 }, worldPosition: [0, 0, 0] });
@@ -93,6 +97,12 @@ test('player simulation reuses blocked inspection and defers bounded Debug summa
     assert.equal(runtime.playerPosition.tileX, 2);assert.equal(box.logicalPosition.tileX, 3);
     box.onPlayerPush = 'block';document.querySelector('[data-move="east"]').click();simulation.run(2);
     assert.equal(runtime.playerPosition.tileX, 2);assert.equal(box.logicalPosition.tileX, 3);
+    if (config) {
+      config.update('player-movement', { teleport: true });
+      document.querySelector('[data-lab-panel="player-movement"]').remove();
+      keyboardOptions.onKeyDown({ code: 'KeyD', repeat: false });
+      assert.equal(runtime.playerPosition.tileX, 1, 'keyboard movement reads runtime config after the panel is detached');
+    }
     cleanup(); cleanup = null; assert.equal(tasks.size, 0); assert.equal(handlers.size, 0);
   } finally {
     cleanup?.(); assembly?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();

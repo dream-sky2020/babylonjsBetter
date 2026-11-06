@@ -1,0 +1,22 @@
+{
+  "format": "lab-config",
+  "version": 1,
+  "labId": "dungeon-spatial-actions-lab",
+  "modules": {
+    "system-keyboard-input": {
+      "global-enabled": true
+    },
+    "system-camera": {
+      "floating-panel": false,
+      "pointer-input": true,
+      "keyboard-input": false,
+      "priority": 50,
+      "intercept": true,
+      "prevent-default": true
+    },
+    "spatial-example": {
+      "scenario": "push",
+      "actor": "$dungeon-player"
+    }
+  }
+}

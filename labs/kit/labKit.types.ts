@@ -14,8 +14,11 @@ import type { LabViewportManager } from './labViewportManager';
 import type { LabKeyboardRouter } from './keyboard';
 import type { CameraLabController, CameraLabControllerState, CameraViewPreset } from '@/core/camera/cameraLabController.ts';
 import type { LabObjectScope } from './objects/LabObjects';
+import type { LabConfig, LabConfigDocument } from './config/LabConfig';
 
 export type LabContext = {
+  /** Runtime configuration, available before module setup. Custom/legacy hosts may omit it. */
+  config?: LabConfig;
   /** Present in the standard Host; optional for older/custom test hosts. */
   objects?: LabObjectScope;
   /** 按统一定义申请共享数据；不存在即创建，存在则检查类型并复用引用。无读写权限检查。 */
@@ -63,6 +66,10 @@ export type LabModuleSetupResult = void | (() => void) | LabModuleLifecycle;
 export type LabModuleCatalog = Readonly<Record<string, LabModule>>;
 
 export type CreateLabOptions = {
+  /** Stable composable Lab identity; config/labs/<labId>.json is loaded before setup. */
+  labId?: string;
+  /** Explicit document for embedded builds and isolated verification. */
+  configDocument?: LabConfigDocument;
   initialCamera?: Partial<CameraLabControllerState>;
   cameraPresets?: readonly CameraViewPreset[];
   root: HTMLElement;

@@ -1,0 +1,39 @@
+{
+  "format": "lab-config",
+  "version": 1,
+  "labId": "dungeon-obstacle-lab",
+  "modules": {
+    "system-keyboard-input": {
+      "global-enabled": true
+    },
+    "system-camera": {
+      "floating-panel": false,
+      "pointer-input": true,
+      "keyboard-input": false,
+      "priority": 50,
+      "intercept": true,
+      "prevent-default": true
+    },
+    "dungeon-config": {
+      "preset": "dungeon_map"
+    },
+    "dungeon-grid-debug": {
+      "all-tiles": false,
+      "inspect-x": 0,
+      "inspect-y": 0
+    },
+    "dungeon-obstacle": {
+      "debug-boxes": false
+    },
+    "dungeon-traversal": {
+      "debug": false,
+      "direction": "north"
+    },
+    "dungeon-movement": {
+      "debug": false,
+      "commitProgress": 0.5,
+      "playerBasePriority": 1000,
+      "progressWeight": 1
+    }
+  }
+}

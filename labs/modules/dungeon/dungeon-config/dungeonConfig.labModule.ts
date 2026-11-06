@@ -45,7 +45,7 @@ export const dungeonConfigLabModule: LabModule = {
       }
     };
     loadButton.addEventListener('click', () => { void loadSelected(); });
-    select.addEventListener('change', () => { void loadSelected(); });
+    if (!context.config) select.addEventListener('change', () => { void loadSelected(); });
     const rememberedSettings = context.ui.registerSettings('dungeon-config', [
       controlSetting('preset', '地图预设', select, {
         read: () => select.value || desiredPreset,

@@ -1,5 +1,9 @@
 # config
 
+## 组合式 Lab 参数
+
+`labs/<labId>.json` 保存每个组合式 Lab 的独立模块参数。开发时由 Python 的 `/api/lab-configs/<labId>` 读写，发布时从构建收录的数据读取；修改后需重启旧 Python 进程。面板实时调整运行配置，点击“保存 Lab 配置”才写文件；旧本机参数仅通过显式导入采用。详见 `docs/composable-lab-config.md`。
+
 这个目录用于放置 **Vite 与 Electron 前端共用的静态配置文件**（JSON、文本、图片等）。
 
 ## 访问方式

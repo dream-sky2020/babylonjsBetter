@@ -1,3 +1,4 @@
+import { createPlayerMovementConfig, playerMovementTiming } from './playerMovement.config';
 import { DUNGEON_GRID_MEMORY, type DungeonGridData } from '../dungeon-grid/dungeonGrid.memory';
 import { DUNGEON_PLAYER_STATE_MEMORY, DUNGEON_OBSTACLE_STATE_MEMORY, type DungeonPlayerStateData } from '../dungeon-runtime/dungeonRuntime.memory';
 import { DUNGEON_MOVEMENT_STATE_MEMORY } from '../dungeon-movement/dungeonMovement.memory';
@@ -11,7 +12,6 @@ import { createDungeonViewConsumer, applyDungeonViewToNode } from '@/core/dungeo
 import { PLAYER_MOVEMENT_VIEW_SERVICE_KEY } from './playerMovement.view';
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import {
-  type DungeonPlayerMovementOptions,
   type DungeonPlayerRelativeMovement,
   type DungeonPlayerMovementTimingMode,
   type DungeonPlayerTurn,
@@ -75,16 +75,6 @@ const createNumberInput = (value: number, min: number | undefined, step: number)
   return input;
 };
 
-const readPositiveNumber = (input: HTMLInputElement, fallback: number): number => {
-  const value = Number(input.value);
-  return Number.isFinite(value) && value > 0 ? value : fallback;
-};
-
-const readFiniteNumber = (input: HTMLInputElement, fallback: number): number => {
-  const value = Number(input.value);
-  return Number.isFinite(value) ? value : fallback;
-};
-
 const createModeSelect = <T extends string>(options: ReadonlyArray<readonly [T, string]>): HTMLSelectElement => {
   const select = document.createElement('select');
   select.replaceChildren(...options.map(([value, label]) => {
@@ -100,6 +90,7 @@ export const playerMovementLabModule: LabModule = {
   id: 'player-movement',
   dependencies: ['dungeon-map-loader', 'dungeon-movement'],
   setup(context) {
+    const parameters = createPlayerMovementConfig(context.config);
     const playerMemory = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
     const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
     const movementMemory = context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY);
@@ -262,30 +253,8 @@ export const playerMovementLabModule: LabModule = {
       runtimeJson,
     );
 
-    const readTimingOptions = (): Pick<
-      DungeonPlayerMovementOptions,
-      'movementTimingMode' | 'movementSpeed' | 'movementSecondsPerTile'
-      | 'turnTimingMode' | 'turnSpeed' | 'turnSecondsPerAction'
-    > => {
-      const movementTimingMode = movementTimingSelect.value as DungeonPlayerMovementTimingMode;
-      const turnTimingMode = turnTimingSelect.value as DungeonPlayerTurnTimingMode;
-      return {
-        movementTimingMode,
-        movementSpeed: movementTimingMode === 'world-units-per-second'
-          ? readPositiveNumber(movementTimingInput, 6) : undefined,
-        movementSecondsPerTile: movementTimingMode === 'seconds-per-tile'
-          ? readPositiveNumber(movementTimingInput, 1) : undefined,
-        turnTimingMode,
-        turnSpeed: turnTimingMode === 'radians-per-second'
-          ? readPositiveNumber(turnTimingInput, 360) * Math.PI / 180 : undefined,
-        turnSecondsPerAction: turnTimingMode === 'seconds-per-turn'
-          ? readPositiveNumber(turnTimingInput, 0.25) : undefined,
-      };
-    };
-    const readSwapMinimumDuration = () => {
-      const value=Number(swapDurationInput.value);
-      return Number.isFinite(value)&&value>=0?value:0;
-    };
+    const readTimingOptions = () => playerMovementTiming(parameters);
+    const readSwapMinimumDuration = () => parameters['swap-duration'];
 
     let current: MovementView | null = null;
     let markerRoot: TransformNode | null = null;
@@ -304,15 +273,15 @@ export const playerMovementLabModule: LabModule = {
       pendingEightWayInitialMove = false;
     };
     const directionMode = (): DungeonMovementDirectionMode => (
-      eightWayToggle.input.checked ? 'eight-way' : 'four-way'
+      parameters['eight-way'] ? 'eight-way' : 'four-way'
     );
     const syncMovementProfile = (): void => {
       controls.querySelectorAll<HTMLButtonElement>('[data-move*="-"]').forEach((button) => {
-        button.disabled = !eightWayToggle.input.checked;
+        button.disabled = !parameters['eight-way'];
       });
       if (current) {
-        playerSystem?.setMovementProfile(eightWayToggle.input.checked ? 'ground-eight-way' : 'ground-four-way');
-        status.textContent = eightWayToggle.input.checked
+        playerSystem?.setMovementProfile(parameters['eight-way'] ? 'ground-eight-way' : 'ground-four-way');
+        status.textContent = parameters['eight-way']
           ? '玩家已切换为八方向移动；WASD / 方向键可组合斜向。'
           : '玩家已切换为四方向移动；斜向按钮已禁用。';
       }
@@ -327,7 +296,7 @@ export const playerMovementLabModule: LabModule = {
 
     const createMarker = (event: MovementView) => {
       disposeMarker();
-      if (!debugMarkerToggle.input.checked) return;
+      if (!parameters['debug-marker']) return;
       const layout = resolveDungeonMapTileWorldLayout(
         event.grid,
         event.grid.width,
@@ -477,12 +446,12 @@ export const playerMovementLabModule: LabModule = {
       const event = current;
       const result = playerSystem.move(direction, {
         onBlockedAttempt: interceptBlockedAttempt,
-        restrictToMapBounds: boundsToggle.input.checked,
-        restrictMovementObstacles: obstacleToggle.input.checked,
+        restrictToMapBounds: parameters['bounds'],
+        restrictMovementObstacles: parameters['obstacles'],
         ...readTimingOptions(),
         swapDurationSeconds: readSwapMinimumDuration(),
-        swapIgnorePresentationDistance: swapIgnorePresentationDistanceToggle.input.checked,
-        teleport: teleportToggle.input.checked,
+        swapIgnorePresentationDistance: parameters['swap-ignore-presentation'],
+        teleport: parameters['teleport'],
         resolveWorldPosition: resolveWorldPosition(event),
       });
       if (result.handled) {
@@ -524,7 +493,7 @@ export const playerMovementLabModule: LabModule = {
       if (!current || !playerSystem || assembly.isPaused || context.scheduler.isPaused) return;
       const result = playerSystem!.turn(turn, {
         ...readTimingOptions(),
-        teleport: teleportToggle.input.checked,
+        teleport: parameters['teleport'],
       });
       if (!result.started) {
         status.textContent = '玩家仍在上一次移动或转向过程中。';
@@ -547,12 +516,12 @@ export const playerMovementLabModule: LabModule = {
       const facingBeforeMove = event.player.playerFacing;
       const result = playerSystem!.moveRelative(movement, {
         onBlockedAttempt: interceptBlockedAttempt,
-        restrictToMapBounds: boundsToggle.input.checked,
-        restrictMovementObstacles: obstacleToggle.input.checked,
+        restrictToMapBounds: parameters['bounds'],
+        restrictMovementObstacles: parameters['obstacles'],
         ...readTimingOptions(),
         swapDurationSeconds: readSwapMinimumDuration(),
-        swapIgnorePresentationDistance: swapIgnorePresentationDistanceToggle.input.checked,
-        teleport: teleportToggle.input.checked,
+        swapIgnorePresentationDistance: parameters['swap-ignore-presentation'],
+        teleport: parameters['teleport'],
         resolveWorldPosition: resolveWorldPosition(event),
       });
       if (result.handled) { status.textContent = `${movement} 的受阻移动已由其他模块接管。`; return; }
@@ -625,10 +594,10 @@ export const playerMovementLabModule: LabModule = {
       id: 'player-movement',
       label: 'Dungeon 玩家移动',
       keys: Object.keys(keyDirections),
-      enabled: keyboardToggle.input.checked,
-      priority: Number(keyboardPriorityInput.value),
-      intercept: keyboardInterceptToggle.input.checked,
-      preventDefault: keyboardPreventDefaultToggle.input.checked,
+      enabled: parameters['keyboard-enabled'],
+      priority: parameters['keyboard-priority'],
+      intercept: parameters['keyboard-intercept'],
+      preventDefault: parameters['keyboard-prevent-default'],
       onKeyDown: (event) => {
         const direction = keyDirections[event.code];
         if (!direction) return 'ignored';
@@ -655,15 +624,15 @@ export const playerMovementLabModule: LabModule = {
       },
     });
     keyboardToggle.input.addEventListener('change', () => {
-      keyboardRegistration.setEnabled(keyboardToggle.input.checked);
-      if (!keyboardToggle.input.checked) clearDirectionalInput();
+      keyboardRegistration.setEnabled(parameters['keyboard-enabled']);
+      if (!parameters['keyboard-enabled']) clearDirectionalInput();
     });
     keyboardPriorityInput.addEventListener('input', () => {
-      const value = Number(keyboardPriorityInput.value);
+      const value = parameters['keyboard-priority'];
       if (Number.isFinite(value)) keyboardRegistration.setPriority(value);
     });
-    keyboardInterceptToggle.input.addEventListener('change', () => keyboardRegistration.setIntercept(keyboardInterceptToggle.input.checked));
-    keyboardPreventDefaultToggle.input.addEventListener('change', () => keyboardRegistration.setPreventDefault(keyboardPreventDefaultToggle.input.checked));
+    keyboardInterceptToggle.input.addEventListener('change', () => keyboardRegistration.setIntercept(parameters['keyboard-intercept']));
+    keyboardPreventDefaultToggle.input.addEventListener('change', () => keyboardRegistration.setPreventDefault(parameters['keyboard-prevent-default']));
     const syncKeyboardControls = () => {
       const settings = context.keyboard.getConsumer(keyboardRegistration.id);
       if (!settings) return;
@@ -676,14 +645,14 @@ export const playerMovementLabModule: LabModule = {
     syncKeyboardControls();
 
     const inputPolicy = {
-      continuous: continuousMovementToggle.input.checked,
-      multiplier: readFiniteNumber(continuousHoldMultiplierInput, 0.8),
-      offset: readFiniteNumber(continuousHoldOffsetInput, 0),
+      continuous: parameters['continuous-movement'],
+      multiplier: parameters['hold-multiplier'],
+      offset: parameters['hold-offset'],
     };
     const syncInputPolicy = () => {
-      inputPolicy.continuous = continuousMovementToggle.input.checked;
-      inputPolicy.multiplier = readFiniteNumber(continuousHoldMultiplierInput, 0.8);
-      inputPolicy.offset = readFiniteNumber(continuousHoldOffsetInput, 0);
+      inputPolicy.continuous = parameters['continuous-movement'];
+      inputPolicy.multiplier = parameters['hold-multiplier'];
+      inputPolicy.offset = parameters['hold-offset'];
     };
     for (const input of [continuousMovementToggle.input, continuousHoldMultiplierInput, continuousHoldOffsetInput]) {
       input.addEventListener('input', syncInputPolicy);
@@ -817,7 +786,7 @@ export const playerMovementLabModule: LabModule = {
           && Number((saved as Record<string, SettingValue>)[mode]) > 0
           && Number.isFinite(Number((saved as Record<string, SettingValue>)[mode]))),
     });
-    const rememberedSettings = context.ui.registerSettings('player-movement', [
+    const settingDefinitions: SettingDefinition[] = [
       controlSetting('bounds', '限制玩家不能移出地图', boundsToggle.input),
       controlSetting('obstacles', '限制玩家不能跨越障碍', obstacleToggle.input),
       controlSetting('teleport', '瞬移（跳过逐帧过渡）', teleportToggle.input),
@@ -836,16 +805,27 @@ export const playerMovementLabModule: LabModule = {
       controlSetting('swap-ignore-presentation', '换位计时忽略错身距离', swapIgnorePresentationDistanceToggle.input),
       controlSetting('turn-timing-mode', '转向计时模式', turnTimingSelect),
       timingSetting('turn-timing-values', '转向速度 / 每次耗时（分别记住）', turnTimingInput, turnTimingValues, () => activeTurnTimingMode),
-    ], () => {
+    ];
+    const syncParameters = () => {
+      if (context.config) return;
+      for (const item of settingDefinitions) { const value = item.read(); if (item.valid(value)) Object.assign(parameters, { [item.key]: structuredClone(value) }); }
+    };
+    const stopParameterBindings: (() => void)[] = [];
+    if (!context.config) for (const item of settingDefinitions) for (const element of item.elements) {
+      const capture = () => { const value = item.read(); if (item.valid(value)) Object.assign(parameters, { [item.key]: structuredClone(value) }); };
+      element.addEventListener('input', capture, true); element.addEventListener('change', capture, true);
+      stopParameterBindings.push(() => { element.removeEventListener('input', capture, true); element.removeEventListener('change', capture, true); });
+    }
+    const rememberedSettings = context.ui.registerSettings('player-movement', settingDefinitions, () => {
       const keyboard = { enabled: keyboardToggle.input.checked, priority: Number(keyboardPriorityInput.value),
         intercept: keyboardInterceptToggle.input.checked, preventDefault: keyboardPreventDefaultToggle.input.checked };
-      syncTimingInputs(); syncInputPolicy(); syncMovementProfile(); renderDebugMarker();
+      syncTimingInputs(); syncParameters(); syncInputPolicy(); syncMovementProfile(); renderDebugMarker();
       keyboardRegistration.setEnabled(keyboard.enabled); keyboardRegistration.setPriority(keyboard.priority);
       keyboardRegistration.setIntercept(keyboard.intercept); keyboardRegistration.setPreventDefault(keyboard.preventDefault);
       if (!keyboard.enabled) clearDirectionalInput();
     });
     return () => {
-      rememberedSettings.dispose();
+      rememberedSettings.dispose(); stopParameterBindings.forEach(stop => stop());
       offPreparation();
       steps.dispose();
       context.services.delete(DUNGEON_PLAYER_STEP_SERVICE_KEY);

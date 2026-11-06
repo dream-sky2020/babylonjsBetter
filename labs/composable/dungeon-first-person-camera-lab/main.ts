@@ -5,7 +5,7 @@ import '@/labs/kit/styles.css';
 const root = document.querySelector('#root');
 if (!(root instanceof HTMLElement)) throw new Error('缺少 Lab 根节点 #root。');
 
-const host = await createLab({
+const host = await createLab({ labId: 'dungeon-first-person-camera-lab',
   root,
   title: 'Dungeon 玩家相机 Lab',
   description: '验证格步移动驱动的 DRPG 第一人称与第三人称俯视跟随，并支持运行中切换。',
@@ -14,4 +14,4 @@ const host = await createLab({
   catalog: dungeonLabModuleCatalog,
 });
 
-window.addEventListener('beforeunload', () => host.dispose(), { once: true });
+window.addEventListener('pagehide', event => { if (!event.persisted) host.dispose(); });

@@ -676,7 +676,12 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       controlSetting('auto-recenter', '松开拖拽后自动回正', autoRecenterToggle.input),
       controlSetting('recenter-duration', '回正耗时', recenterDurationInput),
       controlSetting('projection', '俯视投影', projectionSelect),
-      controlSetting('orthographic-size', '正交垂直可见半范围', orthographicSizeInput),
+      controlSetting('orthographic-size', '正交垂直可见半范围', orthographicSizeInput, {
+        read: () => orthographicSizeInput.value.trim() ? Number(orthographicSizeInput.value) : null,
+        write: value => { orthographicSizeInput.value = value === null ? '' : String(value); },
+        valid: value => value === null || typeof value === 'number' && Number.isFinite(value)
+          && value >= Number(orthographicSizeInput.min) && value <= Number(orthographicSizeInput.max),
+      }),
       controlSetting('overhead-distance', '俯视镜头距离', overheadDistanceInput),
       controlSetting('overhead-pitch', '俯视仰角', overheadPitchInput),
       controlSetting('overhead-yaw', '俯视水平朝向', overheadYawInput),
@@ -691,7 +696,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       const keyboard = { enabled: keyboardToggle.input.checked, priority: Number(keyboardPriorityInput.value),
         intercept: keyboardInterceptToggle.input.checked, preventDefault: keyboardPreventDefaultToggle.input.checked };
       projectionSettings.projection = projectionSelect.value as CameraProjection;
-      projectionSettings.orthographicSize = Number(orthographicSizeInput.value);
+      projectionSettings.orthographicSize = orthographicSizeInput.value.trim() ? Number(orthographicSizeInput.value) : null;
       projectionDirty = true;
       keyboardRegistration.setEnabled(keyboard.enabled); keyboardRegistration.setPriority(keyboard.priority);
       keyboardRegistration.setIntercept(keyboard.intercept); keyboardRegistration.setPreventDefault(keyboard.preventDefault);

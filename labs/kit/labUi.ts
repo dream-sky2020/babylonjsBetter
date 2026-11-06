@@ -3,6 +3,8 @@ import { createSystemDescription } from './systemManifest';
 import type { LabModule } from './labKit.types';
 import { LabSettingsStore, type SettingDefinition } from './settings/LabSettingsStore';
 import { LabPanelSettings } from './settings/LabPanelSettings';
+import type { LabConfig } from './config/LabConfig';
+import { LabConfigBinding } from './config/LabConfigBinding';
 export { controlSetting } from './settings/LabSettingsStore';
 export type { SettingDefinition, SettingValue } from './settings/LabSettingsStore';
 
@@ -92,6 +94,8 @@ export class LabUi {
   private preferences: LabUiPreferences;
   private settingsStore?: LabSettingsStore;
   private readonly panelSettings = new Map<string, LabPanelSettings>();
+  private readonly configBindings = new Map<string, LabConfigBinding>();
+  private config?: LabConfig;
   private readonly workspace?: LabUiWorkspace;
   private readonly layoutToolbar: HTMLDivElement;
 
@@ -175,6 +179,12 @@ export class LabUi {
   registerSettings(panelId: string, definitions: readonly SettingDefinition[], apply: () => void): { capture(key: string): void; dispose(): void } {
     const panel = this.panels.get(panelId);
     if (!panel || this.panelSettings.has(panelId)) throw new Error(`设置面板不存在或重复注册：${panelId}`);
+    if (this.config) {
+      if (this.configBindings.has(panelId)) throw new Error(`重复的配置面板：${panelId}`);
+      const binding = new LabConfigBinding(this.config, panelId, definitions, apply);
+      this.configBindings.set(panelId, binding);
+      return { capture: key => binding.captureValue(key), dispose: () => { binding.dispose(); this.configBindings.delete(panelId); } };
+    }
     if (!this.settingsStore) {
       let storage: Storage | undefined;
       try { storage = localStorage; } catch { /* Some browser contexts disallow storage. */ }
@@ -188,6 +198,20 @@ export class LabUi {
 
   /** Apply local overrides once, after initial LabState and before scene start. */
   restoreRememberedSettings(): void { this.panelSettings.forEach(handle => handle.restore()); }
+
+  useConfig(config: LabConfig): void { this.config = config; }
+  restoreConfig(): void { this.configBindings.forEach(binding => binding.restore()); }
+  captureConfig(strict = false): void { this.configBindings.forEach(binding => binding.captureAll(strict)); }
+  validateConfig(): void { this.configBindings.forEach(binding => binding.validateControls()); }
+  importRememberedConfig(): number {
+    let storage: Storage | undefined;
+    try { storage = localStorage; } catch { throw new Error('无法读取本机设置。'); }
+    const store = new LabSettingsStore(storage, `babylonjsBetter:lab-settings:${location.pathname}`);
+    let count = 0;
+    this.configBindings.forEach(binding => { count += binding.importLegacy(store, this.preferences.switches); });
+    return count;
+  }
+  disposeConfig(): void { this.configBindings.forEach(binding => binding.dispose()); this.configBindings.clear(); }
 
   /** Public navigation for the system graph; modules never inspect another module's DOM. */
   hasModulePanels(moduleId: string): boolean {

@@ -1,0 +1,27 @@
+{
+  "format": "lab-config",
+  "version": 1,
+  "labId": "monster-dissolve-lab",
+  "modules": {
+    "system-keyboard-input": {
+      "global-enabled": true
+    },
+    "system-camera": {
+      "floating-panel": false,
+      "pointer-input": true,
+      "keyboard-input": false,
+      "priority": 50,
+      "intercept": true,
+      "prevent-default": true
+    },
+    "monster-visual-objects": {
+      "object-source": "monster_default_1"
+    },
+    "monster-dissolve-preview": {
+      "dissolve-preset": "ash_default"
+    },
+    "dungeon-config": {
+      "preset": "dungeon_map"
+    }
+  }
+}

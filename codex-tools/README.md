@@ -1,5 +1,7 @@
 # Codex 工具与资源处理档案
 
+`verifyLabConfig.mjs` 启动独立 1185 端口和缓存，再通过 spawnElectron 运行 `verifyLabConfig.cjs`，验证每个组合式 Lab 的文件参数初始化、保存后手动刷新恢复、旧 storage 不覆盖、失败保留和 Lab 隔离；开启 HMR 并模拟文件监听事件，断言保存/重复保存不重载页面或地图。仅模拟配置写入，正式文件不变。`buildLabConfigVerification.mjs` 和 `verifyLabConfigProduction.cjs` 检查最小生产构建在 file:// 下无网络读取配置。报告为 node_modules/.cache/lab-config.json / lab-config-production.json。旧 verifyLabSettings.cjs 的正式组合页逐项记忆检查已被新配置验证取代；旧 Host 的记忆行为仍由 test:lab-settings 验证。
+
 `verifyDungeonDataLifecycle.cjs` 经 `node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonDataLifecycle.cjs` 在隔离隐藏 Electron 中运行 `dungeonDataLifecycleVerification.html`，复用 Dungeon Agent Lab 的正式模块组合，对三张正式地图进行四轮、共十二次进入；每次推进 AI/移动后切图，检查 Agent ID、四份 Agent 领域数据、共享内存 loadId、空间占位/碰撞体、任务/业务订阅和存档条目，确认新地图无旧动作及预约。用 WeakRef 和显式 GC 检查旧 Runtime 回收，并验证 Host 销毁后的任务、内存及订阅归零。只读正式资源，拦截网络写入；报告位于 `node_modules/.cache/dungeon-data-lifecycle.json`。首次访问新资源产生的素材缓存/关联监听及有界通信日志单独记录，不与实际运行数据重复相混淆。
 
 `buildCombatV1Lab.mjs` 通过 `npm run build:combat-v1` 构建 XP 风格独立战斗 Lab 到 `node_modules/.cache/combat-v1-build`，不复制 public。构建后通过 `runElectronVerification.mjs verifyCombatV1Lab.cjs`（完整参数为 `codex-tools/verifyCombatV1Lab.cjs`）检查真实页面攻击、治疗、额外行动、Boss/中立单步、冷却、重置与窄屏布局，报告和截图为 `node_modules/.cache/combat-v1-lab.json` / `.png`。

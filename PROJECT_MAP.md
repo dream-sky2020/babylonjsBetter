@@ -1,3 +1,15 @@
+## 2026-11-06：保存 Lab 配置不重新加载
+
+Lab 配置保存只校验编辑值并写入当前运行配置快照，不再从控件重新采集参数。LabConfig 区分 values/status 通知，保存回执只更新保存基线和工具栏，不触发面板 apply。Vite 的 post hotUpdate 排除 config/labs 目录及文件的 update/create/delete，避免 Python 原子写入引发整页刷新。真实页面验证启用 HMR，通过只读模拟的 watcher 事件检查保存、重复保存后页面标识和地图 activeLoadId 不变；不写正式配置。其余模块的运行时直接读取控件仍属于后续解耦范围，本次不将兼容接入描述为完成全部解耦。
+
+## 2026-11-05：每个组合式 Lab 独立文件配置（第一阶段）
+
+13 个正式组合页显式声明稳定 labId，对应 config/labs/<labId>.json；不新增独立游戏方案层。Host 在 Engine/setup 前通过 Python 读取并校验文件，生产通过打包的 JSON 模块读取。LabConfig 不依赖 DOM/storage/网络，提供字段注册、更新、订阅、快照和保存基线；玩家移动的动作与输入参数已改为读取独立配置对象。其他已登记字段由 LabConfigBinding 在 initialState 后、start 前应用，面板修改实时同步派生状态。旧本机参数不自动覆盖文件，可显式导入；布局和领域文档/存档保留原所有权。Dungeon Agent 的原始俯视和跟随区域初值迁入其 JSON。
+
+Python 新增 /api/lab-configs/<labId> GET/PUT，结构/版本/ID 校验、内容版本冲突检查和临时文件替换；开发需重启旧后端。顶部保存入口支持未保存提示、错误和保存期间继续编辑。空正交范围明确使用 null 表示自动构图。
+
+配置加载和兼容接入不代表所有旧模块都能无面板发布：常规构建仍包含编辑器、其他页面和整库资源。runtime/panel 全面拆分、无工作台 Host 和按目标 Lab 裁剪发行包属于下一阶段，不能用隐藏面板代替。范围、调用方式和验证见 docs/composable-lab-config.md；test:lab-config、test:lab-config-webgl、最小 file:// 生产构建验证和 Python test_lab_configs 覆盖本阶段。
+
 ## 2026-11-04：逐项记忆覆盖组合式 Lab 模块面板
 
 对象树的视口选中偏好按页面、场景预设和对象 ID 保存在本机。地图场景卸载时保留记录，切回场景或刷新后按 ID 恢复。怪物对象删除时继续清理对应偏好。

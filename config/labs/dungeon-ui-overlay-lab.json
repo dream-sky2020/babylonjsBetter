@@ -1,0 +1,21 @@
+{
+  "format": "lab-config",
+  "version": 1,
+  "labId": "dungeon-ui-overlay-lab",
+  "modules": {
+    "system-keyboard-input": {
+      "global-enabled": true
+    },
+    "system-camera": {
+      "floating-panel": false,
+      "pointer-input": true,
+      "keyboard-input": false,
+      "priority": 50,
+      "intercept": true,
+      "prevent-default": true
+    },
+    "dungeon-config": {
+      "preset": "dungeon_map"
+    }
+  }
+}

@@ -5,7 +5,7 @@ import '@/labs/kit/styles.css';
 const root = document.querySelector('#root');
 if (!(root instanceof HTMLElement)) throw new Error('缺少 Lab 根节点 #root。');
 
-const host = await createLab({
+const host = await createLab({ labId: 'dungeon-transition-lab',
   root,
   title: 'Dungeon 地图传送 Lab',
   description: '验证格子、单向边和公用边出口到目标地图唯一入口的无表现传送流程。',
@@ -14,4 +14,4 @@ const host = await createLab({
   catalog: dungeonLabModuleCatalog,
 });
 
-window.addEventListener('beforeunload', () => host.dispose(), { once: true });
+window.addEventListener('pagehide', event => { if (!event.persisted) host.dispose(); });

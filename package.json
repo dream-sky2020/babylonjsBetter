@@ -5,6 +5,10 @@
   "main": "electron/main.cjs",
   "type": "module",
   "scripts": {
+    "test:lab-config": "node --experimental-strip-types --test labs/kit/config/*.test.ts labs/kit/config/*.test.mjs",
+    "test:lab-config-webgl": "node codex-tools/verifyLabConfig.mjs",
+    "build:lab-config-verification": "node codex-tools/buildLabConfigVerification.mjs",
+    "test:lab-config-production": "node codex-tools/runElectronVerification.mjs codex-tools/verifyLabConfigProduction.cjs",
     "test:lab-settings": "node --experimental-strip-types --test labs/kit/settings/*.test.mjs",
     "typecheck:lab-settings": "tsc --noEmit -p tsconfig.lab-settings.json",
     "build:dungeon-ui-overlay": "node codex-tools/buildDungeonUiOverlay.mjs",

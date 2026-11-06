@@ -11,6 +11,7 @@ import { parseWeaponLibrary } from './core/model/preset/firstPersonWeaponPreset.
 
 const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
+const LAB_CONFIG_DIR = path.resolve(CONFIG_DIR, 'labs')
 const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
 const PUBLIC_DIR = path.resolve(__dirname, 'public')
 const DUNGEON_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dungeonMapPresets')
@@ -92,6 +93,9 @@ const sharedConfigPlugin = (): Plugin => ({
     order: 'post',
     handler({ file, type, modules }) {
       const changedPath = path.resolve(file)
+      // Authored Lab parameters are loaded explicitly at startup. Saving them
+      // must never replace the current scene, including atomic create/delete writes.
+      if (changedPath === LAB_CONFIG_DIR || changedPath.startsWith(`${LAB_CONFIG_DIR}${path.sep}`)) return []
       if (type !== 'update' && changedPath.startsWith(`${PUBLIC_DIR}${path.sep}`)) {
         const manifest = this.environment.moduleGraph.getModuleById(RESOLVED_PUBLIC_ASSETS_MODULE_ID)
         if (manifest) {
