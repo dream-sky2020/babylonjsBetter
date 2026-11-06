@@ -1,3 +1,4 @@
+import { DUNGEON_INTERACTION_SERVICE } from '@/core/dungeon-interaction/DungeonInteractionRouter';
 import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_LIBRARIES_MEMORY } from '../dungeon-libraries/dungeonLibraries.memory';
 import { DUNGEON_TRANSITION_DATA_MEMORY } from './dungeonTransition.memory';
@@ -5,7 +6,6 @@ import { DUNGEON_PLAYER_STATE_MEMORY } from '../dungeon-runtime/dungeonRuntime.m
 import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DUNGEON_TRANSITION_CONTROL_SERVICE_KEY } from '@/core/dungeon-transition/dungeonTransitionControl';
 import type { DungeonExitData } from '@/core/dungeon-transition/dungeonTransitionData';
-import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
 import { applyDungeonViewToNode } from '@/core/dungeon-view/dungeonOverheadView.ts';
 import {
   Color3,
@@ -34,10 +34,6 @@ import {
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import {
-  PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
-  type DungeonPlayerBlockedAttemptService,
-} from '../player-movement/playerMovement.blockedAttempt';
-import {
   dungeonTransitionCompletedEvent,
   dungeonTransitionFailedEvent,
   dungeonTransitionStartedEvent,
@@ -60,29 +56,31 @@ const triggerLabel = (triggers: readonly DungeonExitTrigger[]): string => {
 
 export const dungeonTransitionLabModule: LabModule = {
   id: 'dungeon-transition',
-  dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-libraries', 'dungeon-overhead-view'],
+  dependencies: ['dungeon-interaction', 'player-movement', 'dungeon-map-loader', 'dungeon-libraries', 'dungeon-overhead-view'],
   setup(context) {
-    const playerSteps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
+    const defaults = { enabled: true, enter: true, interact: true, 'move-attempt': true, 'debug-boxes': false };
+    const config = context.config ? context.config.register('dungeon-transition', Object.fromEntries(
+      Object.entries(defaults).map(([key, defaultValue]) => [key, { defaultValue, valid: (value: unknown) => typeof value === 'boolean' }]),
+    )) as typeof defaults : defaults;
+    const interactions = context.services.get(DUNGEON_INTERACTION_SERVICE);
     const transitionMemory = context.memory.acquire(DUNGEON_TRANSITION_DATA_MEMORY);
     const playerMemory = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
     const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
     const control = context.services.get(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY);
     const libraries = context.memory.acquire(DUNGEON_LIBRARIES_MEMORY);
-    const blockedAttempts = context.services.get<DungeonPlayerBlockedAttemptService>(
-      PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
-    );
     const overheadView = context.services.get<DungeonOverheadViewService>(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY);
     const panel = context.ui.addPanel('dungeon-transition', '地牢地图传送');
-    const enabledToggle = createLabSwitch('启用地图传送', true);
-    const enterToggle = createLabSwitch('移动后触发 enter 出口', true);
-    const interactToggle = createLabSwitch('启用 E 键交互出口', true);
-    const moveAttemptToggle = createLabSwitch('受阻移动触发 move-attempt 出口', true);
-    const debugBoxesToggle = createLabSwitch('显示入口 / 出口 Debug 盒', false);
+    const enabledToggle = createLabSwitch('启用地图传送', config.enabled);
+    const enterToggle = createLabSwitch('移动后触发 enter 出口', config.enter);
+    const interactToggle = createLabSwitch('允许主动交互出口', config.interact);
+    const moveAttemptToggle = createLabSwitch('受阻移动触发 move-attempt 出口', config['move-attempt']);
+    const debugBoxesToggle = createLabSwitch('显示入口 / 出口 Debug 盒', config['debug-boxes']);
     const debugLegend = document.createElement('small');
     debugLegend.textContent = 'Debug：绿色=入口；粉/橙/紫=格子/单向边/公用边出口。AUTO=穿过；E=交互；PUSH=撞向阻挡边；ALL=三种均可。';
     debugLegend.style.lineHeight = '1.55';
     const interactButton = document.createElement('button');
     interactButton.type = 'button';
+    interactButton.dataset.dungeonTransitionInteract = '';
     interactButton.textContent = '触发当前位置 / 前方交互出口';
     const status = createLabStatus('等待 Dungeon Runtime。');
     const debug = createLabJson();
@@ -113,7 +111,7 @@ export const dungeonTransitionLabModule: LabModule = {
     const renderDebugBoxes = (): void => {
       disposeDebugBoxes();
       const loaded = transitionMemory.current, grid = gridMemory.current;
-      if (!debugBoxesToggle.input.checked || !loaded || !grid || loaded.loadId !== grid.loadId) return;
+      if (!config['debug-boxes'] || !loaded || !grid || loaded.loadId !== grid.loadId) return;
       const colors = {
         entrance: '#35d07f',
         tile: '#e45aa6',
@@ -217,6 +215,7 @@ export const dungeonTransitionLabModule: LabModule = {
     };
 
     const refreshDebug = (): void => {
+      interactButton.disabled = pendingTransition || controller.transitioning;
       const loaded = transitionMemory.current, player = playerMemory.current;
       debug.textContent = JSON.stringify(loaded ? {
         transitioning: controller.transitioning,
@@ -233,6 +232,7 @@ export const dungeonTransitionLabModule: LabModule = {
       } : { transitioning: false, loaded: false }, null, 2);
     };
 
+    let pendingTransition = false;
     const controller = createDungeonTransitionController({
       getCurrentPresetKey: () => transitionMemory.current?.presetKey ?? '',
       switchDungeon: async (presetKey, entranceId) => (
@@ -240,10 +240,9 @@ export const dungeonTransitionLabModule: LabModule = {
       ).loaded,
     });
 
-    let pendingTransition = false;
     let disposed = false;
     const executeTransition = async (exit: DungeonExitData): Promise<void> => {
-      if (disposed || pendingTransition || !enabledToggle.input.checked || controller.transitioning) return;
+      if (disposed || pendingTransition || !config.enabled || controller.transitioning) return;
       const source = transitionMemory.current;
       if (!source) return;
       pendingTransition = true;
@@ -281,60 +280,26 @@ export const dungeonTransitionLabModule: LabModule = {
       }
     };
 
-    const findInteractionExit = (): DungeonExitData | null => {
-      const loaded = transitionMemory.current, player = playerMemory.current;
-      if (!loaded || !player || loaded.loadId !== player.loadId || !enabledToggle.input.checked || !interactToggle.input.checked) return null;
-      return control.findInteraction(
-        loaded.loadId, player.playerPosition, player.playerFacing,
-      );
-    };
-
-    const tryInteraction = (): boolean => {
-      try {
-        const exit = findInteractionExit();
-        if (!exit) {
-          status.textContent = '当前位置和面前的边没有可交互出口。';
-          return false;
-        }
-        void executeTransition(exit);
-        return true;
-      } catch (error) {
-        status.textContent = error instanceof Error ? error.message : String(error);
-        return true;
-      }
-    };
-
-    const offBlockedAttempt = blockedAttempts.register((attempt) => {
-      if (!enabledToggle.input.checked || !moveAttemptToggle.input.checked || controller.transitioning) return false;
-      if (attempt.direction !== 'north' && attempt.direction !== 'east'
-        && attempt.direction !== 'south' && attempt.direction !== 'west') return false;
-      const loaded = transitionMemory.current;
-      if (!loaded) return false;
-      try {
-        const exit = control.findMoveAttempt(loaded.loadId, attempt.from, attempt.direction);
-        if (!exit) return false;
-        status.textContent = `尝试向 ${attempt.direction} 移动，命中 PUSH 出口。`;
-        void executeTransition(exit);
-        return true;
-      } catch (error) {
-        status.textContent = error instanceof Error ? error.message : String(error);
-        return true;
-      }
+    const offInteraction = interactions.register({
+      id: 'dungeon-transition', blocked: () => pendingTransition || controller.transitioning,
+      find(query) {
+        if (!config.enabled || transitionMemory.current?.loadId !== query.loadId) return [];
+        let exit: DungeonExitData | null = null;
+        if (query.trigger === 'interact' && config.interact) exit = control.findInteraction(query.loadId, query.position, query.facing);
+        else if (query.trigger === 'enter' && config.enter && query.from) exit = control.findAfterMovement(query.loadId, query.from, query.position);
+        else if (query.trigger === 'move-attempt' && config['move-attempt']) exit = control.findMoveAttempt(query.loadId, query.position, query.facing);
+        if (!exit) return [];
+        const selected = exit;
+        return [{ id: `transition:${exit.entityId}`, entityId: exit.entityId, label: `传送：${exit.entityId}`, priority: 0,
+          rank: exit.location.kind === 'tile' ? 1 : 0, execute: () => executeTransition(selected) }];
+      },
     });
-
+    const tryInteraction = () => {
+      const current = playerMemory.current;
+      return !!current && interactions.dispatch({ trigger: 'interact', loadId: current.loadId, position: current.playerPosition, facing: current.playerFacing });
+    };
     interactButton.addEventListener('click', tryInteraction);
     debugBoxesToggle.input.addEventListener('change', renderDebugBoxes);
-    const keyboardRegistration = context.keyboard.register({
-      id: 'dungeon-transition',
-      label: '地牢传送交互',
-      keys: ['KeyE'],
-      enabled: interactToggle.input.checked,
-      priority: 70,
-      intercept: true,
-      preventDefault: true,
-      onKeyDown: () => tryInteraction() ? 'handled' : 'ignored',
-    });
-    interactToggle.input.addEventListener('change', () => keyboardRegistration.setEnabled(interactToggle.input.checked));
 
     const offMapChanged = context.communication.on(dungeonMapChangedEvent, (changed) => {
       const loaded = transitionMemory.current;
@@ -343,39 +308,28 @@ export const dungeonTransitionLabModule: LabModule = {
       refreshDebug();
       renderDebugBoxes();
     });
-    const offRuntimeChanged = playerSteps.subscribe('dungeon-transition', 100, (changed) => {
-      if (pendingTransition) return true;
-      const loaded = transitionMemory.current;
-      if (!loaded || loaded.loadId !== changed.loadId) return;
-      const nextPosition = changed.to;
-      const previousPosition = changed.from;
-      refreshDebug();
-      if (!enabledToggle.input.checked || !enterToggle.input.checked || controller.transitioning || !previousPosition) return;
-
-      try {
-        const exit = control.findAfterMovement(loaded.loadId, previousPosition, nextPosition);
-        if (exit) { void executeTransition(exit); return true; }
-      } catch (error) {
-        status.textContent = error instanceof Error ? error.message : String(error);
-      }
-    });
-
     refreshDebug();
+    const applyControls = () => {
+      if (!context.config) Object.assign(config, { enabled: enabledToggle.input.checked, enter: enterToggle.input.checked,
+        interact: interactToggle.input.checked, 'move-attempt': moveAttemptToggle.input.checked, 'debug-boxes': debugBoxesToggle.input.checked });
+      refreshDebug(); renderDebugBoxes();
+    };
+    const legacyControls = !context.config ? [enabledToggle, enterToggle, interactToggle, moveAttemptToggle, debugBoxesToggle].map(toggle => toggle.input) : [];
+    legacyControls.forEach(input => input.addEventListener('change', applyControls));
     const rememberedSettings = context.ui.registerSettings('dungeon-transition', [
       controlSetting('enabled', '启用地图传送', enabledToggle.input),
       controlSetting('enter', '移动后触发 enter 出口', enterToggle.input),
-      controlSetting('interact', '启用 E 键交互出口', interactToggle.input),
+      controlSetting('interact', '允许主动交互出口', interactToggle.input),
       controlSetting('move-attempt', '受阻移动触发 move-attempt 出口', moveAttemptToggle.input),
       controlSetting('debug-boxes', '显示入口 / 出口 Debug 盒', debugBoxesToggle.input, { defaultRemember: true, legacyKey: 'dungeon-transition/debug-boxes' }),
-    ], () => { keyboardRegistration.setEnabled(interactToggle.input.checked); refreshDebug(); renderDebugBoxes(); });
+    ], applyControls);
     return () => {
       rememberedSettings.dispose();
+      legacyControls.forEach(input => input.removeEventListener('change', applyControls));
       disposed = true;
       offMapChanged();
-      offRuntimeChanged();
-      offBlockedAttempt();
+      offInteraction();
       offView();
-      keyboardRegistration.dispose();
       interactButton.removeEventListener('click', tryInteraction);
       debugBoxesToggle.input.removeEventListener('change', renderDebugBoxes);
       inputLock?.release();

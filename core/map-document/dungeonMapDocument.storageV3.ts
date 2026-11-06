@@ -1,3 +1,4 @@
+import { upgradeInteractionEvent, type IEventComponent } from '../entity/components/event.component.ts';
 import { migrateLegacyDungeonSpawnAttachments } from './dungeonMapDocument.spawnMigration.ts';
 import { createDungeonMapData } from '../map/dungeonMap.create.ts';
 import type { DungeonMapDirection } from '../map/dungeonMap.types.ts';
@@ -193,6 +194,7 @@ export const parseDungeonMapDocumentV3 = (
     ...(candidate.metadata ? { metadata: cloneJson(candidate.metadata) } : {}),
     ...(legacy ? { legacy } : {}),
   });
+  if (document.components.event) document.components.event = document.components.event.map(component => ({ ...upgradeInteractionEvent(component as unknown as IEventComponent), entityId: component.entityId }));
   const issues = validateDungeonMapDocumentV2(document);
   if (issues.length > 0) {
     throw new Error(`地图 V3 文档展开后校验失败：${issues[0].message}${issues.length > 1 ? `（另有 ${issues.length - 1} 项）` : ''}`);

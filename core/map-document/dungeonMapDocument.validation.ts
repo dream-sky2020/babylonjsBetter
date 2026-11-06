@@ -1,3 +1,4 @@
+import { validateInteractionEvent, type IEventComponent } from '../entity/components/event.component.ts';
 import { compileSpatialDefinitions } from '../dungeon-spatial/dungeonSpatialDefinition.ts';
 import {
   DUNGEON_MAP_CORNER_ORDER,
@@ -168,5 +169,8 @@ export const validateDungeonMapDocumentV2 = (
   if (document.components['spatial-body'] || document.components['spatial-collider']) {
     compileSpatialDefinitions(document).issues.forEach(issue => add('spatial.definition', issue.message, issue.path));
   }
+  (document.components.event ?? []).forEach((component, index) => {
+    validateInteractionEvent(component as unknown as IEventComponent, false).forEach(message => add('interaction.definition', message, `components.event[${index}]`));
+  });
   return issues;
 };

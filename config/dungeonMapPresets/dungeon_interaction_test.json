@@ -1,0 +1,337 @@
+{
+  "schemaVersion": 3,
+  "identity": {
+    "id": "dungeon-map:dungeon_interaction_test",
+    "presetKey": "dungeon_interaction_test",
+    "name": "NPC 与地块交互测试场"
+  },
+  "grid": {
+    "width": 5,
+    "height": 5,
+    "topologyMode": "bounded"
+  },
+  "terrain": {
+    "default": {
+      "walkable": true
+    }
+  },
+  "entities": [
+    {
+      "id": "environment",
+      "entityType": "map",
+      "name": "交互测试场景",
+      "enabled": true
+    },
+    {
+      "id": "spawn",
+      "entityType": "spawn-point",
+      "name": "玩家出生点",
+      "enabled": true
+    },
+    {
+      "id": "arrival",
+      "entityType": "dungeon-entrance",
+      "name": "返回入口",
+      "enabled": true
+    },
+    {
+      "id": "guide",
+      "entityType": "dungeon-agent",
+      "name": "向导 NPC",
+      "enabled": true
+    },
+    {
+      "id": "notice",
+      "entityType": "interaction-point",
+      "name": "蓝格 (1,2) · 可重复调查",
+      "enabled": true
+    },
+    {
+      "id": "once-notice",
+      "entityType": "interaction-point",
+      "name": "蓝格 (0,2) · 每次进入只调查一次",
+      "enabled": true
+    },
+    {
+      "id": "step-point",
+      "entityType": "interaction-point",
+      "name": "进入地块的对话",
+      "enabled": true
+    },
+    {
+      "id": "exit",
+      "entityType": "dungeon-exit",
+      "name": "与地块对话重叠的传送出口",
+      "enabled": true
+    }
+  ],
+  "components": {
+    "spatial-attachment": [
+      {
+        "id": "environment:spatial-attachment",
+        "entityId": "environment",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "map"
+          }
+        ]
+      },
+      {
+        "id": "spawn:spatial-attachment",
+        "entityId": "spawn",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:1,2"
+          }
+        ]
+      },
+      {
+        "id": "arrival:spatial-attachment",
+        "entityId": "arrival",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:1,2"
+          }
+        ]
+      },
+      {
+        "id": "guide:spatial-attachment",
+        "entityId": "guide",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:1,3"
+          }
+        ]
+      },
+      {
+        "id": "notice:spatial-attachment",
+        "entityId": "notice",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:1,2"
+          }
+        ]
+      },
+      {
+        "id": "once-notice:spatial-attachment",
+        "entityId": "once-notice",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [{ "kind": "tile", "tileId": "tile:0,2" }]
+      },
+      {
+        "id": "step-point:spatial-attachment",
+        "entityId": "step-point",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,2"
+          }
+        ]
+      },
+      {
+        "id": "exit:spatial-attachment",
+        "entityId": "exit",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,2"
+          }
+        ]
+      }
+    ],
+    "scene-environment": [
+      {
+        "id": "environment:scene-environment",
+        "entityId": "environment",
+        "type": "scene-environment",
+        "version": 3,
+        "presetKey": "interaction-test-ground",
+        "mapAnchorMode": "first-tile",
+        "mapOffset": [
+          0,
+          0,
+          0
+        ],
+        "tileSpacing": [
+          8,
+          8
+        ],
+        "tileSize": [
+          7.5,
+          0.5,
+          7.5
+        ]
+      }
+    ],
+    "actor-spawn": [
+      {
+        "id": "spawn:actor-spawn",
+        "entityId": "spawn",
+        "type": "actor-spawn",
+        "version": 1
+      }
+    ],
+    "dungeon-entrance": [
+      {
+        "id": "arrival:dungeon-entrance",
+        "entityId": "arrival",
+        "type": "dungeon-entrance",
+        "version": 1,
+        "entranceId": "start",
+        "facing": "north"
+      }
+    ],
+    "spatial-body": [
+      {
+        "id": "guide:spatial-body",
+        "entityId": "guide",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "movable",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      }
+    ],
+    "spatial-collider": [
+      {
+        "id": "guide:spatial-collider",
+        "entityId": "guide",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    ],
+    "spatial-interaction": [
+      {
+        "id": "guide:spatial-interaction",
+        "entityId": "guide",
+        "type": "spatial-interaction",
+        "version": 1,
+        "onPlayerPush": "block"
+      }
+    ],
+    "agent-timing": [
+      {
+        "id": "guide:agent-timing",
+        "entityId": "guide",
+        "type": "agent-timing",
+        "version": 1,
+        "actionPeriod": 1,
+        "priority": 0
+      }
+    ],
+    "agent-controller": [
+      {
+        "id": "guide:agent-controller",
+        "entityId": "guide",
+        "type": "agent-controller",
+        "version": 1,
+        "controllerId": "stationary",
+        "parameters": {},
+        "debugColor": "#f59e0b"
+      }
+    ],
+    "event": [
+      {
+        "id": "guide:event",
+        "entityId": "guide",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "greeting"
+        }
+      },
+      {
+        "id": "notice:event",
+        "entityId": "notice",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "once": false,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "repeat-notice"
+        }
+      },
+      {
+        "id": "once-notice:event",
+        "entityId": "once-notice",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "once": true,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "once-notice"
+        }
+      },
+      {
+        "id": "step-point:event",
+        "entityId": "step-point",
+        "type": "event",
+        "version": 2,
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "goodbye"
+        }
+      }
+    ],
+    "dungeon-exit": [
+      {
+        "id": "exit:dungeon-exit",
+        "entityId": "exit",
+        "type": "dungeon-exit",
+        "version": 2,
+        "targetMapPresetKey": "dungeon_interaction_room",
+        "targetEntranceId": "start",
+        "triggers": [
+          "enter",
+          "interact"
+        ]
+      }
+    ]
+  }
+}

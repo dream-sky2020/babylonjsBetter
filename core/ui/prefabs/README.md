@@ -7,6 +7,7 @@
 ```text
 基础/Panel.ui.tsx、Label.ui.tsx、Button.ui.tsx、ResourceBar.ui.tsx
 对话/DialogueBox.ui.tsx、Portrait.ui.tsx、Nameplate.ui.tsx、Text.ui.tsx、Icon.ui.tsx
+对话/DialogueActions.ui.tsx（继续、结束与动态选项）
 布局/Group.ui.tsx
 ```
 

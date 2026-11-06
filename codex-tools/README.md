@@ -1,5 +1,9 @@
 # Codex 工具与资源处理档案
 
+`buildDungeonInteractionLab.mjs` 构建独立地牢交互组合页到 node_modules/.cache/dungeon-interaction-build，不复制 public。`verifyDungeonInteractionLab.cjs` 经 runElectronVerification.mjs 在隐藏 Electron 直接打开 file:// 产物，验证前方 NPC、两个蓝格的重复/单次触发、完成格步对白与同格出口仲裁、往返传送和手动切图取消对白/释放输入；另检查交互 Debug 开关、隐藏时仍可交互、已触发状态和切图数量更新。禁止网络请求，不写正式配置；报告/截图为 node_modules/.cache/dungeon-interaction.json / dungeon-interaction.png，交互 Debug 专用截图为 dungeon-interaction-debug.png。
+
+`buildDialogueTestLab.mjs` 构建独立对话组合页到 node_modules/.cache/dialogue-test-build，不复制 public。`verifyDialogueTestLab.cjs` 经 runElectronVerification.mjs 在隐藏 Electron 中直接打开 file:// 产物，实际点击开始测试按钮，验证 UI 预设绑定、逐句继续、两个分支、结束/取消/重启和键盘操作；禁止网络请求，不改正式预设。报告/截图为 node_modules/.cache/dialogue-test.json / dialogue-test.png。
+
 `verifyLabConfig.mjs` 启动独立 1185 端口和缓存，再通过 spawnElectron 运行 `verifyLabConfig.cjs`，验证每个组合式 Lab 的文件参数初始化、保存后手动刷新恢复、旧 storage 不覆盖、失败保留和 Lab 隔离；开启 HMR 并模拟文件监听事件，断言保存/重复保存不重载页面或地图。仅模拟配置写入，正式文件不变。`buildLabConfigVerification.mjs` 和 `verifyLabConfigProduction.cjs` 检查最小生产构建在 file:// 下无网络读取配置。报告为 node_modules/.cache/lab-config.json / lab-config-production.json。旧 verifyLabSettings.cjs 的正式组合页逐项记忆检查已被新配置验证取代；旧 Host 的记忆行为仍由 test:lab-settings 验证。
 
 `verifyDungeonDataLifecycle.cjs` 经 `node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonDataLifecycle.cjs` 在隔离隐藏 Electron 中运行 `dungeonDataLifecycleVerification.html`，复用 Dungeon Agent Lab 的正式模块组合，对三张正式地图进行四轮、共十二次进入；每次推进 AI/移动后切图，检查 Agent ID、四份 Agent 领域数据、共享内存 loadId、空间占位/碰撞体、任务/业务订阅和存档条目，确认新地图无旧动作及预约。用 WeakRef 和显式 GC 检查旧 Runtime 回收，并验证 Host 销毁后的任务、内存及订阅归零。只读正式资源，拦截网络写入；报告位于 `node_modules/.cache/dungeon-data-lifecycle.json`。首次访问新资源产生的素材缓存/关联监听及有界通信日志单独记录，不与实际运行数据重复相混淆。

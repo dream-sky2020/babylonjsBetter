@@ -24,6 +24,7 @@ const guardedFiles = [
   ...collectTypeScriptFiles('core/dungeon-traversal'),
   ...collectTypeScriptFiles('core/dungeon-movement'),
   ...collectTypeScriptFiles('core/dungeon-agent'),
+  ...collectTypeScriptFiles('core/dungeon-interaction'),
   ...collectTypeScriptFiles('core/dungeon-navigation'),
   ...collectTypeScriptFiles('core/dungeon-obstacle'),
   ...collectTypeScriptFiles('core/dungeon-transition'),

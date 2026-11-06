@@ -1,3 +1,21 @@
+## 2026-11-06：统一地牢交互与 NPC / 地块对话
+
+交互模块新增“显示交互实体 Debug”，对应 dungeon-interaction.debug-entities，默认关闭，仅本测试 Lab 文件显式开启。Core interaction-control.describe 返回复制的挂载/当前位置/启停/触发方式描述，Router 从执行器只读查询 once 消耗，不暴露 Runtime。Lab 的 dungeonInteractionDebug.ts 独立持有轮廓、标签、材质和纹理：蓝色主动对话、橙色进入、紫色传送、灰色禁用或本次已触发；NPC 跟随当前表现位置，边用窄条，叠放标签分层。仅开启时按 20Hz 更新，接入 overhead 显示变换，关闭/切图/卸载释放资源；显示失败只影响 Debug 摘要。原测试场景三块手工彩色地面已移除，以真实交互定义自动生成提示，既有格子/出口 Debug 开关独立保留。
+
+测试场景有两个独立蓝格：(1,2) 出生格可重复调查，新增 (0,2) 蓝格开启 once、每次进入地图仅调查一次；两者使用各自的对白入口与场景名称说明，离开地图再进入后单次格重置。
+
+新增 core/dungeon-interaction（无 DOM/Lab 的仲裁、当前空间查询与执行校验）、dungeon-interaction 模块（唯一按键/完成格步 order 100/受阻尝试入口）和可选 dungeon-dialogue-interaction 适配模块（调用 LAB_DIALOGUE）。Loader 提供 interaction-control。动态目标读取当前空间权威位置，移动/禁用目标被排除并保留墙体遮挡。一次触发只执行一个动作，最高同优先级/位置并列时报错，异步互斥和 loadId 防止跨地图串用。
+
+地图仍磁盘 V3 / Runtime V2，原 event 升级组件 v2；旧 v1 无损升级 legacy，不自动执行。新增无碰撞 interaction-point，NPC 沿用 dungeon-agent 附加 event。编辑允许草稿，执行前严格检查当前地图必填项、位置及对话/入口/UI 引用；Python interaction_schema 校验保存结构。once 只在当前地图 Session 内记录，不混入地图或永久存档。
+
+原 dungeon-transition 改为出口候选提供者，不再重复监听 E/格步/受阻；目标和 triggers 仍由 dungeon-exit 唯一定义，运行开关读取 LabConfig。格步顺序为统一交互 100 → Agent 200，命中停止后续续步规则。独立 dungeon-interaction-lab、两张测试地图和无外部资源的场景已登记首页/Vite/config，仅该新 Lab 安装对话适配器。说明和验证见 labs/modules/dungeon/dungeon-interaction/README.md。保存配置不重载；测试构建仍包含工作台，不是完成裁剪的发行包。
+
+## 2026-11-06：独立对话管理模块与测试组合页
+
+新增 shared/dialogue 模块，依赖已有 ui-runtime，提供 LAB_DIALOGUE 的 start/next/choose/cancel 与只读状态服务。dialogue.runtime.ts 与测试面板独立，运行参数在 setup 开始注册到 LabConfig，不读取控件。预设仓库和编译器只在适配层加载/编译；core/dialogue-runtime/DialogueSession.ts 只推进编译快照的对白与选项，不依赖 DOM/Lab。当前明确拒绝可达条件/事件节点；NPC 与地块由独立交互适配器接入，道具和剧情事件未接；不自动跳过不支持的剧情。
+
+新组合页 dialogue-test-lab 只装配 ui-runtime + dialogue，对应独立 Lab 配置、dialogue_test 对话和 dialogue_test_ui 界面预设；原默认对话 UI 与 village_gate 保留。可在面板选择入口后点击开始，逐句推进、选择、结束、取消并重新开始。UI 通过姓名/正文/选项/可继续的平面绑定读取状态，新 React 预制件 DialogueActions.ui.tsx 显示动态选项。对话占用视口输入与键盘锁，关闭/错误/卸载均释放；播放中改配置只影响下次开始，保存不重载。首页与 Vite 登记独立入口。职责与验证见 labs/modules/shared/dialogue/README.md。
+
 ## 2026-11-06：保存 Lab 配置不重新加载
 
 Lab 配置保存只校验编辑值并写入当前运行配置快照，不再从控件重新采集参数。LabConfig 区分 values/status 通知，保存回执只更新保存基线和工具栏，不触发面板 apply。Vite 的 post hotUpdate 排除 config/labs 目录及文件的 update/create/delete，避免 Python 原子写入引发整页刷新。真实页面验证启用 HMR，通过只读模拟的 watcher 事件检查保存、重复保存后页面标识和地图 activeLoadId 不变；不写正式配置。其余模块的运行时直接读取控件仍属于后续解耦范围，本次不将兼容接入描述为完成全部解耦。

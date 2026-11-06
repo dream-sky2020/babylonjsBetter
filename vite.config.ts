@@ -280,6 +280,8 @@ export default defineConfig({
         // 导航入口
         index: path.resolve(__dirname, 'index.html'),
         // 组合式 Lab
+        dungeonInteractionLab: path.resolve(__dirname, 'labs/composable/dungeon-interaction-lab/index.html'),
+        dialogueTestLab: path.resolve(__dirname, 'labs/composable/dialogue-test-lab/index.html'),
         dungeonSceneLoaderLab: path.resolve(__dirname, 'labs/composable/dungeon-scene-loader-lab/index.html'),
         dungeonUiOverlayLab: path.resolve(__dirname, 'labs/composable/dungeon-ui-overlay-lab/index.html'),
         dungeonRuntimeSaveSwitchingLab: path.resolve(__dirname, 'labs/composable/dungeon-runtime-save-switching-lab/index.html'),

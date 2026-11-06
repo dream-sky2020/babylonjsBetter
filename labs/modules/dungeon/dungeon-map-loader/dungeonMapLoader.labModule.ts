@@ -1,3 +1,4 @@
+import { DUNGEON_INTERACTION_CONTROL, createDungeonInteractionControl } from '@/core/dungeon-interaction/dungeonInteractionControl';
 import { Color4 } from '@babylonjs/core';
 import {
   applyDungeonEntranceToRuntime,
@@ -255,6 +256,10 @@ export const dungeonMapLoaderLabModule: LabModule = {
       agentCommandSession = { loadId: activeLoadId, map: activeRuntime.map, system };
       return agentCommandSession;
     }));
+    context.services.set(DUNGEON_INTERACTION_CONTROL, createDungeonInteractionControl(() => activeRuntime ? {
+      loadId: activeLoadId, map: activeRuntime.map, world: activeRuntime.traversal,
+      moving: entityId => !!activeRuntime?.movementResolver.getActiveRequest(entityId),
+    } : null));
     context.services.set(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY, createDungeonTransitionControl(() =>
       activeRuntime ? { loadId: activeLoadId, map: activeRuntime.map } : null));
     let playerCommandSession: { loadId: number; runtime: DungeonRuntime; system: DungeonPlayerSystem } | null = null;
@@ -663,6 +668,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         context.services.delete(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
         context.services.delete(DUNGEON_AGENT_CONTROL_SERVICE_KEY);
         context.services.delete(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY);
+        context.services.delete(DUNGEON_INTERACTION_CONTROL);
         context.services.delete(DUNGEON_PLAYER_CONTROL_SERVICE_KEY);
         context.services.delete(DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY);
         context.services.delete(DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY);

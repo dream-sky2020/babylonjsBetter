@@ -4,6 +4,7 @@ import math
 import json
 from werkzeug.utils import secure_filename
 from model_material_bindings import validate_model_material_bindings
+from interaction_schema import validate_map_interactions
 
 ALLOWED_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".svg"}
 ANCHOR_MIN, ANCHOR_MAX = -1, 2
@@ -74,6 +75,7 @@ def validate_dungeon_map_preset_payload(payload: dict) -> list[str]:
                     errors.append(f"{path}.terrain.default must be an object")
                 elif "overrides" in terrain and not isinstance(terrain.get("overrides"), dict):
                     errors.append(f"{path}.terrain.overrides must be an object")
+            errors.extend(validate_map_interactions(preset, path))
             if preset.get("schemaVersion") == 3:
                 forbidden_fields = ("tileIds", "tileSides", "sides", "edges", "tilePoints", "points")
                 for field in forbidden_fields:

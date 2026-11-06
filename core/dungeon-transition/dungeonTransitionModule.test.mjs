@@ -17,11 +17,13 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
   for (const key of ['window', 'document', 'HTMLElement', 'HTMLInputElement', 'HTMLSelectElement', 'Option', 'location', 'localStorage']) {
     previous.set(key, globalThis[key]); globalThis[key] = dom.window[key];
   }
-  let engine, scene, cleanup, steps;
+  let engine, scene, cleanup, cleanupInteraction, steps;
   try {
     const { LabUi } = await server.ssrLoadModule('/labs/kit/labUi.ts');
     const { LabMemoryRegistry } = await server.ssrLoadModule('/labs/kit/shared-memory/LabMemory.ts');
     const { dungeonTransitionLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-transition/dungeonTransition.labModule.ts');
+    const { dungeonInteractionLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-interaction/dungeonInteraction.labModule.ts');
+    const assemblyApi = await server.ssrLoadModule('/core/dungeon-runtime/dungeonRuntimeAssembly.ts');
     const transitionData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-transition/dungeonTransition.memory.ts');
     const gridData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-grid/dungeonGrid.memory.ts');
     const playerData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts');
@@ -50,28 +52,31 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
         { mapAnchorMode: 'first-tile', mapOffset: [0, 0, 0], tileSpacing: [2, 2], tileSize: [2, 1, 2] }));
       writer.acquire(playerData.DUNGEON_PLAYER_STATE_MEMORY).replace({ loadId, presetKey, playerPosition: { tileX: 0, tileY: 0 },
         playerFacing: 'west', playerWorldPosition: [0, 0, 0], playerWorldRotationY: 0, playerMovement: null });
-      handlers.get(mapApi.dungeonMapChangedEvent)?.({ loadId });
+      handlers.get(mapApi.dungeonMapChangedEvent)?.forEach(listener => listener({ loadId }));
     };
     writer.acquire(librariesData.DUNGEON_LIBRARIES_MEMORY).replace({ maps: { next: doc }, environments: {}, shadows: {} });
     services.set(stepApi.DUNGEON_PLAYER_STEP_SERVICE_KEY, steps);
     services.set(blockedApi.PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY, blocked);
     services.set(controls.DUNGEON_TRANSITION_CONTROL_SERVICE_KEY, controls.createDungeonTransitionControl(() => active));
     services.set('dungeon:overhead-view', { displayedView: null, subscribe: () => () => {} });
-    cleanup = dungeonTransitionLabModule.setup({ scene, services, memory: memory.scope('dungeon-transition'),
+    services.set(assemblyApi.DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, { isPaused: false, registerPreparation() { return () => {}; } });
+    const baseContext = { scene, services, scheduler: { isPaused: false, register() { return () => {}; } },
       ui: new LabUi(document.querySelector('aside'), document.getElementById('status')),
       keyboard: {
-        register() { registered++; return { setEnabled() {}, dispose() { registered--; } }; },
+        register() { registered++; return { setEnabled() {}, setKeys() {}, dispose() { registered--; } }; },
         acquireLock() { locks++; return { release() { locks--; } }; },
       },
       communication: {
-        on(event, fn) { handlers.set(event, fn); return () => handlers.delete(event); },
+        on(event, fn) { let set = handlers.get(event); if (!set) handlers.set(event, set = new Set()); set.add(fn); return () => { set.delete(fn); if (!set.size) handlers.delete(event); }; },
         async publish(event) { events.push(event.name ?? event.id); },
         async request(request, payload) {
           if (request === mapApi.dungeonMapSwitchRequest) { assert.equal(payload.entranceId, 'main'); switches++; load('next'); return { loaded: true }; }
           return { committed: true };
         },
       },
-    });
+    };
+    cleanupInteraction = dungeonInteractionLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-interaction') });
+    cleanup = dungeonTransitionLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-transition') });
     assert.deepEqual(memory.inspect().filter(entry => entry.modules.includes('dungeon-transition')).map(entry => entry.key).sort(),
       ['dungeon.grid', 'dungeon.libraries', 'dungeon.player-state', 'dungeon.transitions']);
     steps.subscribe('agent-test', 200, () => { agentRules++; });
@@ -87,10 +92,10 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
     assert.equal(blocked.tryHandle({ direction: 'north', from: { tileX: 0, tileY: 0 }, blockedReason: 'map-boundary' }), true);
     await new Promise(resolve => setImmediate(resolve)); assert.equal(switches, 3); assert.equal(locks, 0);
     assert.equal(events.length, 6);
-    cleanup(); cleanup = null; assert.equal(handlers.size, 0); assert.equal(registered, 0);
+    cleanup(); cleanup = null; cleanupInteraction(); cleanupInteraction = null; assert.equal(handlers.size, 0); assert.equal(registered, 0);
     assert.equal(document.querySelector('[data-lab-panel="dungeon-transition"]'), null);
   } finally {
-    cleanup?.(); steps?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();
+    cleanup?.(); cleanupInteraction?.(); steps?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();
     for (const [key, value] of previous) { if (value === undefined) delete globalThis[key]; else globalThis[key] = value; }
   }
 });

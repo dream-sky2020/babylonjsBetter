@@ -5,6 +5,12 @@
   "main": "electron/main.cjs",
   "type": "module",
   "scripts": {
+    "test:dungeon-interaction": "node --experimental-strip-types --test core/dungeon-interaction/*.test.ts core/dungeon-transition/dungeonTransitionModule.test.mjs",
+    "build:dungeon-interaction": "node codex-tools/buildDungeonInteractionLab.mjs",
+    "test:dungeon-interaction-webgl": "node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonInteractionLab.cjs",
+    "test:dialogue-runtime": "node --experimental-strip-types --test core/dialogue-runtime/*.test.ts labs/modules/shared/dialogue/*.test.mjs",
+    "build:dialogue-test": "node codex-tools/buildDialogueTestLab.mjs",
+    "test:dialogue-test-webgl": "node codex-tools/runElectronVerification.mjs codex-tools/verifyDialogueTestLab.cjs",
     "test:lab-config": "node --experimental-strip-types --test labs/kit/config/*.test.ts labs/kit/config/*.test.mjs",
     "test:lab-config-webgl": "node codex-tools/verifyLabConfig.mjs",
     "build:lab-config-verification": "node codex-tools/buildLabConfigVerification.mjs",

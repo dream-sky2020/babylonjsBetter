@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 3,
+  "identity": {
+    "id": "dungeon-map:dungeon_interaction_room",
+    "presetKey": "dungeon_interaction_room",
+    "name": "传送后的房间"
+  },
+  "grid": {
+    "width": 5,
+    "height": 5,
+    "topologyMode": "bounded"
+  },
+  "terrain": {
+    "default": {
+      "walkable": true
+    }
+  },
+  "entities": [
+    {
+      "id": "environment",
+      "entityType": "map",
+      "name": "交互测试场景",
+      "enabled": true
+    },
+    {
+      "id": "spawn",
+      "entityType": "spawn-point",
+      "name": "玩家出生点",
+      "enabled": true
+    },
+    {
+      "id": "arrival",
+      "entityType": "dungeon-entrance",
+      "name": "返回入口",
+      "enabled": true
+    },
+    {
+      "id": "back",
+      "entityType": "dungeon-exit",
+      "name": "返回交互测试场",
+      "enabled": true
+    }
+  ],
+  "components": {
+    "spatial-attachment": [
+      {
+        "id": "environment:spatial-attachment",
+        "entityId": "environment",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "map"
+          }
+        ]
+      },
+      {
+        "id": "spawn:spatial-attachment",
+        "entityId": "spawn",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:0,0"
+          }
+        ]
+      },
+      {
+        "id": "arrival:spatial-attachment",
+        "entityId": "arrival",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:0,0"
+          }
+        ]
+      },
+      {
+        "id": "back:spatial-attachment",
+        "entityId": "back",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:0,0"
+          }
+        ]
+      }
+    ],
+    "scene-environment": [
+      {
+        "id": "environment:scene-environment",
+        "entityId": "environment",
+        "type": "scene-environment",
+        "version": 3,
+        "presetKey": "interaction-test-ground",
+        "mapAnchorMode": "first-tile",
+        "mapOffset": [
+          0,
+          0,
+          0
+        ],
+        "tileSpacing": [
+          8,
+          8
+        ],
+        "tileSize": [
+          7.5,
+          0.5,
+          7.5
+        ]
+      }
+    ],
+    "actor-spawn": [
+      {
+        "id": "spawn:actor-spawn",
+        "entityId": "spawn",
+        "type": "actor-spawn",
+        "version": 1
+      }
+    ],
+    "dungeon-entrance": [
+      {
+        "id": "arrival:dungeon-entrance",
+        "entityId": "arrival",
+        "type": "dungeon-entrance",
+        "version": 1,
+        "entranceId": "start",
+        "facing": "north"
+      }
+    ],
+    "dungeon-exit": [
+      {
+        "id": "back:dungeon-exit",
+        "entityId": "back",
+        "type": "dungeon-exit",
+        "version": 2,
+        "targetMapPresetKey": "dungeon_interaction_test",
+        "targetEntranceId": "start",
+        "triggers": [
+          "interact"
+        ]
+      }
+    ]
+  }
+}

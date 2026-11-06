@@ -23,11 +23,11 @@
       "progressWeight": 1
     },
     "dungeon-obstacle": {
-      "debug-boxes": false
+      "debug-boxes": true
     },
     "dungeon-overhead-view": {
       "enabled": true,
-      "orthographicSize": 35,
+      "orthographicSize": 50,
       "pitchDeg": 45,
       "projection": "orthographic",
       "proportion": "compensate",
@@ -92,7 +92,7 @@
       "bounds": true,
       "continuous-movement": true,
       "debug-marker": true,
-      "eight-way": false,
+      "eight-way": true,
       "hold-multiplier": 0.8,
       "hold-offset": 0,
       "keyboard-enabled": true,
@@ -101,7 +101,7 @@
       "keyboard-priority": 75,
       "movement-timing-mode": "world-units-per-second",
       "movement-timing-values": {
-        "world-units-per-second": "60",
+        "world-units-per-second": "30",
         "seconds-per-tile": "1"
       },
       "obstacles": true,
