@@ -287,7 +287,7 @@ export const dungeonTransitionLabModule: LabModule = {
         let exit: DungeonExitData | null = null;
         if (query.trigger === 'interact' && config.interact) exit = control.findInteraction(query.loadId, query.position, query.facing);
         else if (query.trigger === 'enter' && config.enter && query.from) exit = control.findAfterMovement(query.loadId, query.from, query.position);
-        else if (query.trigger === 'move-attempt' && config['move-attempt']) exit = control.findMoveAttempt(query.loadId, query.position, query.facing);
+        else if (query.trigger === 'move-attempt' && config['move-attempt'] && !query.movementDirection?.includes('-')) exit = control.findMoveAttempt(query.loadId, query.position, query.facing);
         if (!exit) return [];
         const selected = exit;
         return [{ id: `transition:${exit.entityId}`, entityId: exit.entityId, label: `传送：${exit.entityId}`, priority: 0,

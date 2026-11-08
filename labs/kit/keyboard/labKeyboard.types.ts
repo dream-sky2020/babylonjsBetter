@@ -28,6 +28,8 @@ export type LabKeyboardConsumerOptions = {
   allowNativePropagation?: boolean;
   onKeyDown?: (event: LabKeyboardEvent) => LabKeyboardHandleResult;
   onKeyUp?: (event: LabKeyboardEvent) => LabKeyboardHandleResult;
+  /** 窗口失焦、页面隐藏或全局停用时清理消费者自己的长按/缓冲状态。 */
+  onInputReset?: () => void;
   onOwnershipChanged?: (ownedCodes: ReadonlySet<string>) => void;
 };
 

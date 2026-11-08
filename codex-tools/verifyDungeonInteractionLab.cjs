@@ -18,6 +18,25 @@ app.whenReady().then(async () => {
     }
   };
   const click = selector => page(`document.querySelector(${JSON.stringify(selector)}).click()`);
+  const controllers = '[data-lab-panel="dungeon-agent"] [data-lab-setting="controllers-enabled"]';
+  const messages = `document.querySelectorAll('.dungeon-interaction-message')`;
+  const agentMessages = ['踏板巡逻员 · 从北侧踩下踏板', '探路守卫 · 从南侧碰到封路石障', '值班操作员 · 主动检查'];
+  const trackAgentMessages = (messagesToTrack = agentMessages) => page(`(() => {
+    const labels = ${JSON.stringify(messagesToTrack)};
+    window.agentMessageCounts = labels.map(() => 0);
+    window.agentMessageObserver = new MutationObserver(records => {
+      for (const { addedNodes } of records) for (const item of addedNodes) {
+        labels.forEach((text, i) => {
+          if (item.textContent.includes(text)) window.agentMessageCounts[i]++;
+        });
+      }
+    });
+    window.agentMessageObserver.observe(document.querySelector('.dungeon-interaction-messages'), { childList: true });
+  })()`);
+  const waitForAgentLoops = async () => {
+    await wait(`window.agentMessageCounts.every(count => count >= 2)`);
+    await page(`window.agentMessageObserver.disconnect()`);
+  };
   const key = code => page(`window.dispatchEvent(new KeyboardEvent('keydown', { code: ${JSON.stringify(code)}, bubbles: true })); window.dispatchEvent(new KeyboardEvent('keyup', { code: ${JSON.stringify(code)}, bubbles: true }));`);
   const mapIs = name => `document.querySelector('[data-lab-panel="dungeon-map-loader"] input')?.value === ${JSON.stringify(name)} && !document.querySelector('[data-dungeon-transition-interact]')?.disabled && document.querySelector('[data-lab-panel="dungeon-map-loader"]')?.textContent.includes('地图已切换到')`;
   const cancel = async () => { await click('[data-dialogue-cancel]'); await wait(`!document.querySelector('[data-viewport-layer="ui:dialogue"]')`); };
@@ -28,19 +47,85 @@ app.whenReady().then(async () => {
   try {
     await win.loadFile(resolveRepoPath('node_modules/.cache/dungeon-interaction-build/labs/composable/dungeon-interaction-lab/index.html'));
     await wait(`document.querySelector('.lab-global-status')?.textContent.startsWith('已组合') && ${mapIs('dungeon_interaction_test')}`);
-    await wait(`document.querySelector('[data-interaction-debug-summary]')?.dataset.count === '5'`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]')?.dataset.count === '21'`);
+    assert.equal(await page(`document.querySelector(${JSON.stringify(controllers)}).checked`), true);
+    assert.equal(await page(`document.querySelector('[aria-label="选择 Agent"]').options.length`), 8);
+    await trackAgentMessages();
+    await waitForAgentLoops();
+    assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
+    checks.push('the expanded default map loads all six room Agents and repeats all three Agent interactions with controllers enabled by default');
+    await click(controllers);
+    await wait(`${messages}.length === 0`);
+    for (const width of [1440, 900]) {
+      win.setSize(width, 1000);
+      await page(`new Promise(resolve => setTimeout(resolve, 150))`);
+      assert.equal(await page(`(() => {
+        const header = document.querySelector('.lab-workbench-header');
+        const status = header.querySelector('[data-lab-config-status]'), original = status.textContent;
+        const globalStatus = header.querySelector('.lab-global-status'), home = header.querySelector('.lab-home-link');
+        if (status.parentElement !== globalStatus.parentElement || home.nextElementSibling?.dataset.labToggle !== 'objects') return false;
+        const statusGap = globalStatus.getBoundingClientRect().left - status.getBoundingClientRect().right;
+        if (Math.abs(statusGap - 8) > 1) return false;
+        const buttons = [...header.querySelectorAll('button, .lab-home-link')].filter(node => !node.hidden);
+        const positions = () => buttons.map(node => { const r = node.getBoundingClientRect(); return [r.x, r.y, r.width]; });
+        const before = JSON.stringify(positions());
+        const leftOfButtons = status.getBoundingClientRect().right <= Math.min(...positions().map(p => p[0]));
+        let stable = true;
+        for (const text of ['配置已加载', '配置有未保存修改', '正在保存…', '保存失败：' + '详细错误说明'.repeat(30)]) {
+          status.textContent = text; stable = stable && JSON.stringify(positions()) === before;
+        }
+        status.textContent = original; return leftOfButtons && stable;
+      })()`), true, `configuration status stays left and buttons remain fixed at ${width}px`);
+    }
+    win.setSize(1440, 1000);
+    checks.push('left configuration status never shifts toolbar buttons across status lengths or viewport widths');
     await click('[data-interaction-debug-toggle]');
     await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '0'`);
+    assert.equal(await page(`document.querySelectorAll('[data-interaction-debug-label]').length`), 0, 'master toggle disposes HTML labels');
     await key('KeyE');
     await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('欢迎来到对话测试场景')`);
     await cancel();
     await click('[data-interaction-debug-toggle]');
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '5'`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '21'`);
     checks.push('debug toggles independently; interaction still works with debug hidden');
     // Isolated session only: hide other diagnostic overlays to inspect the new markers clearly.
     await page(`['[data-lab-panel="dungeon-grid-debug"] [data-lab-setting="all-tiles"]', '[data-lab-panel="dungeon-transition"] [data-lab-setting="debug-boxes"]'].forEach(selector => { const input = document.querySelector(selector); if (input?.checked) input.click(); }); document.querySelector('[data-lab-panel="dungeon-interaction"]').scrollIntoView({ block: 'nearest' });`);
     await page(`new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))`);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-interaction-debug.png'), (await win.webContents.capturePage()).toPNG());
+    assert.equal(await page(`(() => {
+      const label = document.querySelector('[data-interaction-debug-label]:not([hidden])');
+      return !!label && getComputedStyle(label).fontSize === '13px' && getComputedStyle(label.lastElementChild).fontWeight === '400';
+    })()`), true, 'native fixed-size text with normal-weight detail rows');
+    const setDebugOption = (name, checked) => page(`(() => {
+      const input = document.querySelector('[data-interaction-debug-option="' + ${JSON.stringify(name)} + '"]');
+      if (input.checked !== ${checked}) input.click();
+      return new Promise(resolve => setTimeout(resolve, 150));
+    })()`);
+    const debugCapture = async name => {
+      const rect = await page(`(() => { const r = document.querySelector('canvas').getBoundingClientRect();
+        return { x: Math.round(r.x), y: Math.round(r.y), width: Math.round(r.width), height: Math.round(r.height) }; })()`);
+      const png = (await win.webContents.capturePage(rect)).toPNG();
+      fs.writeFileSync(resolveRepoPath(`node_modules/.cache/dungeon-interaction-debug-${name}.png`), png);
+      return png;
+    };
+    await setDebugOption('debug-labels', false);
+    const colorOnly = await debugCapture('color-only');
+    await setDebugOption('debug-color', false);
+    const hidden = await debugCapture('hidden');
+    assert.equal(colorOnly.equals(hidden), false, 'color overlay can display independently');
+    await setDebugOption('debug-labels', true);
+    const labelsOnly = await debugCapture('labels-only');
+    assert.equal(labelsOnly.equals(hidden), false, 'labels can display independently');
+    await setDebugOption('debug-trigger', false); await setDebugOption('debug-state', false);
+    const namesOnly = await debugCapture('names-only');
+    assert.equal(labelsOnly.equals(namesOnly), false, 'selecting label fields changes the displayed labels');
+    await setDebugOption('debug-name', false);
+    assert.equal((await debugCapture('no-fields')).equals(hidden), true, 'no selected fields leaves no empty label boards');
+    await setDebugOption('debug-action', true);
+    assert.equal((await debugCapture('action-only')).equals(hidden), false, 'interaction type can be displayed alone');
+    await setDebugOption('debug-name', true); await setDebugOption('debug-trigger', true);
+    await setDebugOption('debug-state', true); await setDebugOption('debug-action', false); await setDebugOption('debug-color', true);
+    checks.push('independent colors and labels; selectable name, trigger, action and state; empty labels hidden');
     await key('KeyE');
     await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('欢迎来到对话测试场景')`);
     await key('KeyE');
@@ -79,10 +164,10 @@ app.whenReady().then(async () => {
     await cancel();
     // Staying on the tile must not retrigger enter; E explicitly selects the existing exit.
     await key('KeyE'); await wait(mapIs('dungeon_interaction_room'));
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '1'`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '23'`);
     await wait(`!document.querySelector('[data-viewport-layer="ui:dialogue"]')`);
     await key('KeyE'); await wait(mapIs('dungeon_interaction_test'));
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '5' && !document.querySelector('[data-interaction-debug-summary]').textContent.includes('本次已触发')`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '21' && !document.querySelector('[data-interaction-debug-summary]').textContent.includes('本次已触发')`);
     checks.push('explicit E teleport and return without spawning an enter dialogue');
     await key('KeyE'); await wait(`!!document.querySelector('[data-dialogue-cancel]')`);
     checks.push('self tile interaction remains available after returning to a new map session');
@@ -97,6 +182,265 @@ app.whenReady().then(async () => {
     await wait(`!document.querySelector('[data-viewport-layer="ui:dialogue"]')`);
     await key('KeyE'); await wait(mapIs('dungeon_interaction_test'));
     checks.push('manual map change cancels dialogue and releases keyboard lock');
+    const playerState = `JSON.parse(document.querySelector('[data-lab-panel="player-movement"] .lab-json').textContent)`;
+    for (const scenario of ['blur', 'editing-keyup', 'dialogue-lock']) {
+      await page(`(() => {
+        document.querySelector('[aria-label="目标格 X"]').value = '1';
+        document.querySelector('[aria-label="目标格 Y"]').value = '4';
+        document.querySelector('.lab-player-movement-teleport button').click();
+      })()`);
+      await wait(`${playerState}.playerPosition.tileX === 1 && ${playerState}.playerPosition.tileY === 4`);
+      await page(`window.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyA', bubbles: true }));
+        new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))`);
+      if (scenario === 'blur') await page(`window.dispatchEvent(new Event('blur'))`);
+      if (scenario === 'editing-keyup') await page(`(() => {
+        const input = document.querySelector('[aria-label="目标格 X"]'); input.focus();
+        input.dispatchEvent(new KeyboardEvent('keyup', { code: 'KeyA', bubbles: true })); input.blur();
+      })()`);
+      if (scenario === 'dialogue-lock') await click('[data-dialogue-test]');
+      await page(`new Promise(resolve => setTimeout(resolve, 900))`);
+      if (scenario === 'dialogue-lock') {
+        await cancel();
+        await page(`new Promise(resolve => setTimeout(resolve, 600))`);
+      }
+      assert.equal(await page(`${playerState}.playerPosition.tileX`), 2, scenario);
+      assert.equal(await page(`!!${playerState}.playerMovement`), false, scenario);
+      checks.push(`${scenario}: current step finishes but held movement does not continue without keyup`);
+    }
+    const switchDirectionalMap = async () => {
+      await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_direction_test'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+      await wait(`document.querySelector('[data-lab-panel="dungeon-map-loader"] input')?.value === 'dungeon_direction_test' && document.querySelector('[data-interaction-debug-summary]').dataset.count === '11'`);
+    };
+    await switchDirectionalMap();
+    const teleport = async (x, y) => {
+      await page(`(() => { document.querySelector('[aria-label="目标格 X"]').value = '${x}'; document.querySelector('[aria-label="目标格 Y"]').value = '${y}'; document.querySelector('.lab-player-movement-teleport button').click(); })()`);
+      await wait(`${playerState}.playerPosition.tileX === ${x} && ${playerState}.playerPosition.tileY === ${y} && !${playerState}.playerMovement`);
+    };
+    const face = async direction => {
+      const current = await page(`${playerState}.playerFacing`);
+      const compass = ['north', 'east', 'south', 'west'], turn = (compass.indexOf(direction) - compass.indexOf(current) + 4) % 4;
+      if (turn) await click(`[data-turn="${turn === 1 ? 'right' : turn === 2 ? 'back' : 'left'}"]`);
+      await wait(`${playerState}.playerFacing === '${direction}' && !${playerState}.playerMovement`);
+    };
+    const talkFrom = async (x, y, direction, text) => {
+      await teleport(x, y); await face(direction); await key('KeyE');
+      await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes(${JSON.stringify(text)})`); await cancel();
+    };
+    await setDebugOption('debug-direction', true); await setDebugOption('debug-reasons', true);
+    await talkFrom(2, 2, 'south', '正面交谈');
+    await talkFrom(1, 3, 'east', '左右两侧共用');
+    await talkFrom(3, 3, 'west', '左右两侧共用');
+    await talkFrom(2, 4, 'north', '背面交谈');
+    await click('[data-agent-turn="back"]');
+    await page(`new Promise(resolve => setTimeout(resolve, 500))`);
+    await talkFrom(2, 2, 'south', '背面交谈');
+    await wait(`document.querySelector('[data-interaction-debug-summary]').textContent.includes('目标朝南')`);
+    checks.push('directional NPC front, both sides, back and live turn use current logical facing');
+    await talkFrom(4, 0, 'south', '机关北侧');
+    await talkFrom(4, 2, 'north', '机关南侧');
+    await talkFrom(3, 1, 'east', '机关西侧');
+    await teleport(5, 1); await face('west'); await key('KeyE');
+    await page(`new Promise(resolve => setTimeout(resolve, 250))`);
+    assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false, 'east and west share one per-session use');
+    checks.push('fixed world directions and shared once consumption across different sides');
+    await teleport(0, 0); await click('[data-move="south"]');
+    await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('从北侧进入')`); await cancel();
+    await teleport(0, 2); await face('south'); await click('[data-relative-move="backward"]');
+    await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('从其他方向进入')`); await cancel();
+    checks.push('directional enter uses actual arrival even while walking backwards');
+    await teleport(2, 2); await face('south'); await click('[data-move="south"]');
+    await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('你碰到了我')`); await cancel();
+    checks.push('blocked movement starts the separately configured bump dialogue');
+    await page(`new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))`);
+    fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-debug.png'), (await win.webContents.capturePage()).toPNG());
+    await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_interaction_room'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await wait(mapIs('dungeon_interaction_room'));
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '23'`);
+    await teleport(4, 1);
+    await move('north-east', 5, 0);
+    assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
+    await teleport(4, 1);
+    await page(`new Promise(resolve => {
+      const fire = (type, code) => window.dispatchEvent(new KeyboardEvent(type, { code, bubbles: true }));
+      requestAnimationFrame(() => {
+        fire('keydown', 'KeyA');
+        requestAnimationFrame(() => {
+          fire('keydown', 'KeyW');
+          fire('keyup', 'KeyA');
+          fire('keyup', 'KeyW');
+          resolve();
+        });
+      });
+    })`);
+    await wait(`${playerState}.playerPosition.tileX === 5 && ${playerState}.playerPosition.tileY === 0 && !${playerState}.playerMovement`);
+    assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
+    await teleport(4, 0);
+    await click('[data-move="south-east"]');
+    await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('碰到了招呼守卫')`);
+    await cancel();
+    checks.push('a diagonal pass bypasses the greeting guard, including staggered keyboard axes, while its occupied destination still triggers dialogue');
+    await teleport(3, 1);
+    await face('east');
+    await key('KeyE');
+    await wait(`document.querySelector('[data-interaction-status]').textContent.includes('站在目标相邻格')`);
+    await click('[data-move="south"]');
+    await wait(`${playerState}.playerPosition.tileX === 3 && ${playerState}.playerPosition.tileY === 1 && ${playerState}.playerFacing === 'south' && !${playerState}.playerMovement`);
+    await key('KeyE');
+    await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('北侧读数')`);
+    await cancel();
+    checks.push('walking into the console stops on the adjacent tile and allows E; facing away explains the missed interaction');
+    for (const [x, y, facing, text] of [
+      [2, 2, 'west', '正面登记'],
+      [1, 3, 'north', '右侧巡逻'],
+      [0, 2, 'east', '背面提醒'],
+      [1, 1, 'south', '左侧补给'],
+      [3, 1, 'south', '北侧读数'],
+      [4, 2, 'west', '东侧读数'],
+      [3, 3, 'north', '南侧读数'],
+      [2, 2, 'east', '西侧读数'],
+    ]) {
+      await talkFrom(x, y, facing, text);
+    }
+    for (const [x, y, direction, text] of [
+      [2, 3, 'south', '北侧来路已记录'],
+      [1, 4, 'east', '西侧来路已记录'],
+      [3, 4, 'west', '通用来路已记录'],
+    ]) {
+      await teleport(x, y);
+      await click(`[data-move="${direction}"]`);
+      await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes(${JSON.stringify(text)})`);
+      await cancel();
+    }
+    for (const [x, y, direction, text] of [
+      [5, 0, 'south', '碰到了招呼守卫'],
+      [4, 1, 'east', '碰到了招呼守卫'],
+      [5, 3, 'south', '四向巡守的正面'],
+      [6, 4, 'west', '四向巡守的右侧'],
+      [5, 5, 'north', '四向巡守的背面'],
+      [4, 4, 'east', '四向巡守的左侧'],
+      [6, 3, 'east', '碰到了封路石障'],
+    ]) {
+      await teleport(x, y);
+      await click(`[data-move="${direction}"]`);
+      await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes(${JSON.stringify(text)})`);
+      assert.deepEqual(await page(`${playerState}.playerPosition`), { tileX: x, tileY: y });
+      await cancel();
+    }
+    await teleport(5, 5);
+    await face('south');
+    await click('[data-relative-move="backward"]');
+    await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('四向巡守的背面')`);
+    await cancel();
+    await face('north');
+    await key('KeyE');
+    await wait(`document.querySelector('[data-interaction-status]').textContent.includes('当前位置没有可触发的交互')`);
+    assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
+    checks.push('room movement attempts use the same rules for an any-side Agent, all four local Agent sides, and a fixed obstacle; backwards travel still selects the correct side');
+    await teleport(6, 5);
+    await move('east', 7, 5);
+    await wait(`${messages}[0]?.textContent === '消息感应格已触发。'`);
+    assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
+    assert.equal(await page(`(() => {
+      const viewport = document.querySelector('.lab-viewport').getBoundingClientRect();
+      const item = ${messages}[0].getBoundingClientRect();
+      return Math.abs(item.left - viewport.left - 14) < 2 && item.top - viewport.top < 65;
+    })()`), true, 'the message appears at the upper left of the viewport');
+    await move('east', 8, 5);
+    await move('west', 7, 5);
+    await wait(`${messages}.length === 2`);
+    await wait(`${messages}.length === 0`);
+    await move('east', 8, 5);
+    await move('west', 7, 5);
+    await wait(`${messages}.length === 1`);
+    await teleport(0, 0);
+    await key('KeyE');
+    await wait(mapIs('dungeon_interaction_test'));
+    assert.equal(await page(`${messages}.length`), 0);
+    checks.push('viewport messages allow movement, stack, expire automatically, and clear on map change');
+    checks.push('return room loads three independent dialogue presets for all four guard sides, all four console sides, and three arrival cases');
+    await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_interaction_room'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await wait(mapIs('dungeon_interaction_room'));
+    await teleport(6, 1);
+    await move('south', 6, 2);
+    assert.equal(await page(`${messages}.length`), 0, 'the player takes the same north approach without triggering an Agent-only plate');
+    await teleport(5, 2);
+    await page(`(() => {
+      const select = document.querySelector('[aria-label="选择 Agent"]');
+      select.value = 'room-agent-obstacle-check';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    })()`);
+    await click('[data-agent-move="north"]');
+    await wait(`Array.from(${messages}).some(item => item.textContent.includes('探路守卫 · 从南侧碰到封路石障'))`);
+    await trackAgentMessages();
+    await click(controllers);
+    await waitForAgentLoops();
+    assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
+    await move('west', 4, 2);
+    checks.push('Agent-only plate excludes the player and all three Agent interactions repeat in the return room without opening dialogue');
+    const catchText = '追踪守卫 · 追上你了！';
+    const playerCatch = '玩家规则：挡住了追踪守卫。';
+    const setPlayerRule = rule => page(`(() => {
+      const panel = document.querySelector('[data-lab-panel="dungeon-interaction"] details');
+      panel.open = true;
+      panel.querySelector('textarea').value = ${JSON.stringify(JSON.stringify([rule]))};
+      panel.querySelector('button').click();
+      return panel.textContent.includes('玩家行动规则已应用。');
+    })()`);
+    const playerRule = { id: 'verify-player-block', type: 'event', version: 2, ruleKind: 'action',
+      trigger: 'move-attempt', mover: 'entity', moverId: 'test-player-tracker', blocker: 'self', oncePerContact: true,
+      priority: 0, action: { type: 'message', text: playerCatch } };
+    const catchVisible = `Array.from(${messages}).some(item => item.textContent === ${JSON.stringify(catchText)})`;
+    assert.equal(await setPlayerRule(playerRule), true);
+    await trackAgentMessages([catchText, playerCatch]);
+    await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_interaction_test'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await wait(mapIs('dungeon_interaction_test'));
+    await wait(catchVisible);
+    await wait(`!(${catchVisible})`);
+    assert.deepEqual(await page(`window.agentMessageCounts`), [1, 1], 'both rules fire once per contact and the player rule survives the map change');
+    const tracker = `JSON.parse(document.querySelector('[data-lab-panel="dungeon-agent"] .lab-json').textContent).agentsPreview.find(agent => agent.entityId === 'test-player-tracker')`;
+    await wait(`${tracker}?.tileIndex === 14 && !${tracker}.movement`);
+    await move('north', 1, 1);
+    await wait(`${tracker}?.tileIndex === 27 && !${tracker}.movement`);
+    assert.equal(await page(`document.querySelector('[data-movement-attempt-status]').dataset.outcome`), 'swap-started');
+    checks.push('walking into the chasing Agent swaps both actors into each other’s tiles');
+    await teleport(3, 0);
+    await wait(catchVisible);
+    assert.deepEqual(await page(`window.agentMessageCounts`), [2, 2]);
+    assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
+    await page(`window.agentMessageObserver.disconnect()`);
+    checks.push('Agent and player action rules both observe the same physical block and repeat only after separating');
+    const playerBump = '玩家规则：前进被挡住。';
+    assert.equal(await setPlayerRule({ ...playerRule, mover: 'self', blocker: 'entity', blockerId: 'room-contact-barrier',
+      action: { type: 'message', text: playerBump } }), true);
+    await teleport(6, 3);
+    await click('[data-move="west"]');
+    await wait(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`);
+    assert.equal(await page(`document.querySelector('[data-movement-attempt-status]').dataset.outcome`), 'claimed');
+    assert.equal(await page(`Array.from(${messages}).some(item => item.textContent === ${JSON.stringify(playerBump)})`), false);
+    await cancel();
+    checks.push('contact dialogue claims the attempt without triggering confirmed-block rules');
+    assert.equal(await setPlayerRule({ ...playerRule, mover: 'self', blocker: 'entity', blockerId: 'room-console',
+      movementPhase: 'blocked', action: { type: 'message', text: playerBump } }), true);
+    await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_interaction_room'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await wait(mapIs('dungeon_interaction_room'));
+    await teleport(3, 1);
+    await click('[data-move="south"]');
+    await wait(`Array.from(${messages}).some(item => item.textContent === ${JSON.stringify(playerBump)})`);
+    assert.equal(await page(`document.querySelector('[data-movement-attempt-status]').dataset.outcome`), 'blocked');
+    checks.push('a real blocked player movement can also trigger a player-owned action rule');
+    await click(controllers);
+    await teleport(0, 0);
+    const directTransfer = async (direction, map, tileX, tileY) => {
+      await click(`[data-move="${direction}"]`);
+      await wait(`${mapIs(map)} && ${playerState}.playerPosition.tileX === ${tileX} && ${playerState}.playerPosition.tileY === ${tileY}`);
+      assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
+    };
+    await directTransfer('south', 'dungeon_interaction_test', 0, 3);
+    await move('north', 0, 2);
+    await directTransfer('south', 'dungeon_interaction_room', 0, 1);
+    await move('east', 1, 1);
+    await directTransfer('west', 'dungeon_interaction_test', 0, 3);
+    checks.push('the direct portals transfer by walking in either direction without dialogue or an automatic bounce on arrival');
     assert.deepEqual(errors, []); assert.deepEqual(network, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-interaction.json'), JSON.stringify({ passed: true, checks, errors, network }, null, 2));
     console.log(JSON.stringify({ passed: true, checks })); win.destroy(); app.exit(0);

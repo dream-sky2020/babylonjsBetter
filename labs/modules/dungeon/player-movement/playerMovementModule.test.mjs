@@ -81,6 +81,24 @@ for (const configMode of [false, true]) test(`player simulation and detached pan
     runtime.traversal.moveActor('$dungeon-player', 0); runtime.playerPosition = { tileX: 0, tileY: 0 };
     const off = blocked.register(() => { intercepted++; return true; });
     document.querySelector('[data-move="west"]').click(); assert.equal(intercepted, 1); assert.equal(runtime.playerMovement, null); off();
+    // Losing focus or keyboard ownership must discard both held directions and
+    // a second direction buffered during the current step, even without keyup.
+    for (const reset of [
+      () => keyboardOptions.onInputReset(),
+      () => {
+        keyboardOptions.onOwnershipChanged(new Set(keyboardOptions.keys));
+        keyboardOptions.onOwnershipChanged(new Set());
+      },
+    ]) {
+      const startX = runtime.playerPosition.tileX;
+      keyboardOptions.onKeyDown({ code: 'KeyA', repeat: false });
+      keyboardOptions.onKeyDown({ code: 'ArrowLeft', repeat: false });
+      reset();
+      simulation.run(2); simulation.run(2);
+      assert.equal(runtime.playerPosition.tileX, startX + 1, 'only the current step may finish after input reset');
+      assert.equal(runtime.playerMovement, null);
+    }
+    runtime.traversal.moveActor('$dungeon-player', 0); runtime.playerPosition = { tileX: 0, tileY: 0 };
     // The same button can start a group action; simulation projects its live pose
     // without starting another move or leaving a stale blocked-attempt track.
     runtime.traversal.registerActor({ id: 'box', kind: 'dynamic', tileIndex: 1, enabled: true, blocksMovement: true, movementProfileId: 'ground' });

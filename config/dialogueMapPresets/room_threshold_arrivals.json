@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 5,
+  "presetKey": "room_threshold_arrivals",
+  "name": "来路感应格 · 进入方向",
+  "graph": {
+    "nodes": {
+      "north": {
+        "id": "north",
+        "title": "北侧进入",
+        "position": {
+          "x": 24,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "north:line": {
+            "id": "north:line",
+            "speaker": "来路感应格",
+            "text": "北侧来路已记录。你从北侧走进了感应格。"
+          }
+        },
+        "lineOrder": [
+          "north:line"
+        ],
+        "inputs": {
+          "north:in": {
+            "id": "north:in"
+          }
+        },
+        "inputOrder": [
+          "north:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "west": {
+        "id": "west",
+        "title": "西侧进入",
+        "position": {
+          "x": 444,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "west:line": {
+            "id": "west:line",
+            "speaker": "来路感应格",
+            "text": "西侧来路已记录。你从西侧走进了感应格。"
+          }
+        },
+        "lineOrder": [
+          "west:line"
+        ],
+        "inputs": {
+          "west:in": {
+            "id": "west:in"
+          }
+        },
+        "inputOrder": [
+          "west:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "fallback": {
+        "id": "fallback",
+        "title": "其他来路",
+        "position": {
+          "x": 24,
+          "y": 304
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "fallback:line": {
+            "id": "fallback:line",
+            "speaker": "来路感应格",
+            "text": "通用来路已记录。你从其余方向走进了感应格。"
+          }
+        },
+        "lineOrder": [
+          "fallback:line"
+        ],
+        "inputs": {
+          "fallback:in": {
+            "id": "fallback:in"
+          }
+        },
+        "inputOrder": [
+          "fallback:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      }
+    },
+    "edges": {}
+  }
+}

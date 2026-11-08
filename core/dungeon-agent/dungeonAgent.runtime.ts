@@ -8,7 +8,9 @@ import {
 } from '../dungeon-movement/index.ts';
 import { scanDungeonDocumentAgents } from './dungeonAgent.scan.ts';
 import { resolveDungeonSpatialFootprint } from '../dungeon-space/index.ts';
+import { createDungeonMovementAttemptId, isDungeonMovementArbitrationRejection } from '../dungeon-movement/dungeonMovementAttempt.ts';
 import type {
+  DungeonAgentInteractionIntent,
   DungeonAgentMovementResult,
   DungeonAgentRuntimeState,
   DungeonAgentTurn,
@@ -28,6 +30,7 @@ export const createDungeonAgentRuntimeState = (
     turnCounter: { turnNumber: number };
     activeAgentIds: Set<string>;
   },
+  onInteraction?: (intent: DungeonAgentInteractionIntent) => void,
 ): DungeonAgentRuntimeState => {
   const bindings = scanDungeonDocumentAgents(map.document);
   const agents: DungeonRuntimeAgent[] = bindings.map((binding) => storage?.createAgent(binding) ?? ({
@@ -77,9 +80,13 @@ export const createDungeonAgentRuntimeState = (
       traversal.clearReservations(member.actorId);
       agent.reservationPlanSequence=undefined;
       agent.reservationStartIndex=undefined;
+      if (body && member.from !== body.tileIndex) onInteraction?.({
+        trigger: 'enter', actorId: member.actorId, tileIndex: body.tileIndex, fromTileIndex: member.from, facing: agent.facing,
+      });
     }
   });
   return {
+    onInteraction,
     // Rebuildable execution indexes contain facades, never a second copy of agent state.
     activeAgents: storage ? undefined : new Set(),
     activeAgentIds: storage?.activeAgentIds,
@@ -150,6 +157,7 @@ const getAgent = (state: DungeonAgentRuntimeState, entityId: string) => {
 
 export type DungeonAgentStepTraversalResult = Readonly<{
   toTileIndex?: number;
+  blockingEntityIds?: readonly string[];
   blockedReason?: Extract<DungeonAgentMovementResult['blockedReason'],
     | 'direction-not-supported'
     | 'map-boundary'
@@ -188,6 +196,7 @@ export const inspectDungeonAgentStepTraversal = (
   return {
     ...(inspection.toTileIndex === undefined ? {} : { toTileIndex: inspection.toTileIndex }),
     ...(inspection.blockedReason ? { blockedReason: inspection.blockedReason } : {}),
+    ...(inspection.blockingEntityIds.length ? { blockingEntityIds: inspection.blockingEntityIds } : {}),
   };
 };
 
@@ -207,6 +216,13 @@ export const startDungeonAgentMovement = (
   const inspection = inspectDungeonAgentStepTraversal(state, map, agent, fromTileIndex, direction, options);
   const { toTileIndex } = inspection;
   if (inspection.blockedReason || toTileIndex === undefined) {
+    if (inspection.blockingEntityIds?.length && inspection.blockedReason !== 'map-boundary') {
+      state.onInteraction?.({
+        trigger: 'move-attempt', attemptId: createDungeonMovementAttemptId(), outcome: 'blocked',
+        actorId: entityId, tileIndex: fromTileIndex, facing: agent.facing,
+        movementDirection: direction, blockingEntityIds: inspection.blockingEntityIds,
+      });
+    }
     return {
       started: false,
       completed: false,
@@ -229,6 +245,15 @@ export const startDungeonAgentMovement = (
     progressWeight: state.movementResolver.config.progressWeight,
   });
   if (!requestResult.accepted || !requestResult.request) {
+    const rejectedByArbitration = isDungeonMovementArbitrationRejection(requestResult.blockedReason);
+    if (rejectedByArbitration || requestResult.blockingEntityIds.some(id => id !== entityId)) {
+      state.onInteraction?.({
+        trigger: 'move-attempt', attemptId: createDungeonMovementAttemptId(),
+        outcome: rejectedByArbitration ? 'arbitration-rejected' : 'blocked',
+        actorId: entityId, tileIndex: fromTileIndex, facing: agent.facing, movementDirection: direction,
+        blockingEntityIds: rejectedByArbitration ? [] : requestResult.blockingEntityIds.filter(id => id !== entityId),
+      });
+    }
     return {
       started: false,
       completed: false,
@@ -259,11 +284,21 @@ export const startDungeonAgentMovement = (
       agent.facing = direction;
     }
     agent.movement = null;
+    if (advance.committed && fromTileIndex !== agent.tileIndex) state.onInteraction?.({
+      trigger: 'enter', actorId: entityId, tileIndex: agent.tileIndex, fromTileIndex, facing: agent.facing, movementDirection: direction,
+    });
   }
   return { started: true, completed: durationSeconds === 0, entityId, fromTileIndex, toTileIndex };
 };
 
 const CLOCKWISE_DIRECTIONS = DUNGEON_EIGHT_WAY_MOVEMENT_DIRECTIONS;
+
+export function requestDungeonAgentInteraction(state: DungeonAgentRuntimeState, entityId: string): boolean {
+  const agent = getAgent(state, entityId)?.agent;
+  if (!state.onInteraction || !agent?.enabled || agent.movement || state.movementResolver.isBusy(entityId)) return false;
+  state.onInteraction({ trigger: 'interact', actorId: entityId, tileIndex: agent.tileIndex, facing: agent.facing });
+  return true;
+}
 
 export const startDungeonAgentTurn = (
   state: DungeonAgentRuntimeState,
@@ -343,10 +378,17 @@ export const updateDungeonAgentMovements = (
         }
       }
       if (!advance.completed) return;
-      if (advance.rolledBack) agent.facing = agent.movement.toFacing;
+      const movement = agent.movement;
+      if (advance.rolledBack) agent.facing = movement.toFacing;
       agent.movement = null;
       deactivateAgent(state, agent);
       completed.push(agent.binding.entity.id);
+      if (!advance.rolledBack && movement.kind === 'move' && agent.tileIndex === movement.toTileIndex && movement.fromTileIndex !== agent.tileIndex) {
+        state.onInteraction?.({
+          trigger: 'enter', actorId: agent.binding.entity.id, tileIndex: agent.tileIndex,
+          fromTileIndex: movement.fromTileIndex, facing: agent.facing, movementDirection: movement.toFacing,
+        });
+      }
       return;
     }
     agent.movement.elapsedSeconds += deltaSeconds;

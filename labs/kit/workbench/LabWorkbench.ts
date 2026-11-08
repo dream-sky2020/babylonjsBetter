@@ -22,10 +22,11 @@ export class LabWorkbench {
     this.header.className = 'lab-workbench-header';
     const heading = document.createElement('h1'); heading.textContent = title; heading.title = description;
     this.status.className = 'lab-global-status'; this.status.textContent = '正在初始化…';
+    const statuses = document.createElement('div'); statuses.className = 'lab-header-statuses'; statuses.append(this.status);
     const objectToggle = this.button('对象树', () => this.change({ objectsOpen: !this.state.objectsOpen })); objectToggle.dataset.labToggle = 'objects';
     const controlToggle = this.button('操作面板', () => this.change({ controlsOpen: !this.state.controlsOpen })); controlToggle.dataset.labToggle = 'controls';
     const reset = this.button('恢复布局', () => this.change({ ...DEFAULT_LAB_WORKSPACE })); reset.dataset.labLayoutReset = '';
-    this.header.append(heading, this.status, objectToggle, controlToggle, reset);
+    this.header.append(heading, statuses, objectToggle, controlToggle, reset);
     this.layout.className = 'lab-layout lab-workbench-layout';
     this.objects.className = 'lab-object-browser'; this.objects.setAttribute('aria-label', '对象树');
     this.stage.className = 'lab-viewport'; this.canvas.className = 'lab-babylon-canvas'; this.stage.append(this.canvas);

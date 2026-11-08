@@ -41,7 +41,7 @@ import {
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import { createDungeonAgentDebugMarker, type DungeonAgentDebugMarker } from './dungeonAgentDebugMarker';
-import { dungeonAgentsChangedEvent, dungeonAgentsLoadedEvent } from './dungeonAgent.protocol';
+import { dungeonAgentInteractionEvent, dungeonAgentsChangedEvent, dungeonAgentsLoadedEvent } from './dungeonAgent.protocol';
 
 const FACTION_COLORS: Readonly<Record<string, string>> = {
   hostile: '#ef4444',
@@ -74,7 +74,8 @@ const lerp = (from: number, to: number, progress: number): number => from + (to 
 
 export const dungeonAgentLabModule: LabModule = {
   id: 'dungeon-agent',
-  events: [{ definition: dungeonAgentsLoadedEvent, publishes: true }, { definition: dungeonAgentsChangedEvent, publishes: true }],
+  events: [{ definition: dungeonAgentsLoadedEvent, publishes: true }, { definition: dungeonAgentsChangedEvent, publishes: true },
+    { definition: dungeonAgentInteractionEvent, publishes: true }],
   dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view'],
   setup(context) {
     const playerSteps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
@@ -92,7 +93,8 @@ export const dungeonAgentLabModule: LabModule = {
     let prepared: { loadId: number; data: ReturnType<typeof allocateDungeonAgentStorage> } | null = null;
     const offPreparation = assembly.registerPreparation('dungeon-agent', (runtime, loadId) => {
       const data = allocateDungeonAgentStorage(loadId, '', runtime);
-      const system = new DungeonAgentSystem(runtime, controllerRegistry, data.storage);
+      const system = new DungeonAgentSystem(runtime, controllerRegistry, data.storage,
+        intent => { void context.communication.publish(dungeonAgentInteractionEvent, { loadId, intent }); });
       prepared = { loadId, data };
       return system;
     });
@@ -103,6 +105,11 @@ export const dungeonAgentLabModule: LabModule = {
     const controllerToggle = createLabSwitch('启用 Agent Controller', true);
     const chaseHint = document.createElement('p'); chaseHint.className = 'lab-hint';
     const selectedAgentSelect = document.createElement('select');
+    selectedAgentSelect.setAttribute('aria-label', '选择 Agent');
+    const interactButton = document.createElement('button');
+    interactButton.type = 'button';
+    interactButton.textContent = '与前方交互';
+    interactButton.dataset.agentInteract = '';
     const positionInput = createReadonlyInput();
     const facingInput = createReadonlyInput();
     const movementModeSelect = document.createElement('select');
@@ -184,6 +191,7 @@ export const dungeonAgentLabModule: LabModule = {
       createLabField('移动 / 转向耗时（秒）', durationInput),
       createLabField('手动格步移动', moveControls),
       createLabField('手动原地转向', turnControls),
+      interactButton,
       status,
       runtimeJson,
     );
@@ -554,9 +562,6 @@ export const dungeonAgentLabModule: LabModule = {
         movementModeSelect.value = resolveDungeonMovementProfile(
           actor?.movementProfileId ?? description.movementProfileId,
         ).directionMode === 'eight-way' ? 'ground-eight-way' : 'ground-four-way';
-        moveControls.querySelectorAll<HTMLButtonElement>('[data-agent-move*="-"]').forEach((button) => {
-          button.disabled = movementModeSelect.value !== 'ground-eight-way';
-        });
         controllerSelect.value = current.config.controllerId;
         controllerDescription.textContent = current.definition?.description
           ?? `未注册的 Controller：“${current.config.controllerId}”。`;
@@ -573,9 +578,6 @@ export const dungeonAgentLabModule: LabModule = {
         positionInput.value = '';
         facingInput.value = '';
         movementModeSelect.value = 'ground-four-way';
-        moveControls.querySelectorAll<HTMLButtonElement>('[data-agent-move]').forEach((button) => {
-          button.disabled = true;
-        });
         controllerSelect.value = '';
         controllerDescription.textContent = '请先选择一个 Agent。';
         controllerSource.value = '';
@@ -583,6 +585,12 @@ export const dungeonAgentLabModule: LabModule = {
         priorityInput.value = '';
         metricsSummary.textContent = '请选择 Agent。';
       }
+      const hasAgent = Boolean(agent && basic && description);
+      moveControls.querySelectorAll<HTMLButtonElement>('[data-agent-move]').forEach((button) => {
+        const diagonal = button.dataset.agentMove?.includes('-');
+        button.disabled = !hasAgent || (diagonal === true && movementModeSelect.value !== 'ground-eight-way');
+      });
+      interactButton.disabled = !hasAgent;
       controllerSelect.disabled = !agent;
       debugColorInput.disabled = !agent;
       resetDebugColor.disabled = !agent || !colorOverrides.has(agent.entityId);
@@ -729,6 +737,12 @@ export const dungeonAgentLabModule: LabModule = {
       button.addEventListener('click', () => turnSelectedAgent(button.dataset.agentTurn as DungeonAgentTurn));
     });
     selectedAgentSelect.addEventListener('change', refreshPanel);
+    interactButton.addEventListener('click', () => {
+      const agent = selectedAgent();
+      if (!agent || !agentSystem || assembly.isPaused || context.scheduler.isPaused) return;
+      const requested = agentSystem.interact(agent.entityId);
+      status.textContent = requested ? `${agentName(agent.entityId)} 已尝试与前方交互。` : '请等待 Agent 停稳，或在当前地图配置可由 Agent 触发的规则。';
+    });
     resetMetrics.addEventListener('click', () => { controllersMemory.current?.metrics?.clear(); refreshPanel(); });
     debugColorInput.addEventListener('input', () => { const agent = selectedAgent(); if (!agent) return; colorOverrides.set(agent.entityId, debugColorInput.value); syncMarker(agent.entityId); resetDebugColor.disabled = false; });
     resetDebugColor.addEventListener('click', () => { const agent = selectedAgent(); if (!agent) return; colorOverrides.delete(agent.entityId); syncMarker(agent.entityId); refreshPanel(); });

@@ -1,5 +1,6 @@
 import { createServiceToken } from '../system-runtime/ServiceToken.ts';
 import type { DungeonMapDirection } from '../map';
+import type { DungeonMovementDirection } from '../dungeon-movement';
 import type { DungeonRuntimePlayerPosition } from '../dungeon-runtime';
 
 export type DungeonPlayerStepCompleted = Readonly<{
@@ -8,6 +9,8 @@ export type DungeonPlayerStepCompleted = Readonly<{
   from: Readonly<DungeonRuntimePlayerPosition>;
   to: Readonly<DungeonRuntimePlayerPosition>;
   facing: DungeonMapDirection;
+  /** Actual travel direction, including backwards/diagonal steps across loop seams. */
+  movementDirection?: DungeonMovementDirection;
   requestId?: string;
 }>;
 

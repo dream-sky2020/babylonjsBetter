@@ -405,6 +405,14 @@ export class DungeonSpatialWorld {
     return { toTileIndex, blockingEntityIds: [] };
   }
 
+  movementBlockers(actorId: string): ReadonlySet<string> {
+    const actor = this.actors.get(actorId);
+    if (!actor?.enabled || actor.tileIndex < 0) return new Set();
+    const profile = resolveDungeonMovementProfile(actor.movementProfileId);
+    return new Set(getDungeonMovementDirectionsForMode(profile.directionMode).flatMap(direction =>
+      this.inspectStep(actorId, actor.tileIndex, direction).blockingEntityIds));
+  }
+
   inspectStep(
     actorId: string,
     fromTileIndex: number,

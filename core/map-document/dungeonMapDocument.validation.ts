@@ -1,4 +1,5 @@
 import { validateInteractionEvent, type IEventComponent } from '../entity/components/event.component.ts';
+import { componentDefinition as gridFacingDefinition, type IGridFacingComponent } from '../entity/components/grid-facing.component.ts';
 import { compileSpatialDefinitions } from '../dungeon-spatial/dungeonSpatialDefinition.ts';
 import {
   DUNGEON_MAP_CORNER_ORDER,
@@ -169,6 +170,14 @@ export const validateDungeonMapDocumentV2 = (
   if (document.components['spatial-body'] || document.components['spatial-collider']) {
     compileSpatialDefinitions(document).issues.forEach(issue => add('spatial.definition', issue.message, issue.path));
   }
+  const facingOwners = new Set<string>();
+  (document.components['grid-facing'] ?? []).forEach((component, index) => {
+    const path = `components.grid-facing[${index}]`;
+    gridFacingDefinition.validate!(component as unknown as IGridFacingComponent).forEach(message => add('interaction.facing', message, path));
+    const owner = document.entities.find(entity => entity.id === component.entityId);
+    if (!owner || !gridFacingDefinition.allowedEntityTypes.includes(owner.entityType) || facingOwners.has(component.entityId)) add('interaction.facing', '格子朝向的实体类型无效或重复。', path);
+    facingOwners.add(component.entityId);
+  });
   (document.components.event ?? []).forEach((component, index) => {
     validateInteractionEvent(component as unknown as IEventComponent, false).forEach(message => add('interaction.definition', message, `components.event[${index}]`));
   });

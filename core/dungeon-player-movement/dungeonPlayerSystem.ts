@@ -38,22 +38,22 @@ export class DungeonPlayerSystem {
     });
   }
 
-  private completedStep(from: { tileX: number; tileY: number }, requestId?: string): StepOutcome {
+  private completedStep(from: { tileX: number; tileY: number }, requestId?: string, movementDirection?: DungeonMovementDirection): StepOutcome {
     const result = this.steps.emit({ loadId: this.loadId, from, to: this.runtime.playerPosition,
-      facing: this.runtime.playerFacing, requestId });
+      facing: this.runtime.playerFacing, requestId, movementDirection });
     return { step: result.event, stopContinuation: result.stopContinuation };
   }
 
   move(direction: DungeonMovementDirection, options: DungeonPlayerMovementOptions): DungeonPlayerMovementResult & StepOutcome {
     const result = startDungeonPlayerMovement(this.runtime, direction, options);
     return { ...result, ...(result.started && result.completed && !result.blockedReason
-      ? this.completedStep(result.from) : { stopContinuation: false }) };
+      ? this.completedStep(result.from, undefined, result.direction) : { stopContinuation: false }) };
   }
 
   moveRelative(direction: DungeonPlayerRelativeMovement, options: DungeonPlayerMovementOptions): DungeonPlayerMovementResult & StepOutcome {
     const result = startDungeonPlayerRelativeMovement(this.runtime, direction, options);
     return { ...result, ...(result.started && result.completed && !result.blockedReason
-      ? this.completedStep(result.from) : { stopContinuation: false }) };
+      ? this.completedStep(result.from, undefined, result.direction) : { stopContinuation: false }) };
   }
 
   turn(turn: DungeonPlayerTurn, options: Parameters<typeof startDungeonPlayerTurn>[2]) {
@@ -64,7 +64,7 @@ export class DungeonPlayerSystem {
     const movement = this.runtime.playerMovement;
     const result = updateDungeonPlayerMovement(this.runtime, deltaSeconds);
     const outcome: StepOutcome = result.completed && movement?.kind === 'move'
-      ? this.completedStep(movement.from, movement.requestId) : { stopContinuation: false };
+      ? this.completedStep(movement.from, movement.requestId, movement.direction) : { stopContinuation: false };
     return { ...result, ...outcome };
   }
 }

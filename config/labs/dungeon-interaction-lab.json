@@ -9,7 +9,7 @@
       "ui-preset": "dialogue_test_ui"
     },
     "dungeon-agent": {
-      "controllers-enabled": false,
+      "controllers-enabled": true,
       "debug-markers": true,
       "duration": 0.3
     },
@@ -22,13 +22,40 @@
       "inspect-y": 0
     },
     "dungeon-interaction": {
+      "debug-action": false,
+      "debug-color": true,
+      "debug-direction": false,
       "debug-entities": true,
+      "debug-labels": true,
+      "debug-name": true,
+      "debug-reasons": false,
+      "debug-state": true,
+      "debug-trigger": true,
       "enabled": true,
-      "key": "KeyE"
+      "key": "KeyE",
+      "player-action-rules": [
+        {
+          "action": {
+            "text": "前面被挡住了。",
+            "type": "message"
+          },
+          "blocker": "any",
+          "enabled": false,
+          "id": "player-blocked-example",
+          "movementPhase": "blocked",
+          "mover": "self",
+          "oncePerContact": true,
+          "priority": 0,
+          "ruleKind": "action",
+          "trigger": "move-attempt",
+          "type": "event",
+          "version": 2
+        }
+      ]
     },
     "dungeon-movement": {
       "commitProgress": 0.5,
-      "debug": false,
+      "debug": true,
       "playerBasePriority": 1000,
       "progressWeight": 1
     },
@@ -84,7 +111,7 @@
       "move-attempt": true
     },
     "dungeon-traversal": {
-      "debug": false,
+      "debug": true,
       "direction": "north"
     },
     "player-movement": {
@@ -98,10 +125,10 @@
       "keyboard-intercept": true,
       "keyboard-prevent-default": true,
       "keyboard-priority": 75,
-      "movement-timing-mode": "seconds-per-tile",
+      "movement-timing-mode": "world-units-per-second",
       "movement-timing-values": {
-        "world-units-per-second": "60",
-        "seconds-per-tile": ".2"
+        "world-units-per-second": "45",
+        "seconds-per-tile": "0.2"
       },
       "obstacles": true,
       "swap-duration": 0,

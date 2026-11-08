@@ -29,6 +29,7 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
     const playerData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts');
     const librariesData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-libraries/dungeonLibraries.memory.ts');
     const controls = await server.ssrLoadModule('/core/dungeon-transition/dungeonTransitionControl.ts');
+    const interactionControl = await server.ssrLoadModule('/core/dungeon-interaction/dungeonInteractionControl.ts');
     const stepApi = await server.ssrLoadModule('/core/dungeon-player-movement/dungeonPlayerStepEvents.ts');
     const blockedApi = await server.ssrLoadModule('/labs/modules/dungeon/player-movement/playerMovement.blockedAttempt.ts');
     const mapApi = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-map-loader/dungeonMapLoader.protocol.ts');
@@ -58,9 +59,11 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
     services.set(stepApi.DUNGEON_PLAYER_STEP_SERVICE_KEY, steps);
     services.set(blockedApi.PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY, blocked);
     services.set(controls.DUNGEON_TRANSITION_CONTROL_SERVICE_KEY, controls.createDungeonTransitionControl(() => active));
+    services.set(interactionControl.DUNGEON_INTERACTION_CONTROL, interactionControl.createDungeonInteractionControl(() => null));
     services.set('dungeon:overhead-view', { displayedView: null, subscribe: () => () => {} });
     services.set(assemblyApi.DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, { isPaused: false, registerPreparation() { return () => {}; } });
     const baseContext = { scene, services, scheduler: { isPaused: false, register() { return () => {}; } },
+      viewport: { openHtmlLayer() { const content = document.createElement('div'); return { content, show() {}, hide() {}, dispose() { content.remove(); } }; } },
       ui: new LabUi(document.querySelector('aside'), document.getElementById('status')),
       keyboard: {
         register() { registered++; return { setEnabled() {}, setKeys() {}, dispose() { registered--; } }; },

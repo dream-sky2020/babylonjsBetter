@@ -6,8 +6,8 @@
     "name": "传送后的房间"
   },
   "grid": {
-    "width": 5,
-    "height": 5,
+    "width": 9,
+    "height": 8,
     "topologyMode": "bounded"
   },
   "terrain": {
@@ -16,6 +16,54 @@
     }
   },
   "entities": [
+    {
+      "id": "room-agent-patrol",
+      "entityType": "dungeon-agent",
+      "name": "踏板巡逻员",
+      "enabled": true
+    },
+    {
+      "id": "room-agent-obstacle-check",
+      "entityType": "dungeon-agent",
+      "name": "探路守卫",
+      "enabled": true
+    },
+    {
+      "id": "room-agent-operator",
+      "entityType": "dungeon-agent",
+      "name": "值班操作员",
+      "enabled": true
+    },
+    {
+      "id": "room-agent-plate",
+      "entityType": "interaction-point",
+      "name": "Agent 踏板",
+      "enabled": true
+    },
+    {
+      "id": "room-message-pad",
+      "entityType": "interaction-point",
+      "name": "消息感应格",
+      "enabled": true
+    },
+    {
+      "id": "room-contact-guard",
+      "entityType": "dungeon-agent",
+      "name": "招呼守卫",
+      "enabled": true
+    },
+    {
+      "id": "room-side-guard",
+      "entityType": "dungeon-agent",
+      "name": "四向巡守",
+      "enabled": true
+    },
+    {
+      "id": "room-contact-barrier",
+      "entityType": "obstacle",
+      "name": "封路石障",
+      "enabled": true
+    },
     {
       "id": "environment",
       "entityType": "map",
@@ -39,10 +87,136 @@
       "entityType": "dungeon-exit",
       "name": "返回交互测试场",
       "enabled": true
+    },
+    {
+      "id": "room-guard",
+      "entityType": "dungeon-agent",
+      "name": "回廊守卫",
+      "enabled": true
+    },
+    {
+      "id": "room-console",
+      "entityType": "spatial-object",
+      "name": "四面控制台",
+      "enabled": true
+    },
+    {
+      "id": "room-threshold",
+      "entityType": "interaction-point",
+      "name": "来路感应格",
+      "enabled": true
+    },
+    {
+      "id": "direct-arrival",
+      "entityType": "dungeon-entrance",
+      "name": "直通落点",
+      "enabled": true
+    },
+    {
+      "id": "direct-exit",
+      "entityType": "dungeon-exit",
+      "name": "直回测试场",
+      "enabled": true
     }
   ],
   "components": {
     "spatial-attachment": [
+      {
+        "id": "room-agent-patrol:spatial-attachment",
+        "entityId": "room-agent-patrol",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:6,0"
+          }
+        ]
+      },
+      {
+        "id": "room-agent-obstacle-check:spatial-attachment",
+        "entityId": "room-agent-obstacle-check",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:7,4"
+          }
+        ]
+      },
+      {
+        "id": "room-agent-operator:spatial-attachment",
+        "entityId": "room-agent-operator",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:7,6"
+          }
+        ]
+      },
+      {
+        "id": "room-agent-plate:spatial-attachment",
+        "entityId": "room-agent-plate",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:6,2"
+          }
+        ]
+      },
+      {
+        "id": "room-message-pad:spatial-attachment",
+        "entityId": "room-message-pad",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:7,5"
+          }
+        ]
+      },
+      {
+        "id": "room-contact-guard:spatial-attachment",
+        "entityId": "room-contact-guard",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:5,1"
+          }
+        ]
+      },
+      {
+        "id": "room-side-guard:spatial-attachment",
+        "entityId": "room-side-guard",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:5,4"
+          }
+        ]
+      },
+      {
+        "id": "room-contact-barrier:spatial-attachment",
+        "entityId": "room-contact-barrier",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:7,3"
+          }
+        ]
+      },
       {
         "id": "environment:spatial-attachment",
         "entityId": "environment",
@@ -89,6 +263,66 @@
             "tileId": "tile:0,0"
           }
         ]
+      },
+      {
+        "id": "room-guard:spatial-attachment",
+        "entityId": "room-guard",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:1,2"
+          }
+        ]
+      },
+      {
+        "id": "room-console:spatial-attachment",
+        "entityId": "room-console",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:3,2"
+          }
+        ]
+      },
+      {
+        "id": "room-threshold:spatial-attachment",
+        "entityId": "room-threshold",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,4"
+          }
+        ]
+      },
+      {
+        "id": "direct-arrival:spatial-attachment",
+        "entityId": "direct-arrival",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:0,1"
+          }
+        ]
+      },
+      {
+        "id": "direct-exit:spatial-attachment",
+        "entityId": "direct-exit",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:0,1"
+          }
+        ]
       }
     ],
     "scene-environment": [
@@ -97,7 +331,7 @@
         "entityId": "environment",
         "type": "scene-environment",
         "version": 3,
-        "presetKey": "interaction-test-ground",
+        "presetKey": "interaction-room-ground",
         "mapAnchorMode": "first-tile",
         "mapOffset": [
           0,
@@ -131,6 +365,805 @@
         "version": 1,
         "entranceId": "start",
         "facing": "north"
+      },
+      {
+        "id": "direct-arrival:dungeon-entrance",
+        "entityId": "direct-arrival",
+        "type": "dungeon-entrance",
+        "version": 1,
+        "entranceId": "direct",
+        "facing": "east"
+      }
+    ],
+    "spatial-body": [
+      {
+        "id": "room-agent-patrol:spatial-body",
+        "entityId": "room-agent-patrol",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "movable",
+        "pushable": false,
+        "initialFacing": "south",
+        "movementProfileId": "ground-four-way"
+      },
+      {
+        "id": "room-agent-obstacle-check:spatial-body",
+        "entityId": "room-agent-obstacle-check",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "movable",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      },
+      {
+        "id": "room-agent-operator:spatial-body",
+        "entityId": "room-agent-operator",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "movable",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      },
+      {
+        "id": "room-contact-guard:spatial-body",
+        "entityId": "room-contact-guard",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "movable",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      },
+      {
+        "id": "room-side-guard:spatial-body",
+        "entityId": "room-side-guard",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "movable",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      },
+      {
+        "id": "room-contact-barrier:spatial-body",
+        "entityId": "room-contact-barrier",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      },
+      {
+        "id": "room-console:spatial-body",
+        "entityId": "room-console",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      },
+      {
+        "id": "room-guard:spatial-body",
+        "entityId": "room-guard",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "movable",
+        "pushable": false,
+        "initialFacing": "east",
+        "movementProfileId": "ground-four-way"
+      }
+    ],
+    "spatial-collider": [
+      {
+        "id": "room-agent-patrol:spatial-collider",
+        "entityId": "room-agent-patrol",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "room-agent-obstacle-check:spatial-collider",
+        "entityId": "room-agent-obstacle-check",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "room-agent-operator:spatial-collider",
+        "entityId": "room-agent-operator",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "room-contact-guard:spatial-collider",
+        "entityId": "room-contact-guard",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "room-side-guard:spatial-collider",
+        "entityId": "room-side-guard",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "room-contact-barrier:spatial-collider",
+        "entityId": "room-contact-barrier",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "box",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "room-console:spatial-collider",
+        "entityId": "room-console",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "box",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "room-guard:spatial-collider",
+        "entityId": "room-guard",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    ],
+    "spatial-interaction": [
+      {
+        "id": "room-agent-patrol:spatial-interaction",
+        "entityId": "room-agent-patrol",
+        "type": "spatial-interaction",
+        "version": 1,
+        "onPlayerPush": "block"
+      },
+      {
+        "id": "room-agent-obstacle-check:spatial-interaction",
+        "entityId": "room-agent-obstacle-check",
+        "type": "spatial-interaction",
+        "version": 1,
+        "onPlayerPush": "block"
+      },
+      {
+        "id": "room-agent-operator:spatial-interaction",
+        "entityId": "room-agent-operator",
+        "type": "spatial-interaction",
+        "version": 1,
+        "onPlayerPush": "block"
+      },
+      {
+        "id": "room-contact-guard:spatial-interaction",
+        "entityId": "room-contact-guard",
+        "type": "spatial-interaction",
+        "version": 1,
+        "onPlayerPush": "block"
+      },
+      {
+        "id": "room-side-guard:spatial-interaction",
+        "entityId": "room-side-guard",
+        "type": "spatial-interaction",
+        "version": 1,
+        "onPlayerPush": "block"
+      },
+      {
+        "id": "room-guard:spatial-interaction",
+        "entityId": "room-guard",
+        "type": "spatial-interaction",
+        "version": 1,
+        "onPlayerPush": "block"
+      }
+    ],
+    "agent-timing": [
+      {
+        "id": "room-agent-patrol:agent-timing",
+        "entityId": "room-agent-patrol",
+        "type": "agent-timing",
+        "version": 1,
+        "actionPeriod": 1,
+        "priority": 0
+      },
+      {
+        "id": "room-agent-obstacle-check:agent-timing",
+        "entityId": "room-agent-obstacle-check",
+        "type": "agent-timing",
+        "version": 1,
+        "actionPeriod": 1,
+        "priority": 0
+      },
+      {
+        "id": "room-agent-operator:agent-timing",
+        "entityId": "room-agent-operator",
+        "type": "agent-timing",
+        "version": 1,
+        "actionPeriod": 1,
+        "priority": 0
+      },
+      {
+        "id": "room-contact-guard:agent-timing",
+        "entityId": "room-contact-guard",
+        "type": "agent-timing",
+        "version": 1,
+        "actionPeriod": 1,
+        "priority": 0
+      },
+      {
+        "id": "room-side-guard:agent-timing",
+        "entityId": "room-side-guard",
+        "type": "agent-timing",
+        "version": 1,
+        "actionPeriod": 1,
+        "priority": 0
+      },
+      {
+        "id": "room-guard:agent-timing",
+        "entityId": "room-guard",
+        "type": "agent-timing",
+        "version": 1,
+        "actionPeriod": 1,
+        "priority": 0
+      }
+    ],
+    "agent-controller": [
+      {
+        "id": "room-agent-patrol:agent-controller",
+        "entityId": "room-agent-patrol",
+        "type": "agent-controller",
+        "version": 1,
+        "controllerId": "patrol-route",
+        "parameters": {
+          "route": [
+            {
+              "x": 6,
+              "y": 0
+            },
+            {
+              "x": 6,
+              "y": 3
+            }
+          ],
+          "routePlayback": "ping-pong",
+          "waitAtWaypointSeconds": 1.4,
+          "moveDurationSeconds": 0.35
+        },
+        "debugColor": "#f59e0b"
+      },
+      {
+        "id": "room-agent-obstacle-check:agent-controller",
+        "entityId": "room-agent-obstacle-check",
+        "type": "agent-controller",
+        "version": 1,
+        "controllerId": "patrol-route",
+        "parameters": {
+          "route": [
+            {
+              "x": 7,
+              "y": 5
+            },
+            {
+              "x": 7,
+              "y": 4
+            }
+          ],
+          "routePlayback": "ping-pong",
+          "waitAtWaypointSeconds": 1.8,
+          "forwardAction": "move",
+          "forwardActionWaypoint": 2,
+          "moveDurationSeconds": 0.35
+        },
+        "debugColor": "#f59e0b"
+      },
+      {
+        "id": "room-agent-operator:agent-controller",
+        "entityId": "room-agent-operator",
+        "type": "agent-controller",
+        "version": 1,
+        "controllerId": "patrol-route",
+        "parameters": {
+          "route": [
+            {
+              "x": 7,
+              "y": 7
+            },
+            {
+              "x": 7,
+              "y": 6
+            }
+          ],
+          "routePlayback": "ping-pong",
+          "waitAtWaypointSeconds": 1.8,
+          "forwardAction": "interact",
+          "forwardActionWaypoint": 2,
+          "moveDurationSeconds": 0.35
+        },
+        "debugColor": "#f59e0b"
+      },
+      {
+        "id": "room-contact-guard:agent-controller",
+        "entityId": "room-contact-guard",
+        "type": "agent-controller",
+        "version": 1,
+        "controllerId": "stationary",
+        "parameters": {},
+        "debugColor": "#f59e0b"
+      },
+      {
+        "id": "room-side-guard:agent-controller",
+        "entityId": "room-side-guard",
+        "type": "agent-controller",
+        "version": 1,
+        "controllerId": "stationary",
+        "parameters": {},
+        "debugColor": "#f59e0b"
+      },
+      {
+        "id": "room-guard:agent-controller",
+        "entityId": "room-guard",
+        "type": "agent-controller",
+        "version": 1,
+        "controllerId": "stationary",
+        "parameters": {},
+        "debugColor": "#f59e0b"
+      }
+    ],
+    "event": [
+      {
+        "id": "room-agent-plate:enter-north",
+        "entityId": "room-agent-plate",
+        "type": "event",
+        "version": 2,
+        "ruleName": "Agent 从北侧进入",
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 0,
+        "actorScope": "agent",
+        "directionSpace": "world",
+        "worldSides": [
+          "north"
+        ],
+        "action": {
+          "type": "message",
+          "text": "从北侧踩下踏板，机关灯已点亮。",
+          "light": true
+        }
+      },
+      {
+        "id": "room-contact-barrier:agent-contact",
+        "entityId": "room-contact-barrier",
+        "type": "event",
+        "version": 2,
+        "ruleName": "Agent 碰到石障",
+        "trigger": "move-attempt",
+        "priority": 0,
+        "actorScope": "agent",
+        "directionSpace": "world",
+        "worldSides": [
+          "south"
+        ],
+        "action": {
+          "type": "message",
+          "text": "从南侧碰到封路石障，在相邻格等待。"
+        },
+        "movementPhase": "blocked",
+        "blocker": "self"
+      },
+      {
+        "id": "room-message-pad:agent-interact",
+        "entityId": "room-message-pad",
+        "type": "event",
+        "version": 2,
+        "ruleName": "Agent 主动检查",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "actorScope": "agent",
+        "action": {
+          "type": "message",
+          "text": "主动检查了前方的消息感应格。"
+        }
+      },
+      {
+        "id": "room-message-pad:enter",
+        "entityId": "room-message-pad",
+        "type": "event",
+        "version": 2,
+        "ruleName": "进入时显示消息",
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "message",
+          "text": "消息感应格已触发。"
+        }
+      },
+      {
+        "id": "room-contact-guard:greeting",
+        "entityId": "room-contact-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "碰面招呼",
+        "trigger": "move-attempt",
+        "priority": 0,
+        "directionSpace": "any",
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_contact_tests",
+          "entryNodeId": "greeting"
+        },
+        "movementPhase": "contact",
+        "blocker": "self"
+      },
+      {
+        "id": "room-side-guard:front",
+        "entityId": "room-side-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "碰到正面",
+        "trigger": "move-attempt",
+        "priority": 0,
+        "directionSpace": "target-local",
+        "localSides": [
+          "front"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_contact_tests",
+          "entryNodeId": "front"
+        },
+        "movementPhase": "contact",
+        "blocker": "self"
+      },
+      {
+        "id": "room-side-guard:right",
+        "entityId": "room-side-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "碰到右侧",
+        "trigger": "move-attempt",
+        "priority": 0,
+        "directionSpace": "target-local",
+        "localSides": [
+          "right"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_contact_tests",
+          "entryNodeId": "right"
+        },
+        "movementPhase": "contact",
+        "blocker": "self"
+      },
+      {
+        "id": "room-side-guard:back",
+        "entityId": "room-side-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "碰到背面",
+        "trigger": "move-attempt",
+        "priority": 0,
+        "directionSpace": "target-local",
+        "localSides": [
+          "back"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_contact_tests",
+          "entryNodeId": "back"
+        },
+        "movementPhase": "contact",
+        "blocker": "self"
+      },
+      {
+        "id": "room-side-guard:left",
+        "entityId": "room-side-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "碰到左侧",
+        "trigger": "move-attempt",
+        "priority": 0,
+        "directionSpace": "target-local",
+        "localSides": [
+          "left"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_contact_tests",
+          "entryNodeId": "left"
+        },
+        "movementPhase": "contact",
+        "blocker": "self"
+      },
+      {
+        "id": "room-contact-barrier:barrier",
+        "entityId": "room-contact-barrier",
+        "type": "event",
+        "version": 2,
+        "ruleName": "碰到石障",
+        "trigger": "move-attempt",
+        "priority": 0,
+        "directionSpace": "any",
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_contact_tests",
+          "entryNodeId": "barrier"
+        },
+        "movementPhase": "contact",
+        "blocker": "self"
+      },
+      {
+        "id": "room-guard:front",
+        "entityId": "room-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "正面交谈",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "directionSpace": "target-local",
+        "localSides": [
+          "front"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_guard_sides",
+          "entryNodeId": "front"
+        }
+      },
+      {
+        "id": "room-guard:right",
+        "entityId": "room-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "右侧交谈",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "directionSpace": "target-local",
+        "localSides": [
+          "right"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_guard_sides",
+          "entryNodeId": "right"
+        }
+      },
+      {
+        "id": "room-guard:back",
+        "entityId": "room-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "背面交谈",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "directionSpace": "target-local",
+        "localSides": [
+          "back"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_guard_sides",
+          "entryNodeId": "back"
+        }
+      },
+      {
+        "id": "room-guard:left",
+        "entityId": "room-guard",
+        "type": "event",
+        "version": 2,
+        "ruleName": "左侧交谈",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "directionSpace": "target-local",
+        "localSides": [
+          "left"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_guard_sides",
+          "entryNodeId": "left"
+        }
+      },
+      {
+        "id": "room-console:north",
+        "entityId": "room-console",
+        "type": "event",
+        "version": 2,
+        "ruleName": "北侧控制台",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "directionSpace": "world",
+        "worldSides": [
+          "north"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_console_sides",
+          "entryNodeId": "north"
+        }
+      },
+      {
+        "id": "room-console:east",
+        "entityId": "room-console",
+        "type": "event",
+        "version": 2,
+        "ruleName": "东侧控制台",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "directionSpace": "world",
+        "worldSides": [
+          "east"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_console_sides",
+          "entryNodeId": "east"
+        }
+      },
+      {
+        "id": "room-console:south",
+        "entityId": "room-console",
+        "type": "event",
+        "version": 2,
+        "ruleName": "南侧控制台",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "directionSpace": "world",
+        "worldSides": [
+          "south"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_console_sides",
+          "entryNodeId": "south"
+        }
+      },
+      {
+        "id": "room-console:west",
+        "entityId": "room-console",
+        "type": "event",
+        "version": 2,
+        "ruleName": "西侧控制台",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "directionSpace": "world",
+        "worldSides": [
+          "west"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_console_sides",
+          "entryNodeId": "west"
+        }
+      },
+      {
+        "id": "room-threshold:north",
+        "entityId": "room-threshold",
+        "type": "event",
+        "version": 2,
+        "ruleName": "北侧进入",
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 0,
+        "directionSpace": "world",
+        "worldSides": [
+          "north"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_threshold_arrivals",
+          "entryNodeId": "north"
+        }
+      },
+      {
+        "id": "room-threshold:west",
+        "entityId": "room-threshold",
+        "type": "event",
+        "version": 2,
+        "ruleName": "西侧进入",
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 0,
+        "directionSpace": "world",
+        "worldSides": [
+          "west"
+        ],
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_threshold_arrivals",
+          "entryNodeId": "west"
+        }
+      },
+      {
+        "id": "room-threshold:fallback",
+        "entityId": "room-threshold",
+        "type": "event",
+        "version": 2,
+        "ruleName": "其他来路",
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 0,
+        "directionSpace": "any",
+        "action": {
+          "type": "dialogue",
+          "presetKey": "room_threshold_arrivals",
+          "entryNodeId": "fallback"
+        }
       }
     ],
     "dungeon-exit": [
@@ -143,6 +1176,17 @@
         "targetEntranceId": "start",
         "triggers": [
           "interact"
+        ]
+      },
+      {
+        "id": "direct-exit:dungeon-exit",
+        "entityId": "direct-exit",
+        "type": "dungeon-exit",
+        "version": 2,
+        "targetMapPresetKey": "dungeon_interaction_test",
+        "targetEntranceId": "direct",
+        "triggers": [
+          "enter"
         ]
       }
     ]

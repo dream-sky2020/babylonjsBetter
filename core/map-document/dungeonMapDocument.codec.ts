@@ -1,4 +1,4 @@
-import { upgradeInteractionEvent, type IEventComponent } from '../entity/components/event.component.ts';
+import { migrateDungeonMapInteractionRules } from './dungeonMapDocument.interactionMigration.ts';
 import { migrateLegacyDungeonSpawnAttachments } from './dungeonMapDocument.spawnMigration.ts';
 import type { DungeonMapDocumentV2 } from './dungeonMapDocument.types.ts';
 import { compactGeneratedDungeonMapShells } from './dungeonMapDocument.compact.ts';
@@ -32,7 +32,7 @@ export const parseDungeonMapDocumentV2 = (
     throw new Error(`地图 V2 文档的 presetKey 应为“${expectedPresetKey}”。`);
   }
   const document = migrateLegacyDungeonSpawnAttachments(cloneJson(candidate));
-  if (document.components.event) document.components.event = document.components.event.map(component => ({ ...upgradeInteractionEvent(component as unknown as IEventComponent), entityId: component.entityId }));
+  migrateDungeonMapInteractionRules(document);
   const terrain = normalizeDungeonMapTerrain(document.grid.tileIds, document.terrain, document.legacy);
   if (terrain) document.terrain = terrain;
   else delete document.terrain;

@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 5,
+  "presetKey": "room_contact_tests",
+  "name": "传送后的房间 · 移动受阻测试",
+  "graph": {
+    "nodes": {
+      "greeting": {
+        "id": "greeting",
+        "title": "碰面招呼",
+        "position": {
+          "x": 24,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "greeting:line": {
+            "id": "greeting:line",
+            "speaker": "招呼守卫",
+            "text": "你刚才碰到了招呼守卫。任意一侧走过来，我都会打招呼。"
+          }
+        },
+        "lineOrder": [
+          "greeting:line"
+        ],
+        "inputs": {
+          "greeting:in": {
+            "id": "greeting:in"
+          }
+        },
+        "inputOrder": [
+          "greeting:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "front": {
+        "id": "front",
+        "title": "碰到正面",
+        "position": {
+          "x": 444,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "front:line": {
+            "id": "front:line",
+            "speaker": "四向巡守",
+            "text": "你碰到了四向巡守的正面。这里是登记岗。"
+          }
+        },
+        "lineOrder": [
+          "front:line"
+        ],
+        "inputs": {
+          "front:in": {
+            "id": "front:in"
+          }
+        },
+        "inputOrder": [
+          "front:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "right": {
+        "id": "right",
+        "title": "碰到右侧",
+        "position": {
+          "x": 864,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "right:line": {
+            "id": "right:line",
+            "speaker": "四向巡守",
+            "text": "你碰到了四向巡守的右侧。这里是巡逻岗。"
+          }
+        },
+        "lineOrder": [
+          "right:line"
+        ],
+        "inputs": {
+          "right:in": {
+            "id": "right:in"
+          }
+        },
+        "inputOrder": [
+          "right:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "back": {
+        "id": "back",
+        "title": "碰到背面",
+        "position": {
+          "x": 24,
+          "y": 304
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "back:line": {
+            "id": "back:line",
+            "speaker": "四向巡守",
+            "text": "你碰到了四向巡守的背面。请绕到正面来。"
+          }
+        },
+        "lineOrder": [
+          "back:line"
+        ],
+        "inputs": {
+          "back:in": {
+            "id": "back:in"
+          }
+        },
+        "inputOrder": [
+          "back:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "left": {
+        "id": "left",
+        "title": "碰到左侧",
+        "position": {
+          "x": 444,
+          "y": 304
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "left:line": {
+            "id": "left:line",
+            "speaker": "四向巡守",
+            "text": "你碰到了四向巡守的左侧。这里是补给岗。"
+          }
+        },
+        "lineOrder": [
+          "left:line"
+        ],
+        "inputs": {
+          "left:in": {
+            "id": "left:in"
+          }
+        },
+        "inputOrder": [
+          "left:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "barrier": {
+        "id": "barrier",
+        "title": "碰到石障",
+        "position": {
+          "x": 864,
+          "y": 304
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "barrier:line": {
+            "id": "barrier:line",
+            "speaker": "封路石障",
+            "text": "你碰到了封路石障。这块石障挡住了前路。"
+          }
+        },
+        "lineOrder": [
+          "barrier:line"
+        ],
+        "inputs": {
+          "barrier:in": {
+            "id": "barrier:in"
+          }
+        },
+        "inputOrder": [
+          "barrier:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      }
+    },
+    "edges": {}
+  }
+}

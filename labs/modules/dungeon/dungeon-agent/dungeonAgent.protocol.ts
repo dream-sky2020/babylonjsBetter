@@ -1,4 +1,14 @@
 import { createLabEvent } from '@/labs/kit';
+import type { DungeonAgentInteractionIntent } from '@/core/dungeon-agent/dungeonAgent.types';
+
+export const dungeonAgentInteractionEvent = createLabEvent<Readonly<{
+  loadId: number;
+  intent: DungeonAgentInteractionIntent;
+}>>('dungeon.agents.interaction', 1, {
+  label: 'Agent 交互意图',
+  description: '已完成的格步、实际阻挡或主动命令，交给当前地图的交互模块。',
+  fields: [{ name: 'loadId', type: 'number' }, { name: 'intent', type: 'DungeonAgentInteractionIntent' }],
+});
 
 export const dungeonAgentsLoadedEvent = createLabEvent<Readonly<{
   loadId: number;

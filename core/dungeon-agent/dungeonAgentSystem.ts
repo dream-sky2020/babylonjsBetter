@@ -3,6 +3,7 @@ import { createDungeonAgentRuntimeState, updateDungeonAgentMovements, getDungeon
 import { updateDungeonAgentControllers, runDungeonAgentControllersAfterPlayerStep,
   type DungeonAgentControllerRegistry } from './dungeonAgent.controllers.ts';
 import type { DungeonPlayerStepCompleted } from '../dungeon-player-movement/dungeonPlayerStepEvents';
+import type { DungeonAgentInteractionIntent } from './dungeonAgent.types';
 
 export type DungeonAgentSettings = {
   controllersEnabled: boolean; decisionIntervalSeconds: number; maxPathSearchesPerDecision: number;
@@ -37,13 +38,14 @@ export class DungeonAgentSystem {
   private get decisionElapsed() { return this.clock.decisionElapsed; }
   private set decisionElapsed(value: number) { this.clock.decisionElapsed = value; }
 
-  constructor(runtime: DungeonRuntime, registry: DungeonAgentControllerRegistry, storage?: DungeonAgentSystemStorage) {
+  constructor(runtime: DungeonRuntime, registry: DungeonAgentControllerRegistry, storage?: DungeonAgentSystemStorage,
+    onInteraction?: (intent: DungeonAgentInteractionIntent) => void) {
     this.runtime = runtime;
     this.registry = registry;
     this.settings = storage?.settings ?? { controllersEnabled: true, decisionIntervalSeconds: 0.1, maxPathSearchesPerDecision: 2 };
     this.clock = storage?.clock ?? { decisionElapsed: 0 };
     this.metrics = storage?.metrics;
-    this.state = createDungeonAgentRuntimeState(runtime.map, runtime.traversal, runtime.movementResolver, storage);
+    this.state = createDungeonAgentRuntimeState(runtime.map, runtime.traversal, runtime.movementResolver, storage, onInteraction);
   }
 
   update(deltaSeconds: number) {

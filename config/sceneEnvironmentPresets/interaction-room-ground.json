@@ -1,0 +1,42 @@
+{
+  "presetKey": "interaction-room-ground",
+  "name": "传送房间 · 9×8 测试地面",
+  "clearColor": "#182a3a",
+  "renderWarmup": {
+    "enabled": true
+  },
+  "lights": [
+    {
+      "id": "light",
+      "name": "环境光",
+      "intensity": 1,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "groundColor": "#334155"
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "floor",
+      "name": "测试地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 72,
+        "height": 64
+      },
+      "position": [
+        32,
+        0,
+        28
+      ],
+      "color": "#314b54"
+    }
+  ]
+}

@@ -41,6 +41,30 @@ function diagonalFixture(direction: DungeonDiagonalDirection) {
   return { ...setup, world, from };
 }
 
+test('one movement attempt carries its ID from contact to the final outcome', () => {
+  for (const [response, claim, expected] of [
+    ['swap', true, 'claimed'], ['swap', false, 'swap-started'], ['push', false, 'push-started'], ['block', false, 'blocked'],
+  ] as const) {
+    const { runtime } = fixture(response);
+    let contactId = 0;
+    const outcomes: string[] = [];
+    startDungeonPlayerMovement(runtime, 'east', {
+      ...options,
+      onBlockedAttempt(inspection, id) {
+        assert.deepEqual(inspection.blockedObstacleIds, ['box']);
+        contactId = id;
+        return claim;
+      },
+      onMovementAttemptResolved(attempt) {
+        assert.equal(attempt.attemptId, contactId);
+        outcomes.push(attempt.outcome);
+      },
+    });
+    assert.ok(contactId > 0);
+    assert.deepEqual(outcomes, [expected]);
+  }
+});
+
 for (const direction of DUNGEON_DIAGONAL_MOVEMENT_DIRECTIONS) {
   test(`eight-way player swaps ${direction} with a four-way target and commits both anchors together`, () => {
     const { runtime, engine, world, from } = diagonalFixture(direction);

@@ -1,6 +1,26 @@
+## 2026-11-07：方向交互规则
+
+移动受阻规则统一使用 `move-attempt` 和移动者／实际阻挡者筛选。`movementPhase: contact` 在玩家通行检查后、换位／推动决定前选一条规则接管；`blocked` 仅通知确认失败，允许多个消息规则响应。玩家接管、开始换位／推动、确认受阻或仲裁未通过共享尝试 ID，Agent 报告确认受阻或仲裁失败。调试面板按玩家和 Agent 分开显示最近结果。旧规则可省略阶段，仍按原用途解析。
+
+交互 event v2 区分接收规则与 `ruleKind: action`。行动规则监听真实移动受阻，独立匹配移动者和实际阻挡者，支持任意实体、本实体、指定 ID。同一次事件可由多条行动规则响应，消息走原视口消息栏。玩家的行动规则保存在 Lab 配置，切图继续使用。主测试场追踪守卫改用零停止距离的既有路径追踪，在实际被玩家挡住时提示。旧 `approach-player` 地图规则在 V2/V3 读取时迁移，旧接收规则沿用原行为。
+
+交互 Lab 默认启用 Agent Controller。主测试场扩为 13×8 并加入房间的六个 Agent，房间扩为 9×8。两张图的三个演示 Agent 共用往返巡逻配置；巡逻控制器可在指定巡逻点按当前朝向发出主动交互或向前尝试一步。踏板、石障和主动检查的消息每轮均可触发，方向对白用守卫保持定点。
+
+交互请求携带 `actorId`，event v2 的 `actorScope` 支持仅玩家、仅 Agent 或两者，旧规则默认仅玩家。Agent Runtime 发布格步完成、真实实体阻挡和显式主动命令，Lab 用地图会话 ID 隔离旧事件。Agent 的结果通过消息 provider 执行，绕开玩家对白与传送的锁。受阻消息只使用移动检查确认的实体 ID，预约失败与回退不触发。新增 `interact-forward` 一次性控制器和 Agent 面板主动交互按钮。房间演示包含 Agent 专用北向踏板、石障与主动检查，踏板消息可同时点亮本地图的机关灯。
+
+交互 event v2 新增 `message` 动作，复用方向匹配、优先级和一次性消耗范围。dungeon-interaction 通过透传 HTML 视口层显示左上角消息，默认 3 秒、最多 4 条，切图与卸载清理。消息不占用移动续步，现有对话与传送保留其控制行为。传送房间 (7,5) 可验证进入时显示消息。
+
+event v2 兼容扩展 ruleName、directionSpace（any/world/target-local）、worldSides/localSides 和 onceScope（rule/entity）。一个实体继续使用多条 event，旧数据缺省任意方向、各规则独立计次。Core interaction-control.find/explain 共用位置、遮挡和方向判定；方向明确的规则只压制同实体、同搜索位置的通用后备，跨实体和传送仍沿用原优先级与冲突报错。一次性消耗先选方向规则再过滤，已消费的明确规则不会意外触发后备。
+
+Loader 从当前 Agent 系统读取逻辑朝向和转向忙碌状态，静态空间物体读取 Body 朝向；无 Body 的固定实体可挂 grid-facing。相机和模型旋转不参与判断；enter 使用实际 from→to 来路，PlayerStep 增加可选 movementDirection 以区分只有两列/两行循环地图的同起终点双向移动；旧来源仍按拓扑推断。支持循环接缝，45° 边界归顺时针侧。event 新增 move-attempt 对白，仍走原受阻入口。Python 与 TS 同步校验结构，编辑允许草稿，缺朝向等完整性问题在执行准备阶段拒绝。
+
+地图编辑器和容器编辑器共用 InteractionDirectionPicker 四侧多选控件，切换参照保留另一组编辑值；保存/撤销沿用文档所有权。交互 Debug 可选方向标签、正面箭头和面板判定原因，仍使用原生 HTML 文字。新增 dungeon_direction_test（NPC 正侧背、固定机关四侧、东西共享一次、进入来路与受阻提醒），可在原 Lab 地图预设中选择；原测试地图保留。新增 core 方向回归与隐藏 Electron 编辑器验证 verifyDirectionalInteractionEditor.cjs，原交互页面验证扩展真实转身、后退进入和次数共享。
+
 ## 2026-11-06：统一地牢交互与 NPC / 地块对话
 
-交互模块新增“显示交互实体 Debug”，对应 dungeon-interaction.debug-entities，默认关闭，仅本测试 Lab 文件显式开启。Core interaction-control.describe 返回复制的挂载/当前位置/启停/触发方式描述，Router 从执行器只读查询 once 消耗，不暴露 Runtime。Lab 的 dungeonInteractionDebug.ts 独立持有轮廓、标签、材质和纹理：蓝色主动对话、橙色进入、紫色传送、灰色禁用或本次已触发；NPC 跟随当前表现位置，边用窄条，叠放标签分层。仅开启时按 20Hz 更新，接入 overhead 显示变换，关闭/切图/卸载释放资源；显示失败只影响 Debug 摘要。原测试场景三块手工彩色地面已移除，以真实交互定义自动生成提示，既有格子/出口 Debug 开关独立保留。
+交互 Debug 的地块着色与标签独立开关，名称、触发方式、交互类型、状态可选。标签改用 LabViewportManager 的透传 HTML 层，原生 13px 文字每渲染帧跟随三维锚点投影，不再生成文字纹理或平面；同格标签按实际高度以 4px 间距叠放。关闭/切图清理标签，卸载移除投影订阅及视口层。轮廓保留三维显示与 overhead 变换，配置仍归 dungeon-interaction。
+
+交互模块新增“显示交互实体 Debug”，对应 dungeon-interaction.debug-entities，默认关闭，仅本测试 Lab 文件显式开启。Core interaction-control.describe 返回复制的挂载/当前位置/启停/触发方式描述，Router 从执行器只读查询 once 消耗，不暴露 Runtime。Lab 的 dungeonInteractionDebug.ts 独立持有轮廓、标签和材质：蓝色主动对话、橙色进入、紫色传送、灰色禁用或本次已触发；NPC 底框与标签锚点使用当前逻辑格中心，边用窄条，叠放标签分层。仅开启时按 20Hz 更新描述，接入 overhead 显示变换，关闭/切图/卸载释放资源；显示失败只影响 Debug 摘要。原测试场景三块手工彩色地面已移除，以真实交互定义自动生成提示，既有格子/出口 Debug 开关独立保留。
 
 测试场景有两个独立蓝格：(1,2) 出生格可重复调查，新增 (0,2) 蓝格开启 once、每次进入地图仅调查一次；两者使用各自的对白入口与场景名称说明，离开地图再进入后单次格重置。
 

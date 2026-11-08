@@ -88,6 +88,7 @@ export class LabKeyboardRouter {
     this.eventTarget?.addEventListener('keydown', this.onKeyDown, { capture: true });
     this.eventTarget?.addEventListener('keyup', this.onKeyUp, { capture: true });
     this.eventTarget?.addEventListener('blur', this.onBlur);
+    this.eventTarget?.document.addEventListener('visibilitychange', this.onVisibilityChange);
   }
 
   get globalEnabled(): boolean { return this.enabled; }
@@ -135,7 +136,7 @@ export class LabKeyboardRouter {
     this.requireActive();
     if (this.enabled === enabled) return;
     this.enabled = enabled;
-    if (!enabled) this.pressedCodes.clear();
+    if (!enabled) this.resetInput();
     this.options.onGlobalEnabledChanged?.(enabled);
     this.emit();
   }
@@ -256,7 +257,8 @@ export class LabKeyboardRouter {
           decisions.push({ consumerId: consumer.options.id, priority: consumer.priority, decision: 'intercepted' });
           continue;
         }
-        if (isEditingTarget(input.targetKind) && !consumer.allowWhenEditing) {
+        // 松键只释放状态，不能因按下后焦点移到编辑控件而丢失。
+        if (input.phase === 'keydown' && isEditingTarget(input.targetKind) && !consumer.allowWhenEditing) {
           decisions.push({ consumerId: consumer.options.id, priority: consumer.priority, decision: 'editing-blocked' });
           continue;
         }
@@ -302,6 +304,7 @@ export class LabKeyboardRouter {
     this.eventTarget?.removeEventListener('keydown', this.onKeyDown, { capture: true });
     this.eventTarget?.removeEventListener('keyup', this.onKeyUp, { capture: true });
     this.eventTarget?.removeEventListener('blur', this.onBlur);
+    this.eventTarget?.document.removeEventListener('visibilitychange', this.onVisibilityChange);
     this.consumers.clear();
     this.locks.clear();
     this.pressedCodes.clear();
@@ -311,7 +314,16 @@ export class LabKeyboardRouter {
 
   private readonly onKeyDown = (event: KeyboardEvent): void => this.routeDom('keydown', event);
   private readonly onKeyUp = (event: KeyboardEvent): void => this.routeDom('keyup', event);
-  private readonly onBlur = (): void => { this.pressedCodes.clear(); this.emit(); };
+  private readonly onBlur = (): void => this.resetInput();
+  private readonly onVisibilityChange = (): void => {
+    if (this.eventTarget?.document.hidden) this.resetInput();
+  };
+
+  private resetInput(): void {
+    this.pressedCodes.clear();
+    this.consumers.forEach((consumer) => consumer.options.onInputReset?.());
+    this.emit();
+  }
 
   private routeDom(phase: LabKeyboardPhase, event: KeyboardEvent): void {
     this.route({

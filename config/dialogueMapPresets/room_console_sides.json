@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 5,
+  "presetKey": "room_console_sides",
+  "name": "四面控制台 · 地图四向",
+  "graph": {
+    "nodes": {
+      "north": {
+        "id": "north",
+        "title": "北侧控制台",
+        "position": {
+          "x": 24,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "north:line": {
+            "id": "north:line",
+            "speaker": "四面控制台",
+            "text": "北侧读数。当前显示的是能源余量。"
+          }
+        },
+        "lineOrder": [
+          "north:line"
+        ],
+        "inputs": {
+          "north:in": {
+            "id": "north:in"
+          }
+        },
+        "inputOrder": [
+          "north:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "east": {
+        "id": "east",
+        "title": "东侧控制台",
+        "position": {
+          "x": 444,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "east:line": {
+            "id": "east:line",
+            "speaker": "四面控制台",
+            "text": "东侧读数。当前显示的是通信状态。"
+          }
+        },
+        "lineOrder": [
+          "east:line"
+        ],
+        "inputs": {
+          "east:in": {
+            "id": "east:in"
+          }
+        },
+        "inputOrder": [
+          "east:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "south": {
+        "id": "south",
+        "title": "南侧控制台",
+        "position": {
+          "x": 24,
+          "y": 304
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "south:line": {
+            "id": "south:line",
+            "speaker": "四面控制台",
+            "text": "南侧读数。当前显示的是冷却温度。"
+          }
+        },
+        "lineOrder": [
+          "south:line"
+        ],
+        "inputs": {
+          "south:in": {
+            "id": "south:in"
+          }
+        },
+        "inputOrder": [
+          "south:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "west": {
+        "id": "west",
+        "title": "西侧控制台",
+        "position": {
+          "x": 444,
+          "y": 304
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "west:line": {
+            "id": "west:line",
+            "speaker": "四面控制台",
+            "text": "西侧读数。当前显示的是通道状态。"
+          }
+        },
+        "lineOrder": [
+          "west:line"
+        ],
+        "inputs": {
+          "west:in": {
+            "id": "west:in"
+          }
+        },
+        "inputOrder": [
+          "west:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      }
+    },
+    "edges": {}
+  }
+}

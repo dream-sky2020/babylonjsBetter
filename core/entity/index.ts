@@ -5,6 +5,7 @@ export * from './entity-type.registry';
 export * from './batch-edit';
 export type { IVisualComponent } from './components/visual.component';
 export type { IEventComponent } from './components/event.component';
+export type { IGridFacingComponent } from './components/grid-facing.component';
 export type { IStateComponent } from './components/state.component';
 export type { IActorSpawnComponent } from './components/actor-spawn.component';
 export type { IDungeonOverheadViewComponent } from './components/dungeon-overhead-view.component';

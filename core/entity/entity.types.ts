@@ -85,6 +85,7 @@ export type ComponentFieldSchema = {
     equality?: 'strict' | 'deep' | 'unordered-array';
   };
   optional?: boolean;
+  visibleWhen?: { path: string } & ({ equals: string } | { notEquals: string });
   placeholder?: string;
   min?: number;
   max?: number;

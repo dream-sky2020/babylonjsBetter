@@ -8,6 +8,18 @@ import server
 from utils import validate_dungeon_map_preset_payload
 
 class DungeonInteractionTests(unittest.TestCase):
+    def test_directional_rules_roundtrip_and_invalid_types_fail(self):
+        source = json.loads((Path(__file__).resolve().parents[1] / 'config/dungeonMapPresets/dungeon_direction_test.json').read_text(encoding='utf-8'))
+        self.assertEqual(validate_dungeon_map_preset_payload({'dungeon_direction_test': source}), [])
+        for change in [{'worldSides': ['up']}, {'localSides': ['front', 'front']}, {'localSides': [None]}, {'directionSpace': 'camera'}, {'onceScope': 'permanent'}, {'ruleName': 123}]:
+            bad = copy.deepcopy(source); bad['components']['event'][0].update(change)
+            self.assertTrue(validate_dungeon_map_preset_payload({'dungeon_direction_test': bad}), change)
+        source['components']['grid-facing'] = [{'id': 'compass:facing', 'entityId': 'compass', 'type': 'grid-facing', 'version': 1, 'facing': 'east'}]
+        self.assertEqual(validate_dungeon_map_preset_payload({'dungeon_direction_test': source}), [])
+        for value in [None, {}, [None], [dict(source['components']['grid-facing'][0], facing='up')]]:
+            bad = copy.deepcopy(source); bad['components']['grid-facing'] = value
+            self.assertTrue(validate_dungeon_map_preset_payload({'dungeon_direction_test': bad}))
+
     def source(self):
         return json.loads((Path(__file__).resolve().parents[1] / 'config/dungeonMapPresets/dungeon_interaction_test.json').read_text(encoding='utf-8'))
 

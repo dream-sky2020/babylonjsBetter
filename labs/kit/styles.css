@@ -203,7 +203,8 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-host { position: relative; display: flex; flex-direction: column; --editor-panel: #101820; --editor-panel-body: #101820; --editor-heading: #19232c; --editor-line: #293b49; --editor-text: #d9e9f4; --editor-accent: #71c5ee; }
 .lab-workbench-header { display: flex; flex-shrink: 0; align-items: center; gap: 7px; min-height: 43px; padding: 5px 9px; border-bottom: 1px solid #293b49; background: #15212a; }
 .lab-workbench-header h1 { min-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0; font-size: 13px; }
-.lab-workbench-header .lab-global-status { flex: 1; min-width: 40px; margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px; }
+.lab-header-statuses { display: flex; flex: 1 1 0; min-width: 0; align-items: center; gap: 8px; }
+.lab-workbench-header .lab-global-status { flex: 0 1 auto; min-width: 0; margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px; }
 .lab-workbench-header button, .lab-controls-tabs button, .lab-object-selection button { min-height: 27px; padding: 3px 8px; border: 1px solid #3b5161; background: #1b2c38; color: #c4d7e5; cursor: pointer; font-size: 11px; white-space: nowrap; }
 .lab-workbench-header button[aria-pressed=true], .lab-controls-tabs button[aria-pressed=true] { background: #304c5e; color: #ecf6ff; }
 .lab-workbench-header .lab-home-link { flex-shrink: 0; margin: 0; font-size: 11px; }
@@ -314,8 +315,7 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-object-selection > div { display: flex; gap: 4px; }
 .lab-object-selection small { color: #8da7b8; overflow-wrap: anywhere; font-size: 10px; }
 .lab-object-selection button:disabled { cursor: default; opacity: .4; }
-@media (max-width: 1000px) { .lab-workbench-header h1 { max-width: 220px; } .lab-workbench-header .lab-global-status { display: none; } .lab-workbench-header { gap: 4px; } }
-.lab-config-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; }
-.lab-config-toolbar [data-error="true"] { color: #d34c4c; }
-
-.lab-config-toolbar [data-lab-config-status] { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 1000px) { .lab-workbench-header h1 { max-width: 220px; } .lab-workbench-header { gap: 4px; } }
+.lab-config-toolbar { display: flex; flex-shrink: 0; align-items: center; gap: 8px; font-size: 12px; }
+.lab-config-status { flex: 0 1 auto; min-width: 0; max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #a9bfd0; font-size: 12px; }
+.lab-config-status[data-error="true"] { color: #d34c4c; }

@@ -1,5 +1,7 @@
 # Codex 工具与资源处理档案
 
+`verifyDirectionalInteractionEditor.cjs` 在 build:dungeon-map-lab 的 file:// 产物中验证方向规则编辑：选择新方向地图，切换世界/自身参照、勾选四侧、撤销/重做与保留原模式选择，不写正式配置。通过 runElectronVerification.mjs 启动，报告/截图为 node_modules/.cache/dungeon-direction-editor.json / .png。verifyDungeonInteractionLab.cjs 同时覆盖方向地图 NPC 正侧背及实时转身、机关四侧和共享次数、后退进入来路与受阻提醒，方向截图为 dungeon-direction-debug.png。
+
 `buildDungeonInteractionLab.mjs` 构建独立地牢交互组合页到 node_modules/.cache/dungeon-interaction-build，不复制 public。`verifyDungeonInteractionLab.cjs` 经 runElectronVerification.mjs 在隐藏 Electron 直接打开 file:// 产物，验证前方 NPC、两个蓝格的重复/单次触发、完成格步对白与同格出口仲裁、往返传送和手动切图取消对白/释放输入；另检查交互 Debug 开关、隐藏时仍可交互、已触发状态和切图数量更新。禁止网络请求，不写正式配置；报告/截图为 node_modules/.cache/dungeon-interaction.json / dungeon-interaction.png，交互 Debug 专用截图为 dungeon-interaction-debug.png。
 
 `buildDialogueTestLab.mjs` 构建独立对话组合页到 node_modules/.cache/dialogue-test-build，不复制 public。`verifyDialogueTestLab.cjs` 经 runElectronVerification.mjs 在隐藏 Electron 中直接打开 file:// 产物，实际点击开始测试按钮，验证 UI 预设绑定、逐句继续、两个分支、结束/取消/重启和键盘操作；禁止网络请求，不改正式预设。报告/截图为 node_modules/.cache/dialogue-test.json / dialogue-test.png。

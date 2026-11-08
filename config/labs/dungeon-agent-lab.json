@@ -101,7 +101,7 @@
       "keyboard-priority": 75,
       "movement-timing-mode": "world-units-per-second",
       "movement-timing-values": {
-        "world-units-per-second": "30",
+        "world-units-per-second": "60",
         "seconds-per-tile": "1"
       },
       "obstacles": true,
@@ -124,6 +124,20 @@
     },
     "system-keyboard-input": {
       "global-enabled": true
+    },
+    "dungeon-interaction": {
+      "enabled": true,
+      "key": "KeyE",
+      "player-action-rules": [],
+      "debug-entities": false,
+      "debug-color": true,
+      "debug-labels": true,
+      "debug-name": true,
+      "debug-trigger": true,
+      "debug-action": false,
+      "debug-state": true,
+      "debug-direction": false,
+      "debug-reasons": false
     }
   }
 }

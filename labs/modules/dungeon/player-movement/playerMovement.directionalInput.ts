@@ -48,6 +48,10 @@ export class DungeonPlayerDirectionalInput {
     return this.heldDirections.size > 0;
   }
 
+  get pendingEightWayDirection(): DungeonMovementDirection | null {
+    return this.bufferedEightWayDirection;
+  }
+
   clear(): void {
     this.heldDirections.clear();
     this.bufferedDirection = null;

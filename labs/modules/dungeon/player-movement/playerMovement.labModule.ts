@@ -18,6 +18,7 @@ import {
   type DungeonPlayerTurnTimingMode,
 } from '@/core/dungeon-player-movement';
 import type { DungeonMovementDirection, DungeonMovementDirectionMode } from '@/core/dungeon-movement';
+import { isDungeonDiagonalDirection } from '@/core/dungeon-movement/dungeonMovement.direction';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene/dungeonMapSceneLayout';
 import {
   createLabField,
@@ -46,6 +47,7 @@ import {
 } from './playerMovement.blockedAttempt';
 
 type MovementView = { loadId: number; player: DungeonPlayerStateData; grid: DungeonGridData };
+const BLOCKED_DIAGONAL_CHORD_WINDOW_MS = 65;
 
 const describeInteractionFailure = (result: import('@/core/dungeon-player-movement').DungeonPlayerMovementResult): string | null => {
   const failure = result.interactionFailure;
@@ -265,12 +267,12 @@ export const playerMovementLabModule: LabModule = {
     let runtimeJsonDirty = true;
     const directionalInput = new DungeonPlayerDirectionalInput();
     let continuousHoldMovementDurationSeconds: number | null = null;
-    let pendingEightWayInitialMove = false;
+    let eightWayInitialMoveDeadline: number | null = null;
 
     const clearDirectionalInput = (): void => {
       directionalInput.clear();
       continuousHoldMovementDurationSeconds = null;
-      pendingEightWayInitialMove = false;
+      eightWayInitialMoveDeadline = null;
     };
     const directionMode = (): DungeonMovementDirectionMode => (
       parameters['eight-way'] ? 'eight-way' : 'four-way'
@@ -435,10 +437,10 @@ export const playerMovementLabModule: LabModule = {
       position.tileY,
     ).center;
 
-    const interceptBlockedAttempt = (inspection: import('@/core/dungeon-player-movement').DungeonPlayerMovementResult): boolean => {
+    const interceptBlockedAttempt = (inspection: import('@/core/dungeon-player-movement').DungeonPlayerMovementResult, attemptId: number): boolean => {
       if (inspection.blockedReason !== 'map-boundary'
         && inspection.blockedReason !== 'movement-obstacle') return false;
-      return blockedAttemptService.tryHandle(inspection as DungeonPlayerBlockedAttempt);
+      return blockedAttemptService.tryHandle({ ...inspection, attemptId } as DungeonPlayerBlockedAttempt);
     };
 
     const move = (direction: DungeonMovementDirection): boolean => {
@@ -446,6 +448,7 @@ export const playerMovementLabModule: LabModule = {
       const event = current;
       const result = playerSystem.move(direction, {
         onBlockedAttempt: interceptBlockedAttempt,
+        onMovementAttemptResolved: blockedAttemptService.publish,
         restrictToMapBounds: parameters['bounds'],
         restrictMovementObstacles: parameters['obstacles'],
         ...readTimingOptions(),
@@ -516,6 +519,7 @@ export const playerMovementLabModule: LabModule = {
       const facingBeforeMove = event.player.playerFacing;
       const result = playerSystem!.moveRelative(movement, {
         onBlockedAttempt: interceptBlockedAttempt,
+        onMovementAttemptResolved: blockedAttemptService.publish,
         restrictToMapBounds: parameters['bounds'],
         restrictMovementObstacles: parameters['obstacles'],
         ...readTimingOptions(),
@@ -590,6 +594,7 @@ export const playerMovementLabModule: LabModule = {
     });
     teleportPositionButton.addEventListener('click', teleportToPosition);
     const keyDirections = DUNGEON_PLAYER_ABSOLUTE_KEY_DIRECTIONS;
+    let previouslyOwnedCodes: ReadonlySet<string> = new Set();
     const keyboardRegistration = context.keyboard.register({
       id: 'player-movement',
       label: 'Dungeon 玩家移动',
@@ -601,13 +606,14 @@ export const playerMovementLabModule: LabModule = {
       onKeyDown: (event) => {
         const direction = keyDirections[event.code];
         if (!direction) return 'ignored';
-        directionalInput.keyDown(event.code, direction, performance.now(), event.repeat);
+        const now = performance.now();
+        directionalInput.keyDown(event.code, direction, now, event.repeat);
         if (!event.repeat) {
           if (!current?.player.playerMovement && directionMode() === 'eight-way') {
-            // 延迟到下一渲染帧，让同一帧到达的第二个轴参与当前格步合成。
-            pendingEightWayInitialMove = true;
+            // 起步等到下一帧合成方向；会碰到实体的单轴起步可以多等一小段时间。
+            eightWayInitialMoveDeadline ??= now + BLOCKED_DIAGONAL_CHORD_WINDOW_MS;
           } else if (!current?.player.playerMovement) {
-            const nextDirection = directionalInput.consume(performance.now(), 0, directionMode());
+            const nextDirection = directionalInput.consume(now, 0, directionMode());
             if (nextDirection) move(nextDirection);
           }
         }
@@ -620,8 +626,11 @@ export const playerMovementLabModule: LabModule = {
         return 'handled';
       },
       onOwnershipChanged: (ownedCodes) => {
+        if ([...previouslyOwnedCodes].some((code) => !ownedCodes.has(code))) clearDirectionalInput();
+        previouslyOwnedCodes = new Set(ownedCodes);
         keyboardOwnershipStatus.textContent = `当前优先拥有：${[...ownedCodes].join('、') || '无'}。`;
       },
+      onInputReset: clearDirectionalInput,
     });
     keyboardToggle.input.addEventListener('change', () => {
       keyboardRegistration.setEnabled(parameters['keyboard-enabled']);
@@ -669,9 +678,17 @@ export const playerMovementLabModule: LabModule = {
     const stopFrameTask = assembly.registerSimulation('player-movement', 100, (deltaSeconds) => {
         if (!current) return;
         if (playerSystem?.isBusy && !current.player.playerMovement) { syncMarker(); return; }
-        if (!current.player.playerMovement && pendingEightWayInitialMove) {
-          pendingEightWayInitialMove = false;
-          const nextDirection = directionalInput.consume(performance.now(), 0, 'eight-way');
+        if (!current.player.playerMovement && eightWayInitialMoveDeadline !== null) {
+          const now = performance.now();
+          const pending = directionalInput.pendingEightWayDirection;
+          if (now < eightWayInitialMoveDeadline && directionalInput.hasHeldDirection && pending && !isDungeonDiagonalDirection(pending)) {
+            const inspection = playerSystem?.inspect(pending, {
+              restrictToMapBounds: parameters['bounds'], restrictMovementObstacles: parameters['obstacles'],
+            });
+            if (inspection?.blockedObstacleIds?.some(id => id !== '$terrain')) return;
+          }
+          eightWayInitialMoveDeadline = null;
+          const nextDirection = directionalInput.consume(now, 0, 'eight-way');
           if (nextDirection) move(nextDirection);
         }
         if (!current.player.playerMovement

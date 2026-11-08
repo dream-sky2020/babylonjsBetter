@@ -71,7 +71,18 @@ export type DungeonAgentControllerConfig = Readonly<{
   parameters: Readonly<Record<string, unknown>>;
 }>;
 
+export type DungeonAgentInteractionIntent = Readonly<{
+  actorId: string;
+  tileIndex: number;
+  facing: DungeonMovementDirection;
+} & (
+  | { trigger: 'enter'; fromTileIndex: number; movementDirection?: DungeonMovementDirection }
+  | { trigger: 'move-attempt'; attemptId: number; outcome: 'blocked' | 'arbitration-rejected'; movementDirection: DungeonMovementDirection; blockingEntityIds: readonly string[] }
+  | { trigger: 'interact' }
+)>;
+
 export type DungeonAgentRuntimeState = {
+  onInteraction?: (intent: DungeonAgentInteractionIntent) => void;
   /** Maintained by Core start/update APIs; legacy external states may omit it. */
   activeAgents?: Set<DungeonRuntimeAgent>;
   /** Host-owned active index; composed sessions store IDs without binding graphs. */

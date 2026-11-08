@@ -7,6 +7,7 @@ import type {
 } from '../dungeon-runtime';
 import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
 import { getDungeonMapTerrainProperties } from '../map-document/dungeonMapDocument.terrain.ts';
+import { createDungeonMovementAttemptId, isDungeonMovementArbitrationRejection, type DungeonMovementAttemptOutcome } from '../dungeon-movement/dungeonMovementAttempt.ts';
 import {
   getDungeonMovementDirectionCost,
   getDungeonMovementDirectionVector,
@@ -33,7 +34,8 @@ export type DungeonPlayerTurnTimingMode = typeof DUNGEON_PLAYER_TURN_TIMING_MODE
 
 export type DungeonPlayerMovementOptions = {
   /** Synchronous rule hook using the existing inspection; true consumes the blocked attempt. */
-  onBlockedAttempt?: (inspection: DungeonPlayerMovementResult) => boolean;
+  onBlockedAttempt?: (inspection: DungeonPlayerMovementResult, attemptId: number) => boolean;
+  onMovementAttemptResolved?: (attempt: DungeonPlayerMovementAttemptResolution) => void;
   /** 默认开启；开启后目标格超出地图尺寸时拒绝移动。 */
   restrictToMapBounds?: boolean;
   /** 默认开启；关闭后忽略地形、静态阻碍、动态占位和移动预约。 */
@@ -75,6 +77,11 @@ export type DungeonPlayerMovementResult = {
   to: DungeonRuntimePlayerPosition;
   blockedReason?: 'direction-not-supported' | 'map-boundary' | 'movement-obstacle' | 'movement-in-progress';
   blockedObstacleIds?: readonly string[];
+};
+
+export type DungeonPlayerMovementAttemptResolution = DungeonPlayerMovementResult & {
+  attemptId: number;
+  outcome: DungeonMovementAttemptOutcome;
 };
 
 export type DungeonPlayerMovementInspectionOptions = Pick<
@@ -254,8 +261,14 @@ export const startDungeonPlayerMovement = (
   let interactionFailure: DungeonPlayerMovementResult['interactionFailure'];
   const { from, to } = inspection;
   if (inspection.blockedReason === 'movement-in-progress') return inspection;
-  if ((inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle')
-    && options.onBlockedAttempt?.(inspection)) return { ...inspection, handled: true };
+  const contactId = inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle'
+    ? createDungeonMovementAttemptId() : undefined;
+  const report = (outcome: DungeonMovementAttemptOutcome, result = inspection) =>
+    options.onMovementAttemptResolved?.({ ...result, attemptId: contactId ?? createDungeonMovementAttemptId(), outcome });
+  if (contactId !== undefined && options.onBlockedAttempt?.(inspection, contactId)) {
+    report('claimed');
+    return { ...inspection, handled: true };
+  }
   if (inspection.blockedReason === 'movement-obstacle' && !options.teleport) {
     const world = runtime.traversal;
     const targets = [...(world.occupantIdsByTile[positionIndex(runtime, to)] ?? [])]
@@ -280,6 +293,7 @@ export const startDungeonPlayerMovement = (
             {basePriority:runtime.movementResolver.config.playerBasePriority,
               progressWeight:runtime.movementResolver.config.progressWeight});
         if (result.accepted) {
+          report(actionKind === 'swap' ? 'swap-started' : 'push-started');
           if (options.faceMovementDirection ?? true) {
             runtime.playerFacing = resolveDungeonCardinalFacing(direction);
             runtime.playerWorldRotationY = getDungeonMovementDirectionYaw(direction);
@@ -297,6 +311,7 @@ export const startDungeonPlayerMovement = (
   // executor's decision without staging a misleading collision animation.
   if (interactionFailure?.kind === 'swap'
     && (interactionFailure.reason === 'movement-in-progress' || interactionFailure.reason === 'priority-conflict')) {
+    report('arbitration-rejected');
     return { ...inspection, interactionFailure };
   }
   const startBlockedAttempt = (
@@ -343,6 +358,9 @@ export const startDungeonPlayerMovement = (
   if (inspection.blockedReason === 'map-boundary'
     || inspection.blockedReason === 'movement-obstacle'
     || inspection.blockedReason === 'direction-not-supported') {
+    if (contactId !== undefined) report(isDungeonMovementArbitrationRejection(interactionFailure?.reason) ? 'arbitration-rejected' : 'blocked', {
+      ...inspection, blockedObstacleIds: interactionFailure?.blockingEntityIds ?? inspection.blockedObstacleIds,
+    });
     return { ...startBlockedAttempt(inspection.blockedReason, inspection.blockedObstacleIds),
       ...(interactionFailure ? { interactionFailure } : {}) };
   }
@@ -390,6 +408,9 @@ export const startDungeonPlayerMovement = (
     ...(!insideMap(runtime, from) || !insideMap(runtime, to) ? { outsideMapStep: { toTileIndex: positionIndex(runtime, to) } } : {}),
   });
   if (!requestResult.accepted || !requestResult.request) {
+    report(isDungeonMovementArbitrationRejection(requestResult.blockedReason) ? 'arbitration-rejected' : 'blocked', {
+      ...inspection, blockedObstacleIds: requestResult.blockingEntityIds,
+    });
     return startBlockedAttempt(
       requestResult.blockedReason === 'map-boundary' ? 'map-boundary' : 'movement-obstacle',
       requestResult.blockingEntityIds,

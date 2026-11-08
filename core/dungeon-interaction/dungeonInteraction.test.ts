@@ -18,7 +18,7 @@ const layout = { mapAnchorMode: 'first-tile' as const, mapOffset: [0, 0, 0] as c
 function runtime(source = stored()) {
   const doc = parseDungeonMapDocumentV3(source);
   const value = createDungeonRuntime(doc, { sceneEnvironmentComponent: layout, tilePosition: { x: 1, y: 2 }, worldPosition: [8, .25, 16] });
-  value.traversal.registerActor({ id: 'guide', kind: 'agent', tileIndex: 16, enabled: true, blocksMovement: true, movementProfileId: 'ground-four-way' });
+  value.traversal.registerActor({ id: 'guide', kind: 'agent', tileIndex: 3 * value.map.width + 1, enabled: true, blocksMovement: true, movementProfileId: 'ground-four-way' });
   return value;
 }
 test('V3 interactions roundtrip, authoring permits incomplete drafts, execution rejects them, and V1 data is preserved', () => {
@@ -41,7 +41,7 @@ test('NPC queries follow live position, reject moving/disabled actors and reject
   const control = createDungeonInteractionControl(() => ({ loadId: 1, map: current.map, world: current.traversal, moving: () => moving }));
   assert.deepEqual(control.find(input()).map(item => item.entityId).sort(), ['guide', 'notice']);
   moving = true; assert.deepEqual(control.find(input()).map(item => item.entityId), ['notice']); moving = false;
-  current.traversal.moveActor('guide', 18);
+  current.traversal.moveActor('guide', 3 * current.map.width + 3);
   assert.deepEqual(control.find(input()).map(item => item.entityId), ['notice']);
   const newPosition = { ...input(), position: { tileX: 3, tileY: 2 } };
   assert.deepEqual(control.find(newPosition).map(item => item.entityId), ['guide']);
@@ -65,22 +65,27 @@ test('authoring a new interaction point permits incremental fields and undo befo
   assert.ok(validateDungeonInteractionDocument(store.getDocument()).length);
 });
 
-test('debug descriptions contain current positions, disabled state and exits without exposing live data', () => {
+test('debug descriptions follow logical tiles even when the body is rendered elsewhere', () => {
   const current = runtime();
   const control = createDungeonInteractionControl(() => ({ loadId: 1, map: current.map, world: current.traversal, moving: () => true }));
   assert.equal(control.describe(2).length, 0);
   const snapshot = control.describe(1);
-  assert.equal(snapshot.length, 5);
+  assert.equal(snapshot.length, 21);
   assert.equal(snapshot.find(row => row.entityId === 'once-notice')!.once, true);
   assert.equal(snapshot.find(row => row.entityId === 'exit')!.kind, 'transition');
   assert.equal(snapshot.find(row => row.entityId === 'guide')!.moving, true);
   const guide = current.traversal.body('guide')!;
-  current.traversal.moveActor('guide', 18); guide.worldPosition = [24, .25, 24]; guide.enabled = false;
+  guide.worldPosition = [20, .25, 24];
+  const beforeCommit = control.describe(1).find(row => row.entityId === 'guide')!;
+  assert.deepEqual(beforeCommit.placement, { kind: 'tile', tileX: 1, tileY: 3 });
+  assert.equal(beforeCommit.tracksBody, true);
+  current.traversal.moveActor('guide', 3 * current.map.width + 3);
+  guide.enabled = false;
   const updated = control.describe(1).find(row => row.entityId === 'guide')!;
   assert.deepEqual(updated.placement, { kind: 'tile', tileX: 3, tileY: 3 });
   assert.equal(updated.enabled, false);
-  updated.worldPosition![0] = 999;
-  assert.equal(guide.worldPosition[0], 24);
+  updated.placement.tileX = 999;
+  assert.equal(guide.logicalPosition.tileX, 3);
   assert.equal(current.map.document.components.event[0].enabled, undefined);
 });
 test('a different wall occludes an NPC while the NPC own collision does not', () => {
@@ -109,4 +114,42 @@ test('one trigger selects one action, ties fail closed, and blocking/async reset
   router.dispatch(input()); assert.match(router.inspect().error, /冲突/); assert.equal(teleport, 1);
   assert.equal(router.dispatch({ ...input('enter'), from: { ...input().position } }), false);
   router.dispose(); assert.equal(router.dispatch(input()), false);
+});
+
+test('synchronous map messages handle E without consuming movement triggers', () => {
+  const router = new DungeonInteractionRouter();
+  let shown = 0;
+  router.register({ id: 'message', find: () => [{
+    id: 'notice', entityId: 'notice', label: '地图提示', priority: 0, rank: 0,
+    stopMovement: false,
+    execute() { shown++; },
+  }] });
+  const enter = { ...input('enter'), from: { tileX: 0, tileY: 0 } };
+  assert.equal(router.dispatch(enter), false);
+  assert.equal(router.dispatch(input('move-attempt')), false);
+  assert.equal(router.dispatch(input()), true);
+  assert.equal(shown, 3);
+  assert.equal(router.inspect().busy, false);
+});
+
+test('Agent messages execute independently of player dialogue and player-only providers', async () => {
+  const router = new DungeonInteractionRouter();
+  let finish!: () => void;
+  let shown = 0;
+  router.register({ id: 'player-dialogue', find() { return [{
+    id: 'dialogue', entityId: 'npc', label: 'NPC', priority: 10, rank: 0,
+    execute: () => new Promise<void>(resolve => { finish = resolve; }),
+  }]; } });
+  router.register({ id: 'map-messages', acceptsAgents: true, find() { return [{
+    id: 'notice', entityId: 'notice', label: '地图提示', priority: 0, rank: 0,
+    execute() { shown++; },
+  }]; } });
+  assert.equal(router.dispatch(input()), true);
+  assert.equal(router.inspect().busy, true);
+  assert.equal(router.dispatch({ ...input(), actorId: 'guard' }), true);
+  assert.equal(shown, 1);
+  assert.equal(router.inspect().busy, true);
+  finish();
+  await tick();
+  assert.equal(router.inspect().busy, false);
 });

@@ -19,14 +19,18 @@ export const dungeonDialogueInteractionLabModule: LabModule = {
     const offProvider = router.register({ id: 'dungeon-dialogue', blocked: () => dialogue.inspect().busy,
       isConsumed: (loadId, componentId) => consumed.has(`${loadId}:${componentId}`),
       find(query) {
-        return control.find(query).filter(match => !consumed.has(`${query.loadId}:${match.id}`)).map(match => ({
+        return control.find(query).flatMap(match => {
+          const action = match.action;
+          if (action.type !== 'dialogue' || router.isConsumed(query.loadId, match.onceKey)) return [];
+          return [{
           id: `dialogue:${match.id}`, entityId: match.entityId, label: match.label, priority: match.priority, rank: match.rank,
           async execute() {
             ownedLoadId = query.loadId;
-            await dialogue.start({ presetKey: match.action.presetKey, entryNodeId: match.action.entryNodeId, uiPresetKey: match.action.uiPresetKey });
-            if (!disposed && ownedLoadId === query.loadId && match.once && ['playing', 'ended'].includes(dialogue.inspect().status)) consumed.add(`${query.loadId}:${match.id}`);
+            await dialogue.start({ presetKey: action.presetKey, entryNodeId: action.entryNodeId, uiPresetKey: action.uiPresetKey });
+            if (!disposed && ownedLoadId === query.loadId && match.once && ['playing', 'ended'].includes(dialogue.inspect().status)) consumed.add(`${query.loadId}:${match.onceKey}`);
           },
-        }));
+          }];
+        });
       },
     });
     const offMap = context.communication.on(dungeonMapChangedEvent, event => {

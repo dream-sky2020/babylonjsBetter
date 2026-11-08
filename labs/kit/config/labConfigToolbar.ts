@@ -3,7 +3,8 @@ import { saveLabConfig } from './labConfigTransport';
 
 export function mountLabConfigToolbar(header: HTMLElement, config: LabConfig, revision: string | null, validate: () => void, importLegacy: () => number): () => void {
   const root = document.createElement('div'); root.className = 'lab-config-toolbar';
-  const label = document.createElement('span'); label.dataset.labConfigStatus = '';
+  const label = document.createElement('span'); label.className = 'lab-config-status'; label.dataset.labConfigStatus = '';
+  label.setAttribute('role', 'status');
   const save = document.createElement('button'); save.type = 'button'; save.textContent = '保存 Lab 配置'; save.dataset.labConfigSave = '';
   const migrate = document.createElement('button'); migrate.type = 'button'; migrate.textContent = '导入旧本机参数';
   migrate.title = '将当前页面以前记住的有效参数导入运行配置，保存后才写入配置文件。';
@@ -29,13 +30,16 @@ export function mountLabConfigToolbar(header: HTMLElement, config: LabConfig, re
   });
   const unsubscribe = config.subscribe(() => { failure = ''; refresh(); });
   migrate.addEventListener('click', () => {
-    try { const count = importLegacy(); failure = ''; refresh(); label.textContent = `已导入 ${count} 项本机参数，请保存配置`; }
+    try { const count = importLegacy(); failure = ''; refresh(); label.textContent = `已导入 ${count} 项本机参数，请保存配置`; label.title = label.textContent; }
     catch (error) { failure = error instanceof Error ? error.message : String(error); refresh(); }
   });
   const beforeUnload = (event: BeforeUnloadEvent) => {
     if (config.dirty) { event.preventDefault(); event.returnValue = ''; }
   };
   window.addEventListener('beforeunload', beforeUnload);
-  root.append(save, migrate, label); header.append(root); refresh();
-  return () => { disposed = true; unsubscribe(); window.removeEventListener('beforeunload', beforeUnload); root.remove(); };
+  root.append(save, migrate);
+  const statuses = header.querySelector('.lab-header-statuses') ?? header;
+  statuses.insertBefore(label, statuses.querySelector('.lab-global-status'));
+  header.append(root); refresh();
+  return () => { disposed = true; unsubscribe(); window.removeEventListener('beforeunload', beforeUnload); label.remove(); root.remove(); };
 }

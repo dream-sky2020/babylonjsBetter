@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
+import { InteractionDirectionPicker } from '@/tools/entity-container-editor/InteractionDirectionPicker';
 import { ObjectHierarchy, InspectorPanel, InspectorSection } from '@/core/ui/editor-kit';
 import { DungeonMapWorkbench } from './DungeonMapWorkbench';
 import { createMapBrowserIndexes, createMapOutline } from './dungeonMapOutline';
@@ -193,7 +194,15 @@ const renderComponentCard = (entity: IEntity, component: IComponent) => {
       <div className="component-card__header"><span className="inspector-heading"><strong>{definition?.label ?? component.type}</strong><small>{component.type} · v{component.version}{!isAllowed ? ' · 当前 Entity 类型不允许' : ''}</small></span><label className="component-enabled"><input type="checkbox" checked={component.enabled !== false} onChange={(event) => updateComponentById(entity.id, component.id, `切换 ${definition?.label ?? component.type} 启用状态`, (current) => ({ ...current, enabled: event.target.checked }))} />启用</label></div>
       {definition ? <div className="physics-fields">
         {definition.fields.map((field) => {
+          if (field.visibleWhen) {
+            const condition = field.visibleWhen, value = valueAtPath(component, condition.path);
+            if ('equals' in condition ? value !== condition.equals : value === condition.notEquals) return null;
+          }
           const currentValue = valueAtPath(component, field.path);
+          if (component.type === 'event' && ['worldSides', 'localSides'].includes(field.path)) {
+            if (component.directionSpace !== (field.path === 'worldSides' ? 'world' : 'target-local')) return null;
+            return <InteractionDirectionPicker key={field.path} field={field} value={currentValue} onChange={value => setField(field, value)} />;
+          }
           if (field.control === 'checkbox') return <label className="physics-check" key={field.path}><input type="checkbox" checked={currentValue === true} onChange={(event) => setField(field, event.target.checked)} /><span>{field.label}</span></label>;
           if (field.control === 'multi-select') {
             const selected = Array.isArray(currentValue) ? currentValue.filter((value): value is string => typeof value === 'string') : [];

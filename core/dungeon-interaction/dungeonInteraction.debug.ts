@@ -5,19 +5,22 @@ import type { DungeonTraversalWorld } from '../dungeon-traversal/dungeonTraversa
 import type { IEventComponent } from '../entity/components/event.component.ts';
 import { resolveDungeonExitTriggers, type IDungeonExitComponent } from '../entity/components/dungeon-exit.component.ts';
 import type { DungeonMapDirection } from '../map/dungeonMap.types.ts';
+import { interactionDirectionText, interactionOnceKey } from './dungeonInteraction.direction.ts';
 
 export type InteractionDebugDescriptor = {
   id: string; componentId: string; entityId: string; label: string;
-  kind: 'dialogue' | 'transition'; triggers: readonly string[]; targetRule?: string;
+  kind: 'dialogue' | 'message' | 'transition'; triggers: readonly string[]; targetRule?: string;
+  movementPhase?: 'contact' | 'blocked';
   once: boolean; enabled: boolean; moving: boolean;
+  onceKey?: string; directionText?: string; facing?: string; ruleName?: string;
   placement: { kind: 'tile' | 'side' | 'edge'; tileX: number; tileY: number; direction?: DungeonMapDirection };
-  /** Copied presentation pose; never a live Body or document reference. */
-  worldPosition?: [number, number, number];
+  /** Use the smaller marker style for an entity whose placement follows its logical body. */
+  tracksBody: boolean;
 };
 const indexes = new WeakMap<DungeonRuntimeMap, DungeonMapDocumentQuery>();
 /** Read-only descriptions; drawing these must never query or execute interaction candidates. */
 export function describeDungeonInteractions(map: DungeonRuntimeMap, world: DungeonTraversalWorld,
-  moving: (entityId: string) => boolean): InteractionDebugDescriptor[] {
+  moving: (entityId: string) => boolean, facing?: (entityId: string) => string | undefined): InteractionDebugDescriptor[] {
   let query = indexes.get(map);
   if (!query) { query = new DungeonMapDocumentQuery(map.document); indexes.set(map, query); }
   const result: InteractionDebugDescriptor[] = [];
@@ -46,16 +49,21 @@ export function describeDungeonInteractions(map: DungeonRuntimeMap, world: Dunge
       if (!row.place) continue;
       const key = `${row.place.kind}:${row.place.tileX}:${row.place.tileY}:${row.place.direction ?? ''}`;
       if (seen.has(key)) continue; seen.add(key);
+      const event = raw as unknown as IEventComponent;
       result.push({ ...info, id: `${raw.id}:${key}`, componentId: raw.id, entityId: entity.id, label: entity.name ?? entity.id,
+        ...(event.trigger === 'move-attempt' ? { movementPhase: event.movementPhase ??
+          (event.ruleKind === 'action' || event.actorScope === 'agent' ? 'blocked' : event.actorScope === 'both' ? undefined : 'contact') } : {}),
+        ...(info.kind !== 'transition' ? { ruleName: event.ruleName, onceKey: interactionOnceKey(event, raw.entityId), directionText: interactionDirectionText(event),
+          facing: entity.entityType === 'dungeon-agent' ? facing?.(entity.id) : body?.facing ?? query!.getComponents(entity.id, 'grid-facing').find(row => row.enabled !== false)?.facing as string | undefined } : {}),
         enabled: entity.enabled !== false && raw.enabled !== false && row.enabled && body?.enabled !== false,
         moving: !!body && moving(entity.id), placement: row.place,
-        worldPosition: bodyPosition && body?.worldPosition ? [...body.worldPosition] : undefined });
+        tracksBody: !!bodyPosition });
     }
   };
   for (const raw of map.document.components.event ?? []) {
     const event = raw as unknown as IEventComponent;
-    if (event.version !== 2 || event.action?.type !== 'dialogue') continue;
-    append(raw, { kind: 'dialogue', triggers: [event.trigger], targetRule: event.targetRule, once: event.once === true });
+    if (event.version !== 2 || (event.action?.type !== 'dialogue' && event.action?.type !== 'message')) continue;
+    append(raw, { kind: event.action.type, triggers: [event.trigger], targetRule: event.targetRule, once: event.once === true });
   }
   for (const raw of map.document.components['dungeon-exit'] ?? []) {
     append(raw, { kind: 'transition', triggers: resolveDungeonExitTriggers(raw as unknown as IDungeonExitComponent), once: false });

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { InteractionDirectionPicker } from './InteractionDirectionPicker';
 import type {
   ComponentFieldSchema,
   EntityContainerKind,
@@ -77,12 +78,21 @@ export const EntityContainerEditor = ({
   }));
 
   const renderField = (entity: IEntity, component: IComponent, field: ComponentFieldSchema) => {
+    if (field.visibleWhen) {
+      const condition = field.visibleWhen, value = valueAtPath(component, condition.path);
+      if ('equals' in condition ? value !== condition.equals : value === condition.notEquals) return null;
+    }
     const currentValue = valueAtPath(component, field.path);
     const setField = (nextValue: unknown) => updateComponent(entity.id, component.id, (current) => (
       valueWithPath(current, field.path, nextValue)
     ));
     const dynamicOptions = fieldOptions?.(component, field);
     const options = dynamicOptions ?? field.options;
+    if (component.type === 'event' && ['worldSides', 'localSides'].includes(field.path)) {
+      if (component.directionSpace !== (field.path === 'worldSides' ? 'world' : 'target-local')) return null;
+      return <InteractionDirectionPicker key={field.path} field={field} value={currentValue} onChange={setField} />;
+    }
+    if (field.control === 'multi-select') return <fieldset key={field.path}><legend>{field.label}</legend>{options?.map(option => <label className="ece-check" key={option.value}><input type="checkbox" checked={Array.isArray(currentValue) && currentValue.includes(option.value)} onChange={event => setField(event.target.checked ? [...(Array.isArray(currentValue) ? currentValue : []), option.value] : (Array.isArray(currentValue) ? currentValue : []).filter(value => value !== option.value))} />{option.label}</label>)}</fieldset>;
     if (field.control === 'checkbox') return <label className="ece-check" key={field.path}><input type="checkbox" checked={currentValue === true} onChange={(event) => setField(event.target.checked)} /><span>{field.label}</span></label>;
     if (field.control === 'select' || dynamicOptions) return <label key={field.path}><span>{field.label}</span><select value={String(currentValue ?? '')} onChange={(event) => setField(event.target.value || undefined)}>{field.optional ? <option value="">不启用</option> : null}{options?.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>;
     if (field.control === 'tags') return <label key={`${component.id}-${field.path}-${JSON.stringify(currentValue)}`}><span>{field.label}</span><textarea rows={2} defaultValue={Array.isArray(currentValue) ? currentValue.join(', ') : ''} onBlur={(event) => setField(event.target.value.split(/[，,\n]/).map((item) => item.trim()).filter(Boolean))} /></label>;

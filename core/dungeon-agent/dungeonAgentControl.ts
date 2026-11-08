@@ -1,7 +1,7 @@
 import { createServiceToken } from '../system-runtime/ServiceToken.ts';
 import type { DungeonAgentSystem } from './dungeonAgentSystem';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
-import { startDungeonAgentMovement, startDungeonAgentTurn, syncDungeonAgentPathReservation } from './dungeonAgent.runtime.ts';
+import { requestDungeonAgentInteraction, startDungeonAgentMovement, startDungeonAgentTurn, syncDungeonAgentPathReservation } from './dungeonAgent.runtime.ts';
 import { setDungeonAgentControllerOverride, clearDungeonAgentControllerOverride, type DungeonAgentController } from './dungeonAgent.controllers.ts';
 
 /** Agent's existing domain state is retained while its map dependency is migrated. */
@@ -10,6 +10,7 @@ export type DungeonAgentCommands = Pick<DungeonAgentSystem, 'state' | 'settings'
   setController(entityId: string, controller: DungeonAgentController, parameters?: Readonly<Record<string, unknown>>): void;
   resetController(entityId: string): void;
   turn(entityId: string, turn: Parameters<typeof startDungeonAgentTurn>[2], durationSeconds: number): ReturnType<typeof startDungeonAgentTurn>;
+  interact(entityId: string): boolean;
   setMovementProfile(entityId: string, profileId: string): void;
 };
 type Session = { loadId: number; system: Pick<DungeonAgentSystem, 'state' | 'settings' | 'update' | 'afterPlayerStep'>; map: DungeonRuntimeMap };
@@ -30,6 +31,7 @@ export const createDungeonAgentControl = (read: () => Session | null): DungeonAg
       afterPlayerStep: event => requireCurrent().system.afterPlayerStep(event),
       move: (...args) => { const current = requireCurrent(); return startDungeonAgentMovement(current.system.state, current.map, ...args); },
       turn: (entityId, turn, duration) => startDungeonAgentTurn(requireCurrent().system.state, entityId, turn, duration),
+      interact: entityId => requestDungeonAgentInteraction(requireCurrent().system.state, entityId),
       setMovementProfile: (entityId, profileId) => {
         const state = requireCurrent().system.state;
         const index = state.agentIndexByEntityId.get(entityId);

@@ -10,6 +10,7 @@ import { dungeonMapWrapsX, dungeonMapWrapsY } from '../map/dungeonMap.topology.t
 import { findDungeonPath, type DungeonPathResult } from '../dungeon-navigation/index.ts';
 import {
   inspectDungeonAgentStepTraversal,
+  requestDungeonAgentInteraction,
   syncDungeonAgentPathReservation,
   startDungeonAgentMovement,
   resolveDungeonAgentPriority,
@@ -27,6 +28,7 @@ export const CONTINUOUS_RANDOM_WALK_CONTROLLER_ID = 'continuous-random-walk';
 export const MOVE_TO_TILE_CONTROLLER_ID = 'move-to-tile';
 export const PATROL_ROUTE_CONTROLLER_ID = 'patrol-route';
 export const CHASE_PLAYER_CONTROLLER_ID = 'chase-player';
+export const INTERACT_FORWARD_CONTROLLER_ID = 'interact-forward';
 
 export type DungeonAgentControllerTrigger = 'player-step' | 'continuous';
 
@@ -34,7 +36,7 @@ export type DungeonAgentControllerAction = Readonly<{
   entityId: string;
   controllerId: string;
   trigger: DungeonAgentControllerTrigger;
-  outcome: 'move-started' | 'idle' | 'blocked';
+  outcome: 'move-started' | 'idle' | 'blocked' | 'interaction-requested';
   direction?: DungeonMovementDirection;
   movementResult?: DungeonAgentMovementResult;
 }>;
@@ -54,6 +56,7 @@ type RandomControllerState = {
   randomState: number;
   idleRemainingSeconds: number | null;
   lastAction?: DungeonAgentControllerAction;
+  interacted?: boolean;
   planSequence?: number;
   waypointIndex?: number;
   arrivedWaypointIndex?: number;
@@ -111,6 +114,7 @@ type DungeonAgentControllerContext = Readonly<{
   findPathTo(toTileIndex: number, options?: DungeonAgentPathPlanningOptions): DungeonPathResult;
   findLocalEscape(target: number, entryTile: number, visited: readonly string[]): { status: 'ready' | 'unreachable' | 'deferred'; tiles?: number[]; directions?: DungeonMovementDirection[] };
   tryMove(direction: DungeonMovementDirection, durationSeconds: number): DungeonAgentControllerAction;
+  tryInteract(): DungeonAgentControllerAction;
   tryRandomMove(durationSeconds: number): DungeonAgentControllerAction;
   idle(): DungeonAgentControllerAction;
 }>;
@@ -382,6 +386,10 @@ const createContext = (
     trigger,
     playerTileIndex: options.playerTileIndex,
     random,
+    tryInteract: () => remember({
+      ...base,
+      outcome: requestDungeonAgentInteraction(state, base.entityId) ? 'interaction-requested' : 'idle',
+    }),
     findLocalEscape: (target, entryTile, visited) => {
       if (pathSearchBudget.remaining <= 0) return { status: 'deferred' };
       pathSearchBudget.remaining--;
@@ -964,6 +972,15 @@ const patrolRouteController: DungeonAgentController = {
     },
     { key: 'blockedWaitSeconds', label: '受阻等待后重算（秒）', type: 'number', defaultValue: 1, min: 0, step: 0.1 },
     { key: 'waitAtWaypointSeconds', label: '到点等待（秒）', type: 'number', defaultValue: 0.2, min: 0, step: 0.05 },
+    {
+      key: 'forwardAction', label: '到点时的前方动作', type: 'select', defaultValue: 'none',
+      options: [
+        { value: 'none', label: '无' },
+        { value: 'interact', label: '与前方交互' },
+        { value: 'move', label: '尝试向前一步' },
+      ],
+    },
+    { key: 'forwardActionWaypoint', label: '动作对应的巡逻点序号', type: 'number', defaultValue: 1, min: 1, step: 1, integer: true },
     { key: 'moveDurationSeconds', label: '每格移动耗时（秒）', type: 'number', defaultValue: 0.3, min: 0, step: 0.05 },
     { key: 'seed', label: '随机种子', description: '留空时根据 Agent ID 自动生成。', type: 'number', step: 1, integer: true },
   ],
@@ -988,6 +1005,11 @@ const patrolRouteController: DungeonAgentController = {
       if (state.arrivedWaypointIndex !== state.waypointIndex) {
         state.arrivedWaypointIndex = state.waypointIndex;
         state.waypointWaitRemainingSeconds = numberParameter(context.agent, 'waitAtWaypointSeconds', 0.2);
+        if (state.waypointIndex + 1 === numberParameter(context.agent, 'forwardActionWaypoint', 1)) {
+          const action = textParameter(context.agent, 'forwardAction', 'none');
+          if (action === 'interact') return context.tryInteract();
+          if (action === 'move') return context.tryMove(context.agent.facing, numberParameter(context.agent, 'moveDurationSeconds', 0.3));
+        }
       }
       state.waypointWaitRemainingSeconds = Math.max(
         0,
@@ -1157,6 +1179,19 @@ const chasePlayerController: DungeonAgentController = {
 
 export const createDefaultDungeonAgentControllerRegistry = (): DungeonAgentControllerRegistry => new Map([
   [stationaryController.id, stationaryController],
+  [INTERACT_FORWARD_CONTROLLER_ID, {
+    id: INTERACT_FORWARD_CONTROLLER_ID,
+    label: '与前方交互（一次）',
+    description: '停稳后向当前面朝的目标发出一次主动交互。',
+    parameters: [],
+    update(context) {
+      const state = controllerState(context.agent);
+      if (state.interacted) return null;
+      const action = context.tryInteract();
+      if (action.outcome === 'interaction-requested') state.interacted = true;
+      return action;
+    },
+  }],
   [randomAfterPlayerStepController.id, randomAfterPlayerStepController],
   // 兼容已经写入地图的早期随机漫游 ID；新地图应使用语义更明确的新 ID。
   [legacyRandomWalkController.id, legacyRandomWalkController],

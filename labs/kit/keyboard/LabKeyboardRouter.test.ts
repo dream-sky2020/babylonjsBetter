@@ -57,6 +57,43 @@ test('编辑控件默认阻止业务输入', () => {
   router.dispose();
 });
 
+test('按下后焦点移到编辑控件，松键仍释放玩家状态', () => {
+  const router = new LabKeyboardRouter(null);
+  const held = new Set<string>();
+  router.register({ id: 'player', label: 'Player', keys: ['KeyW'],
+    onKeyDown: event => { held.add(event.code); return 'handled'; },
+    onKeyUp: event => { held.delete(event.code); return 'handled'; },
+  });
+  for (const targetKind of ['input', 'textarea', 'select', 'contenteditable'] as const) {
+    router.route(keyboardEvent('KeyW'));
+    router.route({ ...keyboardEvent('KeyW'), phase: 'keyup', targetKind });
+    assert.equal(held.size, 0, targetKind);
+  }
+  router.dispose();
+});
+
+test('失焦、页面隐藏及全局停用通知消费者清理长按状态，销毁移除监听', () => {
+  const target = new EventTarget();
+  const document = Object.assign(new EventTarget(), { hidden: false });
+  Object.assign(target, { document });
+  const router = new LabKeyboardRouter(target as unknown as Window);
+  let resets = 0;
+  router.register({ id: 'player', label: 'Player', keys: ['KeyW'], onInputReset: () => { resets++; } });
+  router.route(keyboardEvent('KeyW'));
+  target.dispatchEvent(new Event('blur'));
+  assert.equal(router.pressed.size, 0);
+  assert.equal(resets, 1);
+  document.hidden = true;
+  document.dispatchEvent(new Event('visibilitychange'));
+  assert.equal(resets, 2);
+  router.setGlobalEnabled(false);
+  assert.equal(resets, 3);
+  router.dispose();
+  target.dispatchEvent(new Event('blur'));
+  document.dispatchEvent(new Event('visibilitychange'));
+  assert.equal(resets, 3);
+});
+
 test('相同优先级保持注册顺序', () => {
   const router = new LabKeyboardRouter(null);
   router.register({ id: 'first', label: 'First', keys: ['KeyE'], priority: 50 });

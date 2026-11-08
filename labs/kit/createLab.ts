@@ -135,7 +135,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   home.className = 'lab-home-link';
   home.href = '../../../index.html';
   home.textContent = '返回工具入口';
-  workbench.header.append(home);
+  workbench.header.insertBefore(home, workbench.header.querySelector('[data-lab-toggle="objects"]'));
   const badge = document.createElement('div');
   badge.className = 'lab-badge';
   badge.textContent = options.badge;

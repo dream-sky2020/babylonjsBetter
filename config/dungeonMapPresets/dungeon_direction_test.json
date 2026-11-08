@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 3,
+  "identity": {
+    "id": "dungeon-map:dungeon_direction_test",
+    "presetKey": "dungeon_direction_test",
+    "name": "方向交互测试场 · 正侧背 / 东南西北"
+  },
+  "grid": {
+    "width": 6,
+    "height": 5,
+    "topologyMode": "bounded"
+  },
+  "terrain": {
+    "default": {
+      "walkable": true
+    }
+  },
+  "entities": [
+    {
+      "id": "environment",
+      "entityType": "map",
+      "name": "交互测试场景",
+      "enabled": true
+    },
+    {
+      "id": "spawn",
+      "entityType": "spawn-point",
+      "name": "玩家出生点",
+      "enabled": true
+    },
+    {
+      "id": "guide",
+      "entityType": "dungeon-agent",
+      "name": "向导 NPC",
+      "enabled": true
+    },
+    {
+      "id": "compass",
+      "entityType": "interaction-point",
+      "name": "四向机关",
+      "enabled": true
+    },
+    {
+      "id": "entry-point",
+      "entityType": "interaction-point",
+      "name": "来路调查格",
+      "enabled": true
+    }
+  ],
+  "components": {
+    "spatial-attachment": [
+      {
+        "id": "environment:spatial-attachment",
+        "entityId": "environment",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "map"
+          }
+        ]
+      },
+      {
+        "id": "spawn:spatial-attachment",
+        "entityId": "spawn",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,2"
+          }
+        ]
+      },
+      {
+        "id": "guide:spatial-attachment",
+        "entityId": "guide",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,3"
+          }
+        ]
+      },
+      {
+        "id": "compass:attachment",
+        "entityId": "compass",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:4,1"
+          }
+        ]
+      },
+      {
+        "id": "entry-point:attachment",
+        "entityId": "entry-point",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:0,1"
+          }
+        ]
+      }
+    ],
+    "scene-environment": [
+      {
+        "id": "environment:scene-environment",
+        "entityId": "environment",
+        "type": "scene-environment",
+        "version": 3,
+        "presetKey": "interaction-test-ground",
+        "mapAnchorMode": "first-tile",
+        "mapOffset": [
+          0,
+          0,
+          0
+        ],
+        "tileSpacing": [
+          8,
+          8
+        ],
+        "tileSize": [
+          7.5,
+          0.5,
+          7.5
+        ]
+      }
+    ],
+    "actor-spawn": [
+      {
+        "id": "spawn:actor-spawn",
+        "entityId": "spawn",
+        "type": "actor-spawn",
+        "version": 1
+      }
+    ],
+    "dungeon-entrance": [],
+    "spatial-body": [
+      {
+        "id": "guide:spatial-body",
+        "entityId": "guide",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "movable",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      }
+    ],
+    "spatial-collider": [
+      {
+        "id": "guide:spatial-collider",
+        "entityId": "guide",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    ],
+    "spatial-interaction": [
+      {
+        "id": "guide:spatial-interaction",
+        "entityId": "guide",
+        "type": "spatial-interaction",
+        "version": 1,
+        "onPlayerPush": "block"
+      }
+    ],
+    "agent-timing": [
+      {
+        "id": "guide:agent-timing",
+        "entityId": "guide",
+        "type": "agent-timing",
+        "version": 1,
+        "actionPeriod": 1,
+        "priority": 0
+      }
+    ],
+    "agent-controller": [
+      {
+        "id": "guide:agent-controller",
+        "entityId": "guide",
+        "type": "agent-controller",
+        "version": 1,
+        "controllerId": "stationary",
+        "parameters": {},
+        "debugColor": "#f59e0b"
+      }
+    ],
+    "event": [
+      {
+        "id": "guide:direction-front",
+        "entityId": "guide",
+        "type": "event",
+        "version": 2,
+        "ruleName": "正面交谈",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-front"
+        },
+        "directionSpace": "target-local",
+        "localSides": [
+          "front"
+        ]
+      },
+      {
+        "id": "guide:direction-side",
+        "entityId": "guide",
+        "type": "event",
+        "version": 2,
+        "ruleName": "两侧交谈",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-side"
+        },
+        "directionSpace": "target-local",
+        "localSides": [
+          "left",
+          "right"
+        ]
+      },
+      {
+        "id": "guide:direction-back",
+        "entityId": "guide",
+        "type": "event",
+        "version": 2,
+        "ruleName": "背面交谈",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-back"
+        },
+        "directionSpace": "target-local",
+        "localSides": [
+          "back"
+        ]
+      },
+      {
+        "id": "guide:direction-fallback",
+        "entityId": "guide",
+        "type": "event",
+        "version": 2,
+        "ruleName": "通用后备",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-fallback"
+        },
+        "directionSpace": "any"
+      },
+      {
+        "id": "guide:direction-bump",
+        "entityId": "guide",
+        "type": "event",
+        "version": 2,
+        "ruleName": "碰撞提醒",
+        "trigger": "move-attempt",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-bump"
+        },
+        "directionSpace": "any",
+        "movementPhase": "contact",
+        "blocker": "self"
+      },
+      {
+        "id": "compass:direction-north",
+        "entityId": "compass",
+        "type": "event",
+        "version": 2,
+        "ruleName": "北侧机关",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-north"
+        },
+        "directionSpace": "world",
+        "worldSides": [
+          "north"
+        ],
+        "once": false,
+        "onceScope": "rule"
+      },
+      {
+        "id": "compass:direction-east",
+        "entityId": "compass",
+        "type": "event",
+        "version": 2,
+        "ruleName": "东侧机关",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-east"
+        },
+        "directionSpace": "world",
+        "worldSides": [
+          "east"
+        ],
+        "once": true,
+        "onceScope": "entity"
+      },
+      {
+        "id": "compass:direction-south",
+        "entityId": "compass",
+        "type": "event",
+        "version": 2,
+        "ruleName": "南侧机关",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-south"
+        },
+        "directionSpace": "world",
+        "worldSides": [
+          "south"
+        ],
+        "once": false,
+        "onceScope": "rule"
+      },
+      {
+        "id": "compass:direction-west",
+        "entityId": "compass",
+        "type": "event",
+        "version": 2,
+        "ruleName": "西侧机关",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-west"
+        },
+        "directionSpace": "world",
+        "worldSides": [
+          "west"
+        ],
+        "once": true,
+        "onceScope": "entity"
+      },
+      {
+        "id": "entry-point:direction-enter-north",
+        "entityId": "entry-point",
+        "type": "event",
+        "version": 2,
+        "ruleName": "北侧进入",
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-enter-north"
+        },
+        "directionSpace": "world",
+        "worldSides": [
+          "north"
+        ]
+      },
+      {
+        "id": "entry-point:direction-enter-other",
+        "entityId": "entry-point",
+        "type": "event",
+        "version": 2,
+        "ruleName": "其他来路",
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 10,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_test",
+          "entryNodeId": "direction-enter-other"
+        },
+        "directionSpace": "any"
+      }
+    ],
+    "dungeon-exit": []
+  }
+}

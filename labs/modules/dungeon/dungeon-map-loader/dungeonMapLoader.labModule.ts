@@ -256,9 +256,24 @@ export const dungeonMapLoaderLabModule: LabModule = {
       agentCommandSession = { loadId: activeLoadId, map: activeRuntime.map, system };
       return agentCommandSession;
     }));
+    const interactionAgentSystem = (): DungeonAgentSystem | undefined => {
+      if (!activeRuntime) return undefined;
+      // Agent is optional in composed labs, and candidate sessions are not ready yet.
+      try { return assembly.readPreparation<DungeonAgentSystem>(activeRuntime, 'dungeon-agent'); }
+      catch { return undefined; }
+    };
     context.services.set(DUNGEON_INTERACTION_CONTROL, createDungeonInteractionControl(() => activeRuntime ? {
       loadId: activeLoadId, map: activeRuntime.map, world: activeRuntime.traversal,
-      moving: entityId => !!activeRuntime?.movementResolver.getActiveRequest(entityId),
+      moving: entityId => {
+        const system = interactionAgentSystem();
+        const index = system?.state.agentIndexByEntityId.get(entityId);
+        return !!activeRuntime?.movementResolver.getActiveRequest(entityId) || index !== undefined && !!system?.state.agents[index]?.movement;
+      },
+      facing: entityId => {
+        const system = interactionAgentSystem();
+        const index = system?.state.agentIndexByEntityId.get(entityId);
+        return index === undefined ? undefined : system?.state.agents[index]?.facing;
+      },
     } : null));
     context.services.set(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY, createDungeonTransitionControl(() =>
       activeRuntime ? { loadId: activeLoadId, map: activeRuntime.map } : null));
