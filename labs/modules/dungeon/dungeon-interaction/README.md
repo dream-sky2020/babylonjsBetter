@@ -89,6 +89,10 @@ dungeon-interaction 是唯一按键/完成格步 order 100/受阻尝试入口。
 
 dungeon-dialogue-interaction 适配模块调用 LAB_DIALOGUE，仅需要对话的 Lab 安装。切图/卸载取消本适配器启动的旧对白；忙碌期间禁止重复交互。对话锁住玩家输入，不主动暂停 NPC 模拟。
 
+`message` 动作通过 `LAB_MESSAGE_BAR.show({ text, durationSeconds, channel })` 发送给共享 `message-bar` 模块。`dungeon-interaction` 声明依赖，现有地牢 Lab 随之加载。规则匹配、计次和点灯仍在地牢交互中处理；切图通过频道只清理地牢消息。其他 Lab 可单独装配 `message-bar`，声明依赖后调用同一服务。
+
+「消息栏 → UI 预设」选择写入本 Lab 的 `message-bar.ui-preset`，默认 `message_bar_default`。在 UI 编辑器中可复制并调整该预设；保留「消息列表」节点和 `message-bar.items` 绑定，新的预设就会出现在下拉列表。选择会立即应用，点击 Lab 顶部保存可保留到下次启动。
+
 dungeon-transition 登记出口候选，继续拥有传送校验、输入锁和切图流程。目标地图、入口和三种 triggers 仍只保存在 dungeon-exit，未复制到 event。出口 priority 0，格子 rank 1、边 rank 0；旧多出口冲突检查保留。其运行开关也改为读取 LabConfig，交互键由统一模块设置。
 
 保存 Lab 配置不执行交互或重新加载。生产沿用打包配置读取，无需 Python。测试构建仍含 Lab 工作台，发行包裁剪编辑器属于独立工作。目前未增加任务条件、剧情事件、宝箱/道具执行器或永久进度。

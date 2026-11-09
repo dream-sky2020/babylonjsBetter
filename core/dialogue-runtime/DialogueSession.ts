@@ -18,12 +18,16 @@ export class DialogueSession {
   private node?: Speech;
   private lineIndex = 0;
   private status: DialoguePlayback['status'] = 'idle';
+  private reachableChoices = false;
+
+  get hasChoices(): boolean { return this.reachableChoices; }
 
   start(source: CompiledDialogue): DialoguePlayback {
     const program = structuredClone(source);
     if (program.version !== 1 || !Object.hasOwn(program.instructions, program.entryNodeId)) throw new Error('对话入口不存在。');
     // Reject unsupported reachable nodes before opening a UI or executing any part of the story.
     const pending = [program.entryNodeId], visited = new Set<string>();
+    let hasChoices = false;
     while (pending.length) {
       const id = pending.pop()!;
       if (visited.has(id)) continue;
@@ -31,9 +35,11 @@ export class DialogueSession {
       const instruction = program.instructions[id];
       if (!instruction) throw new Error(`对话目标节点不存在：${id}`);
       if (instruction.kind !== 'choice') throw new Error(`节点“${id}”需要${instruction.kind === 'condition' ? '条件判断' : '剧情事件'}接入；当前测试播放只支持对白和选项。`);
+      hasChoices ||= instruction.choices.length > 0;
       pending.push(...Object.values(instruction.routes));
     }
     this.program = program;
+    this.reachableChoices = hasChoices;
     this.enter(program.entryNodeId);
     return this.inspect();
   }

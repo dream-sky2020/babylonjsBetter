@@ -23,6 +23,7 @@ app.whenReady().then(async () => {
     await wait(`!!document.querySelector('.map-dock-panel[data-panel="entities"] [data-object-id="entity:guide"]')`);
     await page(`document.querySelector('.map-dock-panel[data-panel="entities"] [data-object-id="entity:guide"]').click()`);
     await wait(`!!document.querySelector('[data-component-id="guide:direction-front"] .ece-direction-picker')`);
+    await wait(`!!document.querySelector('[data-component-id="guide:direction-front"] option[value="default_dialogue_ui"]')`);
     const result = await page(`(async () => {
       const pause = () => new Promise(resolve => setTimeout(resolve, 100));
       const card = () => document.querySelector('[data-component-id="guide:direction-front"]');
@@ -39,10 +40,19 @@ app.whenReady().then(async () => {
       const redo = card().querySelector('.ece-direction-picker input').checked;
       change('target-local'); await pause();
       const restored = card().querySelector('.ece-direction-picker input').checked;
+      const uiPicker = () => card().querySelector('select[aria-label^="UI 预设"]');
+      const inherited = uiPicker().value === '';
+      const incompatible = uiPicker().querySelector('option[value="message_bar_default"]').disabled;
+      const uiSelect = uiPicker();
+      Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value').set.call(uiSelect, 'default_dialogue_ui');
+      uiSelect.dispatchEvent(new Event('change', { bubbles: true })); await pause();
+      const compatible = uiPicker().value === 'default_dialogue_ui';
+      document.querySelector('button[title="撤销最近一次数据修改"]').click(); await pause();
+      const uiUndo = uiPicker().value === '';
       card().scrollIntoView({ block: 'center' });
-      return { original, world, checked, undo, redo, restored, pickerCount: card().querySelectorAll('.ece-direction-picker').length };
+      return { original, world, checked, undo, redo, restored, pickerCount: card().querySelectorAll('.ece-direction-picker').length, inherited, incompatible, compatible, uiUndo };
     })()`);
-    assert.deepEqual(result, { original: true, world: true, checked: true, undo: true, redo: true, restored: true, pickerCount: 1 });
+    assert.deepEqual(result, { original: true, world: true, checked: true, undo: true, redo: true, restored: true, pickerCount: 1, inherited: true, incompatible: true, compatible: true, uiUndo: true });
     assert.deepEqual(errors, []); assert.deepEqual(writes, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-editor.png'), (await win.webContents.capturePage()).toPNG());
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-editor.json'), JSON.stringify({ passed: true, ...result, errors, writes }, null, 2));

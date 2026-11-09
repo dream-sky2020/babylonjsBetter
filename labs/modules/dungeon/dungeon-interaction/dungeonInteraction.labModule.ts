@@ -10,7 +10,7 @@ import { DUNGEON_INTERACTION_CONTROL } from '@/core/dungeon-interaction/dungeonI
 import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import { createDungeonInteractionDebug } from './dungeonInteractionDebug';
-import './dungeonInteractionMessages.css';
+import { LAB_MESSAGE_BAR } from '@/labs/modules/shared/message-bar/messageBar.service';
 import { dungeonAgentInteractionEvent } from '../dungeon-agent/dungeonAgent.protocol';
 import { resolveDungeonCardinalFacing } from '@/core/dungeon-movement/dungeonMovement.direction';
 import { createDungeonInteractionLamps } from './dungeonInteractionLamps';
@@ -31,7 +31,7 @@ function validPlayerRules(value: unknown): boolean {
 }
 
 export const dungeonInteractionLabModule: LabModule = {
-  id: 'dungeon-interaction', dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view'],
+  id: 'dungeon-interaction', dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view', 'message-bar'],
   setup(context) {
     const debugDefaults = { 'debug-color': true, 'debug-labels': true, 'debug-name': true,
       'debug-trigger': true, 'debug-action': false, 'debug-state': true, 'debug-direction': false, 'debug-reasons': false };
@@ -56,26 +56,13 @@ export const dungeonInteractionLabModule: LabModule = {
     const blocked = context.services.get<DungeonPlayerBlockedAttemptService>(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY);
     const router = new DungeonInteractionRouter();
     const lamps = createDungeonInteractionLamps(context.scene);
-    const messageLayer = context.viewport.openHtmlLayer({
-      id: 'dungeon:interaction-messages', title: '地图消息', mode: 'overlay',
-      inputMode: 'passthrough', interactive: false, chrome: false, closable: false, initiallyVisible: true,
-    });
-    const messageList = document.createElement('div');
-    messageList.className = 'dungeon-interaction-messages';
-    messageList.setAttribute('role', 'log');
-    messageList.setAttribute('aria-label', '地图消息');
-    messageLayer.content.append(messageList);
-    const messageTimers = new Map<HTMLElement, number>();
+    const messageBar = context.services.get(LAB_MESSAGE_BAR);
+    const messageChannel = 'dungeon-interaction';
     const consumedMessages = new Set<string>();
     const contacts = new Map<string, Map<string, Set<string>>>();
     let offContact = () => {};
-    const removeMessage = (item: HTMLElement) => {
-      window.clearTimeout(messageTimers.get(item));
-      messageTimers.delete(item);
-      item.remove();
-    };
-    const clearMessages = () => {
-      for (const item of messageTimers.keys()) removeMessage(item);
+    const resetMessageInteractions = () => {
+      messageBar.clear(messageChannel);
       consumedMessages.clear();
       contacts.clear();
       lamps.clear();
@@ -105,13 +92,11 @@ export const dungeonInteractionLabModule: LabModule = {
               }
               const loaded = grid.current;
               if (action.light && loaded?.loadId === query.loadId) lamps.light(match.entityId, loaded, query.position);
-              const oldest = messageTimers.keys().next().value;
-              if (messageTimers.size >= 4 && oldest) removeMessage(oldest);
-              const item = document.createElement('div');
-              item.className = 'dungeon-interaction-message';
-              item.textContent = match.actorLabel ? `${match.actorLabel} · ${action.text}` : action.text;
-              messageList.append(item);
-              messageTimers.set(item, window.setTimeout(() => removeMessage(item), (action.durationSeconds ?? 3) * 1000));
+              messageBar.show({
+                text: match.actorLabel ? `${match.actorLabel} · ${action.text}` : action.text,
+                durationSeconds: action.durationSeconds,
+                channel: messageChannel,
+              });
               if (match.once) consumedMessages.add(`${query.loadId}:${match.onceKey}`);
             },
           }];
@@ -248,7 +233,7 @@ export const dungeonInteractionLabModule: LabModule = {
     const stopDebug = context.scheduler.register({ id: 'interaction-debug', phase: 'presentation', order: 320, intervalSeconds: .05,
       description: '仅 Debug 开启时跟随交互实体的当前空间位置', run: () => { if (config['debug-entities']) syncDebug(); } });
     const offMap = context.communication.on(dungeonMapChangedEvent, ({ loadId }) => {
-      lastStep = 0; clearMessages(); router.reset(); debugView.clear(); syncDebug();
+      lastStep = 0; resetMessageInteractions(); router.reset(); debugView.clear(); syncDebug();
       attemptStatus.textContent = '等待移动尝试。'; delete attemptStatus.dataset.outcome;
       agentAttemptStatus.textContent = '等待 Agent 移动尝试。'; delete agentAttemptStatus.dataset.outcome;
       offContact();
@@ -313,7 +298,7 @@ export const dungeonInteractionLabModule: LabModule = {
       for (const control of debugControls) control.input.addEventListener('change', () => { config[control.field] = control.input.checked; syncDebug(); });
     }
     return () => { settings.dispose(); offPreparation(); offStep(); offBlocked(); offPhysicalBlock(); offMap(); offContact(); offStatus(); offView(); stopDebug(); debugView.dispose(); labelLayer.dispose(); keyboard.dispose();
-      offAgentInteraction(); offMessages(); clearMessages(); messageLayer.dispose(); router.dispose();
+      offAgentInteraction(); offMessages(); resetMessageInteractions(); router.dispose();
       context.services.delete(DUNGEON_INTERACTION_SERVICE); panel.root.remove(); };
   },
 };

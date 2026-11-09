@@ -19,7 +19,8 @@ app.whenReady().then(async () => {
   };
   const click = selector => page(`document.querySelector(${JSON.stringify(selector)}).click()`);
   const controllers = '[data-lab-panel="dungeon-agent"] [data-lab-setting="controllers-enabled"]';
-  const messages = `document.querySelectorAll('.dungeon-interaction-message')`;
+  const messageOverlay = '[data-viewport-layer="ui:message-bar"]';
+  const messages = `document.querySelectorAll('${messageOverlay} .lab-message-bar-item')`;
   const agentMessages = ['踏板巡逻员 · 从北侧踩下踏板', '探路守卫 · 从南侧碰到封路石障', '值班操作员 · 主动检查'];
   const trackAgentMessages = (messagesToTrack = agentMessages) => page(`(() => {
     const labels = ${JSON.stringify(messagesToTrack)};
@@ -31,7 +32,7 @@ app.whenReady().then(async () => {
         });
       }
     });
-    window.agentMessageObserver.observe(document.querySelector('.dungeon-interaction-messages'), { childList: true });
+    window.agentMessageObserver.observe(document.querySelector('${messageOverlay} .lab-message-bar'), { childList: true });
   })()`);
   const waitForAgentLoops = async () => {
     await wait(`window.agentMessageCounts.every(count => count >= 2)`);
@@ -47,6 +48,14 @@ app.whenReady().then(async () => {
   try {
     await win.loadFile(resolveRepoPath('node_modules/.cache/dungeon-interaction-build/labs/composable/dungeon-interaction-lab/index.html'));
     await wait(`document.querySelector('.lab-global-status')?.textContent.startsWith('已组合') && ${mapIs('dungeon_interaction_test')}`);
+    await wait(`!!document.querySelector('${messageOverlay} [data-ui-document="message_bar_default"] [data-ui-node="message-list"]')`);
+    assert.equal(await page(`document.querySelector('[data-lab-panel="message-bar"] [data-lab-setting="ui-preset"]').value`), 'message_bar_default');
+    assert.equal(await page(`(() => {
+      const layer = document.querySelector('${messageOverlay}').getBoundingClientRect();
+      const canvas = document.querySelector('${messageOverlay} [data-ui-document="message_bar_default"]').getBoundingClientRect();
+      return Math.abs(canvas.left - layer.left) < 1 && Math.abs(canvas.top - layer.top) < 1;
+    })()`), true, 'the default UI preset is anchored to the top left of the viewport');
+    checks.push('message-bar loads the configured UI preset, uses its message-list node and anchors it to the viewport');
     await wait(`document.querySelector('[data-interaction-debug-summary]')?.dataset.count === '21'`);
     assert.equal(await page(`document.querySelector(${JSON.stringify(controllers)}).checked`), true);
     assert.equal(await page(`document.querySelector('[aria-label="选择 Agent"]').options.length`), 8);
@@ -56,6 +65,17 @@ app.whenReady().then(async () => {
     checks.push('the expanded default map loads all six room Agents and repeats all three Agent interactions with controllers enabled by default');
     await click(controllers);
     await wait(`${messages}.length === 0`);
+    const testMessage = '消息栏测试\n自定义第二行';
+    await page(`(() => {
+      const panel = document.querySelector('[data-lab-panel="message-bar"]');
+      const input = panel.querySelector('textarea');
+      input.value = ${JSON.stringify(testMessage)};
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      [...panel.querySelectorAll('button')].find(button => button.textContent === '测试消息').click();
+    })()`);
+    await wait(`[...${messages}].some(item => item.textContent === ${JSON.stringify(testMessage)})`);
+    await wait(`${messages}.length === 0`);
+    checks.push('the message-bar test button displays the entered multiline text through the selected UI preset');
     for (const width of [1440, 900]) {
       win.setSize(width, 1000);
       await page(`new Promise(resolve => setTimeout(resolve, 150))`);

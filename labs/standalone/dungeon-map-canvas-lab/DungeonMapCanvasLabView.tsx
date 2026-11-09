@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { InteractionDirectionPicker } from '@/tools/entity-container-editor/InteractionDirectionPicker';
+import { DialogueUiPresetPicker } from '@/tools/entity-container-editor/DialogueUiPresetPicker';
 import { ObjectHierarchy, InspectorPanel, InspectorSection } from '@/core/ui/editor-kit';
 import { DungeonMapWorkbench } from './DungeonMapWorkbench';
 import { createMapBrowserIndexes, createMapOutline } from './dungeonMapOutline';
@@ -199,6 +200,9 @@ const renderComponentCard = (entity: IEntity, component: IComponent) => {
             if ('equals' in condition ? value !== condition.equals : value === condition.notEquals) return null;
           }
           const currentValue = valueAtPath(component, field.path);
+          if (component.type === 'event' && field.path === 'action.uiPresetKey') {
+            return <DialogueUiPresetPicker key={field.path} component={component} label={field.label} onChange={value => setField(field, value)} />;
+          }
           if (component.type === 'event' && ['worldSides', 'localSides'].includes(field.path)) {
             if (component.directionSpace !== (field.path === 'worldSides' ? 'world' : 'target-local')) return null;
             return <InteractionDirectionPicker key={field.path} field={field} value={currentValue} onChange={value => setField(field, value)} />;

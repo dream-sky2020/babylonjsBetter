@@ -2,6 +2,9 @@ import type { LabModule } from '@/labs/kit/labKit.types';
 import { loadDialogueEditorDocumentLibrary } from '@/core/dialogue-map/dialogueMapPresetRepository';
 import type { DialogueEditorDocumentLibrary } from '@/core/dialogue-map/dialogueMap.types';
 import { compileDialogueEditorDocument } from '@/core/dialogue-map/dialogueCompiler';
+import { dialogueEntryHasChoices } from '@/core/dialogue-map/dialogueMap';
+import { loadDialoguePreviewPresetLibrary } from '@/core/dialogue-preview/dialoguePreviewPresetRepository';
+import { getDialogueUiIssues, getDialogueUiOptions } from '@/core/dialogue-preview/dialogueUiCompatibility';
 import { LAB_UI_RUNTIME } from '../ui-runtime/uiRuntime.service';
 import { LAB_DIALOGUE } from './dialogue.service';
 import { registerDialogueConfig } from './dialogue.config';
@@ -22,7 +25,12 @@ export const dialogueLabModule: LabModule = {
         if (!result.program) throw new Error(result.issues.filter(item => item.severity === 'error').map(item => item.message).join('\n'));
         return result.program;
       },
-      open: (presetKey, values, onAction) => ui.open({ id: 'dialogue', presetKey, context: values, onAction, inputMode: 'modal' }),
+      open: (presetKey, values, onAction, needsChoices) => ui.open({ id: 'dialogue', presetKey, context: values, onAction, inputMode: 'modal',
+        validatePreset(document) {
+          const issues = getDialogueUiIssues(document, needsChoices);
+          if (issues.length) throw new Error(`对话 UI 预设 ${presetKey} 不兼容：${issues.join('；')}。`);
+        },
+      }),
       acquireInput() {
         keyboard.setEnabled(true);
         const lock = context.keyboard.acquireLock({ ownerId: 'dialogue', label: '对话播放', allowConsumers: ['dialogue-controls'] });
@@ -50,9 +58,10 @@ export const dialogueLabModule: LabModule = {
     });
     return {
       async start() {
-        const sources = await loadLibrary();
+        const [sources, interfaces] = await Promise.all([loadLibrary(), loadDialoguePreviewPresetLibrary()]);
         panel.setCatalog(Object.entries(sources).map(([key, source]) => ({ key, name: source.name,
-          entries: [...source.graph.nodes.values()].map(node => ({ id: node.id, name: node.title })) })));
+          entries: [...source.graph.nodes.values()].map(node => ({ id: node.id, name: node.title })) })), (preset, entry) =>
+          getDialogueUiOptions(interfaces, !!sources[preset] && dialogueEntryHasChoices(sources[preset], entry)));
       },
       dispose() { panel.dispose(); manager.dispose(); keyboard.dispose(); context.services.delete(LAB_DIALOGUE); library = null; },
     };

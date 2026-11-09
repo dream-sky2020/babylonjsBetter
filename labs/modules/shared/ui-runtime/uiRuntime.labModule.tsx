@@ -21,6 +21,7 @@ export const uiRuntimeLabModule: LabModule = {
         if (disposed) throw new Error('UI 运行模块已释放。');
         const document = library[options.presetKey];
         if (!document) throw new Error(`UI 预设不存在：${options.presetKey}`);
+        options.validatePreset?.(document);
         const passthrough = options.inputMode !== 'modal';
         const layer = context.viewport.openHtmlLayer({ id: `ui:${id}`, title: document.name, mode: 'overlay', inputMode: passthrough ? 'passthrough' : 'modal', chrome: false, initiallyVisible: true });
         const root = createRoot(layer.content); let values = options.context ?? {}; let closed = false;
@@ -28,9 +29,11 @@ export const uiRuntimeLabModule: LabModule = {
         const render = () => {
           if (closed) return;
           const width = layer.content.clientWidth, height = layer.content.clientHeight;
-          const scale = Math.max(.001, Math.min(width / document.canvas.width, height / document.canvas.height));
+          const anchored = options.anchor === 'top-left';
+          const fitScale = Math.min(width / document.canvas.width, height / document.canvas.height);
+          const scale = Math.max(.001, anchored ? Math.min(1, fitScale) : fitScale);
           const onAction = (action: string) => { try { Promise.resolve(options.onAction?.(action)).catch(error => context.ui.setStatus(String(error), true)); } catch (error) { context.ui.setStatus(String(error), true); } };
-          root.render(<UiDocumentView document={document} registry={registry} runtimeContext={values} onAction={onAction} passthrough={passthrough} style={{ position: 'absolute', left: (width - document.canvas.width * scale) / 2, top: (height - document.canvas.height * scale) / 2, transformOrigin: 'top left', transform: `scale(${scale})`, background: 'transparent', pointerEvents: 'none' }} />);
+          root.render(<UiDocumentView document={document} registry={registry} runtimeContext={values} onAction={onAction} passthrough={passthrough} style={{ position: 'absolute', left: anchored ? 0 : (width - document.canvas.width * scale) / 2, top: anchored ? 0 : (height - document.canvas.height * scale) / 2, transformOrigin: 'top left', transform: `scale(${scale})`, background: 'transparent', pointerEvents: 'none' }} />);
         };
         const observer = new ResizeObserver(render); observer.observe(layer.content);
         const handle: LabUiOverlay = { update(next) { if (!closed) { values = next; render(); } }, show: () => { if (!closed) { layer.show(); render(); } }, hide: () => { if (!closed) layer.hide(); }, dispose: () => { if (closed) return; closed = true; observer.disconnect(); root.unmount(); layer.dispose(); active.delete(handle); activeIds.delete(id); } };

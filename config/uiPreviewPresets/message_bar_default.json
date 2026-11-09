@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 2,
+  "presetKey": "message_bar_default",
+  "name": "消息栏 · 默认样式",
+  "canvas": {
+    "width": 388,
+    "height": 360,
+    "backgroundTop": "#162737",
+    "backgroundBottom": "#162737",
+    "gridSize": 10
+  },
+  "rootIds": [
+    "message-list"
+  ],
+  "nodes": {
+    "message-list": {
+      "id": "message-list",
+      "type": "message-list",
+      "definitionVersion": 1,
+      "name": "地图消息列表",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 14,
+        "y": 13,
+        "width": 360,
+        "height": 300,
+        "zIndex": 1
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "fill": "#0c1720f0",
+        "stroke": "#486779",
+        "textColor": "#e3f1fa",
+        "accent": "#79c9e5",
+        "fontSize": 13,
+        "cornerRadius": 4,
+        "strokeWidth": 1
+      },
+      "bindings": {
+        "items": {
+          "source": "message-bar.items"
+        }
+      }
+    }
+  },
+  "previewContext": {
+    "message-bar.items": "[{\"id\":\"1\",\"text\":\"探路守卫 · 前方道路受阻。\"},{\"id\":\"2\",\"text\":\"值班操作员 · 已检查消息感应格。\"}]"
+  }
+}

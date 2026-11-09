@@ -136,9 +136,6 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   home.href = '../../../index.html';
   home.textContent = '返回工具入口';
   workbench.header.insertBefore(home, workbench.header.querySelector('[data-lab-toggle="objects"]'));
-  const badge = document.createElement('div');
-  badge.className = 'lab-badge';
-  badge.textContent = options.badge;
 
   const engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
   const frameClock = new LabFrameClock();
@@ -252,7 +249,13 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const disposeMemoryPanel = createLabMemoryPanel(ui, viewport, memory, executionPlan.entries.map(entry => entry.module));
   const disposeCommunicationPanel = createLabCommunicationPanel(ui, viewport, communication);
   const disposePerformancePanel = createLabPerformancePanel(ui, viewport, performanceStats);
-  stage.append(badge);
+  const badgeText = options.badge;
+  if (badgeText?.trim()) {
+    const badge = document.createElement('div');
+    badge.className = 'lab-badge';
+    badge.textContent = badgeText;
+    stage.append(badge);
+  }
   const allModuleIds = new Set(executionPlan.entries.map(({ moduleId }) => moduleId));
   const context: LabContext = {
     config: configuration,

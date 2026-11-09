@@ -18,9 +18,21 @@ app.whenReady().then(async () => {
     }
   };
   const click = selector => page(`document.querySelector(${JSON.stringify(selector)}).click()`);
+  const select = (field, value) => page(`(() => {
+    const input = document.querySelector('[data-lab-panel="dialogue"] [data-lab-setting="${field}"]');
+    input.value = ${JSON.stringify(value)};
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  })()`);
   try {
     await win.loadFile(resolveRepoPath('node_modules/.cache/dialogue-test-build/labs/composable/dialogue-test-lab/index.html'));
     await wait(`document.querySelector('.lab-global-status')?.textContent.startsWith('已组合') && !document.querySelector('[data-dialogue-test]').disabled`);
+    assert.equal(await page(`(() => {
+      const picker = document.querySelector('[data-lab-panel="dialogue"] select[data-lab-setting="ui-preset"]');
+      const textOnly = picker.querySelector('option[value="default_dialogue_ui"]');
+      const other = picker.querySelector('option[value="message_bar_default"]');
+      return picker.value === 'dialogue_test_ui' && textOnly.disabled && textOnly.textContent.includes('缺少可见的对话选项')
+        && other.disabled && other.textContent.includes('缺少可见的对白正文');
+    })()`), true);
     assert.equal(await page(`document.querySelectorAll('[data-viewport-layer="ui:dialogue"]').length`), 0);
     await click('[data-dialogue-test]');
     await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('欢迎来到对话测试场景')`);
@@ -48,14 +60,19 @@ app.whenReady().then(async () => {
     await page(`window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape', key: 'Escape', bubbles: true }));`);
     await wait(`!document.querySelector('[data-viewport-layer="ui:dialogue"]')`);
     checks.push('keyboard continue + branch + cancel');
-    await page(`(() => { const input = document.querySelector('[data-lab-setting="ui-preset"]'); input.value = 'missing_ui'; input.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+    await select('entry', 'about');
+    assert.equal(await page(`document.querySelector('[data-lab-panel="dialogue"] select[data-lab-setting="ui-preset"] option[value="default_dialogue_ui"]').disabled`), false);
+    await select('ui-preset', 'default_dialogue_ui');
     await click('[data-dialogue-test]');
-    await wait(`document.querySelector('[data-dialogue-status]').textContent.includes('UI 预设不存在') && !document.querySelector('[data-dialogue-test]').disabled`);
+    await wait(`document.querySelector('[data-ui-document="default_dialogue_ui"] [data-ui-node="dialogue-box"]')?.textContent.includes('操作面板只负责发送开始请求')`);
+    await click('[data-dialogue-stop]');
+    await select('entry', 'greeting');
+    await wait(`document.querySelector('[data-dialogue-status]').textContent.includes('缺少可见的对话选项') && document.querySelector('[data-dialogue-test]').disabled`);
     assert.equal(await page(`document.querySelectorAll('[data-viewport-layer="ui:dialogue"]').length`), 0);
-    await page(`(() => { const input = document.querySelector('[data-lab-setting="ui-preset"]'); input.value = 'dialogue_test_ui'; input.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+    await select('ui-preset', 'dialogue_test_ui');
     await click('[data-dialogue-test]'); await wait(`!!document.querySelector('[data-dialogue-cancel]')`);
     await click('[data-dialogue-cancel]'); await wait(`!document.querySelector('[data-viewport-layer="ui:dialogue"]')`);
-    checks.push('missing UI error + input recovery + successful restart');
+    checks.push('the picker explains incompatibility, allows a text-only UI for a text-only entry and recovers when a choice-capable UI is selected');
 
     assert.deepEqual(errors, []); assert.deepEqual(network, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dialogue-test.json'), JSON.stringify({ passed: true, checks, errors, network }, null, 2));

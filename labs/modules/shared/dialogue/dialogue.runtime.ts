@@ -7,7 +7,7 @@ import type { DialogueManager, DialogueManagerState, DialogueStartOptions } from
 export type DialogueRuntimeOptions = {
   config: DialogueConfig;
   load(presetKey: string, entryNodeId: string): Promise<CompiledDialogue>;
-  open(presetKey: string, context: Record<string, unknown>, onAction: (action: string) => void): Promise<LabUiOverlay>;
+  open(presetKey: string, context: Record<string, unknown>, onAction: (action: string) => void, needsChoices: boolean): Promise<LabUiOverlay>;
   acquireInput(): () => void;
 };
 
@@ -57,7 +57,7 @@ export function createDialogueManager(options: DialogueRuntimeOptions): Dialogue
           if (action === 'dialogue.next') manager.next();
           else if (action === 'dialogue.cancel') manager.cancel();
           else if (action.startsWith('dialogue.choose:')) manager.choose(decodeURIComponent(action.slice('dialogue.choose:'.length)));
-        });
+        }, session.hasChoices);
         if (disposed || token !== generation || status !== 'playing') { result.dispose(); return; }
         overlay = result; overlay.update(context());
       } catch (failure) {

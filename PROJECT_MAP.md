@@ -8,7 +8,7 @@
 
 交互请求携带 `actorId`，event v2 的 `actorScope` 支持仅玩家、仅 Agent 或两者，旧规则默认仅玩家。Agent Runtime 发布格步完成、真实实体阻挡和显式主动命令，Lab 用地图会话 ID 隔离旧事件。Agent 的结果通过消息 provider 执行，绕开玩家对白与传送的锁。受阻消息只使用移动检查确认的实体 ID，预约失败与回退不触发。新增 `interact-forward` 一次性控制器和 Agent 面板主动交互按钮。房间演示包含 Agent 专用北向踏板、石障与主动检查，踏板消息可同时点亮本地图的机关灯。
 
-交互 event v2 新增 `message` 动作，复用方向匹配、优先级和一次性消耗范围。dungeon-interaction 通过透传 HTML 视口层显示左上角消息，默认 3 秒、最多 4 条，切图与卸载清理。消息不占用移动续步，现有对话与传送保留其控制行为。传送房间 (7,5) 可验证进入时显示消息。
+交互 event v2 的 `message` 动作复用方向匹配、优先级和一次性消耗范围。`dungeon-interaction` 调用 `labs/modules/shared/message-bar/` 的 `LAB_MESSAGE_BAR` 服务。共享模块负责队列（默认 3 秒、最多 4 条），通过 `ui-runtime` 加载 Lab 配置 `message-bar.ui-preset` 指定的 UI（默认 `config/uiPreviewPresets/message_bar_default.json`），把 `message-bar.items` 绑定给「消息列表」预制件。覆盖层贴视口左上角并透传输入；切图只清理地牢消息。传送房间 (7,5) 可验证进入时显示消息。
 
 event v2 兼容扩展 ruleName、directionSpace（any/world/target-local）、worldSides/localSides 和 onceScope（rule/entity）。一个实体继续使用多条 event，旧数据缺省任意方向、各规则独立计次。Core interaction-control.find/explain 共用位置、遮挡和方向判定；方向明确的规则只压制同实体、同搜索位置的通用后备，跨实体和传送仍沿用原优先级与冲突报错。一次性消耗先选方向规则再过滤，已消费的明确规则不会意外触发后备。
 
@@ -31,6 +31,8 @@ Loader 从当前 Agent 系统读取逻辑朝向和转向忙碌状态，静态空
 原 dungeon-transition 改为出口候选提供者，不再重复监听 E/格步/受阻；目标和 triggers 仍由 dungeon-exit 唯一定义，运行开关读取 LabConfig。格步顺序为统一交互 100 → Agent 200，命中停止后续续步规则。独立 dungeon-interaction-lab、两张测试地图和无外部资源的场景已登记首页/Vite/config，仅该新 Lab 安装对话适配器。说明和验证见 labs/modules/dungeon/dungeon-interaction/README.md。保存配置不重载；测试构建仍包含工作台，不是完成裁剪的发行包。
 
 ## 2026-11-06：独立对话管理模块与测试组合页
+
+对话 UI 兼容规则由 `core/dialogue-preview/dialogueUiCompatibility.ts` 提供。需要可见正文绑定 `dialogue.text`，入口可达选项时还需可见的 `dialogue-actions` 绑定 `dialogue.choices`。Lab 面板、地图与容器编辑器选择时显示不兼容原因，UI 编辑器显示绑定提示，播放前对实际加载的 UI 文档再验证。旧默认 UI 补上正文和姓名绑定，适用于纯对白入口。
 
 新增 shared/dialogue 模块，依赖已有 ui-runtime，提供 LAB_DIALOGUE 的 start/next/choose/cancel 与只读状态服务。dialogue.runtime.ts 与测试面板独立，运行参数在 setup 开始注册到 LabConfig，不读取控件。预设仓库和编译器只在适配层加载/编译；core/dialogue-runtime/DialogueSession.ts 只推进编译快照的对白与选项，不依赖 DOM/Lab。当前明确拒绝可达条件/事件节点；NPC 与地块由独立交互适配器接入，道具和剧情事件未接；不自动跳过不支持的剧情。
 

@@ -2,6 +2,8 @@ import { DUNGEON_INTERACTION_SERVICE } from '@/core/dungeon-interaction/DungeonI
 import { DUNGEON_INTERACTION_CONTROL } from '@/core/dungeon-interaction/dungeonInteractionControl';
 import { loadDialogueEditorDocumentLibrary } from '@/core/dialogue-map/dialogueMapPresetRepository';
 import { loadDialoguePreviewPresetLibrary } from '@/core/dialogue-preview/dialoguePreviewPresetRepository';
+import { dialogueEntryHasChoices } from '@/core/dialogue-map/dialogueMap';
+import { getDialogueUiIssues } from '@/core/dialogue-preview/dialogueUiCompatibility';
 import { LAB_DIALOGUE } from '../../shared/dialogue/dialogue.service';
 import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
@@ -44,7 +46,12 @@ export const dungeonDialogueInteractionLabModule: LabModule = {
           if (event.enabled === false || event.action?.type !== 'dialogue' || map.entities.find(entity => entity.id === raw.entityId)?.enabled === false) continue;
           const action = event.action, story = stories[action.presetKey];
           if (!story || !story.graph.nodes.has(action.entryNodeId)) throw new Error(`地图 ${map.identity.presetKey} 的交互 ${raw.id} 引用了不存在的对话或入口。`);
-          if (action.uiPresetKey && !interfaces[action.uiPresetKey]) throw new Error(`地图交互 ${raw.id} 引用了不存在的 UI 预设。`);
+          if (action.uiPresetKey) {
+            const ui = interfaces[action.uiPresetKey];
+            if (!ui) throw new Error(`地图交互 ${raw.id} 引用了不存在的 UI 预设：${action.uiPresetKey}。`);
+            const issues = getDialogueUiIssues(ui, dialogueEntryHasChoices(story, action.entryNodeId));
+            if (issues.length) throw new Error(`地图交互 ${raw.id} 的 UI 预设 ${action.uiPresetKey} 不兼容：${issues.join('；')}。`);
+          }
         }
     });
     return {

@@ -75,7 +75,7 @@ export type CreateLabOptions = {
   root: HTMLElement;
   title: string;
   description: string;
-  badge: string;
+  badge?: string;
   modules: readonly string[];
   catalog: LabModuleCatalog;
   /** 在全部模块 setup 并注册引用后、所有 start 执行前恢复。 */

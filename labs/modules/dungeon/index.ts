@@ -4,6 +4,8 @@ import type { LabModuleCatalog } from '@/labs/kit';
 import { dungeonOverheadViewLabModule } from './dungeon-overhead-view';
 import { dungeonVisualDeformationLabModule } from './dungeon-visual-deformation';
 import { viewportLayersLabModule } from '@/labs/modules/shared/viewport-layers';
+import { messageBarLabModule } from '@/labs/modules/shared/message-bar/messageBar.labModule';
+import { uiRuntimeLabModule } from '@/labs/modules/shared/ui-runtime/uiRuntime.labModule';
 import { dungeonConfigLabModule } from './dungeon-config';
 import { dungeonAgentLabModule } from './dungeon-agent';
 import { dungeonFirstPersonCameraLabModule } from './dungeon-first-person-camera';
@@ -26,6 +28,8 @@ const dungeonModules: LabModuleCatalog = {
   [dungeonOverheadViewLabModule.id]: dungeonOverheadViewLabModule,
   [dungeonVisualDeformationLabModule.id]: dungeonVisualDeformationLabModule,
   [viewportLayersLabModule.id]: viewportLayersLabModule,
+  [messageBarLabModule.id]: messageBarLabModule,
+  [uiRuntimeLabModule.id]: uiRuntimeLabModule,
   [dungeonLibrariesLabModule.id]: dungeonLibrariesLabModule,
   [dungeonMapLoaderLabModule.id]: dungeonMapLoaderLabModule,
   [dungeonConfigLabModule.id]: dungeonConfigLabModule,

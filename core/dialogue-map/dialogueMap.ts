@@ -113,10 +113,22 @@ export const diagnoseDialogueEditorDocument = (document: DialogueEditorDocument,
   const issues: DialogueMapValidationIssue[] = [];
   document.graph.nodes.forEach(node => { const layout = layoutForNode(node); if (layout.actualHeightUnits > layout.requestedHeightUnits) issues.push(issue('auto-expanded-node-height', `“${node.title}”已自动适应内容高度。`, 'info', { nodeId: node.id })); }); return issues;
 };
-export const diagnoseDialogueEntry = (document: DialogueEditorDocument, entryNodeId: string): DialogueMapValidationIssue[] => {
-  if (!document.graph.nodes.has(entryNodeId)) return [issue('missing-entry', '入口不存在。', 'error', { nodeId: entryNodeId })];
+const reachableDialogueNodes = (document: DialogueEditorDocument, entryNodeId: string): ReadonlySet<string> => {
+  if (!document.graph.nodes.has(entryNodeId)) return new Set();
   const reached = new Set<string>(), queue = [entryNodeId];
   while (queue.length) { const id = queue.pop()!; if (reached.has(id)) continue; reached.add(id); document.graph.edges.forEach(edge => { if (edge.from.nodeId === id && document.graph.nodes.has(edge.to.nodeId)) queue.push(edge.to.nodeId); }); }
+  return reached;
+};
+export const dialogueEntryHasChoices = (document: DialogueEditorDocument, entryNodeId: string): boolean => {
+  for (const id of reachableDialogueNodes(document, entryNodeId)) {
+    const node = document.graph.nodes.get(id);
+    if (node?.kind === 'choice' && node.outputs.size) return true;
+  }
+  return false;
+};
+export const diagnoseDialogueEntry = (document: DialogueEditorDocument, entryNodeId: string): DialogueMapValidationIssue[] => {
+  if (!document.graph.nodes.has(entryNodeId)) return [issue('missing-entry', '入口不存在。', 'error', { nodeId: entryNodeId })];
+  const reached = reachableDialogueNodes(document, entryNodeId);
   return [...document.graph.nodes.values()].filter(node => !reached.has(node.id)).map(node => issue('entry-unreachable-node', `“${node.title}”无法从入口到达。`, 'warning', { nodeId: node.id }));
 };
 /** Each output has one destination; inputs may receive multiple edges. */

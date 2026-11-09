@@ -6,6 +6,7 @@ import {
   saveDialoguePreviewPresetLibrary,
   type DialoguePreviewPresetLibrary,
 } from '@/core/dialogue-preview';
+import { getDialogueUiIssues } from '@/core/dialogue-preview/dialogueUiCompatibility';
 import { applyUiAnchorPreset, convertUiNodeToAbsolute, convertUiNodeToRectTransform, getUiLayoutParentRect, resolveUiNode, setUiNodeWorldRect, UiDocumentStore, type UiDefinition, type UiNode, type UiPropertyField, type UiResolvedNode } from '@/core/ui-document';
 import { canReparentUiNode, reparentUiNode, duplicateUiSubtree } from '@/core/ui-document';
 import { createReactUiDefinitionRegistry } from '@/core/ui-document/react/uiReactDefinitions';
@@ -289,6 +290,10 @@ export const UiPreviewCanvasLab: React.FC = () => {
     requestAnimationFrame(() => window.document.querySelector('.dialogue-hierarchy .editor-hierarchy-row.selected')?.scrollIntoView({ block: 'nearest' }));
   };
   const issues = Object.values(preset.nodes).filter(node => !registry.get(node.type)?.component).map(node => ({ nodeId: node.id, message: `未注册 React 组件：${node.type}` }));
+  const hasDialogueNodes = Object.values(preset.nodes).some(node => ['dialogue-box', 'dialogue-actions'].includes(node.type)
+    || Object.values(node.bindings ?? {}).some(binding => binding.source.startsWith('dialogue.')));
+  const dialogueIssues = hasDialogueNodes ? getDialogueUiIssues(preset, true) : [];
+  const dialogueStatus = hasDialogueNodes ? (dialogueIssues.join('；') || '对话 UI 支持正文和选项') : '';
   return <UiPreviewWorkbench workspace={workspace} onWorkspaceChange={setWorkspace}
     documentBar={<><strong className="ui-current-preset" title={activeKey}>{preset.name}</strong><span className={dirty ? 'ui-dirty' : 'ui-saved'}>{dirty ? '● 未保存' : '✓ 已保存'}</span></>}
     objects={<div className="ui-tree-menu-area" onContextMenu={event => { event.preventDefault(); openAddMenu(event.clientX, event.clientY); }}><div className="ui-tree-tools"><button disabled={!editMode} onClick={event => { const rect = event.currentTarget.getBoundingClientRect(); openAddMenu(rect.left, rect.bottom, selectedId || null); }}>添加 UI</button><button onClick={locateSelected} disabled={!selectedIds.length}>定位所选</button><button onClick={() => setExpandedUiIds(new Set(Object.keys(preset.nodes)))}>展开全部</button><button onClick={() => setExpandedUiIds(new Set())}>折叠全部</button></div>      <ObjectHierarchy className="dialogue-hierarchy" eyebrow="UI OBJECTS" title="对象层级" showTypeLabels={false} status={`${Object.keys(preset.nodes).length}`}
@@ -338,7 +343,7 @@ export const UiPreviewCanvasLab: React.FC = () => {
 </>}
     viewSettings={<section className="panel"><h2>视图辅助</h2><label className="checkbox-field"><input type="checkbox" checked={workspace.referenceFrameVisible} onChange={event => setWorkspace(current => ({ ...current, referenceFrameVisible: event.target.checked }))} />显示玩家可视区域参考框</label><p className="hint">绿色边框仅标示玩家可见范围，不限制工作区。可以在框外放置、选中、拖动 UI；中键或空格拖动可平移工作区。</p><label className="checkbox-field"><input type="checkbox" checked={showGrid} onChange={event => setShowGrid(event.target.checked)} />显示网格</label><label className="checkbox-field"><input type="checkbox" checked={snapToGrid} onChange={event => setSnapToGrid(event.target.checked)} />拖动吸附网格</label><p className="hint">侧栏宽度可拖动分隔条调整，也可用方向键调整；双击恢复默认宽度。折叠状态与侧栏布局保存在本机，不写入界面预设。</p><button onClick={() => setWorkspace(current => ({ ...current, sections: {} }))}>恢复默认属性分组</button><h3>当前渲染方式</h3><p>{editMode ? 'React 组件编辑' : 'React 组件预览'}</p><p className="hint">编辑和预览共用真实 React 组件。编辑模式拦截交互用于布局，预览模式释放原生交互。</p></section>}
     previewStatus={runtimeContext && <><span aria-label="整备演示状态">{String(runtimeContext['actor.name'])} · {String(runtimeContext['selection.name'])} · {equipment.message}</span><button onClick={() => setEquipment(createEquipmentPreview())}>重置演示</button></>}
-    status={<span className={isError ? 'is-error' : ''}>{message} · {chosenNodes.length} 项选择 · {preset.canvas.width} × {preset.canvas.height}</span>}
+    status={<span className={isError ? 'is-error' : ''}>{message} · {chosenNodes.length} 项选择 · {preset.canvas.width} × {preset.canvas.height}{dialogueStatus && ` · ${dialogueStatus}`}</span>}
     issues={issues} onIssueSelect={issue => { setSelectedIds([issue.nodeId]); setWorkspace(current => ({ ...current, rightOpen: true, sections: { ...current.sections, advanced: true } })); requestAnimationFrame(() => window.document.getElementById('ui-inspector-advanced')?.scrollIntoView({ block: 'nearest' })); }}
   >    <main className="preview-stage"><div className="stage-toolbar"><div><strong>{preset.name}</strong><span>{preset.presetKey}</span>{dirty ? <em>● 未保存</em> : <em className="is-saved">✓ 已保存</em>}</div><div className="toolbar-actions">
       <button disabled={!history.canUndo} onClick={() => { store.undo(); refresh(); }}>撤销</button><button disabled={!history.canRedo} onClick={() => { store.redo(); refresh(); }}>重做</button><button className={editMode ? 'is-active' : ''} onClick={() => setEditMode(true)}>编辑模式</button><button className={!editMode ? 'is-active' : ''} onClick={() => setEditMode(false)}>预览</button><button className="save-button" disabled={saving} onClick={() => void save()}>{saving ? '保存中…' : '保存全部'}</button>

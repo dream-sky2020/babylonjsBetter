@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { InteractionDirectionPicker } from './InteractionDirectionPicker';
+import { DialogueUiPresetPicker } from './DialogueUiPresetPicker';
 import type {
   ComponentFieldSchema,
   EntityContainerKind,
@@ -88,6 +89,9 @@ export const EntityContainerEditor = ({
     ));
     const dynamicOptions = fieldOptions?.(component, field);
     const options = dynamicOptions ?? field.options;
+    if (component.type === 'event' && field.path === 'action.uiPresetKey') {
+      return <DialogueUiPresetPicker key={field.path} component={component} label={field.label} onChange={setField} />;
+    }
     if (component.type === 'event' && ['worldSides', 'localSides'].includes(field.path)) {
       if (component.directionSpace !== (field.path === 'worldSides' ? 'world' : 'target-local')) return null;
       return <InteractionDirectionPicker key={field.path} field={field} value={currentValue} onChange={setField} />;

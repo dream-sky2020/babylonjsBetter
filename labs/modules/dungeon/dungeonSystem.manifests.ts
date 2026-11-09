@@ -34,7 +34,9 @@ const manifest = (
  * dependencies and actual scheduled tasks are read from the module/runner directly.
  */
 export const dungeonSystemManifests: Readonly<Record<string, LabSystemManifest>> = {
-  'dungeon-interaction': manifest('system', '统一交互触发、仲裁与可选实体 Debug', [], ['提供 dungeon:interaction；读取玩家/格子状态、runtime-assembly、格步和受阻尝试；Debug 只读 interaction-control.describe 与执行器 once 状态，使用 overhead 显示变换'], ['消费 PlayerStepCompleted / 100、按键和受阻尝试；执行器由功能模块登记'], '同步仲裁、异步互斥；命中停止续步；Debug 仅开启时 presentation / 320 / 20Hz'),
+  'dungeon-interaction': manifest('system', '统一交互触发、仲裁与可选实体 Debug', [], ['提供 dungeon:interaction；读取玩家/格子状态、runtime-assembly、格步和受阻尝试；地图提示调用 lab.message-bar；Debug 只读 interaction-control.describe 与执行器 once 状态，使用 overhead 显示变换'], ['消费 PlayerStepCompleted / 100、按键和受阻尝试；执行器由功能模块登记'], '同步仲裁、异步互斥；命中停止续步；Debug 仅开启时 presentation / 320 / 20Hz'),
+  'message-bar': manifest('system', '管理短消息，并用选定的 UI 预设显示', [], ['提供 lab.message-bar；调用 lab.ui-runtime'], [], '收到消息后更新 UI，定时移除'),
+  'ui-runtime': manifest('system', '在视口运行 UI 文档预设', [], ['提供 lab.ui-runtime；使用 Host Viewport'], [], '收到绑定更新或视口缩放时渲染'),
   'dungeon-libraries': manifest('system', '读取地图、场景环境与阴影配置库',
     [core('map/dungeonMapPresetRepository.ts', '地图预设仓库', '读取地图配置')],
     ['共享内存 dungeon.libraries'], ['兼容地图目录查询'], 'start 异步读取；不注册周期任务'),
