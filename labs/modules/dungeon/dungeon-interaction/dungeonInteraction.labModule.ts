@@ -1,19 +1,15 @@
 import { validateDungeonInteractionDocument } from '@/core/dungeon-interaction/dungeonInteraction.validation';
+import { createServiceToken } from '@/core/system-runtime/ServiceToken';
+import { DUNGEON_MAP_ACTION_EXECUTOR } from '../dungeon-map-action-executor/dungeonMapActionExecutor.labModule';
 import { DungeonInteractionRouter, DUNGEON_INTERACTION_SERVICE, isAgentInteraction, type InteractionQuery } from '@/core/dungeon-interaction/DungeonInteractionRouter';
-import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
 import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import { DUNGEON_PLAYER_STATE_MEMORY } from '../dungeon-runtime/dungeonRuntime.memory';
-import { PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY, type DungeonPlayerBlockedAttemptService } from '../player-movement/playerMovement.blockedAttempt';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import { controlSetting, createLabStatus, createLabSwitch, createLabField, type LabModule } from '@/labs/kit';
 import { DUNGEON_INTERACTION_CONTROL } from '@/core/dungeon-interaction/dungeonInteractionControl';
-import { DUNGEON_VISUAL_OBJECT_CONTROL } from '../dungeon-visual-object-control/dungeonVisualObjectControl.labModule';
 import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import { createDungeonInteractionDebug } from './dungeonInteractionDebug';
-import { LAB_MESSAGE_BAR } from '@/labs/modules/shared/message-bar/messageBar.service';
-import { dungeonAgentInteractionEvent } from '../dungeon-agent/dungeonAgent.protocol';
-import { resolveDungeonCardinalFacing } from '@/core/dungeon-movement/dungeonMovement.direction';
 import { validateInteractionEvent, type IEventComponent } from '@/core/entity/components/event.component';
 import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '@/core/dungeon-traversal/dungeonTraversal';
 import type { ConfigValue } from '@/labs/kit/config/LabConfig';
@@ -30,8 +26,17 @@ function validPlayerRules(value: unknown): boolean {
   });
 }
 
+export const DUNGEON_INTERACTION_INPUTS = createServiceToken<{
+  bindInteract(handler: () => boolean): () => void;
+  reportInteractMiss(): void;
+  enabled(): boolean;
+  keyboardSettings(): { enabled: boolean; key: string };
+  onKeyboardSettings(listener: () => void): () => void;
+  reportAttempt(attemptId: number, actorId: string, outcome: DungeonMovementAttemptOutcome): void;
+}>('dungeon:interaction-inputs');
+
 export const dungeonInteractionLabModule: LabModule = {
-  id: 'dungeon-interaction', dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view', 'message-bar', 'dungeon-visual-object-control'],
+  id: 'dungeon-interaction', dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view', 'dungeon-map-action-executor'],
   setup(context) {
     const debugDefaults = { 'debug-color': true, 'debug-labels': true, 'debug-name': true,
       'debug-trigger': true, 'debug-action': false, 'debug-state': true, 'debug-direction': false, 'debug-reasons': false };
@@ -48,19 +53,16 @@ export const dungeonInteractionLabModule: LabModule = {
     const control = context.services.get(DUNGEON_INTERACTION_CONTROL);
     const overhead = context.services.get<DungeonOverheadViewService>(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY);
     const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
+    const executor = context.services.get(DUNGEON_MAP_ACTION_EXECUTOR);
     const offPreparation = assembly.registerPreparation('dungeon-interaction', runtime => {
       const errors = validateDungeonInteractionDocument(runtime.map.document);
       if (errors.length) throw new Error(errors.join('\n'));
     });
-    const steps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
-    const blocked = context.services.get<DungeonPlayerBlockedAttemptService>(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY);
     const router = new DungeonInteractionRouter();
-    const messageChannel = 'dungeon-interaction';
     const consumedActions = new Set<string>();
     const contacts = new Map<string, Map<string, Set<string>>>();
     let offContact = () => {};
     const resetInteractions = () => {
-      context.services.invoke(LAB_MESSAGE_BAR, 'clear', [messageChannel]);
       consumedActions.clear();
       contacts.clear();
     };
@@ -87,30 +89,13 @@ export const dungeonInteractionLabModule: LabModule = {
                 const previous = actorContacts.get(match.onceKey);
                 actorContacts.set(match.onceKey, new Set([...(previous ?? []), ...match.contactBlockers]));
               }
-              const origin = { sessionId: query.loadId, actorId, source: match.entityId };
-              let text: string | undefined;
-              if (action.type === 'visual-state') {
-                const operation = action.operation ?? 'set';
-                const target = { ...origin, target: action.targetEntityId };
-                const result = operation === 'set'
-                  ? context.services.invoke(DUNGEON_VISUAL_OBJECT_CONTROL, 'setState', [action.targetEntityId, action.stateId!], target)
-                  : context.services.invoke(DUNGEON_VISUAL_OBJECT_CONTROL, 'advanceState', [action.targetEntityId, action.groupId!, operation], target);
-                text = action.feedback?.replaceAll('{state}', () => result.label);
-              } else if (action.type === 'service') {
-                const parameters = action.parameters ?? {};
-                const target = typeof parameters.entityId === 'string' ? parameters.entityId : undefined;
-                if (!context.services.invokeAction(action.commandId, parameters, { ...origin, target })) {
-                  throw new Error(`交互服务指令「${action.commandId}」拒绝执行。`);
-                }
-                text = action.successMessage;
-              } else {
-                text = action.text;
-              }
-              if (text?.trim()) context.services.invoke(LAB_MESSAGE_BAR, 'show', [{
-                text: match.actorLabel ? `${match.actorLabel} · ${text}` : text,
-                durationSeconds: action.type === 'message' ? action.durationSeconds : undefined, channel: messageChannel,
-              }], origin);
-              if (match.once) consumedActions.add(`${query.loadId}:${match.onceKey}`);
+              const result = executor.execute(action, { loadId: query.loadId, ruleId: match.id, sourceEntityId: match.entityId,
+                actorId, actorLabel: match.actorLabel });
+              const markConsumed = () => {
+                if (match.once && player.current?.loadId === query.loadId) consumedActions.add(`${query.loadId}:${match.onceKey}`);
+              };
+              if (result) return result.then(markConsumed);
+              markConsumed();
             },
           }];
         });
@@ -137,64 +122,24 @@ export const dungeonInteractionLabModule: LabModule = {
     };
     context.services.set(DUNGEON_INTERACTION_SERVICE, { register: provider => router.register(provider), dispatch,
       inspect: () => router.inspect(), subscribe: listener => router.subscribe(listener), isConsumed: (loadId, id) => router.isConsumed(loadId, id) });
-    const offAgentInteraction = context.communication.on(dungeonAgentInteractionEvent, ({ loadId, intent }) => {
-      const loaded = grid.current;
-      if (!loaded || loaded.loadId !== loadId) return;
-      const positionAt = (index: number) => ({ tileX: index % loaded.width, tileY: Math.floor(index / loaded.width) });
-      const query: InteractionQuery = {
-        actorId: intent.actorId, loadId, trigger: intent.trigger, position: positionAt(intent.tileIndex),
-        facing: resolveDungeonCardinalFacing(intent.facing),
-      };
-      if (intent.trigger === 'enter') {
-        query.from = positionAt(intent.fromTileIndex);
-        query.movementDirection = intent.movementDirection;
-      } else if (intent.trigger === 'move-attempt') {
-        showAttempt(intent.attemptId, intent.actorId, intent.outcome);
-        if (intent.outcome !== 'blocked') return;
-        query.attemptId = intent.attemptId;
-        query.movementPhase = 'blocked';
-        query.movementDirection = intent.movementDirection;
-        query.blockingEntityIds = intent.blockingEntityIds;
-      }
-      dispatch(query);
-    });
-    const interact = () => {
+    let interact: (() => boolean) | undefined;
+    const reportInteractMiss = () => {
       const current = player.current;
-      const handled = !!current && dispatch({ trigger: 'interact', loadId: current.loadId, position: { ...current.playerPosition }, facing: current.playerFacing });
-      if (!handled && current && config.enabled) {
+      if (current && config.enabled) {
         status.dataset.error = 'false';
         status.textContent = assembly.isPaused || context.scheduler.isPaused ? '场景已暂停，恢复后可交互。'
           : current.playerMovement ? '移动或转向尚未结束，请停稳后再按交互键。'
           : '当前位置没有可触发的交互。试着站在目标相邻格并面向它。';
       }
-      return handled;
     };
-    const keyboard = context.keyboard.register({ id: 'dungeon-interaction', label: '地牢统一交互', keys: [config.key], enabled: config.enabled,
-      priority: 70, intercept: true, preventDefault: true,
-      onKeyDown: event => event.repeat ? 'handled' : interact() ? 'handled' : 'ignored' });
-    let lastStep = 0;
-    const offStep = steps.subscribe('dungeon-interaction', 100, event => {
-      if (event.loadId !== player.current?.loadId || event.stepId <= lastStep) return;
-      lastStep = event.stepId;
-      if (dispatch({ trigger: 'enter', loadId: event.loadId, position: event.to, from: event.from, facing: event.facing, movementDirection: event.movementDirection })) return true;
-    });
-    const offBlocked = blocked.register(attempt => {
-      const current = player.current;
-      if (!current) return false;
-      return dispatch({ trigger: 'move-attempt', loadId: current.loadId, position: attempt.from,
-        facing: resolveDungeonCardinalFacing(attempt.direction), movementDirection: attempt.direction,
-        blockingEntityIds: attempt.blockedObstacleIds?.filter(id => id !== '$terrain') ?? [],
-        attemptId: attempt.attemptId, movementPhase: 'contact' });
-    });
-    const offPhysicalBlock = blocked.observe(attempt => {
-      const current = player.current;
-      const blockers = attempt.blockedObstacleIds?.filter(id => id !== '$terrain');
-      if (!current) return;
-      showAttempt(attempt.attemptId, DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, attempt.outcome);
-      if (attempt.outcome !== 'blocked' || !blockers?.length) return;
-      dispatch({ trigger: 'move-attempt', loadId: current.loadId, position: attempt.from,
-        facing: resolveDungeonCardinalFacing(attempt.direction), movementDirection: attempt.direction,
-        blockingEntityIds: blockers, attemptId: attempt.attemptId, movementPhase: 'blocked' });
+    const keyboardListeners = new Set<() => void>();
+    const notifyKeyboard = () => { for (const listener of keyboardListeners) listener(); };
+    context.services.set(DUNGEON_INTERACTION_INPUTS, {
+      bindInteract(handler) { interact = handler; return () => { if (interact === handler) interact = undefined; }; },
+      reportInteractMiss, enabled: () => config.enabled,
+      keyboardSettings: () => ({ enabled: config.enabled, key: config.key }),
+      onKeyboardSettings(listener) { keyboardListeners.add(listener); return () => { keyboardListeners.delete(listener); }; },
+      reportAttempt: showAttempt,
     });
     const panel = context.ui.addPanel('dungeon-interaction', '地牢交互');
     const enabled = createLabSwitch('启用统一交互', config.enabled);
@@ -244,7 +189,7 @@ export const dungeonInteractionLabModule: LabModule = {
     const stopDebug = context.scheduler.register({ id: 'interaction-debug', phase: 'presentation', order: 320, intervalSeconds: .05,
       description: '仅 Debug 开启时跟随交互实体的当前空间位置', run: () => { if (config['debug-entities']) syncDebug(); } });
     const offMap = context.communication.on(dungeonMapChangedEvent, ({ loadId }) => {
-      lastStep = 0; resetInteractions(); router.reset(); debugView.clear(); syncDebug();
+      resetInteractions(); router.reset(); debugView.clear(); syncDebug();
       attemptStatus.textContent = '等待移动尝试。'; delete attemptStatus.dataset.outcome;
       agentAttemptStatus.textContent = '等待 Agent 移动尝试。'; delete agentAttemptStatus.dataset.outcome;
       offContact();
@@ -261,7 +206,7 @@ export const dungeonInteractionLabModule: LabModule = {
     });
     const key = document.createElement('input'); key.value = config.key; key.type = 'text';
     const button = document.createElement('button'); button.type = 'button'; button.textContent = '触发当前位置 / 前方交互'; button.dataset.dungeonInteract = '';
-    button.addEventListener('click', interact);
+    button.addEventListener('click', () => interact?.());
     const render = () => {
       const state = router.inspect(); status.textContent = state.error || (state.target ? `${state.busy ? '正在处理' : '最近目标'}：${state.target}` : '等待交互。');
       status.dataset.error = String(!!state.error);
@@ -299,17 +244,17 @@ export const dungeonInteractionLabModule: LabModule = {
     ], () => {
       if (!context.config) { config.enabled = enabled.input.checked; config.key = key.value; config['debug-entities'] = debug.input.checked; }
       if (!context.config) for (const control of debugControls) config[control.field] = control.input.checked;
-      keyboard.setEnabled(config.enabled); keyboard.setKeys([config.key]);
+      notifyKeyboard();
       syncDebug();
     });
     if (!context.config) {
-      enabled.input.addEventListener('change', () => { config.enabled = enabled.input.checked; keyboard.setEnabled(config.enabled); });
-      key.addEventListener('change', () => { if (/^(Key[A-Z]|Enter|Space)$/.test(key.value)) { config.key = key.value; keyboard.setKeys([config.key]); } });
+      enabled.input.addEventListener('change', () => { config.enabled = enabled.input.checked; notifyKeyboard(); });
+      key.addEventListener('change', () => { if (/^(Key[A-Z]|Enter|Space)$/.test(key.value)) { config.key = key.value; notifyKeyboard(); } });
       debug.input.addEventListener('change', () => { config['debug-entities'] = debug.input.checked; syncDebug(); });
       for (const control of debugControls) control.input.addEventListener('change', () => { config[control.field] = control.input.checked; syncDebug(); });
     }
-    return () => { settings.dispose(); offPreparation(); offStep(); offBlocked(); offPhysicalBlock(); offMap(); offContact(); offStatus(); offView(); stopDebug(); debugView.dispose(); labelLayer.dispose(); keyboard.dispose();
-      offAgentInteraction(); offActions(); resetInteractions(); router.dispose();
-      context.services.delete(DUNGEON_INTERACTION_SERVICE); panel.root.remove(); };
+    return () => { settings.dispose(); offPreparation(); offMap(); offContact(); offStatus(); offView(); stopDebug(); debugView.dispose(); labelLayer.dispose();
+      offActions(); keyboardListeners.clear(); resetInteractions(); router.dispose();
+      context.services.delete(DUNGEON_INTERACTION_INPUTS); context.services.delete(DUNGEON_INTERACTION_SERVICE); panel.root.remove(); };
   },
 };

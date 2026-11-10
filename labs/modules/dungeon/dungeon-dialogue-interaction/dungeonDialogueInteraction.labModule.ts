@@ -1,3 +1,4 @@
+import { DUNGEON_MAP_ACTION_EXECUTOR } from '../dungeon-map-action-executor/dungeonMapActionExecutor.labModule';
 import { DUNGEON_INTERACTION_SERVICE } from '@/core/dungeon-interaction/DungeonInteractionRouter';
 import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '@/core/dungeon-traversal/dungeonTraversal';
 import { DUNGEON_INTERACTION_CONTROL } from '@/core/dungeon-interaction/dungeonInteractionControl';
@@ -8,17 +9,20 @@ import { getDialogueUiIssues } from '@/core/dialogue-preview/dialogueUiCompatibi
 import { LAB_DIALOGUE } from '../../shared/dialogue/dialogue.service';
 import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import { DUNGEON_PLAYER_STATE_MEMORY } from '../dungeon-runtime/dungeonRuntime.memory';
 import type { IEventComponent } from '@/core/entity/components/event.component';
 import type { LabModule } from '@/labs/kit';
 
 export const dungeonDialogueInteractionLabModule: LabModule = {
-  id: 'dungeon-dialogue-interaction', dependencies: ['dungeon-interaction', 'dialogue', 'dungeon-map-loader', 'dungeon-libraries'],
+  id: 'dungeon-dialogue-interaction', dependencies: ['dungeon-interaction', 'dungeon-interact-trigger', 'dungeon-spatial-trigger', 'dungeon-map-action-executor', 'dialogue', 'dungeon-map-loader', 'dungeon-libraries'],
   async setup(context) {
     const router = context.services.get(DUNGEON_INTERACTION_SERVICE), control = context.services.get(DUNGEON_INTERACTION_CONTROL);
+    const executor = context.services.get(DUNGEON_MAP_ACTION_EXECUTOR);
     const dialogue = context.services.get(LAB_DIALOGUE), assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
     const [stories, interfaces] = await Promise.all([loadDialogueEditorDocumentLibrary(), loadDialoguePreviewPresetLibrary()]);
     const consumed = new Set<string>();
-    let ownedLoadId: number | null = null, disposed = false;
+    const player = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
+    let disposed = false;
     const offProvider = router.register({ id: 'dungeon-dialogue', blocked: () => dialogue.inspect().busy,
       isConsumed: (loadId, componentId) => consumed.has(`${loadId}:${componentId}`),
       find(query) {
@@ -28,12 +32,9 @@ export const dungeonDialogueInteractionLabModule: LabModule = {
           return [{
             id: `dialogue:${match.id}`, entityId: match.entityId, label: match.label, priority: match.priority, rank: match.rank,
             async execute() {
-              ownedLoadId = query.loadId;
-              await context.services.invoke(LAB_DIALOGUE, 'start', [{
-                presetKey: action.presetKey, entryNodeId: action.entryNodeId, uiPresetKey: action.uiPresetKey,
-              }], { source: match.entityId, actorId: query.actorId ?? DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
-                sessionId: query.loadId, target: `${action.presetKey}/${action.entryNodeId}` });
-              if (!disposed && ownedLoadId === query.loadId && match.once && ['playing', 'ended'].includes(dialogue.inspect().status)) {
+              await executor.execute(action, { loadId: query.loadId, ruleId: match.id, sourceEntityId: match.entityId,
+                actorId: query.actorId ?? DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID });
+              if (!disposed && player.current?.loadId === query.loadId && match.once && ['playing', 'ended'].includes(dialogue.inspect().status)) {
                 consumed.add(`${query.loadId}:${match.onceKey}`);
               }
             },
@@ -41,13 +42,10 @@ export const dungeonDialogueInteractionLabModule: LabModule = {
         });
       },
     });
-    const offMap = context.communication.on(dungeonMapChangedEvent, event => {
-      consumed.clear();
-      if (ownedLoadId !== null && ownedLoadId !== event.loadId) { dialogue.cancel(); ownedLoadId = null; }
-    });
+    const offMap = context.communication.on(dungeonMapChangedEvent, () => consumed.clear());
     const offPreparation = assembly.registerPreparation('dungeon-dialogue-interaction', runtime => {
       const map = runtime.map.document;
-      for (const raw of map.components.event ?? []) {
+      for (const raw of [...(map.components.event ?? []), ...(map.components['variable-trigger'] ?? [])]) {
           const event = raw as unknown as IEventComponent;
           if (event.enabled === false || event.action?.type !== 'dialogue' || map.entities.find(entity => entity.id === raw.entityId)?.enabled === false) continue;
           const action = event.action, story = stories[action.presetKey];
@@ -61,7 +59,7 @@ export const dungeonDialogueInteractionLabModule: LabModule = {
         }
     });
     return {
-      dispose() { disposed = true; offPreparation(); offProvider(); offMap(); consumed.clear(); if (ownedLoadId !== null) dialogue.cancel(); },
+      dispose() { disposed = true; offPreparation(); offProvider(); offMap(); consumed.clear(); },
     };
   },
 };

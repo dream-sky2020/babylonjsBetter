@@ -17,12 +17,15 @@ test('map modules preserve step precedence, input locks, and loaded visual state
   for (const key of ['window', 'document', 'HTMLElement', 'HTMLInputElement', 'HTMLSelectElement', 'Option', 'location', 'localStorage']) {
     previous.set(key, globalThis[key]); globalThis[key] = dom.window[key];
   }
-  let engine, scene, cleanup, cleanupInteraction, steps;
+  let engine, scene, cleanup, cleanupInteraction, cleanupExecutor, cleanupActive, cleanupSpatial, steps;
   try {
     const { LabUi } = await server.ssrLoadModule('/labs/kit/labUi.ts');
     const { LabMemoryRegistry } = await server.ssrLoadModule('/labs/kit/shared-memory/LabMemory.ts');
     const { dungeonTransitionLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-transition/dungeonTransition.labModule.ts');
     const { dungeonInteractionLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-interaction/dungeonInteraction.labModule.ts');
+    const { dungeonMapActionExecutorLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-map-action-executor/dungeonMapActionExecutor.labModule.ts');
+    const { dungeonInteractTriggerLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-interact-trigger/dungeonInteractTrigger.labModule.ts');
+    const { dungeonSpatialTriggerLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-spatial-trigger/dungeonSpatialTrigger.labModule.ts');
     const { LAB_MESSAGE_BAR } = await server.ssrLoadModule('/labs/modules/shared/message-bar/messageBar.service.ts');
     const { DUNGEON_VISUAL_OBJECT_CONTROL, dungeonVisualObjectControlLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-visual-object-control/dungeonVisualObjectControl.labModule.ts');
     const { dungeonEntityVisualLoaderLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-entity-visual-loader/dungeonEntityVisualLoader.labModule.ts');
@@ -85,7 +88,10 @@ test('map modules preserve step precedence, input locks, and loaded visual state
     };
     services.set(LAB_MESSAGE_BAR, { show() {}, clear() {} });
     services.set(DUNGEON_VISUAL_OBJECT_CONTROL, { setState() {}, getState() {} });
+    cleanupExecutor = dungeonMapActionExecutorLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-map-action-executor') });
     cleanupInteraction = dungeonInteractionLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-interaction') });
+    cleanupActive = dungeonInteractTriggerLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-interact-trigger') });
+    cleanupSpatial = dungeonSpatialTriggerLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-spatial-trigger') });
     cleanup = dungeonTransitionLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-transition') });
     assert.deepEqual(memory.inspect().filter(entry => entry.modules.includes('dungeon-transition')).map(entry => entry.key).sort(),
       ['dungeon.grid', 'dungeon.libraries', 'dungeon.player-state', 'dungeon.transitions']);
@@ -102,8 +108,39 @@ test('map modules preserve step precedence, input locks, and loaded visual state
     assert.equal(blocked.tryHandle({ direction: 'north', from: { tileX: 0, tileY: 0 }, blockedReason: 'map-boundary' }), true);
     await new Promise(resolve => setImmediate(resolve)); assert.equal(switches, 3); assert.equal(locks, 0);
     assert.equal(events.length, 6);
-    cleanup(); cleanup = null; cleanupInteraction(); cleanupInteraction = null; assert.equal(handlers.size, 0); assert.equal(registered, 0);
+    cleanup(); cleanup = null;
+    cleanupSpatial(); cleanupSpatial = null; cleanupActive(); cleanupActive = null;
+    cleanupInteraction(); cleanupInteraction = null; cleanupExecutor(); cleanupExecutor = null;
+    assert.equal(handlers.size, 0); assert.equal(registered, 0);
     assert.equal(document.querySelector('[data-lab-panel="dungeon-transition"]'), null);
+
+    const { createDungeonSharedVariableRuntime } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-map-action-executor/dungeonSharedVariableRuntime.ts');
+    const variables = createDungeonSharedVariableRuntime(memory.scope('variable-test'));
+    const variableMap = (id, initialValue, scope = 'lab', valueType = 'integer') => ({
+      ...doc, identity: { ...doc.identity, id }, entities: [{ id: 'root', entityType: 'map' }],
+      components: { 'shared-variable': [{ id: 'counter', entityId: 'root', type: 'shared-variable', version: 1,
+        variableId: 'counter', valueType, initialValue, scope }] },
+    });
+    const apply = (loadId, variableOperation, value) => variables.execute(loadId, { type: 'shared-variable', variableId: 'counter', variableOperation, value });
+    const labKey = 'dungeon.variable.lab.counter';
+    const candidate = variables.prepare(variableMap('main', 0));
+    assert.equal(memory.inspect().some(entry => entry.key === labKey), false);
+    variables.commit(candidate, 101);
+    apply(101, 'add', 1);
+    variables.commit(variables.prepare(variableMap('other', 20)), 102);
+    assert.equal(memory.inspectValue(labKey), 1);
+    assert.throws(() => variables.prepare(variableMap('other', false, 'lab', 'boolean')), /已申请为 integer/);
+    assert.throws(() => apply(101, 'add', 1), /当前地图没有/);
+    assert.throws(() => apply(102, 'add', Number.MAX_SAFE_INTEGER), /超出类型范围/);
+    assert.equal(memory.inspectValue(labKey), 1);
+    apply(102, 'reset');
+    assert.equal(memory.inspectValue(labKey), 0);
+    variables.commit(variables.prepare(variableMap('main', 3, 'map')), 103);
+    apply(103, 'add', 1);
+    variables.commit(variables.prepare(variableMap('other', 9, 'map')), 104);
+    variables.commit(variables.prepare(variableMap('main', 20, 'map')), 105);
+    assert.equal(memory.inspectValue('dungeon.variable.map.main.counter'), 4);
+    assert.equal(memory.inspectValue('dungeon.variable.map.other.counter'), 9);
 
     let prepareVisuals;
     let visualLoadId = 0;
@@ -152,7 +189,7 @@ test('map modules preserve step precedence, input locks, and loaded visual state
       disposeVisualLoader();
     }
   } finally {
-    cleanup?.(); cleanupInteraction?.(); steps?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();
+    cleanup?.(); cleanupSpatial?.(); cleanupActive?.(); cleanupInteraction?.(); cleanupExecutor?.(); steps?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();
     for (const [key, value] of previous) { if (value === undefined) delete globalThis[key]; else globalThis[key] = value; }
   }
 });

@@ -86,6 +86,18 @@ def validate_visual_components(tables, owners, path):
             group_ids.add(group_id)
     return states, errors
 
+def valid_variable_id(value):
+    return isinstance(value, str) and re.fullmatch(r'[a-z][a-z0-9_-]{0,63}', value) is not None
+
+
+def valid_variable_value(value, kind):
+    if kind == 'integer':
+        return type(value) in (int, float) and abs(value) <= 9007199254740991 and value == int(value)
+    if kind == 'boolean':
+        return type(value) is bool
+    return kind == 'string' and isinstance(value, str) and len(value) <= 256
+
+
 def validate_map_interactions(preset, path):
     errors = []
     entities, tables = preset.get('entities'), preset.get('components')
@@ -94,6 +106,29 @@ def validate_map_interactions(preset, path):
     owners = {row.get('id'): row for row in entities if isinstance(row, dict) and isinstance(row.get('id'), str)}
     visual_states, visual_errors = validate_visual_components(tables, owners, path)
     errors.extend(visual_errors)
+    variables = {}
+    variable_rows = tables.get('shared-variable', [])
+    if not isinstance(variable_rows, list):
+        errors.append(f'{path}.components.shared-variable must be an array')
+        variable_rows = []
+    for index, row in enumerate(variable_rows):
+        location = f'{path}.components.shared-variable[{index}]'
+        if not isinstance(row, dict):
+            errors.append(f'{location} must be an object')
+            continue
+        entity_id, variable_id = row.get('entityId'), row.get('variableId')
+        owner = owners.get(entity_id, {}) if isinstance(entity_id, str) else {}
+        kind = row.get('valueType')
+        if owner.get('entityType') != 'map' or type(row.get('version')) is not int or row['version'] != 1 or not valid_variable_id(variable_id):
+            errors.append(f'{location} requires a valid variable ID on a map entity')
+        if not valid_variable_value(row.get('initialValue'), kind) or row.get('scope', 'lab') not in ('lab', 'map'):
+            errors.append(f'{location} has an invalid initial value, type or scope')
+        if 'label' in row and (not isinstance(row['label'], str) or not row['label'].strip() or len(row['label']) > 80):
+            errors.append(f'{location}.label is invalid')
+        if valid_variable_id(variable_id) and row.get('enabled') is not False and owner.get('enabled') is not False:
+            if variable_id in variables:
+                errors.append(f'{location} has a duplicate variable ID')
+            variables[variable_id] = kind
     events = tables.get('event', [])
     attachments = tables.get('spatial-attachment', [])
     if not isinstance(events, list) or not isinstance(attachments, list):
@@ -113,11 +148,38 @@ def validate_map_interactions(preset, path):
             errors.append(f'{path}.components.grid-facing has invalid or duplicate orientation')
         if isinstance(entity_id, str):
             facing_owners.add(entity_id)
-    for index, event in enumerate(events):
-        location = f'{path}.components.event[{index}]'
+    trigger_rows = tables.get('variable-trigger', [])
+    if not isinstance(trigger_rows, list):
+        errors.append(f'{path}.components.variable-trigger must be an array')
+        trigger_rows = []
+    for index, event in enumerate([*events, *trigger_rows]):
+        variable_trigger = index >= len(events)
+        location = (f'{path}.components.variable-trigger[{index - len(events)}]' if variable_trigger
+                    else f'{path}.components.event[{index}]')
         if not isinstance(event, dict):
             errors.append(f'{location} must be an object')
             continue
+        if variable_trigger:
+            owner_id = event.get('entityId')
+            owner = owners.get(owner_id, {}) if isinstance(owner_id, str) else {}
+            if owner.get('entityType') != 'map' or type(event.get('version')) is not int or event['version'] != 1:
+                errors.append(f'{location} requires a map entity and version 1')
+            variable_id, operator = event.get('variableId'), event.get('operator')
+            if ('variableId' in event and not valid_variable_id(variable_id)) or operator not in ('gte', 'lte', 'equals'):
+                errors.append(f'{location} has an invalid variable ID or operator')
+            if 'threshold' in event:
+                threshold = event['threshold']
+                kinds = ('integer', 'boolean', 'string') if operator == 'equals' else ('integer',)
+                declared_kind = variables.get(variable_id) if valid_variable_id(variable_id) else None
+                if not any(valid_variable_value(threshold, kind) for kind in kinds):
+                    errors.append(f'{location}.threshold is incompatible with its operator')
+                elif declared_kind and event.get('enabled') is not False and owner.get('enabled') is not False and not valid_variable_value(threshold, declared_kind):
+                    errors.append(f'{location}.threshold is incompatible with the declared variable type')
+            if isinstance(event.get('action'), dict) and event['action'].get('type') == 'legacy':
+                errors.append(f'{location}.action cannot use legacy')
+            if 'action' not in event:
+                continue
+            event = {**event, 'version': 2, 'trigger': 'enter', 'targetRule': 'self'}
         if type(event.get('version')) is int and event['version'] == 1:
             continue
         if type(event.get('version')) is not int or event['version'] != 2:
@@ -156,8 +218,8 @@ def validate_map_interactions(preset, path):
         action = event.get('action')
         if isinstance(action, dict) and action.get('type') == 'legacy':
             continue
-        if not isinstance(action, dict) or action.get('type') not in ('dialogue', 'message', 'visual-state', 'service'):
-            errors.append(f'{location}.action must be dialogue, message, visual-state, service or legacy')
+        if not isinstance(action, dict) or action.get('type') not in ('dialogue', 'message', 'visual-state', 'service', 'shared-variable'):
+            errors.append(f'{location}.action must be dialogue, message, visual-state, service, shared-variable or legacy')
             continue
         if event.get('trigger') not in ('interact', 'enter', 'move-attempt', 'approach-player'):
             errors.append(f'{location}.trigger is invalid')
@@ -188,6 +250,21 @@ def validate_map_interactions(preset, path):
                     errors.append(f'{location}.action refers to an unavailable visual target or {field}')
             if event.get('trigger') not in ('interact', 'enter'):
                 errors.append(f'{location}.action visual-state requires interact or enter')
+        elif action['type'] == 'shared-variable':
+            variable_id = action.get('variableId')
+            operation = action.get('variableOperation', 'set')
+            if 'variableId' in action and not valid_variable_id(variable_id):
+                errors.append(f'{location}.action.variableId is invalid')
+            if operation not in ('set', 'add', 'toggle', 'reset'):
+                errors.append(f'{location}.action.variableOperation is invalid')
+            if 'value' in action and not any(valid_variable_value(action['value'], kind) for kind in ('integer', 'boolean', 'string')):
+                errors.append(f'{location}.action.value must be a shared variable scalar')
+            entity_id = event.get('entityId')
+            enabled = event.get('enabled') is not False and (not isinstance(entity_id, str) or owners.get(entity_id, {}).get('enabled') is not False)
+            if valid_variable_id(variable_id) and enabled and variable_id in variables:
+                kind = variables[variable_id]
+                if operation == 'add' and (kind != 'integer' or 'value' in action and not valid_variable_value(action['value'], 'integer')) or operation == 'toggle' and kind != 'boolean' or operation == 'set' and 'value' in action and not valid_variable_value(action['value'], kind):
+                    errors.append(f'{location}.action operation is incompatible with the variable type')
         elif action['type'] == 'service':
             command_id = action.get('commandId', '')
             if not isinstance(command_id, str) or len(command_id) > 128 or command_id and not re.fullmatch(r'[a-z][a-z0-9-]*(\.[a-z][a-z0-9-]*)+', command_id):
@@ -202,6 +279,8 @@ def validate_map_interactions(preset, path):
                     errors.append(f'{location}.action.{field} must be text with at most 256 characters')
             if 'uiPresetKey' in action and not text(action['uiPresetKey']):
                 errors.append(f'{location}.action.uiPresetKey is invalid')
+        if variable_trigger:
+            continue
         owner = owners.get(event.get('entityId'))
         if not owner or owner.get('entityType') not in allowed:
             errors.append(f'{location} has an invalid owner')

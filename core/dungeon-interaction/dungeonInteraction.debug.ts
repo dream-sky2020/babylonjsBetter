@@ -9,7 +9,7 @@ import { interactionDirectionText, interactionOnceKey } from './dungeonInteracti
 
 export type InteractionDebugDescriptor = {
   id: string; componentId: string; entityId: string; label: string;
-  kind: 'dialogue' | 'message' | 'visual-state' | 'service' | 'transition'; triggers: readonly string[]; targetRule?: string;
+  kind: 'dialogue' | 'message' | 'visual-state' | 'service' | 'shared-variable' | 'transition'; triggers: readonly string[]; targetRule?: string;
   movementPhase?: 'contact' | 'blocked';
   once: boolean; enabled: boolean; moving: boolean;
   onceKey?: string; directionText?: string; facing?: string; ruleName?: string;

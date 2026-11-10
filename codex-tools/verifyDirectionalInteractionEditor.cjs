@@ -76,6 +76,29 @@ app.whenReady().then(async () => {
     await page(`document.querySelector('.map-dock-panel[data-panel="entities"] [data-object-id="entity:room-agent-lamp"]').click()`);
     await wait(`!!document.querySelector('[data-component-id="room-agent-lamp:visual-objects"] textarea') &&
       !!document.querySelector('[data-component-id="room-agent-lamp:visual-state"] textarea')`);
+    await page(`(() => { const select = document.querySelector('[aria-label="当前地图预设"]');
+      select.value = 'dungeon_interaction_test'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    const entityList = '.map-dock-panel[data-panel="entities"]';
+    await wait(`!!document.querySelector('${entityList} [data-object-id="entity:environment"]') &&
+      !!document.querySelector('${entityList} [data-object-id="entity:counter-plate"]')`);
+    await page(`document.querySelector('${entityList} [data-object-id="entity:environment"]').click()`);
+    await wait(`!!document.querySelector('[data-component-id="environment:plate-trigger-count"] input[type="number"]')`);
+    assert.equal(await page(`document.querySelector('[data-component-id="environment:plate-trigger-count"] input[type="number"]').value`), '0');
+    assert.equal(await page(`(() => {
+      const card = document.querySelector('[data-component-id="environment:counter-opens-barrier"]');
+      return [...card.querySelectorAll('select')].some(select => select.value === 'gte') &&
+        card.querySelector('input[type="number"]').value === '3' &&
+        [...card.querySelectorAll('input')].some(input => input.value === 'obstacle.set-active');
+    })()`), true);
+    await page(`document.querySelector('${entityList} [data-object-id="entity:counter-plate"]').click()`);
+    await wait(`!!document.querySelector('[data-component-id="counter-plate:count"] option[value="plate-trigger-count"]')`);
+    assert.equal(await page(`(() => {
+      const card = document.querySelector('[data-component-id="counter-plate:count"]');
+      return [...card.querySelectorAll('select')].some(select => select.value === 'plate-trigger-count') &&
+        [...card.querySelectorAll('select')].some(select => select.value === 'add' && select.querySelector('option[value="toggle"]').disabled) &&
+        [...card.querySelectorAll('label')].find(label => label.querySelector('span')?.textContent === '操作值')
+          ?.querySelector('input[type="number"]')?.value === '1';
+    })()`), true);
     assert.deepEqual(errors, []); assert.deepEqual(writes, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-editor.png'), (await win.webContents.capturePage()).toPNG());
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-editor.json'), JSON.stringify({ passed: true, ...result, errors, writes }, null, 2));

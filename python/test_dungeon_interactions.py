@@ -39,6 +39,24 @@ class DungeonInteractionTests(unittest.TestCase):
                 self.assertEqual(client.put('/api/dungeon-map-presets', json={'dungeon_interaction_test': bad}).status_code, 400)
                 self.assertEqual(client.get('/api/dungeon-map-presets/dungeon_interaction_test').json['data'], source)
 
+    def test_shared_variable_declarations_and_action_types(self):
+        source = self.source()
+        payload = {'dungeon_interaction_test': source}
+        declaration = source['components']['shared-variable'][0]
+        self.assertEqual(validate_dungeon_map_preset_payload(payload), [])
+        for change in ({'initialValue': False}, {'initialValue': 2**53}, {'entityId': 'counter-plate'}, {'scope': 'room'}):
+            invalid = copy.deepcopy(source)
+            invalid['components']['shared-variable'][0].update(change)
+            self.assertTrue(validate_dungeon_map_preset_payload({'dungeon_interaction_test': invalid}), change)
+        for change in ({'threshold': False}, {'operator': 'changed'}, {'entityId': 'counter-plate'}):
+            invalid = copy.deepcopy(source)
+            invalid['components']['variable-trigger'][0].update(change)
+            self.assertTrue(validate_dungeon_map_preset_payload({'dungeon_interaction_test': invalid}), change)
+        action = next(row['action'] for row in source['components']['event'] if row['action']['type'] == 'shared-variable')
+        action['variableOperation'] = 'toggle'
+        self.assertTrue(validate_dungeon_map_preset_payload(payload))
+        self.assertEqual(declaration['initialValue'], 0)
+
     def test_service_actions_accept_objects_and_reject_invalid_commands(self):
         source = self.source()
         action = next(row['action'] for row in source['components']['event'] if row['action']['type'] == 'service')

@@ -592,7 +592,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
                 onProgress: message => { if (loadingLayer) loadingLayer.content.textContent = message; status.textContent = message; },
               });
               if (abort.signal.aborted || loadId !== generation) return false;
-              assembly.commitSession(loadId);
+              assembly.commitSession(loadId, runtime);
               sessionInfo.commit(loadId, presetKey, liveDocument.identity.id);
               loadedStateRegistration.markChanged();
               status.textContent = warnings.length ? warnings.join(' ') : `地图已切换到“${preset.identity.name}”。`;

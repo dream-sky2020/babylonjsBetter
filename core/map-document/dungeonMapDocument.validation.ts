@@ -1,3 +1,5 @@
+import { collectDungeonVariableTriggers } from '../dungeon-interaction/dungeonVariableTriggers.ts';
+import { collectDungeonSharedVariables } from '../dungeon-interaction/dungeonSharedVariables.ts';
 import { validateInteractionEvent, type IEventComponent } from '../entity/components/event.component.ts';
 import { componentDefinition as gridFacingDefinition, type IGridFacingComponent } from '../entity/components/grid-facing.component.ts';
 import { compileSpatialDefinitions } from '../dungeon-spatial/dungeonSpatialDefinition.ts';
@@ -183,6 +185,8 @@ export const validateDungeonMapDocumentV2 = (
   (document.components.event ?? []).forEach((component, index) => {
     validateInteractionEvent(component as unknown as IEventComponent, false).forEach(message => add('interaction.definition', message, `components.event[${index}]`));
   });
+  for (const issue of collectDungeonSharedVariables(document).issues) add('interaction.variable', issue.message, issue.path);
+  for (const issue of collectDungeonVariableTriggers(document).issues) add('interaction.variable-trigger', issue.message, issue.path);
   for (const kind of ['visual-objects', 'visual-state'] as const) {
     const owners = new Set<string>();
     (document.components[kind] ?? []).forEach((component, index) => {

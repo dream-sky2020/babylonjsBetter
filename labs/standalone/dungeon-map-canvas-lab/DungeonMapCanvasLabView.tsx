@@ -2,6 +2,9 @@ import { useEffect, useMemo, useRef } from 'react';
 import { InteractionDirectionPicker } from '@/tools/entity-container-editor/InteractionDirectionPicker';
 import { DialogueUiPresetPicker } from '@/tools/entity-container-editor/DialogueUiPresetPicker';
 import type { IVisualStateComponent } from '@/core/entity/components/visual-state.component';
+import { collectDungeonSharedVariables } from '@/core/dungeon-interaction/dungeonSharedVariables';
+import { defaultSharedVariableValue, type ISharedVariableComponent, type SharedVariableType } from '@/core/entity/components/shared-variable.component';
+import type { IVariableTriggerComponent } from '@/core/entity/components/variable-trigger.component';
 import type { IEventComponent } from '@/core/entity/components/event.component';
 import { ObjectHierarchy, InspectorPanel, InspectorSection } from '@/core/ui/editor-kit';
 import { DungeonMapWorkbench } from './DungeonMapWorkbench';
@@ -182,6 +185,16 @@ export const DungeonMapCanvasLabView = ({ model }: { model: DungeonMapCanvasLabV
     validationIssues,
   } = model;
 
+const sharedVariables = useMemo(() => mapDocument ? collectDungeonSharedVariables(mapDocument).definitions : new Map<string, ISharedVariableComponent>(), [mapDocument]);
+const renderVariableValue = (field: ComponentFieldSchema, type: SharedVariableType, value: unknown, update: (value: unknown) => void) => {
+  if (type === 'boolean') return <label key={field.path} className="physics-check"><input type="checkbox" checked={value === true} onChange={event => update(event.target.checked)} /><span>{field.label}</span></label>;
+  if (type === 'integer') return <label key={field.path}><span>{field.label}</span><input key={String(value)} type="number" step={1}
+    min={Number.MIN_SAFE_INTEGER} max={Number.MAX_SAFE_INTEGER} defaultValue={typeof value === 'number' ? value : ''}
+    onBlur={event => { if (Number.isSafeInteger(event.currentTarget.valueAsNumber)) update(event.currentTarget.valueAsNumber); }} /></label>;
+  return <label key={field.path}><span>{field.label}</span><input key={String(value)} maxLength={256} defaultValue={typeof value === 'string' ? value : ''}
+    onBlur={event => update(event.currentTarget.value)} /></label>;
+};
+
 const renderComponentCard = (entity: IEntity, component: IComponent) => {
     const definition = COMPONENT_REGISTRY.get(component.type);
     const entityDefinition = ENTITY_TYPE_REGISTRY.get(entity.entityType);
@@ -202,7 +215,68 @@ const renderComponentCard = (entity: IEntity, component: IComponent) => {
             if ('equals' in condition ? value !== condition.equals : value === condition.notEquals) return null;
           }
           const currentValue = valueAtPath(component, field.path);
-          if (component.type === 'event' && ['action.targetEntityId', 'action.operation', 'action.stateId', 'action.groupId'].includes(field.path)) {
+          if (component.type === 'shared-variable' && field.path === 'valueType') {
+            return <label key={field.path}><span>{field.label}</span><select value={String(currentValue)} onChange={event => {
+              const valueType = event.target.value as SharedVariableType;
+              updateComponentById(entity.id, component.id, '修改共享变量类型', current =>
+                ({ ...current, valueType, initialValue: defaultSharedVariableValue(valueType) }));
+            }}>{field.options?.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>;
+          }
+          if (component.type === 'shared-variable' && field.path === 'initialValue') {
+            return renderVariableValue(field, component.valueType as SharedVariableType, currentValue, value => setField(field, value));
+          }
+          if (component.type === 'variable-trigger') {
+            const rule = component as IVariableTriggerComponent;
+            const target = rule.variableId ? sharedVariables.get(rule.variableId) : undefined;
+            if (field.path === 'variableId') return <label key={field.path}><span>{field.label}</span><select value={rule.variableId ?? ''} onChange={event => {
+              const variableId = event.target.value;
+              const next = sharedVariables.get(variableId);
+              updateComponentById(entity.id, component.id, '选择监听变量', current => ({
+                ...current, variableId: variableId || undefined, operator: 'equals',
+                threshold: next ? defaultSharedVariableValue(next.valueType) : undefined,
+              }));
+            }}><option value="">请选择</option>
+              {rule.variableId && !target && <option value={rule.variableId} disabled>{rule.variableId}（未声明）</option>}
+              {[...sharedVariables].map(([id, row]) => <option key={id} value={id}>{row.label ? `${row.label} · ${id}` : id}</option>)}
+            </select></label>;
+            if (field.path === 'operator') return <label key={field.path}><span>{field.label}</span><select value={rule.operator} disabled={!target}
+              onChange={event => setField(field, event.target.value)}>
+              {field.options?.map(option => <option key={option.value} value={option.value}
+                disabled={option.value !== 'equals' && target?.valueType !== 'integer'}>{option.label}</option>)}
+            </select></label>;
+            if (field.path === 'threshold') return target
+              ? renderVariableValue(field, target.valueType, currentValue, value => setField(field, value)) : null;
+          }
+          if (component.type === 'event' || component.type === 'variable-trigger') {
+            const action = (component as IEventComponent | IVariableTriggerComponent).action;
+            if (action?.type === 'shared-variable') {
+              const target = sharedVariables.get(action.variableId);
+              const operation = action.variableOperation ?? 'set';
+              if (field.path === 'action.variableId') return <label key={field.path}><span>{field.label}</span><select value={action.variableId ?? ''} onChange={event => {
+                const variableId = event.target.value;
+                const next = sharedVariables.get(variableId);
+                updateComponentById(entity.id, component.id, '选择共享变量', current => ({
+                  ...current, action: { type: 'shared-variable', variableId: variableId || undefined, variableOperation: 'set',
+                    value: next ? defaultSharedVariableValue(next.valueType) : undefined },
+                }));
+              }}><option value="">请选择</option>
+                {action.variableId && !target && <option value={action.variableId} disabled>{action.variableId}（未声明）</option>}
+                {[...sharedVariables].map(([id, row]) => <option key={id} value={id}>{row.label ? `${row.label} · ${id}` : id}</option>)}
+              </select></label>;
+              if (field.path === 'action.variableOperation') return <label key={field.path}><span>{field.label}</span><select value={operation} disabled={!target} onChange={event => {
+                if (!target) return;
+                const variableOperation = event.target.value;
+                updateComponentById(entity.id, component.id, '修改共享变量操作', current => ({
+                  ...current, action: { ...action, variableOperation,
+                    value: variableOperation === 'add' ? 1 : variableOperation === 'set' ? defaultSharedVariableValue(target.valueType) : undefined },
+                }));
+              }}>{field.options?.map(option => <option key={option.value} value={option.value}
+                disabled={option.value === 'add' && target?.valueType !== 'integer' || option.value === 'toggle' && target?.valueType !== 'boolean'}>{option.label}</option>)}</select></label>;
+              if (field.path === 'action.value') return target && (operation === 'set' || operation === 'add')
+                ? renderVariableValue(field, target.valueType, currentValue, value => setField(field, value)) : null;
+            }
+          }
+          if ((component.type === 'event' || component.type === 'variable-trigger') && ['action.targetEntityId', 'action.operation', 'action.stateId', 'action.groupId'].includes(field.path)) {
             const action = (component as IEventComponent).action;
             if (action?.type !== 'visual-state') return null;
             const operation = action.operation ?? 'set';
@@ -235,7 +309,7 @@ const renderComponentCard = (entity: IEntity, component: IComponent) => {
               {choices.map(choice => <option key={choice.value} value={choice.value}>{choice.label}</option>)}
             </select></label>;
           }
-          if (component.type === 'event' && field.path === 'action.uiPresetKey') {
+          if ((component.type === 'event' || component.type === 'variable-trigger') && field.path === 'action.uiPresetKey') {
             return <DialogueUiPresetPicker key={field.path} component={component} label={field.label} onChange={value => setField(field, value)} />;
           }
           if (component.type === 'event' && ['worldSides', 'localSides'].includes(field.path)) {

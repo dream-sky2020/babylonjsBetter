@@ -70,7 +70,7 @@ test('debug descriptions follow logical tiles even when the body is rendered els
   const control = createDungeonInteractionControl(() => ({ loadId: 1, map: current.map, world: current.traversal, moving: () => true }));
   assert.equal(control.describe(2).length, 0);
   const snapshot = control.describe(1);
-  assert.equal(snapshot.length, 23);
+  assert.equal(snapshot.length, 24);
   assert.equal(snapshot.find(row => row.entityId === 'remove-barrier')?.kind, 'service');
   assert.equal(snapshot.find(row => row.entityId === 'once-notice')!.once, true);
   assert.equal(snapshot.find(row => row.entityId === 'exit')!.kind, 'transition');

@@ -10,7 +10,7 @@ const host = await createLab({ labId: 'dungeon-agent-lab',
   title: 'Dungeon Agent 移动 Lab',
   description: '在地图传送完整链路上扫描 dungeon-agent，验证运行时占位、朝向、手动格步移动与 Debug 3D 模型。',
   badge: 'Composable Lab · Dungeon Transition + Agent',
-  modules: ['dungeon-config', 'dungeon-transition', 'dungeon-agent', 'dungeon-visual-deformation'],
+  modules: ['dungeon-config', 'dungeon-transition', 'dungeon-variable-trigger', 'dungeon-agent', 'dungeon-visual-deformation'],
   catalog: dungeonLabModuleCatalog,
 });
 

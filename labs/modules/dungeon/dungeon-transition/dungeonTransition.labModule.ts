@@ -56,7 +56,7 @@ const triggerLabel = (triggers: readonly DungeonExitTrigger[]): string => {
 
 export const dungeonTransitionLabModule: LabModule = {
   id: 'dungeon-transition',
-  dependencies: ['dungeon-interaction', 'player-movement', 'dungeon-map-loader', 'dungeon-libraries', 'dungeon-overhead-view'],
+  dependencies: ['dungeon-interaction', 'dungeon-interact-trigger', 'dungeon-spatial-trigger', 'player-movement', 'dungeon-map-loader', 'dungeon-libraries', 'dungeon-overhead-view'],
   setup(context) {
     const defaults = { enabled: true, enter: true, interact: true, 'move-attempt': true, 'debug-boxes': false };
     const config = context.config ? context.config.register('dungeon-transition', Object.fromEntries(

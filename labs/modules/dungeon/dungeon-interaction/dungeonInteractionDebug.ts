@@ -19,7 +19,7 @@ export function interactionDebugCaption(item: InteractionDebugDescriptor, key: s
     : item.movementPhase === 'contact' ? '发现阻挡 · 接管' : item.movementPhase === 'blocked' ? '确认受阻 · 通知' : '移动受阻').join(' / ');
   const state = !item.enabled ? '已禁用' : consumed ? '本次已触发' : item.moving ? '移动中' : item.once ? '本次仅一次' : '可重复';
   const action = item.kind === 'transition' ? '传送' : item.kind === 'message' ? '地图提示'
-    : item.kind === 'visual-state' ? '切换视觉状态' : item.kind === 'service' ? '触发服务' : item.targetRule === 'front' ? '面前对话' : '脚下对话';
+    : item.kind === 'visual-state' ? '切换视觉状态' : item.kind === 'service' ? '触发服务' : item.kind === 'shared-variable' ? '修改共享变量' : item.targetRule === 'front' ? '面前对话' : '脚下对话';
   return { text: `${trigger} · ${action} · ${state}`, state, trigger, action,
     compact: `${trigger} · ${state === '本次已触发' ? '已触发' : state === '本次仅一次' ? '仅一次' : state === '已禁用' ? '禁用' : state}`,
     color: !item.enabled || consumed ? '#64748b' : item.kind === 'transition' ? '#a78bfa' : item.triggers.includes('enter') ? '#f59e0b' : '#38bdf8' };

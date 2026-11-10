@@ -153,6 +153,12 @@
       "entityType": "interaction-point",
       "name": "恢复石障开关",
       "enabled": true
+    },
+    {
+      "id": "counter-plate",
+      "entityType": "interaction-point",
+      "name": "计数踏板 · 脚踏板触发次数",
+      "enabled": true
     }
   ],
   "components": {
@@ -429,6 +435,18 @@
           {
             "kind": "tile",
             "tileId": "tile:9,7"
+          }
+        ]
+      },
+      {
+        "id": "counter-plate:spatial-attachment",
+        "entityId": "counter-plate",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:12,8"
           }
         ]
       }
@@ -1333,6 +1351,21 @@
           },
           "successMessage": "封路石障已恢复。"
         }
+      },
+      {
+        "id": "counter-plate:count",
+        "entityId": "counter-plate",
+        "type": "event",
+        "version": 2,
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "shared-variable",
+          "variableId": "plate-trigger-count",
+          "variableOperation": "add",
+          "value": 1
+        }
       }
     ],
     "dungeon-exit": [
@@ -1416,6 +1449,39 @@
             }
           }
         ]
+      }
+    ],
+    "shared-variable": [
+      {
+        "id": "environment:plate-trigger-count",
+        "entityId": "environment",
+        "type": "shared-variable",
+        "version": 1,
+        "variableId": "plate-trigger-count",
+        "label": "脚踏板触发次数",
+        "valueType": "integer",
+        "initialValue": 0,
+        "scope": "lab"
+      }
+    ],
+    "variable-trigger": [
+      {
+        "id": "environment:counter-opens-barrier",
+        "entityId": "environment",
+        "type": "variable-trigger",
+        "version": 1,
+        "variableId": "plate-trigger-count",
+        "operator": "gte",
+        "threshold": 3,
+        "action": {
+          "type": "service",
+          "commandId": "obstacle.set-active",
+          "parameters": {
+            "entityId": "room-contact-barrier",
+            "active": false
+          },
+          "successMessage": "计数达到 3，封路石障已解除。"
+        }
       }
     ]
   }

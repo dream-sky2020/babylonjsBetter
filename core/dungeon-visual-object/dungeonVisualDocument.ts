@@ -44,7 +44,7 @@ export function readDungeonEntityVisuals(document: DungeonMapDocumentV2) {
     definitions.set(entity.id, { entityId: entity.id, label: entity.name ?? entity.id,
       tileX: index % document.grid.width, tileY: Math.floor(index / document.grid.width), objects: objects[0].objects, states: state });
   }
-  for (const raw of document.components.event ?? []) {
+  for (const raw of [...(document.components.event ?? []), ...(document.components['variable-trigger'] ?? [])]) {
     const event = raw as unknown as IEventComponent;
     if (event.enabled === false || query.getEntity(raw.entityId)?.enabled === false || event.action?.type !== 'visual-state') continue;
     const { targetEntityId, stateId, groupId, operation = 'set' } = event.action;

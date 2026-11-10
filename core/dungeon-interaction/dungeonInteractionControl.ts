@@ -69,7 +69,7 @@ export function createDungeonInteractionControl(read: () => Session | null): Dun
       diagnostics.push(row);
       const actorScope = event.actorScope ?? (collision && (event.movementPhase === 'blocked' || actionRule) ? 'both' : 'player');
       if (actorScope !== 'both' && actorScope !== (agent ? 'agent' : 'player')) { row.reason = '发起者类型不符合规则'; continue; }
-      if ((collision && phase === 'blocked' || agent && event.action.type !== 'visual-state' && event.action.type !== 'service') && event.action.type !== 'message') { row.reason = '该阶段使用地图提示'; continue; }
+      if ((collision && phase === 'blocked' || agent && event.action.type !== 'visual-state' && event.action.type !== 'service' && event.action.type !== 'shared-variable') && event.action.type !== 'message') { row.reason = '该阶段使用地图提示'; continue; }
       if ((!playerOwner && !entity) || entity?.enabled === false || event.enabled === false || body?.enabled === false) { row.reason = '实体或规则已禁用'; continue; }
       if (!collision && body && session.moving(ownerId)) { row.reason = '目标正在移动或转向'; continue; }
       if (entity?.entityType === 'dungeon-agent' && !body) { row.reason = '目标尚未进入当前空间'; continue; }
@@ -125,7 +125,7 @@ export function createDungeonInteractionControl(read: () => Session | null): Dun
       row.reason = event.action.type === 'dialogue' ? `命中规则 → 对话入口 ${event.action.entryNodeId}`
         : event.action.type === 'visual-state' ? `命中规则 → ${event.action.targetEntityId} · ${event.action.operation && event.action.operation !== 'set'
           ? `${event.action.groupId} · ${visualRotationLabels[event.action.operation]}` : `切换为 ${event.action.stateId}`}`
-        : event.action.type === 'service' ? `命中规则 → 服务指令 ${event.action.commandId}` : '命中规则 → 显示地图提示';
+        : event.action.type === 'service' ? `命中规则 → 服务指令 ${event.action.commandId}` : event.action.type === 'shared-variable' ? `命中规则 → 修改变量 ${event.action.variableId}` : '命中规则 → 显示地图提示';
       matches.push({ id: event.id, entityId: ownerId, label, priority: event.priority ?? 0,
         rank: collision || event.targetRule === 'front' ? 0 : 1, once: event.once === true, onceKey: row.onceKey, directional,
         action: structuredClone(event.action), actorLabel: actionRule && !playerOwner ? ownerName : actorLabel,

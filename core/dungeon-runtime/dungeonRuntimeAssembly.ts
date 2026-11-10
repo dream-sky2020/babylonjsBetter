@@ -65,8 +65,9 @@ export class DungeonRuntimeAssembly {
     this.candidateLoadId = loadId; this.phase = 'preparing'; this.failure = null; this.changed();
   }
 
-  commitSession(loadId: number): void {
+  commitSession(loadId: number, runtime: DungeonRuntime): void {
     if (this.candidateLoadId !== loadId) throw new Error('不能提交过期 Session。');
+    for (const commit of this.committers.values()) commit(runtime, loadId);
     this.activeLoadId = loadId; this.candidateLoadId = null; this.phase = 'ready'; this.changed();
   }
 
@@ -78,7 +79,7 @@ export class DungeonRuntimeAssembly {
   }
 
   dispose(): void {
-    this.factories = {}; this.preparers.clear(); this.preparations = new WeakMap();
+    this.factories = {}; this.preparers.clear(); this.committers.clear(); this.preparations = new WeakMap();
     this.listeners.clear(); this.simulationParticipants.clear(); this.activeLoadId = null; this.candidateLoadId = null;
   }
   get isPaused(): boolean { return this.pauseCount > 0; }
@@ -89,6 +90,7 @@ export class DungeonRuntimeAssembly {
     return () => { if (!released) { released = true; this.pauseCount -= 1; this.changed(); } };
   }
   private preparers = new Map<string, (runtime: DungeonRuntime, loadId: number) => unknown>();
+  private readonly committers = new Map<string, (runtime: DungeonRuntime, loadId: number) => void>();
   private preparations = new WeakMap<DungeonRuntime, ReadonlyMap<string, unknown>>();
 
   install<K extends keyof DungeonRuntimeFactories>(key: K, factory: NonNullable<DungeonRuntimeFactories[K]>): () => void {
@@ -98,10 +100,15 @@ export class DungeonRuntimeAssembly {
     return () => { delete this.factories[key]; };
   }
 
-  registerPreparation<T>(id: string, prepare: (runtime: DungeonRuntime, loadId: number) => T): () => void {
+  /** Prepare may validate candidates. Commit publishes prepared data only for the accepted session. */
+  registerPreparation<T>(
+    id: string, prepare: (runtime: DungeonRuntime, loadId: number) => T,
+    commit?: (prepared: T, loadId: number) => void,
+  ): () => void {
     if (this.prepared || this.preparers.has(id)) throw new Error('无法注册 Session 准备步骤：' + id);
     this.preparers.set(id, prepare);
-    return () => { this.preparers.delete(id); };
+    if (commit) this.committers.set(id, (runtime, loadId) => commit(this.readPreparation<T>(runtime, id), loadId));
+    return () => { this.preparers.delete(id); this.committers.delete(id); };
   }
 
   create(document: DungeonMapDocumentV2, spawn: DungeonPlayerSpawnBinding, storage?: DungeonRuntimeStorageFactories): DungeonRuntime {

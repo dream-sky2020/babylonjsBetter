@@ -1,3 +1,7 @@
+import { dungeonInteractTriggerLabModule } from './dungeon-interact-trigger/dungeonInteractTrigger.labModule';
+import { dungeonSpatialTriggerLabModule } from './dungeon-spatial-trigger/dungeonSpatialTrigger.labModule';
+import { dungeonVariableTriggerLabModule } from './dungeon-variable-trigger/dungeonVariableTrigger.labModule';
+import { dungeonMapActionExecutorLabModule } from './dungeon-map-action-executor/dungeonMapActionExecutor.labModule';
 import { dungeonInteractionLabModule } from './dungeon-interaction/dungeonInteraction.labModule';
 import { dungeonEntityVisualLoaderLabModule } from './dungeon-entity-visual-loader/dungeonEntityVisualLoader.labModule';
 import { dungeonVisualObjectControlLabModule } from './dungeon-visual-object-control/dungeonVisualObjectControl.labModule';
@@ -27,6 +31,10 @@ import { playerSpawnLabModule } from './player-spawn';
 
 const dungeonModules: LabModuleCatalog = {
   [dungeonInteractionLabModule.id]: dungeonInteractionLabModule,
+  [dungeonInteractTriggerLabModule.id]: dungeonInteractTriggerLabModule,
+  [dungeonSpatialTriggerLabModule.id]: dungeonSpatialTriggerLabModule,
+  [dungeonVariableTriggerLabModule.id]: dungeonVariableTriggerLabModule,
+  [dungeonMapActionExecutorLabModule.id]: dungeonMapActionExecutorLabModule,
   [dungeonEntityVisualLoaderLabModule.id]: dungeonEntityVisualLoaderLabModule,
   [dungeonVisualObjectControlLabModule.id]: dungeonVisualObjectControlLabModule,
   [dungeonOverheadViewLabModule.id]: dungeonOverheadViewLabModule,

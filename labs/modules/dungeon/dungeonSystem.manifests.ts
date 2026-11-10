@@ -36,7 +36,11 @@ const manifest = (
 export const dungeonSystemManifests: Readonly<Record<string, LabSystemManifest>> = {
   'dungeon-entity-visual-loader': manifest('system', '加载并释放地图实体声明的视觉实例', [], ['提供 dungeon:entity-visuals'], ['参与候选地图视觉准备'], '地图加载与卸载'),
   'dungeon-visual-object-control': manifest('system', '为实体视觉实例应用命名状态', [], ['提供 dungeon:visual-object-control'], ['初始化和切图'], '通过状态指令更新已加载对象'),
-  'dungeon-interaction': manifest('system', '统一交互触发、仲裁与可选实体 Debug', [], ['提供 dungeon:interaction；读取玩家/格子状态、runtime-assembly、格步和受阻尝试；临时调用业务服务或公开操作；切图时清理消息频道；Debug 只读 interaction-control.describe 与执行器 once 状态，使用 overhead 显示变换'], ['消费 PlayerStepCompleted / 100、按键和受阻尝试；执行器由功能模块登记'], '同步仲裁、异步互斥；命中停止续步；Debug 仅开启时 presentation / 320 / 20Hz'),
+  'dungeon-interaction': manifest('system', '交互目标仲裁、原有 Lab 配置和实体 Debug', [], ['提供 dungeon:interaction、dungeon:interaction-inputs；使用地图动作执行器'], [], '同步仲裁、异步互斥；Debug 仅开启时 presentation / 320 / 20Hz'),
+  'dungeon-interact-trigger': manifest('system', '采集玩家按键和 Agent 主动交互', [], ['使用统一交互路由'], ['订阅 Agent 交互意图'], '主动交互时'),
+  'dungeon-spatial-trigger': manifest('system', '采集格步完成及移动受阻', [], ['使用统一交互路由'], ['消费 PlayerStepCompleted / 100、玩家和 Agent 受阻尝试'], '格步及通行尝试时'),
+  'dungeon-variable-trigger': manifest('system', '判断变量条件是否刚成立', [], ['使用地图动作执行器'], ['订阅 dungeon.variable.changed'], '按地图规则顺序执行'),
+  'dungeon-map-action-executor': manifest('system', '解释地图动作，管理地图共享变量和消息频道', [], ['提供 dungeon:map-action-executor；调用业务服务或公开操作'], ['发布 dungeon.variable.changed'], '仅命中动作或切图时'),
   'message-bar': manifest('system', '管理短消息，并用选定的 UI 预设显示', [], ['提供 lab.message-bar；调用 lab.ui-runtime'], [], '收到消息后更新 UI，定时移除'),
   'ui-runtime': manifest('system', '在视口运行 UI 文档预设', [], ['提供 lab.ui-runtime；使用 Host Viewport'], [], '收到绑定更新或视口缩放时渲染'),
   'dungeon-libraries': manifest('system', '读取地图、场景环境与阴影配置库',
