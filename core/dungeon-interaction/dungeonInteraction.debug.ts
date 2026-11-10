@@ -9,7 +9,7 @@ import { interactionDirectionText, interactionOnceKey } from './dungeonInteracti
 
 export type InteractionDebugDescriptor = {
   id: string; componentId: string; entityId: string; label: string;
-  kind: 'dialogue' | 'message' | 'transition'; triggers: readonly string[]; targetRule?: string;
+  kind: 'dialogue' | 'message' | 'visual-state' | 'service' | 'transition'; triggers: readonly string[]; targetRule?: string;
   movementPhase?: 'contact' | 'blocked';
   once: boolean; enabled: boolean; moving: boolean;
   onceKey?: string; directionText?: string; facing?: string; ruleName?: string;
@@ -62,7 +62,7 @@ export function describeDungeonInteractions(map: DungeonRuntimeMap, world: Dunge
   };
   for (const raw of map.document.components.event ?? []) {
     const event = raw as unknown as IEventComponent;
-    if (event.version !== 2 || (event.action?.type !== 'dialogue' && event.action?.type !== 'message')) continue;
+    if (event.version !== 2 || !event.action || event.action.type === 'legacy') continue;
     append(raw, { kind: event.action.type, triggers: [event.trigger], targetRule: event.targetRule, once: event.once === true });
   }
   for (const raw of map.document.components['dungeon-exit'] ?? []) {

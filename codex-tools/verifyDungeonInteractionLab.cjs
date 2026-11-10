@@ -19,6 +19,8 @@ app.whenReady().then(async () => {
   };
   const click = selector => page(`document.querySelector(${JSON.stringify(selector)}).click()`);
   const controllers = '[data-lab-panel="dungeon-agent"] [data-lab-setting="controllers-enabled"]';
+  const visualPanel = '[data-lab-panel="dungeon-visual-object-control"]';
+  const lampState = `document.querySelector('${visualPanel} [data-state]')?.dataset.state`;
   const messageOverlay = '[data-viewport-layer="ui:message-bar"]';
   const messages = `document.querySelectorAll('${messageOverlay} .lab-message-bar-item')`;
   const agentMessages = ['踏板巡逻员 · 从北侧踩下踏板', '探路守卫 · 从南侧碰到封路石障', '值班操作员 · 主动检查'];
@@ -56,11 +58,12 @@ app.whenReady().then(async () => {
       return Math.abs(canvas.left - layer.left) < 1 && Math.abs(canvas.top - layer.top) < 1;
     })()`), true, 'the default UI preset is anchored to the top left of the viewport');
     checks.push('message-bar loads the configured UI preset, uses its message-list node and anchors it to the viewport');
-    await wait(`document.querySelector('[data-interaction-debug-summary]')?.dataset.count === '21'`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]')?.dataset.count === '23'`);
     assert.equal(await page(`document.querySelector(${JSON.stringify(controllers)}).checked`), true);
     assert.equal(await page(`document.querySelector('[aria-label="选择 Agent"]').options.length`), 8);
     await trackAgentMessages();
     await waitForAgentLoops();
+    assert.equal(await page(lampState), 'lit', 'Agent plate switches the preloaded lamp in the main map');
     assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
     checks.push('the expanded default map loads all six room Agents and repeats all three Agent interactions with controllers enabled by default');
     await click(controllers);
@@ -76,6 +79,59 @@ app.whenReady().then(async () => {
     await wait(`[...${messages}].some(item => item.textContent === ${JSON.stringify(testMessage)})`);
     await wait(`${messages}.length === 0`);
     checks.push('the message-bar test button displays the entered multiline text through the selected UI preset');
+    await click('[data-lab-tab="diagnostics"]');
+    await click('#lab-panel-content-system-services > button:first-of-type');
+    const serviceGraph = '[data-viewport-layer="lab:service-graph"]';
+    const serviceTable = '[data-viewport-layer="lab:service-registry"]';
+    const obstacleService = 'dungeon:obstacle-control';
+    assert.equal(await page(`!document.querySelector('${serviceGraph}').hidden &&
+      !!document.querySelector('${serviceGraph} path[data-role="provide"][data-module="dungeon-map-loader"][data-service="${obstacleService}"]') &&
+      !!document.querySelector('${serviceGraph} path[data-role="consume"][data-module="dungeon-obstacle"][data-service="${obstacleService}"]')`), true);
+    await click(`${serviceGraph} .lab-viewport-layer-close`);
+    await click('#lab-panel-content-system-services > button:nth-of-type(2)');
+    assert.equal(await page(`!document.querySelector('${serviceTable}').hidden && document.querySelector('${serviceGraph}').hidden`), true);
+    await page(`(() => {
+      const search = document.querySelector('${serviceTable} input[type="search"]');
+      search.value = '${obstacleService}'; search.dispatchEvent(new Event('input'));
+    })()`);
+    assert.deepEqual(await page(`Array.from(document.querySelectorAll('${serviceTable} tr[data-service-id]')).map(row =>
+      [row.dataset.serviceId, row.cells[1].textContent, row.cells[3].textContent])`),
+    [[obstacleService, 'dungeon-map-loader', 'dungeon-obstacle']]);
+    await page(`new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))`);
+    fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-service-registry.png'), (await win.webContents.capturePage()).toPNG());
+    await click(`${serviceTable} tr[data-service-id="${obstacleService}"] button`);
+    assert.equal(await page(`document.querySelector('${serviceTable}').hidden &&
+      !!document.querySelector('${serviceGraph} svg [data-node="service:${obstacleService}"].is-selected')`), true);
+    assert.notEqual(...await page(`['provide', 'consume'].map(role =>
+      getComputedStyle(document.querySelector('${serviceGraph} path[data-role="' + role + '"].is-active')).stroke)`));
+    await page(`new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))`);
+    fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-service-graph.png'), (await win.webContents.capturePage()).toPNG());
+    await click(`${serviceGraph} .lab-viewport-layer-close`);
+    const memoryTable = '[data-viewport-layer="lab:memory-table"]';
+    const memoryGraph = '[data-viewport-layer="lab:shared-memory"]';
+    await click('#lab-panel-content-system-shared-memory > button:nth-of-type(2)');
+    await page(`(() => {
+      const search = document.querySelector('${memoryTable} input[type="search"]');
+      search.value = 'dungeon.obstacle-state'; search.dispatchEvent(new Event('input'));
+    })()`);
+    assert.deepEqual(await page(`Array.from(document.querySelectorAll('${memoryTable} tr[data-memory-key]')).map(row => row.dataset.memoryKey)`), ['dungeon.obstacle-state']);
+    await click(`${memoryTable} tr[data-memory-key] button`);
+    assert.equal(await page(`(() => {
+      const layer = document.querySelector('${memoryTable}');
+      const fields = layer.querySelector('.lab-memory-fields');
+      const bounds = fields.getBoundingClientRect();
+      return !layer.hidden && fields.textContent.includes('room-contact-barrier') &&
+        bounds.width > 0 && !!document.elementFromPoint(bounds.x + 5, bounds.y + 5)?.closest('${memoryTable}');
+    })()`), true);
+    await page(`new Promise(resolve => setTimeout(resolve, 250))`);
+    fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-memory-table.png'), (await win.webContents.capturePage()).toPNG());
+    await click(`${memoryTable} .lab-memory-table-actions button:last-of-type`);
+    assert.equal(await page(`document.querySelector('${memoryTable}').hidden &&
+      !!document.querySelector('${memoryGraph} [data-node="memory:dungeon.obstacle-state"].is-selected')`), true);
+    await click(`${memoryGraph} .lab-viewport-layer-close`);
+    checks.push('shared memory table searches metadata, reads the selected live obstacle state and locates it in the relationship graph');
+    await click('[data-lab-tab="modules"]');
+    checks.push('service diagnostics list actual registrations and open a selected service in the relationship graph');
     for (const width of [1440, 900]) {
       win.setSize(width, 1000);
       await page(`new Promise(resolve => setTimeout(resolve, 150))`);
@@ -106,7 +162,7 @@ app.whenReady().then(async () => {
     await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('欢迎来到对话测试场景')`);
     await cancel();
     await click('[data-interaction-debug-toggle]');
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '21'`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '23'`);
     checks.push('debug toggles independently; interaction still works with debug hidden');
     // Isolated session only: hide other diagnostic overlays to inspect the new markers clearly.
     await page(`['[data-lab-panel="dungeon-grid-debug"] [data-lab-setting="all-tiles"]', '[data-lab-panel="dungeon-transition"] [data-lab-setting="debug-boxes"]'].forEach(selector => { const input = document.querySelector(selector); if (input?.checked) input.click(); }); document.querySelector('[data-lab-panel="dungeon-interaction"]').scrollIntoView({ block: 'nearest' });`);
@@ -184,10 +240,10 @@ app.whenReady().then(async () => {
     await cancel();
     // Staying on the tile must not retrigger enter; E explicitly selects the existing exit.
     await key('KeyE'); await wait(mapIs('dungeon_interaction_room'));
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '23'`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '27'`);
     await wait(`!document.querySelector('[data-viewport-layer="ui:dialogue"]')`);
     await key('KeyE'); await wait(mapIs('dungeon_interaction_test'));
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '21' && !document.querySelector('[data-interaction-debug-summary]').textContent.includes('本次已触发')`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '23' && !document.querySelector('[data-interaction-debug-summary]').textContent.includes('本次已触发')`);
     checks.push('explicit E teleport and return without spawning an enter dialogue');
     await key('KeyE'); await wait(`!!document.querySelector('[data-dialogue-cancel]')`);
     checks.push('self tile interaction remains available after returning to a new map session');
@@ -231,7 +287,6 @@ app.whenReady().then(async () => {
       await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_direction_test'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
       await wait(`document.querySelector('[data-lab-panel="dungeon-map-loader"] input')?.value === 'dungeon_direction_test' && document.querySelector('[data-interaction-debug-summary]').dataset.count === '11'`);
     };
-    await switchDirectionalMap();
     const teleport = async (x, y) => {
       await page(`(() => { document.querySelector('[aria-label="目标格 X"]').value = '${x}'; document.querySelector('[aria-label="目标格 Y"]').value = '${y}'; document.querySelector('.lab-player-movement-teleport button').click(); })()`);
       await wait(`${playerState}.playerPosition.tileX === ${x} && ${playerState}.playerPosition.tileY === ${y} && !${playerState}.playerMovement`);
@@ -246,6 +301,32 @@ app.whenReady().then(async () => {
       await teleport(x, y); await face(direction); await key('KeyE');
       await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes(${JSON.stringify(text)})`); await cancel();
     };
+    const barrierActive = `JSON.parse(document.querySelector('[data-lab-panel="dungeon-obstacle"] .lab-json').textContent)
+      .obstacles.find(item => item.entityId === 'room-contact-barrier').active`;
+    assert.equal(await page(barrierActive), true);
+    await teleport(7, 7); await key('KeyE');
+    await wait(`${barrierActive} === false && [...${messages}].some(item => item.textContent === '封路石障已解除。')`);
+    await teleport(6, 4); await move('east', 7, 4);
+    await teleport(9, 7); await key('KeyE');
+    await wait(`${barrierActive} === true && [...${messages}].some(item => item.textContent === '封路石障已恢复。')`);
+    await teleport(6, 4);
+    await click('[data-move="east"]');
+    await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('这块石障挡住了前路')`);
+    assert.equal(await page(`${playerState}.playerPosition.tileX`), 6);
+    await cancel();
+    checks.push('map actions call the obstacle command service, update the obstacle panel and change actual movement');
+    const callHistory = '[data-viewport-layer="lab:service-calls"]';
+    await click('[data-lab-tab="diagnostics"]');
+    await click('#lab-panel-content-system-services > button:nth-of-type(3)');
+    assert.deepEqual(await page(`Array.from(document.querySelectorAll('${callHistory} [data-operation="obstacle.set-active"]')).map(row =>
+      [row.dataset.status, row.cells[1].textContent.includes('barrier'), row.cells[2].querySelector('code').textContent, row.cells[4].textContent])`), [
+      ['succeeded', true, 'dungeon:obstacle-control', 'room-contact-barrier'],
+      ['succeeded', true, 'dungeon:obstacle-control', 'room-contact-barrier'],
+    ]);
+    await click(`${callHistory} .lab-viewport-layer-close`);
+    await click('[data-lab-tab="modules"]');
+
+    await switchDirectionalMap();
     await setDebugOption('debug-direction', true); await setDebugOption('debug-reasons', true);
     await talkFrom(2, 2, 'south', '正面交谈');
     await talkFrom(1, 3, 'east', '左右两侧共用');
@@ -275,11 +356,11 @@ app.whenReady().then(async () => {
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-debug.png'), (await win.webContents.capturePage()).toPNG());
     await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_interaction_room'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
     await wait(mapIs('dungeon_interaction_room'));
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '23'`);
-    await teleport(4, 1);
-    await move('north-east', 5, 0);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '27'`);
+    await teleport(7, 9);
+    await move('north-east', 8, 8);
     assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
-    await teleport(4, 1);
+    await teleport(7, 9);
     await page(`new Promise(resolve => {
       const fire = (type, code) => window.dispatchEvent(new KeyboardEvent(type, { code, bubbles: true }));
       requestAnimationFrame(() => {
@@ -292,39 +373,39 @@ app.whenReady().then(async () => {
         });
       });
     })`);
-    await wait(`${playerState}.playerPosition.tileX === 5 && ${playerState}.playerPosition.tileY === 0 && !${playerState}.playerMovement`);
+    await wait(`${playerState}.playerPosition.tileX === 8 && ${playerState}.playerPosition.tileY === 8 && !${playerState}.playerMovement`);
     assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
-    await teleport(4, 0);
+    await teleport(7, 8);
     await click('[data-move="south-east"]');
     await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('碰到了招呼守卫')`);
     await cancel();
     checks.push('a diagonal pass bypasses the greeting guard, including staggered keyboard axes, while its occupied destination still triggers dialogue');
-    await teleport(3, 1);
+    await teleport(8, 2);
     await face('east');
     await key('KeyE');
     await wait(`document.querySelector('[data-interaction-status]').textContent.includes('站在目标相邻格')`);
     await click('[data-move="south"]');
-    await wait(`${playerState}.playerPosition.tileX === 3 && ${playerState}.playerPosition.tileY === 1 && ${playerState}.playerFacing === 'south' && !${playerState}.playerMovement`);
+    await wait(`${playerState}.playerPosition.tileX === 8 && ${playerState}.playerPosition.tileY === 2 && ${playerState}.playerFacing === 'south' && !${playerState}.playerMovement`);
     await key('KeyE');
     await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('北侧读数')`);
     await cancel();
     checks.push('walking into the console stops on the adjacent tile and allows E; facing away explains the missed interaction');
     for (const [x, y, facing, text] of [
-      [2, 2, 'west', '正面登记'],
-      [1, 3, 'north', '右侧巡逻'],
-      [0, 2, 'east', '背面提醒'],
-      [1, 1, 'south', '左侧补给'],
-      [3, 1, 'south', '北侧读数'],
-      [4, 2, 'west', '东侧读数'],
-      [3, 3, 'north', '南侧读数'],
-      [2, 2, 'east', '西侧读数'],
+      [4, 3, 'west', '正面登记'],
+      [3, 4, 'north', '右侧巡逻'],
+      [2, 3, 'east', '背面提醒'],
+      [3, 2, 'south', '左侧补给'],
+      [8, 2, 'south', '北侧读数'],
+      [9, 3, 'west', '东侧读数'],
+      [8, 4, 'north', '南侧读数'],
+      [7, 3, 'east', '西侧读数'],
     ]) {
       await talkFrom(x, y, facing, text);
     }
     for (const [x, y, direction, text] of [
-      [2, 3, 'south', '北侧来路已记录'],
-      [1, 4, 'east', '西侧来路已记录'],
-      [3, 4, 'west', '通用来路已记录'],
+      [3, 8, 'south', '北侧来路已记录'],
+      [2, 9, 'east', '西侧来路已记录'],
+      [4, 9, 'west', '通用来路已记录'],
     ]) {
       await teleport(x, y);
       await click(`[data-move="${direction}"]`);
@@ -332,13 +413,13 @@ app.whenReady().then(async () => {
       await cancel();
     }
     for (const [x, y, direction, text] of [
-      [5, 0, 'south', '碰到了招呼守卫'],
-      [4, 1, 'east', '碰到了招呼守卫'],
-      [5, 3, 'south', '四向巡守的正面'],
-      [6, 4, 'west', '四向巡守的右侧'],
-      [5, 5, 'north', '四向巡守的背面'],
-      [4, 4, 'east', '四向巡守的左侧'],
-      [6, 3, 'east', '碰到了封路石障'],
+      [8, 8, 'south', '碰到了招呼守卫'],
+      [7, 9, 'east', '碰到了招呼守卫'],
+      [8, 13, 'south', '四向巡守的正面'],
+      [9, 14, 'west', '四向巡守的右侧'],
+      [8, 15, 'north', '四向巡守的背面'],
+      [7, 14, 'east', '四向巡守的左侧'],
+      [13, 9, 'east', '碰到了封路石障'],
     ]) {
       await teleport(x, y);
       await click(`[data-move="${direction}"]`);
@@ -346,7 +427,7 @@ app.whenReady().then(async () => {
       assert.deepEqual(await page(`${playerState}.playerPosition`), { tileX: x, tileY: y });
       await cancel();
     }
-    await teleport(5, 5);
+    await teleport(8, 15);
     await face('south');
     await click('[data-relative-move="backward"]');
     await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('四向巡守的背面')`);
@@ -356,8 +437,8 @@ app.whenReady().then(async () => {
     await wait(`document.querySelector('[data-interaction-status]').textContent.includes('当前位置没有可触发的交互')`);
     assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
     checks.push('room movement attempts use the same rules for an any-side Agent, all four local Agent sides, and a fixed obstacle; backwards travel still selects the correct side');
-    await teleport(6, 5);
-    await move('east', 7, 5);
+    await teleport(13, 15);
+    await move('east', 14, 15);
     await wait(`${messages}[0]?.textContent === '消息感应格已触发。'`);
     assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
     assert.equal(await page(`(() => {
@@ -365,12 +446,12 @@ app.whenReady().then(async () => {
       const item = ${messages}[0].getBoundingClientRect();
       return Math.abs(item.left - viewport.left - 14) < 2 && item.top - viewport.top < 65;
     })()`), true, 'the message appears at the upper left of the viewport');
-    await move('east', 8, 5);
-    await move('west', 7, 5);
+    await move('east', 15, 15);
+    await move('west', 14, 15);
     await wait(`${messages}.length === 2`);
     await wait(`${messages}.length === 0`);
-    await move('east', 8, 5);
-    await move('west', 7, 5);
+    await move('east', 15, 15);
+    await move('west', 14, 15);
     await wait(`${messages}.length === 1`);
     await teleport(0, 0);
     await key('KeyE');
@@ -380,10 +461,48 @@ app.whenReady().then(async () => {
     checks.push('return room loads three independent dialogue presets for all four guard sides, all four console sides, and three arrival cases');
     await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_interaction_room'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
     await wait(mapIs('dungeon_interaction_room'));
-    await teleport(6, 1);
-    await move('south', 6, 2);
+    assert.equal(await page(lampState), 'off', 'room lamp starts in its own initial state');
+    const colors = ['lit', 'blue', 'green', 'red'];
+    await teleport(19, 1);
+    for (const expected of [...colors, 'lit']) {
+      await key('KeyE');
+      assert.equal(await page(lampState), expected);
+    }
+    await teleport(17, 4);
+    await key('KeyE');
+    assert.equal(await page(lampState), 'red', 'reverse interaction wraps to the last color');
+    await wait(`Array.from(${messages}).some(item => item.textContent === '机关灯切换为 红色。')`);
+    await teleport(21, 4);
+    await key('KeyE');
+    assert.ok(colors.includes(await page(lampState)));
+    await teleport(19, 7);
+    const shuffled = [];
+    for (let i = 0; i < 5; i++) {
+      if (i === 1) {
+        await page(`(() => {
+          const panel = document.querySelector('${visualPanel}');
+          panel.querySelectorAll('select')[3].value = 'shuffle';
+          [...panel.querySelectorAll('button')].find(button => button.textContent === '测试轮替').click();
+        })()`);
+      } else {
+        await key('KeyE');
+      }
+      shuffled.push(await page(lampState));
+    }
+    assert.deepEqual(new Set(shuffled.slice(0, 4)), new Set(colors));
+    assert.notEqual(shuffled[3], shuffled[4]);
+    await page(`(() => {
+      const panel = document.querySelector('${visualPanel}');
+      panel.querySelectorAll('select')[1].value = 'off';
+      [...panel.querySelectorAll('button')].find(button => button.textContent === '测试切换状态').click();
+    })()`);
+    await wait(`${messages}.length === 0`);
+    checks.push('map actions advance, reverse and randomly choose states; the control panel and map action share a shuffle round');
+    await teleport(14, 2);
+    await move('south', 14, 3);
     assert.equal(await page(`${messages}.length`), 0, 'the player takes the same north approach without triggering an Agent-only plate');
-    await teleport(5, 2);
+    assert.equal(await page(lampState), 'off', 'the player cannot change an Agent-only lamp');
+    await teleport(13, 3);
     await page(`(() => {
       const select = document.querySelector('[aria-label="选择 Agent"]');
       select.value = 'room-agent-obstacle-check';
@@ -394,8 +513,17 @@ app.whenReady().then(async () => {
     await trackAgentMessages();
     await click(controllers);
     await waitForAgentLoops();
+    assert.equal(await page(lampState), 'lit', 'repeated Agent events keep the same lamp lit');
+    await click(controllers);
+    await page(`(() => {
+      const panel = document.querySelector('${visualPanel}');
+      panel.querySelectorAll('select')[1].value = 'off';
+      [...panel.querySelectorAll('button')].find(button => button.textContent === '测试切换状态').click();
+    })()`);
+    assert.equal(await page(lampState), 'off', 'the visual control panel can switch the same object off');
+    await click(controllers);
     assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
-    await move('west', 4, 2);
+    await move('west', 12, 3);
     checks.push('Agent-only plate excludes the player and all three Agent interactions repeat in the return room without opening dialogue');
     const catchText = '追踪守卫 · 追上你了！';
     const playerCatch = '玩家规则：挡住了追踪守卫。';
@@ -418,9 +546,9 @@ app.whenReady().then(async () => {
     await wait(`!(${catchVisible})`);
     assert.deepEqual(await page(`window.agentMessageCounts`), [1, 1], 'both rules fire once per contact and the player rule survives the map change');
     const tracker = `JSON.parse(document.querySelector('[data-lab-panel="dungeon-agent"] .lab-json').textContent).agentsPreview.find(agent => agent.entityId === 'test-player-tracker')`;
-    await wait(`${tracker}?.tileIndex === 14 && !${tracker}.movement`);
+    await wait(`${tracker}?.tileIndex === 17 && !${tracker}.movement`);
     await move('north', 1, 1);
-    await wait(`${tracker}?.tileIndex === 27 && !${tracker}.movement`);
+    await wait(`${tracker}?.tileIndex === 33 && !${tracker}.movement`);
     assert.equal(await page(`document.querySelector('[data-movement-attempt-status]').dataset.outcome`), 'swap-started');
     checks.push('walking into the chasing Agent swaps both actors into each other’s tiles');
     await teleport(3, 0);
@@ -432,7 +560,7 @@ app.whenReady().then(async () => {
     const playerBump = '玩家规则：前进被挡住。';
     assert.equal(await setPlayerRule({ ...playerRule, mover: 'self', blocker: 'entity', blockerId: 'room-contact-barrier',
       action: { type: 'message', text: playerBump } }), true);
-    await teleport(6, 3);
+    await teleport(8, 4);
     await click('[data-move="west"]');
     await wait(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`);
     assert.equal(await page(`document.querySelector('[data-movement-attempt-status]').dataset.outcome`), 'claimed');
@@ -443,7 +571,7 @@ app.whenReady().then(async () => {
       movementPhase: 'blocked', action: { type: 'message', text: playerBump } }), true);
     await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select'); select.value = 'dungeon_interaction_room'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
     await wait(mapIs('dungeon_interaction_room'));
-    await teleport(3, 1);
+    await teleport(8, 2);
     await click('[data-move="south"]');
     await wait(`Array.from(${messages}).some(item => item.textContent === ${JSON.stringify(playerBump)})`);
     assert.equal(await page(`document.querySelector('[data-movement-attempt-status]').dataset.outcome`), 'blocked');
@@ -461,6 +589,17 @@ app.whenReady().then(async () => {
     await move('east', 1, 1);
     await directTransfer('west', 'dungeon_interaction_test', 0, 3);
     checks.push('the direct portals transfer by walking in either direction without dialogue or an automatic bounce on arrival');
+    await click('[data-lab-tab="diagnostics"]');
+    await click('#lab-panel-content-system-services > button:nth-of-type(2)');
+    await page(`(() => {
+      const search = document.querySelector('${serviceTable} input[type="search"]');
+      search.value = ''; search.dispatchEvent(new Event('input'));
+    })()`);
+    assert.equal(await page(`!!document.querySelector('${serviceTable} tr[data-service-id^="dungeon:interaction-command:"]')`), false);
+    assert.deepEqual(await page(`['lab.message-bar', 'dungeon:visual-object-control', 'dungeon:obstacle-control'].map(id =>
+      document.querySelector('${serviceTable} tr[data-service-id="' + id + '"]').cells[3].textContent)`),
+      ['尚无消费者', '尚无消费者', 'dungeon-obstacle']);
+    checks.push('temporary interaction calls leave no consumer edges and obstacle switches appear in the separate call history');
     assert.deepEqual(errors, []); assert.deepEqual(network, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-interaction.json'), JSON.stringify({ passed: true, checks, errors, network }, null, 2));
     console.log(JSON.stringify({ passed: true, checks })); win.destroy(); app.exit(0);

@@ -6,8 +6,8 @@
     "name": "NPC 与地块交互测试场"
   },
   "grid": {
-    "width": 13,
-    "height": 8,
+    "width": 16,
+    "height": 10,
     "topologyMode": "bounded"
   },
   "terrain": {
@@ -135,6 +135,24 @@
       "entityType": "dungeon-exit",
       "name": "直通房间",
       "enabled": true
+    },
+    {
+      "id": "room-agent-lamp",
+      "entityType": "visual-object",
+      "name": "踏板机关灯",
+      "enabled": true
+    },
+    {
+      "id": "remove-barrier",
+      "entityType": "interaction-point",
+      "name": "解除石障开关",
+      "enabled": true
+    },
+    {
+      "id": "restore-barrier",
+      "entityType": "interaction-point",
+      "name": "恢复石障开关",
+      "enabled": true
     }
   ],
   "components": {
@@ -242,7 +260,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:4,0"
+            "tileId": "tile:6,0"
           }
         ]
       },
@@ -254,7 +272,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,4"
+            "tileId": "tile:7,5"
           }
         ]
       },
@@ -266,7 +284,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,6"
+            "tileId": "tile:11,7"
           }
         ]
       },
@@ -278,7 +296,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:4,2"
+            "tileId": "tile:6,2"
           }
         ]
       },
@@ -290,7 +308,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,5"
+            "tileId": "tile:11,6"
           }
         ]
       },
@@ -302,7 +320,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,1"
+            "tileId": "tile:13,2"
           }
         ]
       },
@@ -314,7 +332,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,4"
+            "tileId": "tile:13,6"
           }
         ]
       },
@@ -326,7 +344,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,3"
+            "tileId": "tile:7,4"
           }
         ]
       },
@@ -338,7 +356,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,2"
+            "tileId": "tile:10,1"
           }
         ]
       },
@@ -375,6 +393,42 @@
           {
             "kind": "tile",
             "tileId": "tile:0,3"
+          }
+        ]
+      },
+      {
+        "id": "room-agent-lamp:spatial-attachment",
+        "entityId": "room-agent-lamp",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:8,2"
+          }
+        ]
+      },
+      {
+        "id": "remove-barrier:spatial-attachment",
+        "entityId": "remove-barrier",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:7,7"
+          }
+        ]
+      },
+      {
+        "id": "restore-barrier:spatial-attachment",
+        "entityId": "restore-barrier",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:9,7"
           }
         ]
       }
@@ -801,11 +855,11 @@
         "parameters": {
           "route": [
             {
-              "x": 4,
+              "x": 6,
               "y": 0
             },
             {
-              "x": 4,
+              "x": 6,
               "y": 3
             }
           ],
@@ -824,12 +878,12 @@
         "parameters": {
           "route": [
             {
-              "x": 5,
-              "y": 5
+              "x": 7,
+              "y": 6
             },
             {
-              "x": 5,
-              "y": 4
+              "x": 7,
+              "y": 5
             }
           ],
           "routePlayback": "ping-pong",
@@ -849,12 +903,12 @@
         "parameters": {
           "route": [
             {
-              "x": 5,
-              "y": 7
+              "x": 11,
+              "y": 8
             },
             {
-              "x": 5,
-              "y": 6
+              "x": 11,
+              "y": 7
             }
           ],
           "routePlayback": "ping-pong",
@@ -980,9 +1034,10 @@
           "north"
         ],
         "action": {
-          "type": "message",
-          "text": "从北侧踩下踏板，机关灯已点亮。",
-          "light": true
+          "type": "visual-state",
+          "targetEntityId": "room-agent-lamp",
+          "stateId": "lit",
+          "feedback": "从北侧踩下踏板，机关灯已点亮。"
         }
       },
       {
@@ -1242,6 +1297,42 @@
           "type": "message",
           "text": "追上你了！"
         }
+      },
+      {
+        "id": "remove-barrier:service",
+        "entityId": "remove-barrier",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "service",
+          "commandId": "obstacle.set-active",
+          "parameters": {
+            "entityId": "room-contact-barrier",
+            "active": false
+          },
+          "successMessage": "封路石障已解除。"
+        }
+      },
+      {
+        "id": "restore-barrier:service",
+        "entityId": "restore-barrier",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "service",
+          "commandId": "obstacle.set-active",
+          "parameters": {
+            "entityId": "room-contact-barrier",
+            "active": true
+          },
+          "successMessage": "封路石障已恢复。"
+        }
       }
     ],
     "dungeon-exit": [
@@ -1266,6 +1357,64 @@
         "targetEntranceId": "direct",
         "triggers": [
           "enter"
+        ]
+      }
+    ],
+    "visual-objects": [
+      {
+        "id": "room-agent-lamp:visual-objects",
+        "entityId": "room-agent-lamp",
+        "type": "visual-objects",
+        "version": 1,
+        "objects": [
+          {
+            "name": "bulb",
+            "kind": "sphere",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "diameter": 0.48,
+            "color": "#ffdc75"
+          },
+          {
+            "name": "light",
+            "kind": "point-light",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "color": "#ffdc75",
+            "intensity": 1.2,
+            "range": 3
+          }
+        ]
+      }
+    ],
+    "visual-state": [
+      {
+        "id": "room-agent-lamp:visual-state",
+        "entityId": "room-agent-lamp",
+        "type": "visual-state",
+        "version": 1,
+        "initialState": "off",
+        "states": [
+          {
+            "id": "off",
+            "enabled": {
+              "bulb": false,
+              "light": false
+            }
+          },
+          {
+            "id": "lit",
+            "enabled": {
+              "bulb": true,
+              "light": true
+            }
+          }
         ]
       }
     ]

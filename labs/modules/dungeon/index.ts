@@ -1,4 +1,6 @@
 import { dungeonInteractionLabModule } from './dungeon-interaction/dungeonInteraction.labModule';
+import { dungeonEntityVisualLoaderLabModule } from './dungeon-entity-visual-loader/dungeonEntityVisualLoader.labModule';
+import { dungeonVisualObjectControlLabModule } from './dungeon-visual-object-control/dungeonVisualObjectControl.labModule';
 import { dungeonSystemManifests } from './dungeonSystem.manifests';
 import type { LabModuleCatalog } from '@/labs/kit';
 import { dungeonOverheadViewLabModule } from './dungeon-overhead-view';
@@ -25,6 +27,8 @@ import { playerSpawnLabModule } from './player-spawn';
 
 const dungeonModules: LabModuleCatalog = {
   [dungeonInteractionLabModule.id]: dungeonInteractionLabModule,
+  [dungeonEntityVisualLoaderLabModule.id]: dungeonEntityVisualLoaderLabModule,
+  [dungeonVisualObjectControlLabModule.id]: dungeonVisualObjectControlLabModule,
   [dungeonOverheadViewLabModule.id]: dungeonOverheadViewLabModule,
   [dungeonVisualDeformationLabModule.id]: dungeonVisualDeformationLabModule,
   [viewportLayersLabModule.id]: viewportLayersLabModule,

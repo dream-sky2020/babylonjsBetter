@@ -143,12 +143,46 @@ test('communication workspace shows dormant protocols, actual routing and dispat
     const { createLabMemoryPanel } = await server.ssrLoadModule('/labs/kit/shared-memory/labMemoryPanel.ts');
     const memoryEntries = [{ key: 'shared.one', label: 'Shared One', typeId: 'test', version: 1, revision: 0, createdBy: 'one', modules: ['one'] },
       { key: 'shared.two', label: 'Shared Two', typeId: 'test', version: 1, revision: 0, createdBy: 'two', modules: ['two'] }];
-    const memoryLayer = { ...layer, root: document.createElement('section'), content: document.createElement('div'), visible: false };
-    memoryLayer.root.append(memoryLayer.content); document.body.append(memoryLayer.root);
-    let notifyMemory, memoryValue = 42;
-    cleanup = createLabMemoryPanel({ addPanel: () => panel, hasModulePanels: () => false }, { openHtmlLayer: () => memoryLayer },
-      { inspect: () => memoryEntries, inspectValue: () => ({ value: memoryValue }), subscribe: listener => { notifyMemory = listener; return () => {}; } }, [{ id: 'one' }, { id: 'two' }]);
-    const sampling = memoryLayer.root.querySelector('input[type="checkbox"]'); sampling.checked = false;
+    const memoryLayers = new Map(), memoryListeners = new Set();
+    const notifyMemory = () => memoryListeners.forEach(listener => listener());
+    let memoryValue = 42, reads = 0;
+    cleanup = createLabMemoryPanel({ addPanel: () => panel, hasModulePanels: () => false }, {
+      openHtmlLayer({ id }) {
+        const item = { ...layer, root: document.createElement('section'), content: document.createElement('div'), visible: false,
+          hide() { this.visible = false; this.root.hidden = true; } };
+        item.root.append(item.content); document.body.append(item.root); memoryLayers.set(id, item); return item;
+      },
+    }, {
+      inspect: () => memoryEntries,
+      inspectValue: () => { reads++; return { value: memoryValue, marker: 'stable detail' }; },
+      subscribe(listener) { memoryListeners.add(listener); return () => memoryListeners.delete(listener); },
+    }, [{ id: 'one' }, { id: 'two' }]);
+    const memoryLayer = memoryLayers.get('lab:shared-memory');
+    const memoryTable = memoryLayers.get('lab:memory-table');
+    [...panel.content.querySelectorAll('button')].find(button => button.textContent === '打开共享内存数据表').click();
+    assert.equal(reads, 0, 'listing memory metadata must not sample every entry');
+    const tableSearch = memoryTable.root.querySelector('input[type="search"]');
+    tableSearch.value = 'one'; tableSearch.dispatchEvent(new dom.window.Event('input'));
+    assert.deepEqual([...memoryTable.root.querySelectorAll('tr[data-memory-key]')].map(row => row.dataset.memoryKey), ['shared.one']);
+    const memoryRow = memoryTable.root.querySelector('tr[data-memory-key]');
+    memoryRow.querySelector('button').click();
+    const valueTable = memoryTable.root.querySelector('.lab-memory-fields');
+    assert.match(valueTable.textContent, /42/);
+    memoryValue = 46; memoryEntries[0].revision++;
+    notifyMemory(); flush();
+    await new Promise(resolve => setTimeout(resolve, 300));
+    assert.match(valueTable.textContent, /46/);
+    assert.equal(memoryTable.root.querySelector('tr[data-memory-key]'), memoryRow);
+    assert.equal(memoryRow.cells[4].textContent, '1');
+    const fieldSearch = memoryTable.root.querySelector('.lab-memory-table-detail input[type="search"]');
+    fieldSearch.value = 'marker'; fieldSearch.dispatchEvent(new dom.window.Event('input'));
+    assert.match(valueTable.textContent, /stable detail/);
+    assert.doesNotMatch(valueTable.textContent, /46/);
+    [...memoryTable.root.querySelectorAll('button')].find(button => button.textContent === '在关系图中查看').click();
+    assert.equal(memoryTable.visible, false);
+    assert.ok(memoryLayer.root.querySelector('[data-node="memory:shared.one"].is-selected'));
+    const sampling = memoryLayer.root.querySelector('input[type="checkbox"]');
+    sampling.checked = false; sampling.dispatchEvent(new dom.window.Event('change'));
     [...panel.content.querySelectorAll('button')].find(button => button.textContent === '打开系统图与共享数据').click();
     const memorySearch = memoryLayer.root.querySelector('input[aria-label="搜索模块或共享内存"]');
     memorySearch.value = 'shared'; memorySearch.dispatchEvent(new dom.window.Event('input'));
@@ -187,6 +221,60 @@ test('communication workspace shows dormant protocols, actual routing and dispat
     const beforeMemoryClear = memorySnapshot(); memoryPointer('pointerdown', memorySvg); memoryPointer('pointerup', memorySvg);
     assert.deepEqual(memorySnapshot(), beforeMemoryClear); assert.equal(memoryLayer.root.querySelector('h3').textContent, '选择模块或共享内存');
     assert.equal(memorySvg.querySelector('.is-selected'), null); assert.equal(memorySvg.querySelector('path.is-dimmed'), null);
+    cleanup(); cleanup = undefined;
+
+    const { LabServiceRegistry } = await server.ssrLoadModule('/labs/kit/labServiceRegistry.ts');
+    const { createLabServiceDiagnosticsPanel } = await server.ssrLoadModule('/labs/kit/service-diagnostics/labServiceDiagnosticsPanel.ts');
+    const services = new LabServiceRegistry();
+    const provider = services.scope('provider', new Set()), consumer = services.scope('consumer', new Set(['provider']));
+    services.setPhase('setup');
+    provider.set('demo:control', { secret: 'not shown in diagnostics' }, { 'demo.test': () => true });
+    const servicePanel = { root: document.createElement('section'), content: document.createElement('div') };
+    servicePanel.root.append(servicePanel.content);
+    const serviceLayers = new Map();
+    cleanup = createLabServiceDiagnosticsPanel({ addPanel: () => servicePanel, hasModulePanels: () => false }, {
+      openHtmlLayer({ id }) {
+        const item = { ...layer, root: document.createElement('section'), content: document.createElement('div'), visible: false,
+          hide() { this.visible = false; this.root.hidden = true; } };
+        item.root.append(item.content); document.body.append(item.root); serviceLayers.set(id, item); return item;
+      },
+    }, services, [{ id: 'provider' }, { id: 'consumer' }]);
+    servicePanel.content.querySelectorAll('button')[1].click();
+    const registry = serviceLayers.get('lab:service-registry');
+    const registryRow = () => registry.root.querySelector('[data-service-id="demo:control"]');
+    const unused = registry.root.querySelector('select[aria-label="消费者筛选"]');
+    unused.value = 'unused'; unused.dispatchEvent(new dom.window.Event('change'));
+    assert.match(registryRow().textContent, /尚无消费者/);
+    servicePanel.content.querySelectorAll('button')[0].click();
+    const serviceGraph = serviceLayers.get('lab:service-graph');
+    assert.equal(serviceGraph.root.querySelector('[data-node="service:demo:control"]'), null);
+    const showRegistered = serviceGraph.root.querySelector('.lab-memory-toolbar input[type="checkbox"]');
+    showRegistered.click();
+    assert.ok(serviceGraph.root.querySelector('[data-node="service:demo:control"]'));
+    showRegistered.click();
+    servicePanel.content.querySelectorAll('button')[2].click();
+    const callLayer = serviceLayers.get('lab:service-calls');
+    assert.equal(consumer.invokeAction('demo.test', {}, { source: 'test switch', target: 'demo target' }), true);
+    const callRow = callLayer.root.querySelector('[data-operation="demo.test"][data-status="succeeded"]');
+    assert.match(callRow.textContent, /test switch/);
+    assert.match(callRow.textContent, /demo target/);
+    assert.doesNotMatch(callRow.textContent, /not shown in diagnostics/);
+    callLayer.hide(); serviceGraph.hide();
+    servicePanel.content.querySelectorAll('button')[1].click();
+    assert.ok(registryRow(), 'temporary calls do not update the unused filter');
+    consumer.get('demo:control');
+    assert.equal(registryRow(), null, 'actual acquisition updates the unused filter immediately');
+    unused.value = 'used'; unused.dispatchEvent(new dom.window.Event('change'));
+    assert.match(registryRow().textContent, /consumer/);
+    assert.doesNotMatch(registry.root.textContent, /not shown in diagnostics/);
+    registryRow().querySelector('button').click();
+    assert.equal(registry.visible, false);
+    assert.ok(serviceGraph.root.querySelector('[data-node="service:demo:control"].is-selected'));
+    assert.ok(serviceGraph.root.querySelector('path[data-role="provide"][data-module="provider"]'));
+    assert.ok(serviceGraph.root.querySelector('path[data-role="consume"][data-module="consumer"]'));
+    provider.delete('demo:control'); flush();
+    assert.equal(serviceGraph.root.querySelector('[data-node="service:demo:control"]'), null);
+    assert.match(serviceGraph.root.querySelector('.lab-memory-inspector').textContent, /服务已注销/);
     cleanup(); cleanup = undefined;
   } finally {
     cleanup?.(); communication?.dispose(); dom.window.close(); await server.close();

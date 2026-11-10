@@ -39,6 +39,16 @@ class DungeonInteractionTests(unittest.TestCase):
                 self.assertEqual(client.put('/api/dungeon-map-presets', json={'dungeon_interaction_test': bad}).status_code, 400)
                 self.assertEqual(client.get('/api/dungeon-map-presets/dungeon_interaction_test').json['data'], source)
 
+    def test_service_actions_accept_objects_and_reject_invalid_commands(self):
+        source = self.source()
+        action = next(row['action'] for row in source['components']['event'] if row['action']['type'] == 'service')
+        self.assertEqual(validate_dungeon_map_preset_payload({'dungeon_interaction_test': source}), [])
+        for invalid in ({'commandId': 'dungeon:obstacle-control'}, {'parameters': []}, {'successMessage': False}):
+            original = dict(action)
+            action.update(invalid)
+            self.assertTrue(validate_dungeon_map_preset_payload({'dungeon_interaction_test': source}), invalid)
+            action.update(original)
+
     def test_authoring_drafts_and_legacy_are_retained_but_malformed_types_rejected(self):
         source = self.source()
         source['components']['event'][0]['action'] = {'type': 'dialogue', 'presetKey': '', 'entryNodeId': ''}
@@ -48,6 +58,19 @@ class DungeonInteractionTests(unittest.TestCase):
             self.assertTrue(validate_dungeon_map_preset_payload({'dungeon_interaction_test': bad}))
         source['components']['event'][0] = {'id': 'legacy', 'entityId': 'guide', 'type': 'event', 'version': 1, 'trigger': 'custom', 'actionId': 'old-action', 'payload': {'retain': True}}
         self.assertEqual(validate_dungeon_map_preset_payload({'dungeon_interaction_test': source}), [])
+
+    def test_visual_rotations_validate_group_members_and_action_references(self):
+        key = 'dungeon_interaction_room'
+        path = Path(__file__).resolve().parents[1] / f'config/dungeonMapPresets/{key}.json'
+        source = json.loads(path.read_text(encoding='utf-8'))
+        self.assertEqual(validate_dungeon_map_preset_payload({key: source}), [])
+        bad = copy.deepcopy(source)
+        bad['components']['visual-state'][0]['rotationGroups'][0]['stateIds'] = ['blue', 'blue']
+        self.assertTrue(validate_dungeon_map_preset_payload({key: bad}))
+        bad = copy.deepcopy(source)
+        event = next(row for row in bad['components']['event'] if row['id'] == 'room-lamp-next:interact')
+        event['action']['groupId'] = 'missing'
+        self.assertTrue(validate_dungeon_map_preset_payload({key: bad}))
 
 if __name__ == '__main__':
     unittest.main()

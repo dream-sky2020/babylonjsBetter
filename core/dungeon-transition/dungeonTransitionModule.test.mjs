@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import { createServer } from 'vite';
 import { JSDOM } from 'jsdom';
-import { NullEngine, Scene } from '@babylonjs/core';
+import { NullEngine, Scene, TransformNode } from '@babylonjs/core';
 import { createDungeonMapData } from '../map/dungeonMap.create.ts';
 import { createEntityContainer } from '../entity/entity.utils.ts';
 import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocument.migrate.ts';
 import { createDungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 
-test('transition module preserves synchronous step precedence, interaction/PUSH, input locks and cleanup with domain memory', async () => {
+test('map modules preserve step precedence, input locks, and loaded visual state cleanup', async () => {
   const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/dungeon-transition-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<aside></aside><div id="status"></div>', { url: 'http://localhost/transition-test' });
@@ -24,6 +24,9 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
     const { dungeonTransitionLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-transition/dungeonTransition.labModule.ts');
     const { dungeonInteractionLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-interaction/dungeonInteraction.labModule.ts');
     const { LAB_MESSAGE_BAR } = await server.ssrLoadModule('/labs/modules/shared/message-bar/messageBar.service.ts');
+    const { DUNGEON_VISUAL_OBJECT_CONTROL, dungeonVisualObjectControlLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-visual-object-control/dungeonVisualObjectControl.labModule.ts');
+    const { dungeonEntityVisualLoaderLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-entity-visual-loader/dungeonEntityVisualLoader.labModule.ts');
+    const { DUNGEON_MAP_VISUAL_PREPARATION } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-map-loader/dungeonMapVisualPreparation.ts');
     const assemblyApi = await server.ssrLoadModule('/core/dungeon-runtime/dungeonRuntimeAssembly.ts');
     const transitionData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-transition/dungeonTransition.memory.ts');
     const gridData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-grid/dungeonGrid.memory.ts');
@@ -44,6 +47,7 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
     }) }).document;
     engine = new NullEngine(); scene = new Scene(engine); steps = new stepApi.DungeonPlayerStepEvents();
     const blocked = blockedApi.createDungeonPlayerBlockedAttemptService(), services = new Map(), memory = new LabMemoryRegistry();
+    services.invoke = (token, method, args) => services.get(token)[method](...args);
     const writer = memory.scope('dungeon-map-loader'), handlers = new Map();
     let active = null, generation = 0, switches = 0, locks = 0, registered = 0, agentRules = 0;
     const events = [];
@@ -80,6 +84,7 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
       },
     };
     services.set(LAB_MESSAGE_BAR, { show() {}, clear() {} });
+    services.set(DUNGEON_VISUAL_OBJECT_CONTROL, { setState() {}, getState() {} });
     cleanupInteraction = dungeonInteractionLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-interaction') });
     cleanup = dungeonTransitionLabModule.setup({ ...baseContext, memory: memory.scope('dungeon-transition') });
     assert.deepEqual(memory.inspect().filter(entry => entry.modules.includes('dungeon-transition')).map(entry => entry.key).sort(),
@@ -99,6 +104,53 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
     assert.equal(events.length, 6);
     cleanup(); cleanup = null; cleanupInteraction(); cleanupInteraction = null; assert.equal(handlers.size, 0); assert.equal(registered, 0);
     assert.equal(document.querySelector('[data-lab-panel="dungeon-transition"]'), null);
+
+    let prepareVisuals;
+    let visualLoadId = 0;
+    services.set(DUNGEON_MAP_VISUAL_PREPARATION, {
+      activeLoadId: () => visualLoadId,
+      register(prepare) { prepareVisuals = prepare; return () => { prepareVisuals = undefined; }; },
+    });
+    const disposeVisualLoader = dungeonEntityVisualLoaderLabModule.setup(baseContext);
+    const disposeVisualControl = dungeonVisualObjectControlLabModule.setup(baseContext);
+    try {
+      const visualMap = structuredClone(doc);
+      visualMap.entities.push({ id: 'lamp', entityType: 'visual-object' });
+      visualMap.components['spatial-attachment'].push({
+        id: 'lamp-anchor', entityId: 'lamp', type: 'spatial-attachment', version: 1,
+        targets: [{ kind: 'tile', tileId: visualMap.grid.tileIds[0] }],
+      });
+      visualMap.components['visual-objects'] = [{
+        id: 'lamp-objects', entityId: 'lamp', type: 'visual-objects', version: 1,
+        objects: [{ name: 'light', kind: 'point-light', offset: [0, 0, 0], color: '#ffe080', intensity: 1, range: 2 }],
+      }];
+      visualMap.components['visual-state'] = [{
+        id: 'lamp-states', entityId: 'lamp', type: 'visual-state', version: 1, initialState: 'off',
+        states: [{ id: 'off', enabled: { light: false } }, { id: 'lit', enabled: { light: true } }],
+      }];
+      const root = new TransformNode('visual-candidate', scene);
+      const candidate = { loadId: 90, document: visualMap, root, signal: new AbortController().signal,
+        layout: { mapAnchorMode: 'first-tile', mapOffset: [0, 0, 0], tileSpacing: [2, 2], tileSize: [2, 1, 2] } };
+      const release = await prepareVisuals(candidate);
+      visualLoadId = candidate.loadId;
+      const control = services.get(DUNGEON_VISUAL_OBJECT_CONTROL);
+      const lamp = scene.lights.find(light => light.name === 'lamp:light');
+      assert.equal(lamp.isEnabled(), false);
+      control.setState('lamp', 'lit');
+      control.setState('lamp', 'lit');
+      assert.equal(lamp.isEnabled(), true);
+      assert.deepEqual(scene.lights.filter(light => light.name === 'lamp:light'), [lamp]);
+      release();
+      assert.equal(scene.lights.includes(lamp), false);
+      assert.equal(control.getState('lamp'), undefined);
+      visualMap.components['visual-state'][0].states[0].enabled.missing = false;
+      await assert.rejects(prepareVisuals({ ...candidate, loadId: 91 }), /不存在的视觉对象 missing/);
+      assert.equal(scene.lights.some(light => light.name === 'lamp:light'), false);
+      root.dispose();
+    } finally {
+      disposeVisualControl();
+      disposeVisualLoader();
+    }
   } finally {
     cleanup?.(); cleanupInteraction?.(); steps?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();
     for (const [key, value] of previous) { if (value === undefined) delete globalThis[key]; else globalThis[key] = value; }

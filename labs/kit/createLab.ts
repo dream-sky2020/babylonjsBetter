@@ -28,6 +28,7 @@ import {
 import { createLabCameraSystem } from './camera';
 import { LabPerformance, profileSystemTask } from './performance/LabPerformance';
 import { createLabPerformancePanel } from './performance/labPerformancePanel';
+import { createLabServiceDiagnosticsPanel } from './service-diagnostics/labServiceDiagnosticsPanel';
 import type { SystemTask } from '@/core/system-runtime/SystemRunner';
 import { LabWorkbench } from './workbench/LabWorkbench';
 import { LabObjects } from './objects/LabObjects';
@@ -247,6 +248,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const disposeTransformPanel = mountLabObjectEditorPanel(transformPanel.content, objectEditor);
   const disposeObjectTree = mountLabObjectTree(workbench.objects, objects, scene, cameraSystem.controller, keyboard, () => viewport.isBabylonInputPaused, objectEditor);
   const disposeMemoryPanel = createLabMemoryPanel(ui, viewport, memory, executionPlan.entries.map(entry => entry.module));
+  const disposeServiceDiagnostics = createLabServiceDiagnosticsPanel(ui, viewport, services, executionPlan.entries.map(entry => entry.module));
   const disposeCommunicationPanel = createLabCommunicationPanel(ui, viewport, communication);
   const disposePerformancePanel = createLabPerformancePanel(ui, viewport, performanceStats);
   const badgeText = options.badge;
@@ -389,6 +391,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     disposeLabStatePanel();
     disposeKeyboardPanel();
     disposeMemoryPanel();
+    disposeServiceDiagnostics();
     disposeCommunicationPanel();
     disposePerformancePanel(); performanceStats.dispose();
     memory.dispose();
@@ -434,6 +437,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       disposeLabStatePanel();
       disposeKeyboardPanel();
       disposeMemoryPanel();
+      disposeServiceDiagnostics();
       disposeCommunicationPanel();
       disposePerformancePanel(); performanceStats.dispose();
       memory.dispose();

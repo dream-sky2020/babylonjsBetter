@@ -34,7 +34,9 @@ const manifest = (
  * dependencies and actual scheduled tasks are read from the module/runner directly.
  */
 export const dungeonSystemManifests: Readonly<Record<string, LabSystemManifest>> = {
-  'dungeon-interaction': manifest('system', '统一交互触发、仲裁与可选实体 Debug', [], ['提供 dungeon:interaction；读取玩家/格子状态、runtime-assembly、格步和受阻尝试；地图提示调用 lab.message-bar；Debug 只读 interaction-control.describe 与执行器 once 状态，使用 overhead 显示变换'], ['消费 PlayerStepCompleted / 100、按键和受阻尝试；执行器由功能模块登记'], '同步仲裁、异步互斥；命中停止续步；Debug 仅开启时 presentation / 320 / 20Hz'),
+  'dungeon-entity-visual-loader': manifest('system', '加载并释放地图实体声明的视觉实例', [], ['提供 dungeon:entity-visuals'], ['参与候选地图视觉准备'], '地图加载与卸载'),
+  'dungeon-visual-object-control': manifest('system', '为实体视觉实例应用命名状态', [], ['提供 dungeon:visual-object-control'], ['初始化和切图'], '通过状态指令更新已加载对象'),
+  'dungeon-interaction': manifest('system', '统一交互触发、仲裁与可选实体 Debug', [], ['提供 dungeon:interaction；读取玩家/格子状态、runtime-assembly、格步和受阻尝试；临时调用业务服务或公开操作；切图时清理消息频道；Debug 只读 interaction-control.describe 与执行器 once 状态，使用 overhead 显示变换'], ['消费 PlayerStepCompleted / 100、按键和受阻尝试；执行器由功能模块登记'], '同步仲裁、异步互斥；命中停止续步；Debug 仅开启时 presentation / 320 / 20Hz'),
   'message-bar': manifest('system', '管理短消息，并用选定的 UI 预设显示', [], ['提供 lab.message-bar；调用 lab.ui-runtime'], [], '收到消息后更新 UI，定时移除'),
   'ui-runtime': manifest('system', '在视口运行 UI 文档预设', [], ['提供 lab.ui-runtime；使用 Host Viewport'], [], '收到绑定更新或视口缩放时渲染'),
   'dungeon-libraries': manifest('system', '读取地图、场景环境与阴影配置库',
@@ -44,7 +46,7 @@ export const dungeonSystemManifests: Readonly<Record<string, LabSystemManifest>>
     [core('dungeon-runtime/dungeonRuntimeAssembly.ts', 'DungeonRuntimeAssembly', '显式系统安装、候选 Runtime 准备'),
      core('scene/createDungeonMapSceneEnvironment.ts', 'createDungeonDocumentSceneEnvironmentAsync', '地图场景资源'),
      core('dungeon-runtime-save/dungeonRuntimeSave.ts', 'applyDungeonRuntimeSaveState', '恢复运行态')],
-    ['共享内存 dungeon.session 元信息/ dungeon.runtime-saves / dungeon.player-spawn / dungeon.grid / dungeon.player-state / dungeon.obstacle-state / dungeon.obstacles / dungeon.spatial-world / dungeon.spatial-actions / dungeon.deformation-settings / dungeon.overhead-settings / dungeon.transitions', '提供 dungeon:runtime-assembly、dungeon:obstacle-control、dungeon:traversal-control、dungeon:movement-control、dungeon:player-control、dungeon:transition-control、dungeon:interaction-control 与 dungeon:agent-control', '提供场景对象显示 View', '读取共享预设库'],
+    ['共享内存 dungeon.session 元信息/ dungeon.runtime-saves / dungeon.player-spawn / dungeon.grid / dungeon.player-state / dungeon.obstacle-state / dungeon.obstacles / dungeon.spatial-world / dungeon.spatial-actions / dungeon.deformation-settings / dungeon.overhead-settings / dungeon.transitions', '提供 dungeon:runtime-assembly、dungeon:obstacle-control、dungeon:traversal-control、dungeon:movement-control、dungeon:player-control、dungeon:transition-control、dungeon:interaction-control、dungeon:agent-control；在障碍服务公开 obstacle.set-active', '提供场景对象显示 View', '读取共享预设库'],
     ['处理 dungeon.map.switch / dungeon.runtime.commit', '观察通知 dungeon.map.changed / dungeon.runtime.changed'],
     '命令触发异步准备；必需 Core 准备成功后提交；广播只负责观察'),
   'dungeon-config': manifest('configuration', '选择初始地图与手动切图',
@@ -81,7 +83,7 @@ export const dungeonSystemManifests: Readonly<Record<string, LabSystemManifest>>
     '事件触发；不轮询玩家位置；输入锁覆盖切换过程'),
   'dungeon-obstacle': manifest('system', '安装地图障碍扫描与状态能力，并提供启停和 Debug',
     [core('dungeon-obstacle/dungeonObstacle.ts', '障碍状态 API', 'Body 启用状态的兼容视图')],
-    ['向 runtime-assembly 安装 obstacles', '申请 dungeon.obstacles、dungeon.obstacle-state、dungeon.grid', '使用 dungeon:obstacle-control；提供障碍 View'], ['消费通行变化，提交 runtime.commit；不读取完整装载引用'], '用户操作和障碍变化触发'),
+    ['向 runtime-assembly 安装 obstacles', '申请 dungeon.obstacles、dungeon.obstacle-state、dungeon.grid', '使用 dungeon:obstacle-control；提供障碍 View'], ['消费通行变化，启停由控制服务提交；不读取完整装载引用'], '用户操作和障碍变化触发'),
   'player-spawn': manifest('debug', '查看地图解析出的出生点',
     [core('dungeon-player-spawn/dungeonPlayerSpawn.document.ts', 'resolveDungeonDocumentPlayerSpawn', '由 Loader 使用的出生点解析')],
     ['申请 dungeon.player-spawn：出生点标识、格坐标、世界位置与格子尺寸'], ['消费 dungeon.map.changed；不读取完整装载对象'], '切图触发'),

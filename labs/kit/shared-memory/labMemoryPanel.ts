@@ -2,14 +2,26 @@ import { fitGraphView, graphWorldPoint, type GraphPoint, type GraphView } from '
 import type { LabModule } from '../labKit.types';
 import type { LabUi } from '../labUi';
 import type { LabViewportManager } from '../labViewportManager';
+import type { LabServiceInspection, LabServiceRegistry } from '../labServiceRegistry';
 import type { LabMemoryInspection, LabMemoryRegistry } from './LabMemory';
 import { flattenSharedData } from './flattenSharedData';
 import { createSharedDataInspector } from './sharedDataInspector';
+import { createLabMemoryTable } from './labMemoryTable';
 import './shared-memory.css';
 
-type Selection = { kind: 'module' | 'memory'; id: string };
+type Selection = { kind: 'module' | 'memory' | 'service'; id: string };
 type GraphNode = Selection & { x: number; y: number; width: number; height: number; title: string; lines: string[] };
+type LinkRole = 'acquire' | 'provide' | 'consume';
 const nodeId = (node: Selection) => `${node.kind}:${node.id}`;
+const labels = { module: '模块', memory: '共享内存', service: '服务' };
+let arrowId = 0;
+function linkPath(source: GraphNode, target: GraphNode, role: LinkRole) {
+  const shift = role === 'provide' ? -7 : role === 'consume' ? 7 : 0;
+  const direction = source.kind === 'module' ? 1 : -1;
+  const x = source.x + (direction > 0 ? source.width : 0), y = source.y + source.height / 2 + shift;
+  const tx = target.x + (direction < 0 ? target.width : 0), ty = target.y + target.height / 2 + shift;
+  return `M${x},${y} C${x + direction * 70},${y} ${tx - direction * 70},${ty} ${tx},${ty}`;
+}
 const shorten = (text: string, max = 30) => text.length > max ? `${text.slice(0, max - 1)}…` : text;
 const element = <K extends keyof HTMLElementTagNameMap>(tag: K, className = '', text = '') => {
   const node = document.createElement(tag);
@@ -25,15 +37,35 @@ const svgElement = <K extends keyof SVGElementTagNameMap>(tag: K, attributes: Re
   return node;
 };
 
-/** Dialogue-style system workspace: node canvas, flat list and inspector. */
+/** Both relationship views use the same canvas and navigation. */
 export const createLabMemoryPanel = (
   ui: LabUi, viewport: LabViewportManager, memory: LabMemoryRegistry, modules: readonly LabModule[],
 ): (() => void) => {
   const panel = ui.addPanel('system-shared-memory', '系统与共享内存');
   panel.root.classList.add('lab-system-panel');
   const count = element('p');
+  const view = createRelationshipGraph(ui, viewport, modules, { memory }, text => { count.textContent = text; });
+  const table = createLabMemoryTable(viewport, memory, view.open);
+  panel.content.append(count, button('打开系统图与共享数据', () => view.open()),
+    button('打开共享内存数据表', table.open));
+  return () => { table.dispose(); view.dispose(); panel.root.remove(); };
+};
+
+export const createLabServiceGraph = (ui: LabUi, viewport: LabViewportManager, services: LabServiceRegistry, modules: readonly LabModule[]) =>
+  createRelationshipGraph(ui, viewport, modules, { services });
+
+function createRelationshipGraph(
+  ui: LabUi, viewport: LabViewportManager, modules: readonly LabModule[],
+  source: { memory: LabMemoryRegistry; services?: never } | { memory?: never; services: LabServiceRegistry },
+  onCount?: (text: string) => void,
+) {
+  const { memory, services } = source;
+  const objectKind = services ? 'service' : 'memory';
+  const choiceLabel = `选择模块或${labels[objectKind]}`;
+  const searchLabel = `搜索模块或${labels[objectKind]}`;
+  const relationLabel = services ? '提供模块 → 服务 → 持有模块' : '连线表示实际申请关系。';
   const layer = viewport.openHtmlLayer({
-    id: 'lab:shared-memory', title: '系统与共享内存', mode: 'exclusive',
+    id: services ? 'lab:service-graph' : 'lab:shared-memory', title: services ? '模块与服务关系图' : '系统与共享内存', mode: 'exclusive',
     initiallyVisible: false, interactive: true, pauseBabylonRendering: false,
     fullWindow: true,
   });
@@ -41,18 +73,32 @@ export const createLabMemoryPanel = (
   layer.content.classList.add('lab-memory-layer');
   const workspace = element('div', 'lab-memory-workspace');
   const sidebar = element('aside', 'lab-memory-sidebar');
-  const search = element('input'); search.placeholder = '搜索模块或共享内存'; search.setAttribute('aria-label', '搜索模块或共享内存');
+  const search = element('input'); search.placeholder = searchLabel; search.setAttribute('aria-label', searchLabel);
   const list = element('div', 'lab-memory-list');
   sidebar.append(search, list);
   const stage = element('main', 'lab-memory-stage');
   const toolbar = element('div', 'lab-memory-toolbar');
   const graphHost = element('div', 'lab-memory-graph');
-  const svg = svgElement('svg', { role: 'group', 'aria-label': '模块与共享内存关系图', tabindex: '0' });
+  const svg = svgElement('svg', { role: 'group', 'aria-label': `模块与${labels[objectKind]}关系图`, tabindex: '0' });
   const graph = svgElement('g'); svg.append(graph); graphHost.append(svg);
-  const hint = element('div', 'lab-memory-hint', '拖动节点调整布局 · 拖动空白平移 · 滚轮缩放 · 点击查看数据');
+  const arrows = new Map<LinkRole, string>();
+  if (services) {
+    const defs = svgElement('defs');
+    const id = ++arrowId;
+    for (const [role, color] of [['provide', '#9f9cfa'], ['consume', '#49d2ba']] as const) {
+      const markerId = `lab-service-${role}-${id}`;
+      const marker = svgElement('marker', { id: markerId, markerWidth: '7', markerHeight: '7', refX: '6', refY: '3.5', orient: 'auto' });
+      marker.append(svgElement('polygon', { points: '0 0, 7 3.5, 0 7', fill: color })); defs.append(marker);
+      arrows.set(role, `url(#${markerId})`);
+    }
+    svg.append(defs);
+  }
+  const hint = element('div', 'lab-memory-hint', services
+    ? '紫色实线：注册 · 青色虚线：持有 · 临时调用见记录 · 拖动空白平移 · 滚轮缩放 · 点击查看详情'
+    : '拖动节点调整布局 · 拖动空白平移 · 滚轮缩放 · 点击查看数据');
   stage.append(toolbar, graphHost, hint);
   const inspector = element('aside', 'lab-memory-inspector');
-  const heading = element('h3', '', '选择模块或共享内存');
+  const heading = element('h3', '', choiceLabel);
   const meta = element('p', 'lab-memory-meta');
   const fieldSearch = element('input'); fieldSearch.placeholder = '筛选字段路径或值'; fieldSearch.setAttribute('aria-label', '筛选字段路径或值');
   const details = element('div', 'lab-memory-details');
@@ -68,32 +114,44 @@ export const createLabMemoryPanel = (
   const info = element('div', 'lab-memory-applicants');
   let view: GraphView = { x: 30, y: 30, scale: 1 };
   let entries: readonly LabMemoryInspection[] = [];
+  let registrations: readonly LabServiceInspection[] = [];
   let nodes: GraphNode[] = [];
   const positions = new Map<string, GraphPoint>();
   const nodeElements = new Map<string, SVGGElement>();
-  let links: { element: SVGPathElement; source: GraphNode; target: GraphNode }[] = [];
+  let links: { element: SVGPathElement; source: GraphNode; target: GraphNode; role: LinkRole }[] = [];
   let frame = 0;
   let disposed = false;
   let timer: ReturnType<typeof setInterval> | undefined;
   let gesture: { pointerId: number; start: GraphPoint; origin: GraphPoint; node?: GraphNode; moved: boolean } | undefined;
+  const showRegistered = element('input'); showRegistered.type = 'checkbox';
+  const registeredLabel = element('label');
+  registeredLabel.append(showRegistered, document.createTextNode(' 显示仅注册的服务'));
   const sampling = element('input'); sampling.type = 'checkbox'; sampling.checked = true;
   const sampleLabel = element('label'); sampleLabel.append(sampling, document.createTextNode('当前数据采样 · 4Hz'));
 
   const summary = (key: string) => {
-    try { return flattenSharedData(memory.inspectValue(key), 4).filter(field => field.path !== '…').map(field => `${field.path}: ${shorten(field.value, 35)}`).join(' · '); }
+    try { return flattenSharedData(memory?.inspectValue(key), 4).filter(field => field.path !== '…').map(field => `${field.path}: ${shorten(field.value, 35)}`).join(' · '); }
     catch (error) { return `观察失败：${error instanceof Error ? error.message : String(error)}`; }
   };
   const select = (next?: Selection) => {
     if (selection?.kind === next?.kind && selection?.id === next?.id) return;
     if (!selection || !next || nodeId(selection) !== nodeId(next)) { valueInspector.reset(); inspector.scrollTop = 0; }
-    selection = next; fieldSearch.value = ''; syncSelection(); renderDetails();
+    selection = next; fieldSearch.value = '';
+    if (services && next && search.value && !nodes.some(node => nodeId(node) === nodeId(next))) {
+      search.value = ''; render(); fit(); return;
+    }
+    syncSelection(); renderDetails();
   };
 
   const renderDetails = () => {
     if (!layer.visible) return;
-    if (!selection) { details.replaceChildren(); detailsViewKey = ''; heading.textContent = '选择模块或共享内存'; meta.textContent = '连线表示实际申请关系。'; fieldSearch.hidden = true; return; }
+    if (!selection) { details.replaceChildren(); detailsViewKey = ''; heading.textContent = choiceLabel; meta.textContent = relationLabel; fieldSearch.hidden = true; return; }
     fieldSearch.hidden = selection.kind !== 'memory';
     heading.textContent = selection.id;
+    if (services) {
+      renderServiceDetails(selection);
+      return;
+    }
     if (selection.kind === 'module') {
       const module = modules.find(module => module.id === selection!.id);
       const acquired = entries.filter(entry => entry.modules.includes(selection!.id));
@@ -133,12 +191,63 @@ export const createLabMemoryPanel = (
       applicantsKey = nextApplicantsKey;
     }
     try {
-      valueInspector.update(memory.inspectValue(entry.key), fieldSearch.value);
+      valueInspector.update(memory?.inspectValue(entry.key), fieldSearch.value);
     } catch (error) { valueInspector.update({ error: error instanceof Error ? error.message : String(error) }); }
   };
 
+  const renderServiceDetails = ({ kind, id }: Selection) => {
+    details.replaceChildren();
+    if (kind === 'module') {
+      const provides = registrations.filter(service => service.owner === id);
+      const uses = registrations.filter(service => service.consumers.includes(id));
+      meta.textContent = modules.find(module => module.id === id)?.manifest?.responsibility ?? 'Lab 模块';
+      if (ui.hasModulePanels(id)) details.append(button('打开模块功能面板', () => { layer.hide(); ui.showModulePanels(id); }));
+      for (const [label, items] of [['注册的服务', provides], ['已获取的服务', uses]] as const) {
+        const section = element('section', 'lab-memory-data-card');
+        section.append(element('h4', '', `${label} · ${items.length}`));
+        for (const service of items) section.append(button(service.id, () => select({ kind: 'service', id: service.id })));
+        if (!items.length) section.append(element('p', 'lab-memory-empty', '无'));
+        details.append(section);
+      }
+      return;
+    }
+    const service = registrations.find(entry => entry.id === id);
+    meta.textContent = service ? '当前已注册 · 持有模块通过 get/find 获取服务。' : '服务已注销。';
+    if (!service) return;
+    const owner = element('section', 'lab-memory-data-card');
+    owner.append(element('h4', '', '注册模块'), button(service.owner, () => select({ kind: 'module', id: service.owner })));
+    const consumers = element('section', 'lab-memory-data-card');
+    if (service.actions.length) details.append(element('p', 'lab-memory-meta', `公开操作 · ${service.actions.join(' · ')}`));
+    consumers.append(element('h4', '', `持有模块 · ${service.consumers.length}`));
+    for (const id of service.consumers) consumers.append(button(id, () => select({ kind: 'module', id })));
+    if (!service.consumers.length) consumers.append(element('p', 'lab-memory-empty', '尚无消费者'));
+    details.append(owner, consumers);
+  };
+
   const buildNodes = () => {
-    const filter = search.value.toLowerCase();
+    const filter = search.value.trim().toLowerCase();
+    if (services) {
+      const contains = (value: string) => value.toLowerCase().includes(filter);
+      const visibleServices = registrations.filter(service =>
+        (showRegistered.checked || !!filter || service.consumers.length > 0)
+        && [service.id, service.owner, ...service.consumers, ...service.actions].some(contains));
+      const related = new Set(visibleServices.flatMap(service => [service.owner, ...service.consumers]));
+      const moduleIds = filter || showRegistered.checked
+        ? [...new Set([...modules.map(module => module.id), ...related])].filter(id => contains(id) || related.has(id))
+        : [...related];
+      nodes = [
+        ...moduleIds.map((id, index): GraphNode => ({
+          kind: 'module', id, title: id, x: 40, y: index * 100 + 30, width: 270, height: 80,
+          lines: [`提供 ${registrations.filter(service => service.owner === id).length} 项`,
+            `已获取 ${registrations.filter(service => service.consumers.includes(id)).length} 项`],
+        })),
+        ...visibleServices.map((service, index): GraphNode => ({
+          kind: 'service', id: service.id, title: service.id, x: 450, y: index * 100 + 30, width: 320, height: 80,
+          lines: [`注册：${service.owner}`, `${service.consumers.length} 个持有模块`],
+        })),
+      ].map(node => ({ ...node, ...positions.get(nodeId(node)) }));
+      return;
+    }
     const visibleModules = modules.filter(module => !filter || module.id.toLowerCase().includes(filter)
       || entries.some(entry => entry.modules.includes(module.id) && `${entry.key} ${entry.label}`.toLowerCase().includes(filter)));
     const visibleEntries = entries.filter(entry => !filter || `${entry.key} ${entry.label}`.toLowerCase().includes(filter)
@@ -161,28 +270,31 @@ export const createLabMemoryPanel = (
   const draw = () => {
     nodeElements.clear(); links = [];
     graph.replaceChildren(); graph.setAttribute('transform', `translate(${view.x} ${view.y}) scale(${view.scale})`);
-    for (const entry of entries) {
-      const target = nodes.find(node => node.kind === 'memory' && node.id === entry.key);
-      if (!target) continue;
-      for (const moduleId of entry.modules) {
-        const source = nodes.find(node => node.kind === 'module' && node.id === moduleId);
-        if (!source) continue;
-        const active = !selection || (selection.kind === 'module' ? selection.id === moduleId : selection.id === entry.key);
-        const fromX = source.x + source.width, fromY = source.y + source.height / 2;
-        const toX = target.x, toY = target.y + target.height / 2;
-        const line = svgElement('path', {
-          d: `M${fromX},${fromY} C${fromX + 70},${fromY} ${toX - 70},${toY} ${toX},${toY}`,
-          class: active ? 'is-active' : 'is-dimmed', fill: 'none', 'data-module': moduleId, 'data-memory': entry.key,
-        });
-        const title = svgElement('title'); title.textContent = `${moduleId} 申请 ${entry.key}`; line.append(title); graph.append(line);
-        links.push({ element: line, source, target });
-      }
+    const byId = new Map(nodes.map(node => [nodeId(node), node]));
+    const appendLink = (moduleId: string, objectId: string, role: LinkRole) => {
+      const module = byId.get(`module:${moduleId}`), object = byId.get(`${objectKind}:${objectId}`);
+      if (!module || !object) return;
+      const [source, target] = role === 'consume' ? [object, module] : [module, object];
+      const arrow = arrows.get(role);
+      const line = svgElement('path', {
+        d: linkPath(source, target, role), fill: 'none', 'data-module': moduleId, [`data-${objectKind}`]: objectId, 'data-role': role,
+        ...(arrow ? { 'marker-end': arrow } : {}),
+      });
+      const title = svgElement('title');
+      title.textContent = `${moduleId} ${role === 'provide' ? '注册' : role === 'consume' ? '获取' : '申请'} ${objectId}`;
+      line.append(title); graph.append(line);
+      links.push({ element: line, source, target, role });
+    };
+    for (const entry of entries) for (const id of entry.modules) appendLink(id, entry.key, 'acquire');
+    for (const service of registrations) {
+      appendLink(service.owner, service.id, 'provide');
+      for (const id of service.consumers) appendLink(id, service.id, 'consume');
     }
     for (const node of nodes) {
       const active = selection && nodeId(selection) === nodeId(node);
       const group = svgElement('g', {
         transform: `translate(${node.x} ${node.y})`, class: `lab-memory-node is-${node.kind}${active ? ' is-selected' : ''}`,
-        tabindex: '0', role: 'button', 'aria-label': `${node.kind === 'module' ? '模块' : '共享内存'} ${node.title}`, 'data-node': nodeId(node),
+        tabindex: '0', role: 'button', 'aria-label': `${labels[node.kind]} ${node.title}`, 'data-node': nodeId(node),
       });
       group.append(svgElement('rect', { width: String(node.width), height: String(node.height), rx: '8' }));
       group.append(svgElement('rect', { width: String(node.width), height: '34', rx: '8', class: 'lab-memory-node-header' }));
@@ -201,8 +313,7 @@ export const createLabMemoryPanel = (
     if (!node) return;
     nodeElements.get(nodeId(node))?.setAttribute('transform', `translate(${node.x} ${node.y})`);
     for (const link of links) if (nodeId(link.source) === nodeId(node) || nodeId(link.target) === nodeId(node)) {
-      const x = link.source.x + link.source.width, y = link.source.y + link.source.height / 2, tx = link.target.x, ty = link.target.y + link.target.height / 2;
-      link.element.setAttribute('d', `M${x},${y} C${x + 70},${y} ${tx - 70},${ty} ${tx},${ty}`);
+      link.element.setAttribute('d', linkPath(link.source, link.target, link.role));
     }
   };
   const syncSelection = () => {
@@ -216,13 +327,16 @@ export const createLabMemoryPanel = (
   };
 
   const render = () => {
-    entries = memory.inspect(); count.textContent = `${modules.length} 个模块 · ${entries.length} 块共享内存`;
+    if (!layer.visible && !onCount) return;
+    entries = memory?.inspect() ?? [];
+    registrations = services?.inspect() ?? [];
+    onCount?.(`${modules.length} 个模块 · ${entries.length} 块共享内存`);
     if (!layer.visible) return;
     buildNodes();
     if (gesture?.node) gesture.node = nodes.find(node => nodeId(node) === nodeId(gesture!.node!));
     list.replaceChildren();
-    for (const kind of ['module', 'memory'] as const) {
-      list.append(element('h4', '', kind === 'module' ? '模块' : '共享内存'));
+    for (const kind of ['module', objectKind] as const) {
+      list.append(element('h4', '', labels[kind]));
       for (const node of nodes.filter(node => node.kind === kind)) {
         const item = button(node.title, () => select(node));
         item.className = selection && nodeId(selection) === nodeId(node) ? 'is-active' : '';
@@ -230,8 +344,8 @@ export const createLabMemoryPanel = (
         item.title = node.id; list.append(item);
       }
     }
-    if (!nodes.length) list.append(element('p', 'lab-memory-empty', '没有匹配的模块或内存。'));
-    draw(); renderDetails();
+    if (!nodes.length) list.append(element('p', 'lab-memory-empty', `没有匹配的模块或${labels[objectKind]}。`));
+    draw(); syncSelection(); renderDetails();
   };
   const fit = () => { view = fitGraphView(nodes, { width: graphHost.clientWidth, height: graphHost.clientHeight }, 0.12); syncGeometry(); };
   const schedule = () => {
@@ -240,11 +354,22 @@ export const createLabMemoryPanel = (
   };
   const syncSampling = () => {
     if (timer) clearInterval(timer); timer = undefined;
-    if (!disposed && layer.visible && sampling.checked) timer = setInterval(renderDetails, 250);
+    if (memory && !disposed && layer.visible && sampling.checked) timer = setInterval(renderDetails, 250);
   };
-  const open = () => { layer.show(); render(); fit(); syncSampling(); };
-  panel.content.append(count, button('打开系统图与共享数据', open));
-  toolbar.append(element('strong', '', '模块 → 共享内存'), button('适配全部', fit), button('刷新数据', render), sampleLabel);
+  const open = (key?: string) => {
+    layer.show();
+    if (key) {
+      search.value = key;
+      selection = { kind: objectKind, id: key };
+      if (memory) { valueInspector.reset(); fieldSearch.value = ''; inspector.scrollTop = 0; }
+    }
+    else if (services) { search.value = ''; selection = undefined; }
+    render(); fit(); syncSampling();
+  };
+  toolbar.append(element('strong', '', services ? relationLabel : '模块 → 共享内存'), button('适配全部', fit), button('刷新数据', render));
+  if (memory) toolbar.append(sampleLabel);
+  else toolbar.append(registeredLabel);
+  showRegistered.addEventListener('change', () => { render(); fit(); });
   search.addEventListener('input', () => { render(); fit(); });
   fieldSearch.addEventListener('input', renderDetails);
   sampling.addEventListener('change', syncSampling);
@@ -284,10 +409,11 @@ export const createLabMemoryPanel = (
     const scale = Math.max(0.08, Math.min(2.5, view.scale * Math.exp(-event.deltaY * 0.001)));
     view = { x: anchor.x - world.x * scale, y: anchor.y - world.y * scale, scale }; syncGeometry();
   }, { passive: false });
-  const offMemory = memory.subscribe(schedule);
+  const offMemory = memory?.subscribe(schedule);
+  const offServices = services?.subscribe(schedule);
   render();
-  return () => {
-    disposed = true; offMemory(); if (frame) cancelAnimationFrame(frame); if (timer) clearInterval(timer);
-    visibilityObserver.disconnect(); resizeObserver.disconnect(); layer.dispose(); panel.root.remove();
-  };
-};
+  return { open, dispose() {
+    disposed = true; offMemory?.(); offServices?.(); if (frame) cancelAnimationFrame(frame); if (timer) clearInterval(timer);
+    visibilityObserver.disconnect(); resizeObserver.disconnect(); layer.dispose();
+  } };
+}

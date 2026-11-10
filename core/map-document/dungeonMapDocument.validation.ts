@@ -1,6 +1,8 @@
 import { validateInteractionEvent, type IEventComponent } from '../entity/components/event.component.ts';
 import { componentDefinition as gridFacingDefinition, type IGridFacingComponent } from '../entity/components/grid-facing.component.ts';
 import { compileSpatialDefinitions } from '../dungeon-spatial/dungeonSpatialDefinition.ts';
+import { validateVisualObjects, type IVisualObjectsComponent } from '../entity/components/visual-objects.component.ts';
+import { validateVisualState, type IVisualStateComponent } from '../entity/components/visual-state.component.ts';
 import {
   DUNGEON_MAP_CORNER_ORDER,
   DUNGEON_MAP_DIRECTION_ORDER,
@@ -181,5 +183,17 @@ export const validateDungeonMapDocumentV2 = (
   (document.components.event ?? []).forEach((component, index) => {
     validateInteractionEvent(component as unknown as IEventComponent, false).forEach(message => add('interaction.definition', message, `components.event[${index}]`));
   });
+  for (const kind of ['visual-objects', 'visual-state'] as const) {
+    const owners = new Set<string>();
+    (document.components[kind] ?? []).forEach((component, index) => {
+      const path = `components.${kind}[${index}]`;
+      const owner = document.entities.find(entity => entity.id === component.entityId);
+      if (owner?.entityType !== 'visual-object' || owners.has(component.entityId)) add('visual.owner', '视觉组件必须属于视觉对象实体，每类组件最多一个。', path);
+      owners.add(component.entityId);
+      const errors = kind === 'visual-objects' ? validateVisualObjects(component as unknown as IVisualObjectsComponent)
+        : validateVisualState(component as unknown as IVisualStateComponent);
+      errors.forEach(message => add('visual.definition', message, path));
+    });
+  }
   return issues;
 };

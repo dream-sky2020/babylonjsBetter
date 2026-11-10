@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { InteractionDirectionPicker } from '@/tools/entity-container-editor/InteractionDirectionPicker';
 import { DialogueUiPresetPicker } from '@/tools/entity-container-editor/DialogueUiPresetPicker';
+import type { IVisualStateComponent } from '@/core/entity/components/visual-state.component';
+import type { IEventComponent } from '@/core/entity/components/event.component';
 import { ObjectHierarchy, InspectorPanel, InspectorSection } from '@/core/ui/editor-kit';
 import { DungeonMapWorkbench } from './DungeonMapWorkbench';
 import { createMapBrowserIndexes, createMapOutline } from './dungeonMapOutline';
@@ -200,6 +202,39 @@ const renderComponentCard = (entity: IEntity, component: IComponent) => {
             if ('equals' in condition ? value !== condition.equals : value === condition.notEquals) return null;
           }
           const currentValue = valueAtPath(component, field.path);
+          if (component.type === 'event' && ['action.targetEntityId', 'action.operation', 'action.stateId', 'action.groupId'].includes(field.path)) {
+            const action = (component as IEventComponent).action;
+            if (action?.type !== 'visual-state') return null;
+            const operation = action.operation ?? 'set';
+            const isRotation = operation !== 'set';
+            if (field.path === 'action.stateId' && isRotation || field.path === 'action.groupId' && !isRotation) return null;
+            const stateRows = (mapDocument?.components['visual-state'] ?? []).filter(row => row.enabled !== false);
+            const settingsOf = (id: string) => stateRows.find(row => row.entityId === id) as unknown as IVisualStateComponent | undefined;
+            const isTarget = field.path === 'action.targetEntityId';
+            const isOperation = field.path === 'action.operation';
+            const settings = settingsOf(action.targetEntityId);
+            let choices: readonly { value: string; label: string }[];
+            if (isTarget) choices = (mapDocument?.entities ?? [])
+              .filter(item => item.entityType === 'visual-object' && item.enabled !== false && settingsOf(item.id)?.states?.length)
+              .map(item => ({ value: item.id, label: `${item.name ?? item.id} · ${item.id}` }));
+            else if (isOperation) choices = field.options ?? [];
+            else if (isRotation) choices = (settings?.rotationGroups ?? []).map(item => ({ value: item.id, label: item.id }));
+            else choices = (settings?.states ?? []).map(item => ({ value: item.id, label: item.label ? `${item.label} · ${item.id}` : item.id }));
+            const current = String(isOperation ? operation : currentValue ?? '');
+            return <label key={field.path}><span>{field.label}</span><select value={current} onChange={event => {
+              const value = event.target.value || undefined;
+              if (isTarget || isOperation) updateComponentById(entity.id, component.id, `修改 ${field.label}`, previous => {
+                let next = valueWithPath(previous, field.path, value);
+                if (isTarget || value !== 'set') next = valueWithPath(next, 'action.stateId', undefined);
+                if (isTarget || value === 'set') next = valueWithPath(next, 'action.groupId', undefined);
+                return next;
+              });
+              else setField(field, value);
+            }}>{!isOperation && <option value="">请选择</option>}
+              {current && !choices.some(choice => choice.value === current) && <option value={current} disabled>{current}（不可用）</option>}
+              {choices.map(choice => <option key={choice.value} value={choice.value}>{choice.label}</option>)}
+            </select></label>;
+          }
           if (component.type === 'event' && field.path === 'action.uiPresetKey') {
             return <DialogueUiPresetPicker key={field.path} component={component} label={field.label} onChange={value => setField(field, value)} />;
           }

@@ -7,13 +7,13 @@ import { PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY, type DungeonPlayerBlockedA
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import { controlSetting, createLabStatus, createLabSwitch, createLabField, type LabModule } from '@/labs/kit';
 import { DUNGEON_INTERACTION_CONTROL } from '@/core/dungeon-interaction/dungeonInteractionControl';
+import { DUNGEON_VISUAL_OBJECT_CONTROL } from '../dungeon-visual-object-control/dungeonVisualObjectControl.labModule';
 import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import { createDungeonInteractionDebug } from './dungeonInteractionDebug';
 import { LAB_MESSAGE_BAR } from '@/labs/modules/shared/message-bar/messageBar.service';
 import { dungeonAgentInteractionEvent } from '../dungeon-agent/dungeonAgent.protocol';
 import { resolveDungeonCardinalFacing } from '@/core/dungeon-movement/dungeonMovement.direction';
-import { createDungeonInteractionLamps } from './dungeonInteractionLamps';
 import { validateInteractionEvent, type IEventComponent } from '@/core/entity/components/event.component';
 import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '@/core/dungeon-traversal/dungeonTraversal';
 import type { ConfigValue } from '@/labs/kit/config/LabConfig';
@@ -31,7 +31,7 @@ function validPlayerRules(value: unknown): boolean {
 }
 
 export const dungeonInteractionLabModule: LabModule = {
-  id: 'dungeon-interaction', dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view', 'message-bar'],
+  id: 'dungeon-interaction', dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view', 'message-bar', 'dungeon-visual-object-control'],
   setup(context) {
     const debugDefaults = { 'debug-color': true, 'debug-labels': true, 'debug-name': true,
       'debug-trigger': true, 'debug-action': false, 'debug-state': true, 'debug-direction': false, 'debug-reasons': false };
@@ -55,32 +55,29 @@ export const dungeonInteractionLabModule: LabModule = {
     const steps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
     const blocked = context.services.get<DungeonPlayerBlockedAttemptService>(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY);
     const router = new DungeonInteractionRouter();
-    const lamps = createDungeonInteractionLamps(context.scene);
-    const messageBar = context.services.get(LAB_MESSAGE_BAR);
     const messageChannel = 'dungeon-interaction';
-    const consumedMessages = new Set<string>();
+    const consumedActions = new Set<string>();
     const contacts = new Map<string, Map<string, Set<string>>>();
     let offContact = () => {};
-    const resetMessageInteractions = () => {
-      messageBar.clear(messageChannel);
-      consumedMessages.clear();
+    const resetInteractions = () => {
+      context.services.invoke(LAB_MESSAGE_BAR, 'clear', [messageChannel]);
+      consumedActions.clear();
       contacts.clear();
-      lamps.clear();
     };
-    const offMessages = router.register({
-      id: 'dungeon-messages',
+    const offActions = router.register({
+      id: 'dungeon-feedback',
       acceptsAgents: true,
       acceptsBlockedMovement: true,
-      isConsumed: (loadId, key) => consumedMessages.has(`${loadId}:${key}`),
+      isConsumed: (loadId, key) => consumedActions.has(`${loadId}:${key}`),
       find(query) {
         const actorId = query.actorId ?? DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID;
         return control.find(query).flatMap(match => {
           const action = match.action;
-          if (action.type !== 'message' || router.isConsumed(query.loadId, match.onceKey)) return [];
+          if (action.type === 'dialogue' || router.isConsumed(query.loadId, match.onceKey)) return [];
           const seen = contacts.get(actorId)?.get(match.onceKey);
           if (match.contactBlockers?.every(id => seen?.has(id))) return [];
           return [{
-            id: `message:${match.id}`, entityId: match.entityId, label: match.label,
+            id: `${action.type}:${match.id}`, entityId: match.entityId, label: match.label,
             priority: match.priority, rank: match.rank, stopMovement: match.claimsMovement === true,
             execute() {
               if (match.once && router.isConsumed(query.loadId, match.onceKey)) return;
@@ -90,14 +87,30 @@ export const dungeonInteractionLabModule: LabModule = {
                 const previous = actorContacts.get(match.onceKey);
                 actorContacts.set(match.onceKey, new Set([...(previous ?? []), ...match.contactBlockers]));
               }
-              const loaded = grid.current;
-              if (action.light && loaded?.loadId === query.loadId) lamps.light(match.entityId, loaded, query.position);
-              messageBar.show({
-                text: match.actorLabel ? `${match.actorLabel} · ${action.text}` : action.text,
-                durationSeconds: action.durationSeconds,
-                channel: messageChannel,
-              });
-              if (match.once) consumedMessages.add(`${query.loadId}:${match.onceKey}`);
+              const origin = { sessionId: query.loadId, actorId, source: match.entityId };
+              let text: string | undefined;
+              if (action.type === 'visual-state') {
+                const operation = action.operation ?? 'set';
+                const target = { ...origin, target: action.targetEntityId };
+                const result = operation === 'set'
+                  ? context.services.invoke(DUNGEON_VISUAL_OBJECT_CONTROL, 'setState', [action.targetEntityId, action.stateId!], target)
+                  : context.services.invoke(DUNGEON_VISUAL_OBJECT_CONTROL, 'advanceState', [action.targetEntityId, action.groupId!, operation], target);
+                text = action.feedback?.replaceAll('{state}', () => result.label);
+              } else if (action.type === 'service') {
+                const parameters = action.parameters ?? {};
+                const target = typeof parameters.entityId === 'string' ? parameters.entityId : undefined;
+                if (!context.services.invokeAction(action.commandId, parameters, { ...origin, target })) {
+                  throw new Error(`交互服务指令「${action.commandId}」拒绝执行。`);
+                }
+                text = action.successMessage;
+              } else {
+                text = action.text;
+              }
+              if (text?.trim()) context.services.invoke(LAB_MESSAGE_BAR, 'show', [{
+                text: match.actorLabel ? `${match.actorLabel} · ${text}` : text,
+                durationSeconds: action.type === 'message' ? action.durationSeconds : undefined, channel: messageChannel,
+              }], origin);
+              if (match.once) consumedActions.add(`${query.loadId}:${match.onceKey}`);
             },
           }];
         });
@@ -227,13 +240,11 @@ export const dungeonInteractionLabModule: LabModule = {
         debugSummary.textContent = `交互 Debug 显示失败：${error instanceof Error ? error.message : String(error)}`;
       }
     };
-    const syncView = () => { lamps.setView(overhead.displayedView); syncDebug(); };
-    lamps.setView(overhead.displayedView);
-    const offView = overhead.subscribe(syncView);
+    const offView = overhead.subscribe(syncDebug);
     const stopDebug = context.scheduler.register({ id: 'interaction-debug', phase: 'presentation', order: 320, intervalSeconds: .05,
       description: '仅 Debug 开启时跟随交互实体的当前空间位置', run: () => { if (config['debug-entities']) syncDebug(); } });
     const offMap = context.communication.on(dungeonMapChangedEvent, ({ loadId }) => {
-      lastStep = 0; resetMessageInteractions(); router.reset(); debugView.clear(); syncDebug();
+      lastStep = 0; resetInteractions(); router.reset(); debugView.clear(); syncDebug();
       attemptStatus.textContent = '等待移动尝试。'; delete attemptStatus.dataset.outcome;
       agentAttemptStatus.textContent = '等待 Agent 移动尝试。'; delete agentAttemptStatus.dataset.outcome;
       offContact();
@@ -298,7 +309,7 @@ export const dungeonInteractionLabModule: LabModule = {
       for (const control of debugControls) control.input.addEventListener('change', () => { config[control.field] = control.input.checked; syncDebug(); });
     }
     return () => { settings.dispose(); offPreparation(); offStep(); offBlocked(); offPhysicalBlock(); offMap(); offContact(); offStatus(); offView(); stopDebug(); debugView.dispose(); labelLayer.dispose(); keyboard.dispose();
-      offAgentInteraction(); offMessages(); resetMessageInteractions(); router.dispose();
+      offAgentInteraction(); offActions(); resetInteractions(); router.dispose();
       context.services.delete(DUNGEON_INTERACTION_SERVICE); panel.root.remove(); };
   },
 };

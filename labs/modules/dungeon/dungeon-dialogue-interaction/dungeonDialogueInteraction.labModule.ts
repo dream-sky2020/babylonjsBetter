@@ -1,4 +1,5 @@
 import { DUNGEON_INTERACTION_SERVICE } from '@/core/dungeon-interaction/DungeonInteractionRouter';
+import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '@/core/dungeon-traversal/dungeonTraversal';
 import { DUNGEON_INTERACTION_CONTROL } from '@/core/dungeon-interaction/dungeonInteractionControl';
 import { loadDialogueEditorDocumentLibrary } from '@/core/dialogue-map/dialogueMapPresetRepository';
 import { loadDialoguePreviewPresetLibrary } from '@/core/dialogue-preview/dialoguePreviewPresetRepository';
@@ -25,12 +26,17 @@ export const dungeonDialogueInteractionLabModule: LabModule = {
           const action = match.action;
           if (action.type !== 'dialogue' || router.isConsumed(query.loadId, match.onceKey)) return [];
           return [{
-          id: `dialogue:${match.id}`, entityId: match.entityId, label: match.label, priority: match.priority, rank: match.rank,
-          async execute() {
-            ownedLoadId = query.loadId;
-            await dialogue.start({ presetKey: action.presetKey, entryNodeId: action.entryNodeId, uiPresetKey: action.uiPresetKey });
-            if (!disposed && ownedLoadId === query.loadId && match.once && ['playing', 'ended'].includes(dialogue.inspect().status)) consumed.add(`${query.loadId}:${match.onceKey}`);
-          },
+            id: `dialogue:${match.id}`, entityId: match.entityId, label: match.label, priority: match.priority, rank: match.rank,
+            async execute() {
+              ownedLoadId = query.loadId;
+              await context.services.invoke(LAB_DIALOGUE, 'start', [{
+                presetKey: action.presetKey, entryNodeId: action.entryNodeId, uiPresetKey: action.uiPresetKey,
+              }], { source: match.entityId, actorId: query.actorId ?? DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
+                sessionId: query.loadId, target: `${action.presetKey}/${action.entryNodeId}` });
+              if (!disposed && ownedLoadId === query.loadId && match.once && ['playing', 'ended'].includes(dialogue.inspect().status)) {
+                consumed.add(`${query.loadId}:${match.onceKey}`);
+              }
+            },
           }];
         });
       },

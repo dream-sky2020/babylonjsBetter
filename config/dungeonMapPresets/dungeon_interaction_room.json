@@ -6,8 +6,8 @@
     "name": "传送后的房间"
   },
   "grid": {
-    "width": 9,
-    "height": 8,
+    "width": 22,
+    "height": 19,
     "topologyMode": "bounded"
   },
   "terrain": {
@@ -117,6 +117,36 @@
       "entityType": "dungeon-exit",
       "name": "直回测试场",
       "enabled": true
+    },
+    {
+      "id": "room-agent-lamp",
+      "entityType": "visual-object",
+      "name": "踏板机关灯",
+      "enabled": true
+    },
+    {
+      "id": "room-lamp-next",
+      "entityType": "interaction-point",
+      "name": "灯色 · 下一个",
+      "enabled": true
+    },
+    {
+      "id": "room-lamp-previous",
+      "entityType": "interaction-point",
+      "name": "灯色 · 上一个",
+      "enabled": true
+    },
+    {
+      "id": "room-lamp-random",
+      "entityType": "interaction-point",
+      "name": "灯色 · 随机抽取",
+      "enabled": true
+    },
+    {
+      "id": "room-lamp-shuffle",
+      "entityType": "interaction-point",
+      "name": "灯色 · 洗牌轮替",
+      "enabled": true
     }
   ],
   "components": {
@@ -129,7 +159,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:6,0"
+            "tileId": "tile:14,1"
           }
         ]
       },
@@ -141,7 +171,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,4"
+            "tileId": "tile:14,10"
           }
         ]
       },
@@ -153,7 +183,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,6"
+            "tileId": "tile:14,16"
           }
         ]
       },
@@ -165,7 +195,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:6,2"
+            "tileId": "tile:14,3"
           }
         ]
       },
@@ -177,7 +207,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,5"
+            "tileId": "tile:14,15"
           }
         ]
       },
@@ -189,7 +219,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,1"
+            "tileId": "tile:8,9"
           }
         ]
       },
@@ -201,7 +231,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,4"
+            "tileId": "tile:8,14"
           }
         ]
       },
@@ -213,7 +243,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,3"
+            "tileId": "tile:14,9"
           }
         ]
       },
@@ -272,7 +302,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:1,2"
+            "tileId": "tile:3,3"
           }
         ]
       },
@@ -284,7 +314,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:3,2"
+            "tileId": "tile:8,3"
           }
         ]
       },
@@ -296,7 +326,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:2,4"
+            "tileId": "tile:3,9"
           }
         ]
       },
@@ -321,6 +351,66 @@
           {
             "kind": "tile",
             "tileId": "tile:0,1"
+          }
+        ]
+      },
+      {
+        "id": "room-agent-lamp:spatial-attachment",
+        "entityId": "room-agent-lamp",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:19,4"
+          }
+        ]
+      },
+      {
+        "id": "room-lamp-next:spatial-attachment",
+        "entityId": "room-lamp-next",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:19,1"
+          }
+        ]
+      },
+      {
+        "id": "room-lamp-previous:spatial-attachment",
+        "entityId": "room-lamp-previous",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:17,4"
+          }
+        ]
+      },
+      {
+        "id": "room-lamp-random:spatial-attachment",
+        "entityId": "room-lamp-random",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:21,4"
+          }
+        ]
+      },
+      {
+        "id": "room-lamp-shuffle:spatial-attachment",
+        "entityId": "room-lamp-shuffle",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:19,7"
           }
         ]
       }
@@ -683,12 +773,12 @@
         "parameters": {
           "route": [
             {
-              "x": 6,
-              "y": 0
+              "x": 14,
+              "y": 1
             },
             {
-              "x": 6,
-              "y": 3
+              "x": 14,
+              "y": 4
             }
           ],
           "routePlayback": "ping-pong",
@@ -706,12 +796,12 @@
         "parameters": {
           "route": [
             {
-              "x": 7,
-              "y": 5
+              "x": 14,
+              "y": 11
             },
             {
-              "x": 7,
-              "y": 4
+              "x": 14,
+              "y": 10
             }
           ],
           "routePlayback": "ping-pong",
@@ -731,12 +821,12 @@
         "parameters": {
           "route": [
             {
-              "x": 7,
-              "y": 7
+              "x": 14,
+              "y": 17
             },
             {
-              "x": 7,
-              "y": 6
+              "x": 14,
+              "y": 16
             }
           ],
           "routePlayback": "ping-pong",
@@ -791,9 +881,10 @@
           "north"
         ],
         "action": {
-          "type": "message",
-          "text": "从北侧踩下踏板，机关灯已点亮。",
-          "light": true
+          "type": "visual-state",
+          "targetEntityId": "room-agent-lamp",
+          "stateId": "lit",
+          "feedback": "从北侧踩下踏板，机关灯已点亮。"
         }
       },
       {
@@ -1164,6 +1255,70 @@
           "presetKey": "room_threshold_arrivals",
           "entryNodeId": "fallback"
         }
+      },
+      {
+        "id": "room-lamp-next:interact",
+        "entityId": "room-lamp-next",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "visual-state",
+          "targetEntityId": "room-agent-lamp",
+          "operation": "next",
+          "groupId": "colors",
+          "feedback": "机关灯切换为 {state}。"
+        }
+      },
+      {
+        "id": "room-lamp-previous:interact",
+        "entityId": "room-lamp-previous",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "visual-state",
+          "targetEntityId": "room-agent-lamp",
+          "operation": "previous",
+          "groupId": "colors",
+          "feedback": "机关灯切换为 {state}。"
+        }
+      },
+      {
+        "id": "room-lamp-random:interact",
+        "entityId": "room-lamp-random",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "visual-state",
+          "targetEntityId": "room-agent-lamp",
+          "operation": "random",
+          "groupId": "colors",
+          "feedback": "机关灯切换为 {state}。"
+        }
+      },
+      {
+        "id": "room-lamp-shuffle:interact",
+        "entityId": "room-lamp-shuffle",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "visual-state",
+          "targetEntityId": "room-agent-lamp",
+          "operation": "shuffle",
+          "groupId": "colors",
+          "feedback": "机关灯切换为 {state}。"
+        }
       }
     ],
     "dungeon-exit": [
@@ -1187,6 +1342,182 @@
         "targetEntranceId": "direct",
         "triggers": [
           "enter"
+        ]
+      }
+    ],
+    "visual-objects": [
+      {
+        "id": "room-agent-lamp:visual-objects",
+        "entityId": "room-agent-lamp",
+        "type": "visual-objects",
+        "version": 1,
+        "objects": [
+          {
+            "name": "bulb",
+            "kind": "sphere",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "diameter": 0.48,
+            "color": "#ffdc75"
+          },
+          {
+            "name": "light",
+            "kind": "point-light",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "color": "#ffdc75",
+            "intensity": 1.2,
+            "range": 3
+          },
+          {
+            "name": "bulb-blue",
+            "kind": "sphere",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "diameter": 0.48,
+            "color": "#68bfff",
+            "enabled": false
+          },
+          {
+            "name": "light-blue",
+            "kind": "point-light",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "color": "#68bfff",
+            "intensity": 1.2,
+            "range": 3,
+            "enabled": false
+          },
+          {
+            "name": "bulb-green",
+            "kind": "sphere",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "diameter": 0.48,
+            "color": "#71ed9f",
+            "enabled": false
+          },
+          {
+            "name": "light-green",
+            "kind": "point-light",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "color": "#71ed9f",
+            "intensity": 1.2,
+            "range": 3,
+            "enabled": false
+          },
+          {
+            "name": "bulb-red",
+            "kind": "sphere",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "diameter": 0.48,
+            "color": "#ff746c",
+            "enabled": false
+          },
+          {
+            "name": "light-red",
+            "kind": "point-light",
+            "offset": [
+              0,
+              0.25,
+              0
+            ],
+            "color": "#ff746c",
+            "intensity": 1.2,
+            "range": 3,
+            "enabled": false
+          }
+        ]
+      }
+    ],
+    "visual-state": [
+      {
+        "id": "room-agent-lamp:visual-state",
+        "entityId": "room-agent-lamp",
+        "type": "visual-state",
+        "version": 1,
+        "initialState": "off",
+        "states": [
+          {
+            "id": "off",
+            "enabled": {
+              "bulb": false,
+              "light": false
+            },
+            "label": "熄灭"
+          },
+          {
+            "id": "lit",
+            "enabled": {
+              "bulb": true,
+              "light": true
+            },
+            "label": "暖黄"
+          },
+          {
+            "id": "blue",
+            "label": "蓝色",
+            "enabled": {
+              "bulb": false,
+              "light": false,
+              "bulb-blue": true,
+              "light-blue": true
+            }
+          },
+          {
+            "id": "green",
+            "label": "绿色",
+            "enabled": {
+              "bulb": false,
+              "light": false,
+              "bulb-green": true,
+              "light-green": true
+            }
+          },
+          {
+            "id": "red",
+            "label": "红色",
+            "enabled": {
+              "bulb": false,
+              "light": false,
+              "bulb-red": true,
+              "light-red": true
+            }
+          }
+        ],
+        "rotationGroups": [
+          {
+            "id": "colors",
+            "stateIds": [
+              "lit",
+              "blue",
+              "green",
+              "red"
+            ]
+          }
         ]
       }
     ]

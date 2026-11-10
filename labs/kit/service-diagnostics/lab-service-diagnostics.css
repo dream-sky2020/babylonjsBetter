@@ -1,0 +1,14 @@
+.lab-service-registry th, .lab-service-registry td { text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.lab-service-registry thead th { color: #a9b9d0; background: #101827; }
+.lab-service-registry tbody th { font-weight: 500; color: #c9bdf6; }
+.lab-service-registry td:nth-child(3), .lab-service-registry td:last-child { white-space: nowrap; }
+.lab-service-registry td code { display: block; }
+.lab-service-registry td code + code { margin-top: 5px; }
+.lab-service-registry tbody tr:hover { background: #142034; }
+.lab-service-registry input { width: min(310px, 100%); }
+
+.lab-service-calls th, .lab-service-calls td { text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.lab-service-calls td:first-child { white-space: nowrap; }
+.lab-service-registry th small, .lab-service-calls td small { display: block; margin-top: 4px; color: #a9b9d0; }
+.lab-service-calls tr[data-status="failed"] td:last-child { color: #ff9e9e; }
+.lab-service-calls input { width: min(310px, 100%); }

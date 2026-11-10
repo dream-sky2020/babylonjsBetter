@@ -8,7 +8,7 @@ import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs
 import { applyDungeonViewToNode, createDungeonViewConsumer, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
 import { scanDungeonDocumentObstacles } from '@/core/dungeon-obstacle';
 import { createLabJson, createLabSwitch, type LabModule } from '@/labs/kit';
-import { dungeonMapChangedEvent, dungeonRuntimeCommitRequest } from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import { resolveDungeonObstacleDebugLayout } from './dungeonObstacleDebugLayout';
 import { DUNGEON_OBSTACLE_VIEW_SERVICE_KEY } from './dungeonObstacle.view';
 
@@ -104,7 +104,6 @@ export const dungeonObstacleLabModule: LabModule = {
           if (assembly.isPaused || context.scheduler.isPaused) return;
           if (!control.setActive(loaded.loadId, binding.entityId, checkbox.checked)) return;
           refresh();
-          void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'obstacle-state' });
         });
         const detail = document.createElement('small');
         const footprint = binding.placement.kind === 'tile'

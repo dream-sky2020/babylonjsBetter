@@ -42,14 +42,15 @@ test('completed Agent step uses its real approach and the rule actor scope', () 
   updateDungeonAgentMovements(value.agents, .2);
   assert.equal(intents.length, 0, 'committing the tile is earlier than finishing the step');
   updateDungeonAgentMovements(value.agents, .2);
-  assert.deepEqual(intents, [{ actorId, trigger: 'enter', tileIndex: 24, fromTileIndex: 15, facing: 'south', movementDirection: 'south' }]);
+  const width = value.runtime.map.width;
+  assert.deepEqual(intents, [{ actorId, trigger: 'enter', tileIndex: 3 * width + 14, fromTileIndex: 2 * width + 14, facing: 'south', movementDirection: 'south' }]);
 
   const query: InteractionQuery = {
-    ...input(6, 2, 'south'), trigger: 'enter', from: { tileX: 6, tileY: 1 }, movementDirection: 'south', actorId,
+    ...input(14, 3, 'south'), trigger: 'enter', from: { tileX: 14, tileY: 2 }, movementDirection: 'south', actorId,
   };
   assert.deepEqual(value.control.find(query).map(match => match.id), ['room-agent-plate:enter-north']);
   assert.equal(value.control.find({ ...query, actorId: undefined }).length, 0);
-  assert.equal(value.control.find({ ...query, from: { tileX: 6, tileY: 3 }, movementDirection: 'north' }).length, 0);
+  assert.equal(value.control.find({ ...query, from: { tileX: 14, tileY: 4 }, movementDirection: 'north' }).length, 0);
 
   const both = room();
   both.components.event.find((event: { id: string }) => event.id === 'room-agent-plate:enter-north').actorScope = 'both';
@@ -68,19 +69,20 @@ test('Agent attempts distinguish physical blocker IDs from reservation losses', 
   const contact = intents[0];
   assert.equal(contact.trigger, 'move-attempt');
   const { attemptId, ...result } = contact;
+  const width = value.runtime.map.width;
   assert.ok(attemptId > 0);
   assert.deepEqual(result, {
-    trigger: 'move-attempt', outcome: 'blocked', actorId, tileIndex: 43, facing: 'north', movementDirection: 'north', blockingEntityIds: ['room-contact-barrier'],
+    trigger: 'move-attempt', outcome: 'blocked', actorId, tileIndex: 10 * width + 14, facing: 'north', movementDirection: 'north', blockingEntityIds: ['room-contact-barrier'],
   });
   const query: InteractionQuery = {
-    ...input(7, 4, 'north'), trigger: 'move-attempt', actorId, movementDirection: 'north', blockingEntityIds: ['room-contact-barrier'],
+    ...input(14, 10, 'north'), trigger: 'move-attempt', actorId, movementDirection: 'north', blockingEntityIds: ['room-contact-barrier'],
   };
   assert.deepEqual(value.control.find(query).map(match => match.id), ['room-contact-barrier:agent-contact']);
   assert.equal(value.control.find({ ...query, blockingEntityIds: ['room-console'] }).length, 0);
   assert.equal(value.control.find({ ...query, blockingEntityIds: [] }).length, 0);
 
   intents.length = 0;
-  value.runtime.traversal.registerActor({ id: 'reservation-winner', kind: 'agent', tileIndex: 16, enabled: true, blocksMovement: true, movementProfileId: 'ground' });
+  value.runtime.traversal.registerActor({ id: 'reservation-winner', kind: 'agent', tileIndex: 2 * width + 15, enabled: true, blocksMovement: true, movementProfileId: 'ground' });
   assert.equal(value.runtime.movementResolver.requestMove({ actorId: 'reservation-winner', direction: 'west', durationSeconds: 1, basePriority: 1000 }).accepted, true);
   assert.equal(startDungeonAgentMovement(value.agents, value.runtime.map, 'room-agent-patrol', 'south').started, false);
   assert.equal(intents.length, 1);
@@ -96,14 +98,14 @@ test('Agent active command uses its own pose and only searches forward', () => {
   const intents: DungeonAgentInteractionIntent[] = [];
   value.agents.onInteraction = intent => intents.push(intent);
   assert.equal(requestDungeonAgentInteraction(value.agents, actorId), true);
-  assert.deepEqual(intents, [{ trigger: 'interact', actorId, tileIndex: 61, facing: 'north' }]);
-  const query = { ...input(7, 6, 'north'), actorId };
+  assert.deepEqual(intents, [{ trigger: 'interact', actorId, tileIndex: 16 * value.runtime.map.width + 14, facing: 'north' }]);
+  const query = { ...input(14, 16, 'north'), actorId };
   assert.deepEqual(value.control.find(query).map(match => match.id), ['room-message-pad:agent-interact']);
   assert.equal(value.control.find({ ...query, facing: 'south' }).length, 0);
 
   const self = room();
   self.components.event.find((event: { id: string }) => event.id === 'room-message-pad:agent-interact').targetRule = 'self';
-  self.components['spatial-attachment'].find((attachment: { entityId: string }) => attachment.entityId === 'room-message-pad').targets[0].tileId = 'tile:7,6';
+  self.components['spatial-attachment'].find((attachment: { entityId: string }) => attachment.entityId === 'room-message-pad').targets[0].tileId = 'tile:14,16';
   assert.equal(setup(self).control.find(query).length, 0);
 });
 

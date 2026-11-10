@@ -1,9 +1,16 @@
 import { createEntityDataId } from '../entity.utils.ts';
 import type { ComponentDefinition, IComponent } from '../entity.types.ts';
+import { visualRotationLabels, visualRotationModes, type VisualRotationMode } from './visual-state.component.ts';
+import { isDungeonInteractionCommandId } from '../../dungeon-interaction/dungeonInteractionCommand.ts';
 
 export type DialogueInteractionAction = { type: 'dialogue'; presetKey: string; entryNodeId: string; uiPresetKey?: string };
-export type MessageInteractionAction = { type: 'message'; text: string; durationSeconds?: number; light?: boolean };
-export type ExecutableInteractionAction = DialogueInteractionAction | MessageInteractionAction;
+export type MessageInteractionAction = { type: 'message'; text: string; durationSeconds?: number };
+export type VisualStateInteractionAction = {
+  type: 'visual-state'; targetEntityId: string; operation?: 'set' | VisualRotationMode;
+  stateId?: string; groupId?: string; feedback?: string;
+};
+export type ServiceInteractionAction = { type: 'service'; commandId: string; parameters?: Record<string, unknown>; successMessage?: string };
+export type ExecutableInteractionAction = DialogueInteractionAction | MessageInteractionAction | VisualStateInteractionAction | ServiceInteractionAction;
 export type LegacyInteractionAction = { type: 'legacy'; actionId: string; payload?: Record<string, unknown> };
 export type InteractionLocalSide = 'front' | 'right' | 'back' | 'left';
 export type InteractionWorldSide = 'north' | 'east' | 'south' | 'west';
@@ -56,7 +63,8 @@ export function validateInteractionEvent(component: IEventComponent, complete = 
   if (complete && component.directionSpace === 'target-local' && !component.localSides?.length) errors.push('相对朝向规则至少选择一个侧面。');
   if (complete && component.targetRule === 'self' && component.trigger === 'interact' && component.directionSpace && component.directionSpace !== 'any') errors.push('脚下主动交互没有侧面；请使用面前目标，或进入触发的来路。');
   const action = component.action;
-  if (complete && (movementRule && component.movementPhase === 'blocked' || (actionRule && component.movementPhase !== 'contact') || component.actorScope === 'agent' || component.actorScope === 'both') && action?.type !== 'message') errors.push('此交互必须使用地图提示。');
+  if (complete && (movementRule && component.movementPhase === 'blocked' || (actionRule && component.movementPhase !== 'contact')
+    || (component.actorScope === 'agent' || component.actorScope === 'both') && action?.type !== 'visual-state' && action?.type !== 'service') && action?.type !== 'message') errors.push('此交互必须使用地图提示。');
   if (action?.type === 'legacy') return errors;
   if (!['interact', 'enter', 'move-attempt'].includes(component.trigger)) errors.push('交互触发时机无效。');
   if (complete && component.trigger === 'enter' && component.targetRule !== 'self') errors.push('进入触发必须使用 self 位置规则。');
@@ -64,15 +72,32 @@ export function validateInteractionEvent(component: IEventComponent, complete = 
   if (action?.type === 'message') {
     if ((complete || action.text !== undefined) && (typeof action.text !== 'string' || action.text.length > 256 || complete && !nonempty(action.text))) errors.push('消息文字不能为空且不能超过 256 字符。');
     if (action.durationSeconds !== undefined && (!Number.isFinite(action.durationSeconds) || action.durationSeconds < .5 || action.durationSeconds > 15)) errors.push('消息停留时间必须在 0.5 至 15 秒之间。');
-    if (action.light !== undefined && typeof action.light !== 'boolean') errors.push('机关灯选项必须为布尔值。');
-    if (complete && action.light && component.trigger !== 'enter') errors.push('机关灯仅支持进入格子时点亮。');
+  } else if (action?.type === 'visual-state') {
+    if (complete && movementRule) errors.push('视觉状态切换只支持进入格子或主动交互。');
+    const operation = action.operation === undefined ? 'set' : action.operation;
+    if (operation !== 'set' && !visualRotationModes.includes(operation)) errors.push('视觉状态操作无效。');
+    for (const [label, value, required] of [
+      ['视觉目标', action.targetEntityId, true], ['视觉状态', action.stateId, operation === 'set'], ['轮替组', action.groupId, operation !== 'set'],
+    ] as const) {
+      if (value !== undefined && (typeof value !== 'string' || value.length > 256) || complete && required && !nonempty(value)) errors.push(`${label}不能为空且不能超过 256 字符。`);
+    }
+    if (action.feedback !== undefined && (typeof action.feedback !== 'string' || action.feedback.length > 256)) errors.push('成功提示不能超过 256 字符。');
+  } else if (action?.type === 'service') {
+    if (complete && movementRule) errors.push('触发服务只支持进入格子或主动交互。');
+    if ((complete || action.commandId !== undefined && action.commandId !== '') && !isDungeonInteractionCommandId(action.commandId)) errors.push('服务指令 ID 无效，例如 obstacle.set-active。');
+    if (action.parameters !== undefined && (!action.parameters || typeof action.parameters !== 'object' || Array.isArray(action.parameters))) errors.push('服务参数必须是 JSON 对象。');
+    if (action.successMessage !== undefined && (typeof action.successMessage !== 'string' || action.successMessage.length > 256)) errors.push('成功提示不能超过 256 字符。');
   } else if (action?.type === 'dialogue') {
     if ((complete || action.presetKey !== undefined) && (typeof action.presetKey !== 'string' || action.presetKey.length > 256 || complete && !nonempty(action.presetKey))) errors.push('对话预设 Key 不能为空且不能超过 256 字符。');
     if ((complete || action.entryNodeId !== undefined) && (typeof action.entryNodeId !== 'string' || action.entryNodeId.length > 256 || complete && !nonempty(action.entryNodeId))) errors.push('对话入口不能为空且不能超过 256 字符。');
     if (action.uiPresetKey !== undefined && !nonempty(action.uiPresetKey)) errors.push('UI 预设 Key 无效。');
-  } else errors.push('交互动作必须为 dialogue、message 或兼容的 legacy。');
+  } else errors.push('交互动作必须为 dialogue、message、visual-state、service 或兼容的 legacy。');
   return errors;
 }
+export const visualStateOperationOptions = [
+  { value: 'set', label: '切到指定状态' },
+  ...visualRotationModes.map(value => ({ value, label: visualRotationLabels[value] })),
+];
 export function upgradeInteractionEvent(source: IEventComponent): IEventComponent {
   if (source.version === 2 && source.trigger === 'approach-player') {
     const { targetRule, actorScope, ...rest } = structuredClone(source);
@@ -103,10 +128,17 @@ export const componentDefinition: ComponentDefinition<IEventComponent> = {
     { path: 'worldSides', label: '地图侧面（固定方向模式，可多选）', control: 'multi-select', optional: true, options: [{ value: 'north', label: '北侧' }, { value: 'east', label: '东侧' }, { value: 'south', label: '南侧' }, { value: 'west', label: '西侧' }] },
     { path: 'localSides', label: '实体侧面（相对朝向模式，可多选）', control: 'multi-select', optional: true, options: [{ value: 'front', label: '正面' }, { value: 'right', label: '右侧' }, { value: 'back', label: '背面' }, { value: 'left', label: '左侧' }] },
     { path: 'priority', label: '交互优先级', control: 'number', step: 1 },
-    { path: 'action.type', label: '执行动作', control: 'select', options: [{ value: 'dialogue', label: '开始对话' }, { value: 'message', label: '显示地图提示' }, { value: 'legacy', label: '保留旧事件（未接执行器）' }] },
+    { path: 'action.type', label: '执行动作', control: 'select', options: [{ value: 'dialogue', label: '开始对话' }, { value: 'message', label: '显示地图提示' }, { value: 'visual-state', label: '切换视觉状态' }, { value: 'service', label: '触发服务' }, { value: 'legacy', label: '保留旧事件（未接执行器）' }] },
+    { path: 'action.commandId', label: '服务指令 ID', control: 'text', placeholder: 'obstacle.set-active', visibleWhen: { path: 'action.type', equals: 'service' } },
+    { path: 'action.parameters', label: '服务参数（JSON 对象）', control: 'json', optional: true, placeholder: '{"entityId":"障碍实体 ID","active":false}', visibleWhen: { path: 'action.type', equals: 'service' } },
+    { path: 'action.successMessage', label: '成功提示（可选）', control: 'text', optional: true, visibleWhen: { path: 'action.type', equals: 'service' } },
     { path: 'action.text', label: '消息文字', control: 'text', visibleWhen: { path: 'action.type', equals: 'message' } },
     { path: 'action.durationSeconds', label: '消息停留秒数（默认 3）', control: 'number', min: .5, max: 15, step: .5, optional: true, visibleWhen: { path: 'action.type', equals: 'message' } },
-    { path: 'action.light', label: '进入格子时点亮机关灯', control: 'checkbox', visibleWhen: { path: 'action.type', equals: 'message' } },
+    { path: 'action.targetEntityId', label: '目标视觉实体', control: 'text', visibleWhen: { path: 'action.type', equals: 'visual-state' } },
+    { path: 'action.operation', label: '视觉状态操作', control: 'select', options: visualStateOperationOptions, visibleWhen: { path: 'action.type', equals: 'visual-state' } },
+    { path: 'action.stateId', label: '目标视觉状态', control: 'text', visibleWhen: { path: 'action.type', equals: 'visual-state' } },
+    { path: 'action.groupId', label: '目标轮替组', control: 'text', visibleWhen: { path: 'action.type', equals: 'visual-state' } },
+    { path: 'action.feedback', label: '成功提示（可选）', control: 'text', optional: true, placeholder: '例如：机关灯切换为 {state}', visibleWhen: { path: 'action.type', equals: 'visual-state' } },
     { path: 'action.presetKey', label: '对话预设 Key', control: 'text', visibleWhen: { path: 'action.type', equals: 'dialogue' } },
     { path: 'action.entryNodeId', label: '对话入口节点', control: 'text', visibleWhen: { path: 'action.type', equals: 'dialogue' } },
     { path: 'action.uiPresetKey', label: 'UI 预设（空则沿用对话模块）', control: 'text', optional: true, visibleWhen: { path: 'action.type', equals: 'dialogue' } },

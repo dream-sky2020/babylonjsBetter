@@ -83,7 +83,11 @@ export const EntityContainerEditor = ({
       const condition = field.visibleWhen, value = valueAtPath(component, condition.path);
       if ('equals' in condition ? value !== condition.equals : value === condition.notEquals) return null;
     }
-    const currentValue = valueAtPath(component, field.path);
+    const visualOperation = component.type === 'event' && valueAtPath(component, 'action.type') === 'visual-state'
+      ? valueAtPath(component, 'action.operation') ?? 'set' : undefined;
+    if (visualOperation !== undefined && (field.path === 'action.stateId' && visualOperation !== 'set'
+      || field.path === 'action.groupId' && visualOperation === 'set')) return null;
+    const currentValue = field.path === 'action.operation' ? visualOperation : valueAtPath(component, field.path);
     const setField = (nextValue: unknown) => updateComponent(entity.id, component.id, (current) => (
       valueWithPath(current, field.path, nextValue)
     ));

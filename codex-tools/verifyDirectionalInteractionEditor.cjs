@@ -53,6 +53,29 @@ app.whenReady().then(async () => {
       return { original, world, checked, undo, redo, restored, pickerCount: card().querySelectorAll('.ece-direction-picker').length, inherited, incompatible, compatible, uiUndo };
     })()`);
     assert.deepEqual(result, { original: true, world: true, checked: true, undo: true, redo: true, restored: true, pickerCount: 1, inherited: true, incompatible: true, compatible: true, uiUndo: true });
+    await page(`(() => { const select = document.querySelector('[aria-label="当前地图预设"]');
+      select.value = 'dungeon_interaction_room'; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await wait(`!!document.querySelector('.map-dock-panel[data-panel="entities"] [data-object-id="entity:room-agent-plate"]')`);
+    await page(`document.querySelector('.map-dock-panel[data-panel="entities"] [data-object-id="entity:room-agent-plate"]').click()`);
+    await wait(`!!document.querySelector('[data-component-id="room-agent-plate:enter-north"] option[value="room-agent-lamp"]')`);
+    const visual = await page(`(() => {
+      const card = document.querySelector('[data-component-id="room-agent-plate:enter-north"]');
+      const target = [...card.querySelectorAll('select')].find(select => select.querySelector('option[value="room-agent-lamp"]'));
+      const state = [...card.querySelectorAll('select')].find(select => select.querySelector('option[value="lit"]'));
+      return target.value === 'room-agent-lamp' && state.value === 'lit' && !!state.querySelector('option[value="off"]');
+    })()`);
+    assert.equal(visual, true, 'the plate editor resolves the entity and state from the map');
+    await page(`document.querySelector('.map-dock-panel[data-panel="entities"] [data-object-id="entity:room-lamp-next"]').click()`);
+    await wait(`!!document.querySelector('[data-component-id="room-lamp-next:interact"] option[value="colors"]')`);
+    assert.equal(await page(`(() => {
+      const card = document.querySelector('[data-component-id="room-lamp-next:interact"]');
+      const fields = [...card.querySelectorAll('select')];
+      return fields.some(select => select.value === 'next' && !!select.querySelector('option[value="shuffle"]'))
+        && fields.some(select => select.value === 'colors') && !fields.some(select => select.querySelector('option[value="lit"]'));
+    })()`), true, 'rotation actions select groups and expose all modes instead of fixed states');
+    await page(`document.querySelector('.map-dock-panel[data-panel="entities"] [data-object-id="entity:room-agent-lamp"]').click()`);
+    await wait(`!!document.querySelector('[data-component-id="room-agent-lamp:visual-objects"] textarea') &&
+      !!document.querySelector('[data-component-id="room-agent-lamp:visual-state"] textarea')`);
     assert.deepEqual(errors, []); assert.deepEqual(writes, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-editor.png'), (await win.webContents.capturePage()).toPNG());
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-editor.json'), JSON.stringify({ passed: true, ...result, errors, writes }, null, 2));

@@ -1,6 +1,6 @@
 {
   "presetKey": "interaction-room-ground",
-  "name": "传送房间 · 9×8 测试地面",
+  "name": "传送房间 · 22×19 测试地面",
   "clearColor": "#182a3a",
   "renderWarmup": {
     "enabled": true
@@ -28,15 +28,30 @@
       "name": "测试地面",
       "geometry": {
         "primitive": "ground",
-        "width": 72,
+        "width": 176,
+        "height": 152
+      },
+      "position": [
+        84,
+        0,
+        72
+      ],
+      "color": "#314b54"
+    },
+    {
+      "id": "lamp-test-zone",
+      "name": "四色灯测试区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
         "height": 64
       },
       "position": [
-        32,
-        0,
-        28
+        152,
+        0.01,
+        32
       ],
-      "color": "#314b54"
+      "color": "#445469"
     }
   ]
 }
