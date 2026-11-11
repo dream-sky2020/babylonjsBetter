@@ -1,83 +1,9 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "presetKey": "room_guard_sides",
   "name": "回廊守卫 · 自身四侧",
   "graph": {
     "nodes": {
-      "front": {
-        "id": "front",
-        "title": "正面交谈",
-        "position": {
-          "x": 24,
-          "y": 24
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "front:line": {
-            "id": "front:line",
-            "speaker": "回廊守卫",
-            "text": "正面登记。你现在站在我的正面，请出示通行证。"
-          }
-        },
-        "lineOrder": [
-          "front:line"
-        ],
-        "inputs": {
-          "front:in": {
-            "id": "front:in"
-          }
-        },
-        "inputOrder": [
-          "front:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
-      "right": {
-        "id": "right",
-        "title": "右侧交谈",
-        "position": {
-          "x": 444,
-          "y": 24
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "right:line": {
-            "id": "right:line",
-            "speaker": "回廊守卫",
-            "text": "右侧巡逻。这里可以询问南侧的巡逻路线。"
-          }
-        },
-        "lineOrder": [
-          "right:line"
-        ],
-        "inputs": {
-          "right:in": {
-            "id": "right:in"
-          }
-        },
-        "inputOrder": [
-          "right:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
       "back": {
         "id": "back",
         "title": "背面交谈",
@@ -115,6 +41,43 @@
         "outputOrder": [],
         "kind": "choice"
       },
+      "front": {
+        "id": "front",
+        "title": "正面交谈",
+        "position": {
+          "x": 24,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "front:line": {
+            "id": "front:line",
+            "speaker": "回廊守卫",
+            "text": "正面登记。你现在站在我的正面，请出示通行证。"
+          }
+        },
+        "lineOrder": [
+          "front:line"
+        ],
+        "inputs": {
+          "front:in": {
+            "id": "front:in"
+          }
+        },
+        "inputOrder": [
+          "front:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
       "left": {
         "id": "left",
         "title": "左侧交谈",
@@ -147,6 +110,43 @@
         },
         "inputOrder": [
           "left:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "right": {
+        "id": "right",
+        "title": "右侧交谈",
+        "position": {
+          "x": 444,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "right:line": {
+            "id": "right:line",
+            "speaker": "回廊守卫",
+            "text": "右侧巡逻。这里可以询问南侧的巡逻路线。"
+          }
+        },
+        "lineOrder": [
+          "right:line"
+        ],
+        "inputs": {
+          "right:in": {
+            "id": "right:in"
+          }
+        },
+        "inputOrder": [
+          "right:in"
         ],
         "outputs": {},
         "outputOrder": [],

@@ -48,6 +48,86 @@ test('conflicting described event definitions fail at registration while legacy 
   communication.dispose();
 });
 
+test('waitFor resolves on the first matching event and keeps waits out of persistent bindings', async () => {
+  const communication = new LabCommunication();
+  const publisher = communication.scope('publisher'), receiver = communication.scope('dialogue');
+  const observer = communication.scope('observer');
+  observer.on(changedEvent, () => {});
+  await publisher.publish(changedEvent, { value: 3 }, { correlationId: 'gate' });
+  const pending = receiver.waitFor(changedEvent, {
+    predicate: (payload, message) => payload.value >= 3 && message.correlationId === 'gate',
+  });
+  assert.deepEqual(communication.inspectBindings().events, [{ protocol: 'test.changed@1', consumers: ['observer'] }]);
+  assert.deepEqual(communication.inspectEvents()[0].waits.map(wait => wait.moduleId), ['dialogue']);
+  assert.equal(communication.inspectEvents()[0].listenerCount, 1);
+  const otherVersion = createLabEvent<{ value: number }>('test.changed', 2);
+  assert.equal((await publisher.publish(otherVersion, { value: 3 }, { correlationId: 'gate' })).delivered, 0);
+  assert.equal((await publisher.publish(changedEvent, { value: 2 }, { correlationId: 'gate' })).delivered, 1);
+  assert.equal((await publisher.publish(changedEvent, { value: 3 })).delivered, 1);
+  assert.equal(communication.inspectEvents()[0].waits.length, 1);
+
+  const first = publisher.publish(changedEvent, { value: 3 }, { correlationId: 'gate' });
+  const second = publisher.publish(changedEvent, { value: 4 }, { correlationId: 'gate' });
+  const message = await pending;
+  assert.equal(message.sourceModuleId, 'publisher');
+  assert.equal(message.correlationId, 'gate');
+  assert.deepEqual(message.payload, { value: 3 });
+  assert.deepEqual((await Promise.all([first, second])).map(report => report.delivered), [2, 1]);
+  assert.equal(communication.inspectEvents()[0].waits.length, 0);
+  const records = communication.journal.getEntries();
+  const matched = records.find(entry => entry.messageId === message.id && entry.phase === 'event-completed');
+  assert.deepEqual(matched?.listenerResults?.map(({ moduleId, temporary, status }) => ({ moduleId, temporary, status })), [
+    { moduleId: 'observer', temporary: undefined, status: 'success' },
+    { moduleId: 'dialogue', temporary: true, status: 'success' },
+  ]);
+  const queued = records.find(entry => entry.phase === 'event-published' && (entry.payloadPreview as { value: number }).value === 4);
+  const skipped = records.find(entry => entry.messageId === queued?.messageId && entry.phase === 'event-completed');
+  assert.equal(skipped?.listenerResults?.find(result => result.temporary)?.status, 'ignored');
+  communication.dispose();
+});
+
+test('waitFor releases subscriptions on abort, timeout, scope disposal and Lab disposal', async () => {
+  const communication = new LabCommunication(), receiver = communication.scope('dialogue');
+  const publisher = communication.scope('publisher');
+  const controller = new AbortController();
+  const aborted = receiver.waitFor(changedEvent, { signal: controller.signal });
+  const queued = publisher.publish(changedEvent, { value: 3 });
+  controller.abort();
+  await assert.rejects(aborted, { code: 'ABORTED' });
+  assert.equal((await queued).delivered, 0);
+  await assert.rejects(receiver.waitFor(changedEvent, { signal: controller.signal }), { code: 'ABORTED' });
+  await assert.rejects(receiver.waitFor(changedEvent, { timeoutMs: -1 }), RangeError);
+  await assert.rejects(receiver.waitFor(changedEvent, { timeoutMs: 0 }), { code: 'TIMEOUT' });
+  assert.equal(communication.inspectEvents()[0].waits.length, 0);
+
+  const scoped = receiver.waitFor(changedEvent);
+  const lab = communication.scope('other-dialogue').waitFor(changedEvent);
+  receiver.dispose();
+  await assert.rejects(scoped, { code: 'DISPOSED' });
+  assert.deepEqual(communication.inspectEvents()[0].waits.map(wait => wait.moduleId), ['other-dialogue']);
+  await assert.rejects(receiver.waitFor(changedEvent), { code: 'DISPOSED' });
+  communication.dispose();
+  await assert.rejects(lab, { code: 'DISPOSED' });
+  assert.deepEqual(communication.inspectEvents(), []);
+});
+
+test('waitFor reports a predicate error and leaves ordinary listeners running', async () => {
+  const communication = new LabCommunication(), receiver = communication.scope('dialogue');
+  const publisher = communication.scope('publisher');
+  let received = 0;
+  receiver.on(changedEvent, () => { received++; });
+  const error = new Error('predicate failure');
+  const pending = receiver.waitFor(changedEvent, { predicate: () => { throw error; } });
+  const rejected = assert.rejects(pending, error);
+  const report = await publisher.publish(changedEvent, { value: 1 });
+  await rejected;
+  assert.deepEqual(report, { delivered: 1, failed: [{ moduleId: 'dialogue', error }] });
+  assert.equal(communication.inspectEvents()[0].waits.length, 0);
+  assert.deepEqual(await publisher.publish(changedEvent, { value: 2 }), { delivered: 1, failed: [] });
+  assert.equal(received, 2);
+  communication.dispose();
+});
+
 test('typed request reaches one handler and returns its result', async () => {
   const communication = new LabCommunication();
   const server = communication.scope('server');

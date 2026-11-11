@@ -1,7 +1,22 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "presetKey": "village_gate",
-  "name": "村口守卫 · 三类节点示例",
+  "name": "村口守卫 · 事件与动作示例",
+  "textVariables": {
+    "tileX": {
+      "key": "dungeon.player-state",
+      "path": [
+        "playerPosition",
+        "tileX"
+      ]
+    },
+    "status": {
+      "key": "dungeon.session",
+      "path": [
+        "status"
+      ]
+    }
+  },
   "graph": {
     "nodes": {
       "accept_quest": {
@@ -44,10 +59,10 @@
         "events": [
           {
             "type": "event",
-            "eventType": "dialogue.demo.quest.accepted",
+            "eventType": "dialogue.quest.accepted",
             "version": 1,
             "payload": {
-              "gateId": {
+              "questId": {
                 "type": "literal",
                 "value": "village-north"
               }
@@ -106,6 +121,61 @@
         ],
         "kind": "choice"
       },
+      "dialogue-event-demo": {
+        "id": "dialogue-event-demo",
+        "title": "机关调试对话",
+        "position": {
+          "x": 240,
+          "y": 785
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 6,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:dialogue-event-demo:main": {
+            "id": "line:dialogue-event-demo:main",
+            "speaker": "向导",
+            "text": "这里可以测试直接解除石障，或等踏板计数第一次达到 3。"
+          }
+        },
+        "lineOrder": [
+          "line:dialogue-event-demo:main"
+        ],
+        "inputs": {
+          "port:dialogue-event-demo:in": {
+            "id": "port:dialogue-event-demo:in"
+          }
+        },
+        "inputOrder": [
+          "port:dialogue-event-demo:in"
+        ],
+        "outputs": {
+          "port:dialogue-event-demo:output:leave": {
+            "id": "port:dialogue-event-demo:output:leave",
+            "label": "离开",
+            "branch": "choice"
+          },
+          "port:dialogue-event-demo:output:open": {
+            "id": "port:dialogue-event-demo:output:open",
+            "label": "接受任务并解除石障",
+            "branch": "choice"
+          },
+          "port:dialogue-event-demo:output:wait": {
+            "id": "port:dialogue-event-demo:output:wait",
+            "label": "去踩踏板，等计数达到 3",
+            "branch": "choice"
+          }
+        },
+        "outputOrder": [
+          "port:dialogue-event-demo:output:open",
+          "port:dialogue-event-demo:output:wait",
+          "port:dialogue-event-demo:output:leave"
+        ],
+        "kind": "choice"
+      },
       "gate_check": {
         "id": "gate_check",
         "title": "到达城门了吗？",
@@ -148,42 +218,7 @@
           "port:gate_check:output:false"
         ],
         "kind": "condition",
-        "condition": {
-          "type": "all",
-          "conditions": [
-            {
-              "type": "compare",
-              "left": {
-                "type": "memory",
-                "key": "dungeon.player-state",
-                "path": [
-                  "playerPosition",
-                  "tileX"
-                ]
-              },
-              "operator": "gte",
-              "right": {
-                "type": "literal",
-                "value": 5
-              }
-            },
-            {
-              "type": "compare",
-              "left": {
-                "type": "memory",
-                "key": "dungeon.session",
-                "path": [
-                  "status"
-                ]
-              },
-              "operator": "eq",
-              "right": {
-                "type": "literal",
-                "value": "ready"
-              }
-            }
-          ]
-        }
+        "formula": "{tileX} >= 5 && {status} == \"ready\""
       },
       "goodbye": {
         "id": "goodbye",
@@ -269,7 +304,7 @@
       },
       "open_gate": {
         "id": "open_gate",
-        "title": "请求开门",
+        "title": "解除封路石障",
         "position": {
           "x": 792,
           "y": 48
@@ -295,28 +330,57 @@
         "outputs": {
           "port:open_gate:output:next": {
             "id": "port:open_gate:output:next",
-            "label": "完成后继续",
+            "label": "执行成功",
             "branch": "next"
           }
         },
         "outputOrder": [
           "port:open_gate:output:next"
         ],
-        "kind": "event",
-        "mode": "send",
-        "events": [
-          {
-            "type": "event",
-            "eventType": "dialogue.demo.gate.open",
-            "version": 1,
-            "payload": {
-              "gateId": {
-                "type": "literal",
-                "value": "village-north"
-              }
-            }
+        "kind": "action",
+        "action": {
+          "commandId": "obstacle.set-active",
+          "parameters": {
+            "active": false,
+            "entityId": "room-contact-barrier"
+          },
+          "type": "service"
+        }
+      },
+      "plate-complete": {
+        "id": "plate-complete",
+        "title": "踏板计数达标",
+        "position": {
+          "x": 1190,
+          "y": 790
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 6,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:plate-complete:main": {
+            "id": "line:plate-complete:main",
+            "speaker": "向导",
+            "text": "踏板计数已达到 3，对话继续。"
           }
-        ]
+        },
+        "lineOrder": [
+          "line:plate-complete:main"
+        ],
+        "inputs": {
+          "port:plate-complete:in": {
+            "id": "port:plate-complete:in"
+          }
+        },
+        "inputOrder": [
+          "port:plate-complete:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
       },
       "quest_info": {
         "id": "quest_info",
@@ -351,13 +415,21 @@
         "inputOrder": [
           "port:quest_info:in"
         ],
-        "outputs": {},
-        "outputOrder": [],
+        "outputs": {
+          "port:quest_info:output:next": {
+            "id": "port:quest_info:output:next",
+            "label": "解除石障",
+            "branch": "choice"
+          }
+        },
+        "outputOrder": [
+          "port:quest_info:output:next"
+        ],
         "kind": "choice"
       },
       "wait_gate": {
         "id": "wait_gate",
-        "title": "等待城门打开",
+        "title": "等待踏板计数达到 3",
         "position": {
           "x": 1152,
           "y": 48
@@ -383,7 +455,7 @@
         "outputs": {
           "port:wait_gate:output:next": {
             "id": "port:wait_gate:output:next",
-            "label": "接收后继续",
+            "label": "收到事件",
             "branch": "next"
           }
         },
@@ -395,16 +467,40 @@
         "events": [
           {
             "type": "event",
-            "eventType": "dialogue.demo.gate.opened",
-            "version": 1,
-            "payload": {
-              "gateId": {
+            "eventType": "dungeon.variable.changed",
+            "version": 1
+          }
+        ],
+        "wait": {
+          "filters": [
+            {
+              "field": "variableId",
+              "operator": "eq",
+              "value": {
                 "type": "literal",
-                "value": "village-north"
+                "value": "plate-trigger-count"
+              }
+            },
+            {
+              "field": "previous",
+              "operator": "lt",
+              "value": {
+                "type": "literal",
+                "value": 3
+              }
+            },
+            {
+              "field": "current",
+              "operator": "gte",
+              "value": {
+                "type": "literal",
+                "value": 3
               }
             }
-          }
-        ]
+          ],
+          "allowMovement": true,
+          "sourceModuleId": "dungeon-map-action-executor"
+        }
       },
       "welcome": {
         "id": "welcome",
@@ -425,7 +521,7 @@
           "line:welcome:main": {
             "id": "line:welcome:main",
             "speaker": "村口守卫",
-            "text": "城门已经打开，请进。"
+            "text": "封路石障已经解除，可以通行了。"
           }
         },
         "lineOrder": [
@@ -456,6 +552,17 @@
           "portId": "port:quest_info:in"
         }
       },
+      "edge:choices:accept": {
+        "id": "edge:choices:accept",
+        "from": {
+          "nodeId": "choices",
+          "portId": "port:choices:output:accept"
+        },
+        "to": {
+          "nodeId": "accept_quest",
+          "portId": "port:accept_quest:in"
+        }
+      },
       "edge:choices:leave": {
         "id": "edge:choices:leave",
         "from": {
@@ -465,6 +572,28 @@
         "to": {
           "nodeId": "goodbye",
           "portId": "port:goodbye:in"
+        }
+      },
+      "edge:dialogue-event-demo:open": {
+        "id": "edge:dialogue-event-demo:open",
+        "from": {
+          "nodeId": "dialogue-event-demo",
+          "portId": "port:dialogue-event-demo:output:open"
+        },
+        "to": {
+          "nodeId": "accept_quest",
+          "portId": "port:accept_quest:in"
+        }
+      },
+      "edge:dialogue-event-demo:wait": {
+        "id": "edge:dialogue-event-demo:wait",
+        "from": {
+          "nodeId": "dialogue-event-demo",
+          "portId": "port:dialogue-event-demo:output:wait"
+        },
+        "to": {
+          "nodeId": "wait_gate",
+          "portId": "port:wait_gate:in"
         }
       },
       "edge:gate_check:false": {
@@ -507,8 +636,19 @@
           "portId": "port:open_gate:output:next"
         },
         "to": {
-          "nodeId": "wait_gate",
-          "portId": "port:wait_gate:in"
+          "nodeId": "welcome",
+          "portId": "port:welcome:in"
+        }
+      },
+      "edge:quest_info:next": {
+        "id": "edge:quest_info:next",
+        "from": {
+          "nodeId": "quest_info",
+          "portId": "port:quest_info:output:next"
+        },
+        "to": {
+          "nodeId": "open_gate",
+          "portId": "port:open_gate:in"
         }
       },
       "edge:wait_gate:next": {
@@ -518,19 +658,8 @@
           "portId": "port:wait_gate:output:next"
         },
         "to": {
-          "nodeId": "welcome",
-          "portId": "port:welcome:in"
-        }
-      },
-      "edge:choices:accept": {
-        "id": "edge:choices:accept",
-        "from": {
-          "nodeId": "choices",
-          "portId": "port:choices:output:accept"
-        },
-        "to": {
-          "nodeId": "accept_quest",
-          "portId": "port:accept_quest:in"
+          "nodeId": "plate-complete",
+          "portId": "port:plate-complete:in"
         }
       }
     }

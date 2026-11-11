@@ -7,20 +7,9 @@ import { LAB_DIALOGUE } from '@/labs/modules/shared/dialogue/dialogue.service';
 import { DUNGEON_VISUAL_OBJECT_CONTROL } from '../dungeon-visual-object-control/dungeonVisualObjectControl.labModule';
 import { createDungeonSharedVariableRuntime } from './dungeonSharedVariableRuntime';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
-import { createLabEvent, type LabModule } from '@/labs/kit';
-import type { SharedVariableValue } from '@/core/entity/components/shared-variable.component';
-
-export type DungeonMapActionContext = {
-  loadId: number; ruleId: string; sourceEntityId: string; actorId: string;
-  actorLabel?: string; variableTrace?: readonly string[];
-};
-type DungeonVariableChanged = DungeonMapActionContext & {
-  variableId: string; previous: SharedVariableValue; current: SharedVariableValue;
-};
-export const dungeonVariableChangedEvent = createLabEvent<DungeonVariableChanged>('dungeon.variable.changed', 1, {
-  label: '地图共享变量变化', description: '动作写入成功且值变化后通知。',
-  fields: [{ name: 'variableId', type: 'string' }, { name: 'previous', type: 'scalar' }, { name: 'current', type: 'scalar' }],
-});
+import type { LabModule } from '@/labs/kit';
+import { dungeonVariableChangedEvent, type DungeonMapActionContext } from './dungeonMapActionExecutor.protocol';
+export { dungeonVariableChangedEvent, type DungeonMapActionContext } from './dungeonMapActionExecutor.protocol';
 export const DUNGEON_MAP_ACTION_EXECUTOR = createServiceToken<{
   execute(action: ExecutableInteractionAction, input: DungeonMapActionContext): void | Promise<void>;
 }>('dungeon:map-action-executor');
@@ -45,8 +34,8 @@ export const dungeonMapActionExecutorLabModule: LabModule = {
         context.services.invoke(LAB_DIALOGUE, 'cancel', []);
       }
     });
-    context.services.set(DUNGEON_MAP_ACTION_EXECUTOR, {
-      execute(action, input) {
+    const executor = {
+      execute(action: ExecutableInteractionAction, input: DungeonMapActionContext): void | Promise<void> {
         if (player.current?.loadId !== input.loadId || assembly.isPaused || context.scheduler.isPaused) {
           throw new Error('当前地图会话未准备好执行动作。');
         }
@@ -58,6 +47,11 @@ export const dungeonMapActionExecutorLabModule: LabModule = {
           case 'dialogue': {
             const result = context.services.invoke(LAB_DIALOGUE, 'start', [{
               presetKey: action.presetKey, entryNodeId: action.entryNodeId, uiPresetKey: action.uiPresetKey,
+              map: {
+                loadId: input.loadId,
+                execute: next => executor.execute(next, { ...input, variableTrace: undefined }),
+                readMemory: context.memory.readScalar,
+              },
             }], { ...origin, target: `${action.presetKey}/${action.entryNodeId}` });
             dialogueLoadId = input.loadId;
             return result;
@@ -96,7 +90,8 @@ export const dungeonMapActionExecutorLabModule: LabModule = {
           durationSeconds: action.type === 'message' ? action.durationSeconds : undefined, channel,
         }], origin);
       },
-    });
+    };
+    context.services.set(DUNGEON_MAP_ACTION_EXECUTOR, executor);
     return () => {
       offMap(); offPreparation(); clearMessages();
       context.services.delete(DUNGEON_MAP_ACTION_EXECUTOR);

@@ -1,46 +1,9 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "presetKey": "room_console_sides",
   "name": "四面控制台 · 地图四向",
   "graph": {
     "nodes": {
-      "north": {
-        "id": "north",
-        "title": "北侧控制台",
-        "position": {
-          "x": 24,
-          "y": 24
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "north:line": {
-            "id": "north:line",
-            "speaker": "四面控制台",
-            "text": "北侧读数。当前显示的是能源余量。"
-          }
-        },
-        "lineOrder": [
-          "north:line"
-        ],
-        "inputs": {
-          "north:in": {
-            "id": "north:in"
-          }
-        },
-        "inputOrder": [
-          "north:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
       "east": {
         "id": "east",
         "title": "东侧控制台",
@@ -73,6 +36,43 @@
         },
         "inputOrder": [
           "east:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "north": {
+        "id": "north",
+        "title": "北侧控制台",
+        "position": {
+          "x": 24,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "north:line": {
+            "id": "north:line",
+            "speaker": "四面控制台",
+            "text": "北侧读数。当前显示的是能源余量。"
+          }
+        },
+        "lineOrder": [
+          "north:line"
+        ],
+        "inputs": {
+          "north:in": {
+            "id": "north:in"
+          }
+        },
+        "inputOrder": [
+          "north:in"
         ],
         "outputs": {},
         "outputOrder": [],

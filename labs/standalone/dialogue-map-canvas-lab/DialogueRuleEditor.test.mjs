@@ -1,43 +1,43 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import path from 'node:path';
 import { createServer } from 'vite';
 import react from '@vitejs/plugin-react';
 import { JSDOM } from 'jsdom';
 
-test('visual editor configures independent condition and event cards with flat conditions and payloads', async () => {
+test('visual editor configures independent condition and event cards with formulas and payloads', async () => {
   const dom = new JSDOM('<div id="root"></div>'), previous = new Map();
   for (const [key, value] of Object.entries({ window: dom.window, document: dom.window.document, HTMLElement: dom.window.HTMLElement, IS_REACT_ACT_ENVIRONMENT: true })) {
     previous.set(key, globalThis[key]); globalThis[key] = value;
   }
   const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/dialogue-rule-editor-${process.pid}`, plugins: [react()], server: { middlewareMode: true, hmr: false, ws: false },
-    optimizeDeps: { noDiscovery: true, include: [] }, logLevel: 'error' });
+    optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   let root;
   try {
     const React = await import('react'); const { createRoot } = await import('react-dom/client');
-    const { DialogueRuleEditor } = await server.ssrLoadModule('/labs/standalone/dialogue-map-canvas-lab/DialogueRuleEditor.tsx');
-    let output = { id: 'check', kind: 'condition' };
-    const render = async () => { await React.act(async () => root.render(React.createElement(DialogueRuleEditor, { node: output, onChange(next) { output = next; root.render(React.createElement(DialogueRuleEditor, { node: output, onChange: change })); } }))); };
-    function change(next) { output = next; root.render(React.createElement(DialogueRuleEditor, { node: output, onChange: change })); }
+    const { EventNodeEditor } = await server.ssrLoadModule('/labs/standalone/dialogue-map-canvas-lab/DialogueRuleEditor.tsx');
+    const { DialogueFormulaEditor } = await server.ssrLoadModule('/labs/standalone/dialogue-map-canvas-lab/DialogueFormulaEditor.tsx');
+    let output = { id: 'check', kind: 'condition', formula: '' };
+    const draw = () => root.render(output.kind === 'condition'
+      ? React.createElement(DialogueFormulaEditor, { formula: output.formula, bindings: { 石障计数: { key: 'counter', path: [] } }, onChange(formula) { change({ ...output, formula }); }, manage() {} })
+      : React.createElement(EventNodeEditor, { node: output, onChange: change }));
+    const render = async () => React.act(async () => draw());
+    function change(next) { output = next; draw(); }
     root = createRoot(document.querySelector('#root')); await render();
     const button = text => [...document.querySelectorAll('button')].find(item => item.textContent === text);
     const click = async element => { assert.ok(element); await React.act(async () => element.click()); };
     const set = async (element, value) => {
       assert.ok(element); await React.act(async () => {
-        Object.getOwnPropertyDescriptor(element.tagName === 'SELECT' ? dom.window.HTMLSelectElement.prototype : dom.window.HTMLInputElement.prototype, 'value').set.call(element, value);
+        Object.getOwnPropertyDescriptor(element.tagName === 'SELECT' ? dom.window.HTMLSelectElement.prototype : element.tagName === 'TEXTAREA' ? dom.window.HTMLTextAreaElement.prototype : dom.window.HTMLInputElement.prototype, 'value').set.call(element, value);
         element.dispatchEvent(new dom.window.Event(element.tagName === 'SELECT' ? 'change' : 'input', { bubbles: true }));
       });
     };
-    await click(button('添加条件'));
-    assert.equal(output.condition.type, 'compare');
-    const inputs = document.querySelectorAll('input[list]');
-    await set(inputs[0], 'dungeon.player-state'); await set(document.querySelectorAll('input[list]')[1], 'playerPosition.tileX');
-    assert.deepEqual(output.condition.conditions[0].left, { type: 'memory', key: 'dungeon.player-state', path: ['playerPosition', 'tileX'] });
-    await set(document.querySelector('[aria-label="右侧常量值"]'), '5'); assert.equal(output.condition.conditions[0].right.value, 5);
-    await set(document.querySelector('[aria-label="满足方式"]'), 'any'); await click(button('添加条件'));
-    assert.equal(output.condition.type, 'any');
-    assert.equal(button('添加条件组'), undefined);
-    assert.equal(document.querySelector('[aria-label="条件种类"]'), null);
-    assert.equal(output.condition.conditions.length, 2);
+    await set(document.querySelector('textarea'), '{未声明} >= 3');
+    assert.match(document.querySelector('[role="alert"]').textContent, /未声明/);
+    await set(document.querySelector('textarea'), '{石障计数} >= 3');
+    assert.equal(output.formula, '{石障计数} >= 3');
+    assert.equal(document.querySelector('[role="alert"]'), null);
+    assert.equal(button('添加条件'), undefined);
     output = { id: 'event', kind: 'event', mode: 'send', events: [{ type: 'event', eventType: 'dungeon.agents.loaded', version: 1 }] };
     await render();
     assert.equal(document.querySelector('[aria-label="判断条件"]'), null);
@@ -54,7 +54,10 @@ test('visual editor configures independent condition and event cards with flat c
     assert.equal(button('添加事件'), undefined);
     assert.equal(button('删除选中事件'), undefined);
 
-    assert.match(document.body.textContent, /等待指定名称/);
+    assert.equal(output.events[0].payload, undefined);
+    assert.deepEqual(output.wait.filters.map(filter => [filter.field, filter.operator]), [['loadId', 'eq'], ['agentCount', 'eq']]);
+    assert.match(document.body.textContent, /等待时允许移动/);
+    assert.match(document.body.textContent, /启用超时出口/);
     assert.equal(document.body.textContent.includes('legacy'), false);
     const { InspectorGroup } = await server.ssrLoadModule('/labs/standalone/dialogue-map-canvas-lab/InspectorGroup.tsx');
     let focus = 'first';

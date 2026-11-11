@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 6,
+  "presetKey": "dialogue_room_memory",
+  "name": "对话测试室 · 共享变量与石障",
+  "textVariables": {
+    "石障计数": {
+      "key": "dungeon.variable.map.dungeon-map%3Adungeon_dialogue_test.dialogue-gate-count",
+      "path": []
+    }
+  },
+  "graph": {
+    "nodes": {
+      "add": {
+        "id": "add",
+        "title": "对话修改共享变量",
+        "position": {
+          "x": 456,
+          "y": 96
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:add:in": {
+            "id": "port:add:in"
+          }
+        },
+        "inputOrder": [
+          "port:add:in"
+        ],
+        "outputs": {
+          "port:add:output:next": {
+            "id": "port:add:output:next",
+            "label": "执行成功",
+            "branch": "next"
+          }
+        },
+        "outputOrder": [
+          "port:add:output:next"
+        ],
+        "kind": "action",
+        "action": {
+          "type": "shared-variable",
+          "value": 1,
+          "variableId": "dialogue-gate-count",
+          "variableOperation": "add"
+        }
+      },
+      "check": {
+        "id": "check",
+        "title": "读取共享内存根值",
+        "position": {
+          "x": 816,
+          "y": 96
+        },
+        "display": {
+          "colorToken": "violet-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:check:in": {
+            "id": "port:check:in"
+          }
+        },
+        "inputOrder": [
+          "port:check:in"
+        ],
+        "outputs": {
+          "port:check:output:false": {
+            "id": "port:check:output:false",
+            "label": "不成立",
+            "branch": "false"
+          },
+          "port:check:output:true": {
+            "id": "port:check:output:true",
+            "label": "成立",
+            "branch": "true"
+          }
+        },
+        "outputOrder": [
+          "port:check:output:true",
+          "port:check:output:false"
+        ],
+        "kind": "condition",
+        "formula": "{石障计数} >= 3"
+      },
+      "close": {
+        "id": "close",
+        "title": "恢复石障",
+        "position": {
+          "x": 816,
+          "y": 456
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:close:in": {
+            "id": "port:close:in"
+          }
+        },
+        "inputOrder": [
+          "port:close:in"
+        ],
+        "outputs": {
+          "port:close:output:next": {
+            "id": "port:close:output:next",
+            "label": "执行成功",
+            "branch": "next"
+          }
+        },
+        "outputOrder": [
+          "port:close:output:next"
+        ],
+        "kind": "action",
+        "action": {
+          "commandId": "obstacle.set-active",
+          "parameters": {
+            "active": true,
+            "entityId": "dialogue-gate"
+          },
+          "type": "service"
+        }
+      },
+      "low": {
+        "id": "low",
+        "title": "条件不成立",
+        "position": {
+          "x": 1176,
+          "y": 360
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:low:main": {
+            "id": "line:low:main",
+            "speaker": "测试员",
+            "text": "当前计数：{石障计数} / 3。计数还不到 3，可以继续加。"
+          }
+        },
+        "lineOrder": [
+          "line:low:main"
+        ],
+        "inputs": {
+          "port:low:in": {
+            "id": "port:low:in"
+          }
+        },
+        "inputOrder": [
+          "port:low:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "open": {
+        "id": "open",
+        "title": "解除石障",
+        "position": {
+          "x": 1176,
+          "y": 96
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:open:in": {
+            "id": "port:open:in"
+          }
+        },
+        "inputOrder": [
+          "port:open:in"
+        ],
+        "outputs": {
+          "port:open:output:next": {
+            "id": "port:open:output:next",
+            "label": "执行成功",
+            "branch": "next"
+          }
+        },
+        "outputOrder": [
+          "port:open:output:next"
+        ],
+        "kind": "action",
+        "action": {
+          "commandId": "obstacle.set-active",
+          "parameters": {
+            "active": false,
+            "entityId": "dialogue-gate"
+          },
+          "type": "service"
+        }
+      },
+      "opened": {
+        "id": "opened",
+        "title": "条件成立",
+        "position": {
+          "x": 1536,
+          "y": 96
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:opened:main": {
+            "id": "line:opened:main",
+            "speaker": "测试员",
+            "text": "当前计数：{石障计数} / 3。石障已解除。"
+          }
+        },
+        "lineOrder": [
+          "line:opened:main"
+        ],
+        "inputs": {
+          "port:opened:in": {
+            "id": "port:opened:in"
+          }
+        },
+        "inputOrder": [
+          "port:opened:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "reset": {
+        "id": "reset",
+        "title": "重置共享变量",
+        "position": {
+          "x": 456,
+          "y": 456
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:reset:in": {
+            "id": "port:reset:in"
+          }
+        },
+        "inputOrder": [
+          "port:reset:in"
+        ],
+        "outputs": {
+          "port:reset:output:next": {
+            "id": "port:reset:output:next",
+            "label": "执行成功",
+            "branch": "next"
+          }
+        },
+        "outputOrder": [
+          "port:reset:output:next"
+        ],
+        "kind": "action",
+        "action": {
+          "type": "shared-variable",
+          "variableId": "dialogue-gate-count",
+          "variableOperation": "reset"
+        }
+      },
+      "reset-done": {
+        "id": "reset-done",
+        "title": "复位完成",
+        "position": {
+          "x": 1176,
+          "y": 648
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:reset-done:main": {
+            "id": "line:reset-done:main",
+            "speaker": "测试员",
+            "text": "当前计数：{石障计数} / 3。计数已归零，石障已恢复。"
+          }
+        },
+        "lineOrder": [
+          "line:reset-done:main"
+        ],
+        "inputs": {
+          "port:reset-done:in": {
+            "id": "port:reset-done:in"
+          }
+        },
+        "inputOrder": [
+          "port:reset-done:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "start": {
+        "id": "start",
+        "title": "共享变量操作台",
+        "position": {
+          "x": 96,
+          "y": 96
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:start:main": {
+            "id": "line:start:main",
+            "speaker": "测试员",
+            "text": "对话可以读取和修改本图计数。计数达到 3 时可以解除石障。"
+          }
+        },
+        "lineOrder": [
+          "line:start:main"
+        ],
+        "inputs": {
+          "port:start:in": {
+            "id": "port:start:in"
+          }
+        },
+        "inputOrder": [
+          "port:start:in"
+        ],
+        "outputs": {
+          "port:start:output:add": {
+            "id": "port:start:output:add",
+            "label": "计数 +1 并检查",
+            "branch": "choice"
+          },
+          "port:start:output:check": {
+            "id": "port:start:output:check",
+            "label": "只检查当前计数",
+            "branch": "choice"
+          },
+          "port:start:output:exit": {
+            "id": "port:start:output:exit",
+            "label": "离开",
+            "branch": "choice"
+          },
+          "port:start:output:reset": {
+            "id": "port:start:output:reset",
+            "label": "重置计数并恢复石障",
+            "branch": "choice"
+          }
+        },
+        "outputOrder": [
+          "port:start:output:add",
+          "port:start:output:check",
+          "port:start:output:reset",
+          "port:start:output:exit"
+        ],
+        "kind": "choice"
+      }
+    },
+    "edges": {
+      "edge:add:next": {
+        "id": "edge:add:next",
+        "from": {
+          "nodeId": "add",
+          "portId": "port:add:output:next"
+        },
+        "to": {
+          "nodeId": "check",
+          "portId": "port:check:in"
+        }
+      },
+      "edge:check:false": {
+        "id": "edge:check:false",
+        "from": {
+          "nodeId": "check",
+          "portId": "port:check:output:false"
+        },
+        "to": {
+          "nodeId": "low",
+          "portId": "port:low:in"
+        }
+      },
+      "edge:check:true": {
+        "id": "edge:check:true",
+        "from": {
+          "nodeId": "check",
+          "portId": "port:check:output:true"
+        },
+        "to": {
+          "nodeId": "open",
+          "portId": "port:open:in"
+        }
+      },
+      "edge:close:next": {
+        "id": "edge:close:next",
+        "from": {
+          "nodeId": "close",
+          "portId": "port:close:output:next"
+        },
+        "to": {
+          "nodeId": "reset-done",
+          "portId": "port:reset-done:in"
+        }
+      },
+      "edge:open:next": {
+        "id": "edge:open:next",
+        "from": {
+          "nodeId": "open",
+          "portId": "port:open:output:next"
+        },
+        "to": {
+          "nodeId": "opened",
+          "portId": "port:opened:in"
+        }
+      },
+      "edge:reset:next": {
+        "id": "edge:reset:next",
+        "from": {
+          "nodeId": "reset",
+          "portId": "port:reset:output:next"
+        },
+        "to": {
+          "nodeId": "close",
+          "portId": "port:close:in"
+        }
+      },
+      "edge:start:add": {
+        "id": "edge:start:add",
+        "from": {
+          "nodeId": "start",
+          "portId": "port:start:output:add"
+        },
+        "to": {
+          "nodeId": "add",
+          "portId": "port:add:in"
+        }
+      },
+      "edge:start:check": {
+        "id": "edge:start:check",
+        "from": {
+          "nodeId": "start",
+          "portId": "port:start:output:check"
+        },
+        "to": {
+          "nodeId": "check",
+          "portId": "port:check:in"
+        }
+      },
+      "edge:start:reset": {
+        "id": "edge:start:reset",
+        "from": {
+          "nodeId": "start",
+          "portId": "port:start:output:reset"
+        },
+        "to": {
+          "nodeId": "reset",
+          "portId": "port:reset:in"
+        }
+      }
+    }
+  }
+}

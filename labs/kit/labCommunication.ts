@@ -2,6 +2,7 @@ import {
   LabCommunicationError,
   type LabEventDefinition,
   type LabEventListener,
+  type LabEventWaitOptions,
   type LabMessageEnvelope,
   type LabPublishOptions,
   type LabPublishReport,
@@ -16,7 +17,11 @@ import {
 } from './labCommunicationJournal.ts';
 
 type AnyRequestHandler = LabRequestHandler<unknown, unknown>;
-type AnyEventListener = LabEventListener<unknown>;
+const ignoredEvent = Symbol('ignored event');
+type RoutedEventListener<TPayload> = (
+  payload: TPayload, message: LabMessageEnvelope<TPayload>,
+) => void | Promise<void> | typeof ignoredEvent;
+type BindingChange = 'routing' | 'wait';
 
 type RegisteredRequestHandler = {
   moduleId: string;
@@ -26,7 +31,8 @@ type RegisteredRequestHandler = {
 type RegisteredEventListener = {
   listenerId: string;
   moduleId: string;
-  listener: AnyEventListener;
+  listener: RoutedEventListener<unknown>;
+  temporary: boolean;
 };
 
 const protocolKey = (definition: { type: string; version: number }): string => (
@@ -63,9 +69,10 @@ export class LabCommunication {
   private readonly eventDefinitions = new Map<string, {
     definition: LabEventDefinition<any>; declaredPublishers: Map<string, number>; observedPublishers: Set<string>;
   }>();
-  private readonly bindingListeners = new Set<() => void>();
+  private readonly bindingListeners = new Set<(change: BindingChange) => void>();
   private nextListenerId = 1;
   private readonly activeRequests = new Set<AbortController>();
+  private readonly activeEventWaits = new Set<() => void>();
   private disposed = false;
   private readonly measure?: LabCommunicationOptions['measure'];
 
@@ -78,27 +85,34 @@ export class LabCommunication {
   inspectBindings() {
     return {
       requests: [...this.requestHandlers].map(([protocol, handler]) => ({ protocol, owner: handler.moduleId })),
-      events: [...this.eventListeners].map(([protocol, listeners]) => ({
-        protocol, consumers: [...new Set([...listeners].map(listener => listener.moduleId))],
-      })),
+      events: [...this.eventListeners].flatMap(([protocol, listeners]) => {
+        const consumers = [...new Set([...listeners].filter(listener => !listener.temporary).map(listener => listener.moduleId))];
+        return consumers.length ? [{ protocol, consumers }] : [];
+      }),
     };
   }
 
   inspectEvents() {
     return [...this.eventDefinitions].map(([protocol, entry]) => {
-      const listeners = [...(this.eventListeners.get(protocol) ?? [])];
+      const registered = [...(this.eventListeners.get(protocol) ?? [])];
+      const listeners = registered.filter(listener => !listener.temporary);
       return { protocol, definition: entry.definition,
         declaredPublishers: [...entry.declaredPublishers.keys()], observedPublishers: [...entry.observedPublishers],
         listeners: listeners.map(({ listenerId, moduleId }) => ({ listenerId, moduleId })),
+        waits: registered.filter(listener => listener.temporary).map(({ listenerId, moduleId }) => ({ listenerId, moduleId })),
         listenerCount: listeners.length, moduleCount: new Set(listeners.map(listener => listener.moduleId)).size };
     });
   }
 
-  subscribeBindings(listener: () => void): () => void {
+  subscribeBindings(listener: (change: BindingChange) => void): () => void {
     this.bindingListeners.add(listener); return () => { this.bindingListeners.delete(listener); };
   }
 
-  private bindingsChanged() { this.bindingListeners.forEach(listener => listener()); }
+  private bindingsChanged(change: BindingChange = 'routing') {
+    for (const listener of this.bindingListeners) {
+      try { listener(change); } catch (error) { console.error('Lab 通信关系观察者失败。', error); }
+    }
+  }
 
   private rememberEvent<T>(definition: LabEventDefinition<T>) {
     const key = protocolKey(definition), existing = this.eventDefinitions.get(key);
@@ -148,6 +162,8 @@ export class LabCommunication {
     this.disposed = true;
     this.activeRequests.forEach((controller) => controller.abort());
     this.activeRequests.clear();
+    this.activeEventWaits.forEach(cancel => cancel());
+    this.activeEventWaits.clear();
     this.requestHandlers.clear();
     this.eventListeners.clear();
     this.eventDefinitions.clear(); this.bindingListeners.clear();
@@ -183,19 +199,89 @@ export class LabCommunication {
     definition: LabEventDefinition<TPayload>,
     listener: LabEventListener<TPayload>,
   ): () => void {
+    return this.addEventListener(moduleId, definition, listener, false);
+  }
+
+  private addEventListener<TPayload>(
+    moduleId: string,
+    definition: LabEventDefinition<TPayload>,
+    listener: RoutedEventListener<TPayload>,
+    temporary: boolean,
+  ): () => void {
     this.requireActive(definition.type);
     this.rememberEvent(definition);
+    this.requireActive(definition.type);
     const key = protocolKey(definition);
+    const change = temporary ? 'wait' : 'routing';
     const listeners = this.eventListeners.get(key) ?? new Set<RegisteredEventListener>();
-    const registered = { listenerId: `listener:${this.nextListenerId++}`, moduleId, listener: listener as AnyEventListener };
+    const registered = { listenerId: `listener:${this.nextListenerId++}`, moduleId, listener: listener as RoutedEventListener<unknown>, temporary };
     listeners.add(registered);
     this.eventListeners.set(key, listeners);
-    this.bindingsChanged();
+    this.bindingsChanged(change);
     return () => {
       if (!listeners.delete(registered)) return;
-      if (!listeners.size) this.eventListeners.delete(key);
-      this.bindingsChanged();
+      if (!listeners.size && this.eventListeners.get(key) === listeners) this.eventListeners.delete(key);
+      this.bindingsChanged(change);
     };
+  }
+
+  async waitForEvent<TPayload>(
+    moduleId: string,
+    definition: LabEventDefinition<TPayload>,
+    options: LabEventWaitOptions<TPayload>,
+    scopeSignal: AbortSignal,
+  ): Promise<LabMessageEnvelope<TPayload>> {
+    this.requireActive(definition.type);
+    const { predicate, signal, timeoutMs } = options;
+    const key = protocolKey(definition);
+    const aborted = () => new LabCommunicationError('ABORTED', `Lab 事件等待“${key}”已取消。`, definition.type);
+    const disposed = () => new LabCommunicationError('DISPOSED', `Lab 事件等待“${key}”的通信作用域已销毁。`, definition.type);
+    if (scopeSignal.aborted) throw disposed();
+    if (signal?.aborted) throw aborted();
+    if (timeoutMs !== undefined && (!Number.isFinite(timeoutMs) || timeoutMs < 0 || timeoutMs > 2_147_483_647)) {
+      throw new RangeError('Lab 事件等待 timeoutMs 必须在 0 到 2147483647 毫秒之间。');
+    }
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      let unsubscribe: (() => void) | undefined;
+      let timeout: ReturnType<typeof setTimeout> | undefined;
+      const settle = (complete: () => void): boolean => {
+        if (settled) return false;
+        settled = true;
+        signal?.removeEventListener('abort', abort);
+        scopeSignal.removeEventListener('abort', cancel);
+        if (timeout !== undefined) clearTimeout(timeout);
+        this.activeEventWaits.delete(cancel);
+        unsubscribe?.();
+        complete();
+        return true;
+      };
+      const abort = () => settle(() => reject(aborted()));
+      const cancel = () => settle(() => reject(disposed()));
+      this.activeEventWaits.add(cancel);
+      signal?.addEventListener('abort', abort, { once: true });
+      scopeSignal.addEventListener('abort', cancel, { once: true });
+      if (timeoutMs !== undefined) {
+        timeout = setTimeout(() => settle(() => reject(new LabCommunicationError(
+          'TIMEOUT', `Lab 事件等待“${key}”超时。`, definition.type,
+        ))), timeoutMs);
+      }
+      try {
+        unsubscribe = this.addEventListener(moduleId, definition, (payload, message) => {
+          if (settled) return ignoredEvent;
+          try {
+            if (predicate && !predicate(payload, message)) return ignoredEvent;
+          } catch (error) {
+            if (settle(() => reject(error))) throw error;
+            return ignoredEvent;
+          }
+          if (!settle(() => resolve(message))) return ignoredEvent;
+        }, true);
+        if (settled) unsubscribe();
+      } catch (error) {
+        settle(() => reject(error));
+      }
+    });
   }
 
   async request<TInput, TOutput>(
@@ -335,7 +421,9 @@ export class LabCommunication {
       payload,
     });
     const listeners = [...(this.eventListeners.get(protocolKey(definition)) ?? [])];
-    const recipients = Object.freeze(listeners.map(({ listenerId, moduleId }) => Object.freeze({ listenerId, moduleId })));
+    const recipients = Object.freeze(listeners.map(({ listenerId, moduleId, temporary }) => Object.freeze({
+      listenerId, moduleId, ...(temporary ? { temporary: true as const } : {}),
+    })));
     this.journal.append({
       messageId: message.id,
       ...(message.correlationId ? { correlationId: message.correlationId } : {}),
@@ -353,7 +441,7 @@ export class LabCommunication {
       Promise.resolve().then(() => this.measure ? this.measure(moduleId, 'event', () => listener(payload, message)) : listener(payload, message))
     )));
     const report = {
-      delivered: results.filter(({ status }) => status === 'fulfilled').length,
+      delivered: results.filter(result => result.status === 'fulfilled' && result.value !== ignoredEvent).length,
       failed: results.flatMap((result, index) => result.status === 'rejected'
         ? [{ moduleId: listeners[index].moduleId, error: result.reason }]
         : []),
@@ -388,7 +476,8 @@ export class LabCommunication {
       failedCount: report.failed.length,
       recipients,
       listenerResults: Object.freeze(results.map((result, index) => Object.freeze({
-        ...recipients[index], status: result.status === 'fulfilled' ? 'success' as const : 'failed' as const,
+        ...recipients[index],
+        status: result.status === 'rejected' ? 'failed' as const : result.value === ignoredEvent ? 'ignored' as const : 'success' as const,
         ...(result.status === 'rejected' ? { error: createLabCommunicationLogError(result.reason) } : {}),
       }))),
     });
@@ -407,6 +496,7 @@ export class LabCommunicationScope {
   readonly moduleId: string;
   private readonly cleanups = new Set<() => void>();
   private readonly requests = new Set<AbortController>();
+  private readonly waitLifetime = new AbortController();
   private disposed = false;
 
   constructor(
@@ -433,6 +523,14 @@ export class LabCommunicationScope {
   on<TPayload>(definition: LabEventDefinition<TPayload>, listener: LabEventListener<TPayload>): () => void {
     this.requireActive(definition.type);
     return this.track(this.communication.registerEvent(this.moduleId, definition, listener));
+  }
+
+  /** Subscribe immediately and resolve with the next matching event envelope. */
+  waitFor<TPayload>(
+    definition: LabEventDefinition<TPayload>,
+    options: LabEventWaitOptions<TPayload> = {},
+  ): Promise<LabMessageEnvelope<TPayload>> {
+    return this.communication.waitForEvent(this.moduleId, definition, options, this.waitLifetime.signal);
   }
 
   declareEvent<T>(definition: LabEventDefinition<T>, options: { publishes?: boolean } = {}): () => void {
@@ -471,6 +569,7 @@ export class LabCommunicationScope {
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
+    this.waitLifetime.abort();
     this.requests.forEach((controller) => controller.abort());
     this.requests.clear();
     this.cleanups.forEach((cleanup) => cleanup());

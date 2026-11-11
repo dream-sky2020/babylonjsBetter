@@ -51,6 +51,12 @@ export type LabEventListener<TPayload> = (
   message: LabMessageEnvelope<TPayload>,
 ) => void | Promise<void>;
 
+export type LabEventWaitOptions<TPayload> = Readonly<{
+  predicate?: (payload: TPayload, message: LabMessageEnvelope<TPayload>) => boolean;
+  signal?: AbortSignal;
+  timeoutMs?: number;
+}>;
+
 export type LabRequestOptions = Readonly<{
   timeoutMs?: number;
   signal?: AbortSignal;
@@ -67,6 +73,7 @@ export type LabPublishFailure = Readonly<{
 }>;
 
 export type LabPublishReport = Readonly<{
+  /** Persistent callbacks that succeeded and temporary waits that matched. */
   delivered: number;
   failed: readonly LabPublishFailure[];
 }>;

@@ -4,3 +4,4 @@ export * from './dialogueNodeLayout';
 export * from './dialogueCompiler';
 export * from './dialogueMapPresetRepository';
 export * from './dialogueRules';
+export * from './dialogueText';

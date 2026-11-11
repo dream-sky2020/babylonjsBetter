@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 6,
+  "presetKey": "dialogue_room_events",
+  "name": "对话测试室 · 发布与等待事件",
+  "graph": {
+    "nodes": {
+      "publish": {
+        "id": "publish",
+        "title": "发布任务事件",
+        "position": {
+          "x": 456,
+          "y": 96
+        },
+        "display": {
+          "colorToken": "red-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:publish:in": {
+            "id": "port:publish:in"
+          }
+        },
+        "inputOrder": [
+          "port:publish:in"
+        ],
+        "outputs": {
+          "port:publish:output:next": {
+            "id": "port:publish:output:next",
+            "label": "发布后继续",
+            "branch": "next"
+          }
+        },
+        "outputOrder": [
+          "port:publish:output:next"
+        ],
+        "kind": "event",
+        "mode": "send",
+        "events": [
+          {
+            "type": "event",
+            "eventType": "dialogue.quest.accepted",
+            "version": 1,
+            "payload": {
+              "questId": {
+                "type": "literal",
+                "value": "dialogue-room-test"
+              }
+            },
+            "correlationId": "dialogue-room-test"
+          }
+        ]
+      },
+      "published": {
+        "id": "published",
+        "title": "事件已发出",
+        "position": {
+          "x": 816,
+          "y": 96
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:published:main": {
+            "id": "line:published:main",
+            "speaker": "测试员",
+            "text": "任务事件已发布，可以在通信系统查看触发记录。"
+          }
+        },
+        "lineOrder": [
+          "line:published:main"
+        ],
+        "inputs": {
+          "port:published:in": {
+            "id": "port:published:in"
+          }
+        },
+        "inputOrder": [
+          "port:published:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "received": {
+        "id": "received",
+        "title": "收到踏板事件",
+        "position": {
+          "x": 816,
+          "y": 360
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:received:main": {
+            "id": "line:received:main",
+            "speaker": "测试员",
+            "text": "收到踏板事件，对话已恢复。"
+          }
+        },
+        "lineOrder": [
+          "line:received:main"
+        ],
+        "inputs": {
+          "port:received:in": {
+            "id": "port:received:in"
+          }
+        },
+        "inputOrder": [
+          "port:received:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "start": {
+        "id": "start",
+        "title": "事件操作台",
+        "position": {
+          "x": 96,
+          "y": 96
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:start:main": {
+            "id": "line:start:main",
+            "speaker": "测试员",
+            "text": "可以发布一条任务事件，或等玩家踩下东南方的橙色踏板。等待限时 15 秒，Esc 可取消。"
+          }
+        },
+        "lineOrder": [
+          "line:start:main"
+        ],
+        "inputs": {
+          "port:start:in": {
+            "id": "port:start:in"
+          }
+        },
+        "inputOrder": [
+          "port:start:in"
+        ],
+        "outputs": {
+          "port:start:output:exit": {
+            "id": "port:start:output:exit",
+            "label": "离开",
+            "branch": "choice"
+          },
+          "port:start:output:publish": {
+            "id": "port:start:output:publish",
+            "label": "发布任务事件",
+            "branch": "choice"
+          },
+          "port:start:output:wait": {
+            "id": "port:start:output:wait",
+            "label": "等待踩踏板",
+            "branch": "choice"
+          }
+        },
+        "outputOrder": [
+          "port:start:output:publish",
+          "port:start:output:wait",
+          "port:start:output:exit"
+        ],
+        "kind": "choice"
+      },
+      "timed-out": {
+        "id": "timed-out",
+        "title": "等待超时",
+        "position": {
+          "x": 816,
+          "y": 624
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:timed-out:main": {
+            "id": "line:timed-out:main",
+            "speaker": "测试员",
+            "text": "等待超时。回到事件台可以重试。"
+          }
+        },
+        "lineOrder": [
+          "line:timed-out:main"
+        ],
+        "inputs": {
+          "port:timed-out:in": {
+            "id": "port:timed-out:in"
+          }
+        },
+        "inputOrder": [
+          "port:timed-out:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "wait": {
+        "id": "wait",
+        "title": "等待橙色踏板",
+        "position": {
+          "x": 456,
+          "y": 480
+        },
+        "display": {
+          "colorToken": "red-muted",
+          "heightUnits": 7,
+          "shape": "rectangle",
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:wait:in": {
+            "id": "port:wait:in"
+          }
+        },
+        "inputOrder": [
+          "port:wait:in"
+        ],
+        "outputs": {
+          "port:wait:output:next": {
+            "id": "port:wait:output:next",
+            "label": "收到事件",
+            "branch": "next"
+          },
+          "port:wait:output:timeout": {
+            "id": "port:wait:output:timeout",
+            "label": "超时",
+            "branch": "timeout"
+          }
+        },
+        "outputOrder": [
+          "port:wait:output:next",
+          "port:wait:output:timeout"
+        ],
+        "kind": "event",
+        "mode": "wait",
+        "events": [
+          {
+            "type": "event",
+            "eventType": "dungeon.variable.changed",
+            "version": 1
+          }
+        ],
+        "wait": {
+          "filters": [
+            {
+              "field": "variableId",
+              "operator": "eq",
+              "value": {
+                "type": "literal",
+                "value": "dialogue-signal-count"
+              }
+            }
+          ],
+          "timeoutMs": 15000,
+          "allowMovement": true,
+          "sourceModuleId": "dungeon-map-action-executor"
+        }
+      }
+    },
+    "edges": {
+      "edge:publish:next": {
+        "id": "edge:publish:next",
+        "from": {
+          "nodeId": "publish",
+          "portId": "port:publish:output:next"
+        },
+        "to": {
+          "nodeId": "published",
+          "portId": "port:published:in"
+        }
+      },
+      "edge:start:publish": {
+        "id": "edge:start:publish",
+        "from": {
+          "nodeId": "start",
+          "portId": "port:start:output:publish"
+        },
+        "to": {
+          "nodeId": "publish",
+          "portId": "port:publish:in"
+        }
+      },
+      "edge:start:wait": {
+        "id": "edge:start:wait",
+        "from": {
+          "nodeId": "start",
+          "portId": "port:start:output:wait"
+        },
+        "to": {
+          "nodeId": "wait",
+          "portId": "port:wait:in"
+        }
+      },
+      "edge:wait:next": {
+        "id": "edge:wait:next",
+        "from": {
+          "nodeId": "wait",
+          "portId": "port:wait:output:next"
+        },
+        "to": {
+          "nodeId": "received",
+          "portId": "port:received:in"
+        }
+      },
+      "edge:wait:timeout": {
+        "id": "edge:wait:timeout",
+        "from": {
+          "nodeId": "wait",
+          "portId": "port:wait:output:timeout"
+        },
+        "to": {
+          "nodeId": "timed-out",
+          "portId": "port:timed-out:in"
+        }
+      }
+    }
+  }
+}

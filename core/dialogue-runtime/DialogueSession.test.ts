@@ -36,3 +36,26 @@ test('unsupported reachable instructions fail before replacing an existing sessi
   assert.throws(() => session.start(bad), /剧情事件/); assert.equal(session.inspect().text, '第一句');
   assert.throws(() => session.start({ ...program(), entryNodeId: 'missing' }), /入口/);
 });
+
+test('text variables read once per line and refresh on advance', () => {
+  const source = program();
+  source.textVariables = { 次数: { key: 'counter', path: [] } };
+  const hello = source.instructions.hello;
+  assert.ok(hello.kind === 'choice');
+  hello.lines[0].text = '{次数}/{次数}，{{次数}}';
+  hello.lines[1].text = '{次数}，{未绑定}';
+  let value = 1, reads = 0;
+  const missing: string[] = [];
+  const session = new DialogueSession();
+  session.start(source, undefined, binding => {
+    assert.equal(binding.key, 'counter'); reads++; return value;
+  }, name => missing.push(name));
+  assert.equal(session.inspect().text, '1/1，{次数}');
+  value = 2;
+  assert.equal(session.inspect().text, '1/1，{次数}');
+  assert.equal(reads, 1);
+  session.next();
+  assert.equal(session.inspect().text, '2，—');
+  assert.equal(reads, 2);
+  assert.deepEqual(missing, ['未绑定']);
+});

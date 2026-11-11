@@ -1,4 +1,23 @@
-import type { DialogueRuleCatalog } from '../../../core/dialogue-map/dialogueMap.types.ts';
+import type { DialogueEventCatalogEntry, DialogueRuleCatalog } from '../../../core/dialogue-map/dialogueMap.types.ts';
+import type { LabEventDefinition } from '../../kit/labCommunication.types.ts';
+import { dungeonMapChangedEvent, dungeonRuntimeChangedEvent } from '../../modules/dungeon/dungeon-map-loader/dungeonMapLoader.protocol.ts';
+import { dungeonVariableChangedEvent } from '../../modules/dungeon/dungeon-map-action-executor/dungeonMapActionExecutor.protocol.ts';
+import { dungeonAgentsLoadedEvent } from '../../modules/dungeon/dungeon-agent/dungeonAgent.protocol.ts';
+import { dialogueQuestAcceptedEvent } from '../../modules/shared/dialogue/dialogue.protocol.ts';
+
+function entry<T>(event: LabEventDefinition<T>, publish = false): DialogueEventCatalogEntry {
+  const fields = (event.metadata?.fields ?? []).map<DialogueEventCatalogEntry['fields'][number]>(field => {
+    const [type, nullable] = field.type.split(' | ');
+    const valueType = type === 'number' || type === 'string' || type === 'boolean' || type === 'null' ? type : 'scalar';
+    return { name: field.name, valueType, nullable: nullable === 'null', required: field.required };
+  });
+  return { eventType: event.type, version: event.version, label: event.metadata?.label ?? event.type, publish, fields };
+}
+export type DialogueLabTarget = 'all' | 'dialogue-test-lab' | 'dungeon-interaction-lab';
+const dialogueEvents = [entry(dialogueQuestAcceptedEvent, true)];
+const dungeonEvents = [entry(dungeonVariableChangedEvent), entry(dungeonMapChangedEvent), entry(dungeonRuntimeChangedEvent), entry(dungeonAgentsLoadedEvent)];
+export const dialogueEventsForTarget = (target: DialogueLabTarget) =>
+  target === 'dialogue-test-lab' ? dialogueEvents : dialogueRuleCatalog.events;
 
 /** Editor metadata only; opening the editor does not allocate a Dungeon session. */
 export const dialogueRuleCatalog: DialogueRuleCatalog = {
@@ -23,29 +42,5 @@ export const dialogueRuleCatalog: DialogueRuleCatalog = {
       { path: ['status'], label: '加载状态', valueType: 'string' },
     ],
   }],
-  events: [
-    // Example-only protocols; the editor does not register handlers or execute them.
-    ...['dialogue.demo.gate.open', 'dialogue.demo.gate.opened', 'dialogue.demo.quest.accepted'].map(eventType => ({
-      eventType, version: 1, label: '示例协议 · ' + eventType, fields: [{ name: 'gateId', valueType: 'string' as const, required: true }],
-    })),
-    { eventType: 'dungeon.map.changed', version: 1, label: '地图切换完成', fields: [
-      { name: 'loadId', valueType: 'number', required: true },
-      { name: 'revision', valueType: 'number', required: true },
-      { name: 'presetKey', valueType: 'string', required: true },
-      { name: 'mapId', valueType: 'string', required: true },
-      { name: 'width', valueType: 'number', required: true },
-      { name: 'height', valueType: 'number', required: true },
-      { name: 'previousPresetKey', valueType: 'string', nullable: true, required: true },
-    ] },
-    { eventType: 'dungeon.runtime.changed', version: 1, label: '运行状态变化', fields: [
-      { name: 'loadId', valueType: 'number', required: true },
-      { name: 'revision', valueType: 'number', required: true },
-      { name: 'presetKey', valueType: 'string', required: true },
-      { name: 'reason', valueType: 'string', required: true },
-    ] },
-    { eventType: 'dungeon.agents.loaded', version: 1, label: 'Agent 装载完成', fields: [
-      { name: 'loadId', valueType: 'number', required: true },
-      { name: 'agentCount', valueType: 'number', required: true },
-    ] },
-  ],
+  events: [...dialogueEvents, ...dungeonEvents],
 };

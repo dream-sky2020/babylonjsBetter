@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { cloneDialogueEditorDocument, createDialogueEditorDocument, createDialogueEditorNode } from './dialogueMap.ts';
 import { parseDialogueCondition, validateDialogueNodeRules } from './dialogueRules.ts';
+import { compileDialogueEditorDocument } from './dialogueCompiler.ts';
 import { dialogueRuleCatalog } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueRuleCatalog.ts';
 import { commitDialogueHistory, createDialogueHistory, redoDialogueHistory, undoDialogueHistory } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueHistory.ts';
 
@@ -13,9 +14,14 @@ test('catalog validates numeric comparisons, event parameters and unknown refere
   node.condition.left = { type: 'memory', key: 'custom', path: ['coins'] };
   assert.ok(validateDialogueNodeRules(node, dialogueRuleCatalog).some(issue => issue.severity === 'warning'));
   const event = createDialogueEditorNode('event', { x: 0, y: 0 }, 'event'); if (event.kind !== 'event') return;
-  event.events = [{ type: 'event', eventType: 'dungeon.agents.loaded', version: 1, payload: { loadId: { type: 'literal', value: 1 } } }];
-  assert.ok(validateDialogueNodeRules(event, dialogueRuleCatalog).some(issue => issue.message.includes('agentCount')));
-  event.mode = 'wait'; assert.deepEqual(validateDialogueNodeRules(event, dialogueRuleCatalog), []);
+  event.events = [{ type: 'event', eventType: 'dialogue.quest.accepted', version: 1 }];
+  assert.ok(validateDialogueNodeRules(event, dialogueRuleCatalog).some(issue => issue.message.includes('questId')));
+  event.events[0].eventType = 'dungeon.agents.loaded';
+  assert.ok(validateDialogueNodeRules(event, dialogueRuleCatalog).some(issue => issue.message.includes('只能等待')));
+  const wait = createDialogueEditorNode('wait', { x: 0, y: 0 }, 'event', 'wait');
+  assert.ok(wait.kind === 'event' && wait.mode === 'wait');
+  wait.events[0].eventType = 'dungeon.agents.loaded';
+  assert.deepEqual(validateDialogueNodeRules(wait, dialogueRuleCatalog), []);
 });
 test('flat all/any comparisons validate while nested groups and negation are rejected', () => {
   const comparison = { type: 'compare' as const, operator: 'eq' as const, left: { type: 'literal' as const, value: true }, right: { type: 'literal' as const, value: false } };
@@ -39,4 +45,14 @@ test('history restores typed nodes, clears redo on branching and bounds retained
   history = commitDialogueHistory(undoDialogueHistory(history), { rules: cloneDialogueEditorDocument(first) }); assert.equal(history.future.length, 0);
   for (let i = 0; i < 120; i++) history = commitDialogueHistory(history, { rules: cloneDialogueEditorDocument(first) });
   assert.equal(history.past.length, 100);
+});
+test('root scalar references compile with an empty path', () => {
+  const document = createDialogueEditorDocument('counter', 'Counter');
+  const node = createDialogueEditorNode('check', { x: 0, y: 0 }, 'condition');
+  assert.ok(node.kind === 'condition');
+  node.condition = { type: 'compare', left: { type: 'memory', key: 'dungeon.variable.lab.plate-trigger-count', path: [] },
+    operator: 'gte', right: { type: 'literal', value: 3 } };
+  document.graph.nodes.set(node.id, node);
+  assert.deepEqual(parseDialogueCondition(node.condition), node.condition);
+  assert.ok(compileDialogueEditorDocument(document, node.id, dialogueRuleCatalog).program);
 });

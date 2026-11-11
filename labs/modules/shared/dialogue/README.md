@@ -4,13 +4,14 @@
 
 操作面板选择对话预设、入口节点和 UI 预设，点击“开始测试对话”。默认配置位于 `config/labs/dialogue-test-lab.json`，使用 `dialogue_test` / `greeting` 和 `dialogue_test_ui`。支持逐句继续、选项分支、正常结束、主动取消与重复开始。Enter / Space 继续，1–9 选择对应选项，Esc 结束；长按不跳过多句。更多选项仍可在滚动列表中点击。
 
-当前只播放对白和选项。开始时检查所有可达节点；遇到条件或剧情事件会明确拒绝，并显示需要接入的节点，不擅自判断条件、跳过事件或修改游戏数据。原 `village_gate` 是包含条件和 send/wait 的编辑示例，完整流程暂不能直接播放；可选择其独立的纯对白入口做测试。NPC 与地块已通过独立的 dungeon-dialogue-interaction 适配器接入；道具、打字动画、语音和存档尚未接入。
+对白、选项、条件与事件通过同一运行时推进。发布卡调用 Lab 通信；等待卡按协议、来源、关联 ID 和字段筛选下一次匹配，并可设置超时出口。允许移动的等待会隐藏对话并释放输入，命中后恢复界面；Esc、取消、切图和卸载会清理等待。执行动作卡由地牢适配层传入当前地图执行能力，独立对话测试 Lab 可运行对白及独立事件。地牢交互 Lab 在 (12,9) 的调查点使用 `village_gate` 验证任务事件、石障操作和踏板等待。
 
 「UI 预设」根据当前入口判断兼容性。所有界面需要可见正文绑定 `dialogue.text`；入口能走到选项时，还需要可见的「对话操作与选项」绑定 `dialogue.choices`。姓名、头像与继续按钮可按样式选用；纯对白可用键盘推进。地图可指定自己的 UI，留空沿用 Lab 的 `dialogue.ui-preset`。不兼容的配置会说明原因，运行不会打开对应的覆盖层。
 
 ## 职责
 
-- `core/dialogue-runtime/DialogueSession.ts`：只读编译后的剧情快照，管理对白、选择与结束；不依赖 DOM、Lab 或编辑器。
+- `core/dialogue-runtime/DialogueSession.ts`：只读编译后的剧情快照，管理对白、选择、效果节点及流程推进；不依赖 DOM、Lab 或编辑器。
+- `dialogue.effects.ts`：对接 Lab 通信及地图适配层，执行效果并返回下一节点。
 - `dialogue.runtime.ts`：加载、打开 UI、管理输入占用及取消/错误/卸载清理。可以不创建测试面板而独立安装。
 - `dialogue.panel.ts`：只负责选择配置、发起开始/取消请求和显示状态。游戏播放不从控件读取参数。
 - `dialogue.labModule.ts`：适配现有预设仓库、编译器、ui-runtime 和键盘仲裁，注册 `LAB_DIALOGUE` 服务。

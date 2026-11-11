@@ -1,0 +1,102 @@
+{
+  "presetKey": "dialogue-test-ground",
+  "name": "对话机制测试室 · 10×8 测试地面",
+  "clearColor": "#182a3a",
+  "renderWarmup": {
+    "enabled": true
+  },
+  "lights": [
+    {
+      "id": "light",
+      "name": "环境光",
+      "intensity": 1,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "groundColor": "#334155"
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "floor",
+      "name": "测试地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 80,
+        "height": 64
+      },
+      "position": [
+        36,
+        0,
+        28
+      ],
+      "color": "#334550"
+    },
+    {
+      "id": "return",
+      "name": "返回出口",
+      "geometry": {
+        "primitive": "ground",
+        "width": 6.5,
+        "height": 6.5
+      },
+      "position": [
+        8,
+        0.025,
+        48
+      ],
+      "color": "#7651a8"
+    },
+    {
+      "id": "memory",
+      "name": "共享变量台",
+      "geometry": {
+        "primitive": "ground",
+        "width": 6.5,
+        "height": 6.5
+      },
+      "position": [
+        24,
+        0.025,
+        16
+      ],
+      "color": "#387dc2"
+    },
+    {
+      "id": "events",
+      "name": "事件台",
+      "geometry": {
+        "primitive": "ground",
+        "width": 6.5,
+        "height": 6.5
+      },
+      "position": [
+        48,
+        0.025,
+        16
+      ],
+      "color": "#4588a8"
+    },
+    {
+      "id": "plate",
+      "name": "事件踏板",
+      "geometry": {
+        "primitive": "ground",
+        "width": 6.5,
+        "height": 6.5
+      },
+      "position": [
+        56,
+        0.025,
+        24
+      ],
+      "color": "#c88736"
+    }
+  ]
+}

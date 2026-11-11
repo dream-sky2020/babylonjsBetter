@@ -19,6 +19,7 @@ import {
   compileDialogueEditorDocument,
   connectDialogueNodes,
   DIALOGUE_NODE_KIND_LABEL,
+  dialogueNodeKindLabel,
   dialogueLineId,
   dialogueOutputPortId,
   encodeDialogueEditorDocumentLibrary,
@@ -42,9 +43,12 @@ import { captureDialogueProperties, applyDialogueProperties, dialoguePropertyPas
 import { DialogueMultiSelectionInspector } from './DialogueMultiSelectionInspector';
 import { DialoguePropertyClipboardContext } from './dialoguePropertyClipboardContext';
 import { DialogueFlowPreview } from './DialogueFlowPreviewModal.tsx';
+import { DialogueLineTextEditor, DialogueTextBindingsEditor } from './DialogueTextEditors';
 import { InspectorGroup } from './InspectorGroup';
-import { ComparisonEditor, EventNodeEditor } from './DialogueRuleEditor';
-import { dialogueRuleCatalog } from './dialogueRuleCatalog';
+import { EventNodeEditor } from './DialogueRuleEditor';
+import { DialogueFormulaEditor } from './DialogueFormulaEditor';
+import { DialogueActionEditor } from './DialogueActionEditor';
+import { dialogueRuleCatalog, type DialogueLabTarget } from './dialogueRuleCatalog';
 import { createDialogueHistory, commitDialogueHistory, undoDialogueHistory, redoDialogueHistory } from './dialogueHistory';
 import { fitGraphView, graphWorldPoint, graphScreenPoint, zoomGraphViewWithWheel } from '@/core/ui/node-graph/graphViewport';
 import { getDialogueCanvasLayout as computeDialogueNodeLayout, measureDialogueCanvasText } from './dialogueCanvasLayout';
@@ -295,7 +299,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           return { kind: 'output', nodeId: node.id, portId: id };
       for (const [id, value] of layout.lineRows)
         if (dialogueGridRectContains(value.rect, local))
-          return node.kind === 'choice' ? { kind: 'line', nodeId: node.id, lineId: id } : node.kind === 'condition' ? (id.startsWith('condition:') ? { kind: 'condition', nodeId: node.id, conditionIndex: Number(id.split(':').at(-1)) } : { kind: 'condition-mode', nodeId: node.id }) : id.startsWith('event:') ? { kind: 'event', nodeId: node.id, eventIndex: Number(id.split(':').at(-1)) } : { kind: 'event-mode', nodeId: node.id };
+          return node.kind === 'choice' ? { kind: 'line', nodeId: node.id, lineId: id } : node.kind === 'condition' ? (id.startsWith('condition:') ? { kind: 'condition', nodeId: node.id, conditionIndex: Number(id.split(':').at(-1)) } : { kind: 'condition-mode', nodeId: node.id }) : node.kind === 'action' ? { kind: 'node', nodeId: node.id } : id.startsWith('event:') ? { kind: 'event', nodeId: node.id, eventIndex: Number(id.split(':').at(-1)) } : { kind: 'event-mode', nodeId: node.id };
       return { kind: 'node', nodeId: node.id };
     }
     for (const edge of document.graph.edges.values()) {
@@ -394,7 +398,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       const previewWidth = previewEntry === node.id && compactDetail
         ? Math.min(contentWidth, measureDialogueCanvasText('PREVIEW', dialogueNodeTextFont(getDialogueCanvasFontSize(DIALOGUE_NODE_TEXT_STYLE.titleSize, view.scale, ratio), 600)) + getDialogueCanvasTextWidthInset(view.scale, ratio)) : 0;
       const titleWidth = Math.max(0, contentWidth - previewWidth - (previewWidth ? 8 * view.scale : 0));
-      paintText(singleLine(`${DIALOGUE_NODE_KIND_LABEL[node.kind]} · ${node.title || node.id}`, titleWidth, DIALOGUE_NODE_TEXT_STYLE.titleSize, 600), {
+      paintText(singleLine(`${dialogueNodeKindLabel(node)} · ${node.title || node.id}`, titleWidth, DIALOGUE_NODE_TEXT_STYLE.titleSize, 600), {
         x: contentX, y: p.y, width: titleWidth, height: layout.header.height * unit, scale: view.scale,
         color: '#e5eaf1', fontSize: DIALOGUE_NODE_TEXT_STYLE.titleSize, weight: 600, center: true,
       });
@@ -676,6 +680,8 @@ export const DialogueMapCanvasLab: React.FC = () => {
   const [helpOpen, setHelpOpen] = useState(false);
   const [flowPreview, setFlowPreview] = useState<{ document: DialogueEditorDocument; nodeId: string }>();
   const [selectedKey, setActiveKey] = useState('');
+  const [targetLab, setTargetLab] = useState<DialogueLabTarget>('all');
+  const textBindingsPanel = useRef<HTMLDetailsElement>(null);
   const activeKey = library[selectedKey] ? selectedKey : Object.keys(library)[0] ?? '';
   const [selection, setInspectorSelection] = useState<DialogueEditorSelection>({
     kind: 'node',
@@ -740,7 +746,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       setActiveKey(key);
       setInspectorSelection({ kind: 'node', nodeId: first });
       setNodeSelection({ key, ids: first ? [first] : [] });
-      setMessage(`已载入 ${Object.keys(next).length} 个 V5 对话预设。`);
+      setMessage(`已载入 ${Object.keys(next).length} 个对话预设。`);
       setIsError(false);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : String(error));
@@ -801,7 +807,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       return entries;
     });
   };
-  const addNode = (kind: DialogueNodeKind, at?: Point) => {
+  const addNode = (kind: DialogueNodeKind, at?: Point, eventMode?: 'wait') => {
     const id = makeId(kind, new Set(document.graph.nodes.keys()));
     updateDocument((draft) =>
       draft.graph.nodes.set(
@@ -809,7 +815,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
         createDialogueEditorNode(id, at ? { x: snap(at.x), y: snap(at.y) } : {
           x: GRID * (4 + draft.graph.nodes.size * 2),
           y: GRID * (4 + draft.graph.nodes.size),
-        }, kind),
+        }, kind, eventMode),
       ),
     );
     setSelection({ kind: 'node', nodeId: id });
@@ -883,7 +889,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       setSavedFingerprint(
         JSON.stringify(encodeDialogueEditorDocumentLibrary(library)),
       );
-      setMessage(`已保存 ${Object.keys(library).length} 个 V5 对话预设。`);
+      setMessage(`已保存 ${Object.keys(library).length} 个 V6 对话预设。`);
       setIsError(false);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : String(error));
@@ -941,6 +947,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       { id: 'preview', label: '从此节点预览流程', action: () => setFlowPreview({ document: cloneDialogueEditorDocument(document), nodeId: id }) },
     ] : [
       ...(Object.keys(DIALOGUE_NODE_KIND_LABEL) as DialogueNodeKind[]).map(kind => ({ id: `create-${kind}`, label: `新建${DIALOGUE_NODE_KIND_LABEL[kind]}节点`, action: () => addNode(kind, at) })),
+      { id: 'create-wait-event', label: '新建等待事件节点', action: () => addNode('event', at, 'wait') },
       { type: 'separator' },
       { id: 'paste', label: nodeClipboard ? `在此粘贴 ${nodeClipboard.nodes.length} 个节点` : '在此粘贴（请先复制节点）', shortcut: 'Ctrl+V', disabled: !nodeClipboard, action: () => pasteNodes(at) },
       { id: 'all', label: document.graph.nodes.size ? '选择全部节点' : '选择全部节点（当前图为空）', disabled: !document.graph.nodes.size, shortcut: 'Ctrl+A', action: () => selectNodes([...document.graph.nodes.keys()]) },
@@ -1005,7 +1012,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       {flowPreview ? <DialogueFlowPreview document={flowPreview.document} startNodeId={flowPreview.nodeId} onClose={() => setFlowPreview(undefined)} /> : null}
       <header className="dialogue-lab__header">
         <div>
-          <span className="eyebrow">DIALOGUE DATA WORKBENCH · V5</span>
+          <span className="eyebrow">DIALOGUE DATA WORKBENCH · V6</span>
           <h1>Dialogue Map Canvas Lab</h1>
         </div>
         <div className={`server-status${isError ? ' is-error' : ''}`}>
@@ -1048,6 +1055,13 @@ export const DialogueMapCanvasLab: React.FC = () => {
               ))}
             </select>
           </label>
+          <label className="field"><span>目标 Lab</span><select value={targetLab} onChange={event => setTargetLab(event.target.value as DialogueLabTarget)}>
+            <option value="all">全部已知协议</option>
+            <option value="dialogue-test-lab">对话测试 Lab</option>
+            <option value="dungeon-interaction-lab">地牢交互 Lab</option>
+          </select></label>
+          <DialogueTextBindingsEditor key={document.presetKey} panelRef={textBindingsPanel} bindings={document.textVariables}
+            onChange={bindings => updateDocument(draft => { draft.textVariables = bindings; })} />
           <details className="create-preset">
             <summary>新建预设</summary>
             <div className="create-preset__body">
@@ -1070,7 +1084,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
             </div>
             <span>三种节点</span>
           </div>
-          <div className="node-create-actions">{(Object.keys(DIALOGUE_NODE_KIND_LABEL) as DialogueNodeKind[]).map(kind => <button key={kind} onClick={() => addNode(kind)}>＋{DIALOGUE_NODE_KIND_LABEL[kind]}</button>)}</div>
+          <div className="node-create-actions">{(Object.keys(DIALOGUE_NODE_KIND_LABEL) as DialogueNodeKind[]).map(kind => <button key={kind} onClick={() => addNode(kind)}>＋{DIALOGUE_NODE_KIND_LABEL[kind]}</button>)}<button onClick={() => addNode('event', undefined, 'wait')}>＋等待事件</button></div>
           <div className="node-list">
             {[...document.graph.nodes.values()].map((node) => (
               <button
@@ -1096,7 +1110,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 <span>
                   <strong>{node.title || node.id}</strong>
                   <small>
-                    {DIALOGUE_NODE_KIND_LABEL[node.kind]} · {node.outputs.size} 输出
+                    {dialogueNodeKindLabel(node)} · {node.outputs.size} 输出
                   </small>
                 </span>
                 {previewEntry === node.id ? <em>入口</em> : null}
@@ -1244,7 +1258,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
                   />
                 </label>
                 <button onClick={() => setSelection({ kind: 'spacing', nodeId: selectedNode.id })}>选择留白设置</button>
-                <label className="field"><span>节点类型</span><input value={DIALOGUE_NODE_KIND_LABEL[selectedNode.kind]} disabled /></label>
+                <label className="field"><span>节点类型</span><input value={dialogueNodeKindLabel(selectedNode)} disabled /></label>
 
                 <button
                   className="start-button"
@@ -1256,7 +1270,17 @@ export const DialogueMapCanvasLab: React.FC = () => {
                     : '设为检查入口'}
                 </button>
               </InspectorGroup>
-              {selectedNode.kind === 'event' ? <EventNodeEditor node={selectedNode} selection={selection} onSelection={setSelection} onChange={next => updateDocument(draft => { draft.graph.nodes.set(next.id, next); })} /> : null}
+              {selectedNode.kind === 'event' ? <EventNodeEditor node={selectedNode} target={targetLab} selection={selection} onSelection={setSelection} onChange={next => updateDocument(draft => {
+                const previous = draft.graph.nodes.get(next.id);
+                for (const [id, edge] of draft.graph.edges) {
+                  if (edge.from.nodeId === next.id && previous?.outputs.has(edge.from.portId) && !next.outputs.has(edge.from.portId)) draft.graph.edges.delete(id);
+                }
+                draft.graph.nodes.set(next.id, next);
+              })} /> : null}
+              {selectedNode.kind === 'action' ? <DialogueActionEditor key={selectedNode.id} action={selectedNode.action} onChange={action => updateNode(selectedNode.id, node => {
+                if (node.kind === 'action') node.action = action;
+              })} /> : null}
+              {selectedNode.kind === 'action' && targetLab === 'dialogue-test-lab' ? <p>对话测试 Lab 未装配地图动作执行器。</p> : null}
               <InspectorGroup property={{ nodeId: selectedNode.id, scope: 'appearance' }} title="外观与尺寸" defaultOpen={false}>
                 <label className="field">
                   <span>形状</span>
@@ -1391,19 +1415,12 @@ export const DialogueMapCanvasLab: React.FC = () => {
                   }
                 />
               </label>
-              <label className="field">
-                <span>对白内容</span>
-                <textarea
-                  rows={7}
-                  value={target.line.text}
-                  onChange={(e) =>
-                    updateNode(target.node.id, (node) => {
-                      const line = node.lines.get(target.line.id);
-                      if (line) line.text = e.target.value;
-                    })
-                  }
-                />
-              </label>
+              <DialogueLineTextEditor text={target.line.text} bindings={document.textVariables}
+                manage={() => { if (textBindingsPanel.current) { textBindingsPanel.current.open = true; textBindingsPanel.current.scrollIntoView({ block: 'nearest' }); } }}
+                onChange={text => updateNode(target.node.id, node => {
+                  const line = node.lines.get(target.line.id);
+                  if (line) line.text = text;
+                })} />
             </InspectorGroup>
             );
           })}
@@ -1477,38 +1494,14 @@ export const DialogueMapCanvasLab: React.FC = () => {
             </InspectorGroup>
             );
           })}
-          {selectedNode?.kind === 'condition' ? (() => {
-            const rule = selectedNode.condition;
-            const conditions = rule ? rule.type === 'compare' ? [rule] : rule.conditions : [];
-            const mode = rule?.type === 'any' ? 'any' : 'all';
-            const change = (next: typeof conditions) => updateNode(selectedNode.id, node => { if (node.kind === 'condition') node.condition = { type: mode, conditions: next }; });
-            return <InspectorGroup property={{ nodeId: selectedNode.id, scope: 'conditions' }} title="判断条件" count={conditions.length} focused={selection.kind === 'condition-mode' || selection.kind === 'condition'} focusToken={selection}>
-              <label className="field"><span>满足方式</span>
-                <select aria-label="满足方式" value={mode} onChange={e => updateNode(selectedNode.id, node => { if (node.kind === 'condition') node.condition = { type: e.target.value as 'all' | 'any', conditions }; })}>
-                  <option value="all">全部满足</option><option value="any">任一满足</option>
-                </select>
-              </label>
-              <div className="collection-actions">
-                <button onClick={() => { change([...conditions, { type: 'compare', left: { type: 'memory', key: '', path: [] }, operator: 'eq', right: { type: 'literal', value: 0 } }]); setSelection({ kind: 'condition', nodeId: selectedNode.id, conditionIndex: conditions.length }); }}>添加条件</button>
-                <select aria-label="选择条件" value={selection.kind === 'condition' ? String(selection.conditionIndex) : ''} onChange={e => { if (e.target.value !== '') setSelection({ kind: 'condition', nodeId: selectedNode.id, conditionIndex: Number(e.target.value) }); }}>
-                  <option value="">选择条件</option>
-                  {conditions.map((_, index) => <option key={index} value={index}>条件 {index + 1}</option>)}
-                </select>
-                <button disabled={selection.kind !== 'condition'} onClick={() => {
-                  if (selection.kind !== 'condition') return;
-                  change(conditions.filter((_, index) => index !== selection.conditionIndex));
-                  setSelection({ kind: 'condition-mode', nodeId: selectedNode.id });
-                }}>删除选中条件</button>
-              </div>
-              <div className="inspector-collection">
-                {conditions.map((condition, index) => <InspectorGroup property={{ nodeId: selectedNode.id, scope: 'condition', index }} key={`condition:${selectedNode.id}:${index}`} title={`条件 ${index + 1}`} focused={selection.kind === 'condition' && selection.conditionIndex === index} focusToken={selection}>
-                  <ComparisonEditor value={condition} onChange={next => change(conditions.map((item, i) => i === index ? next : item))} />
-                </InspectorGroup>)}
-              </div>
-              {!conditions.length ? <p>暂无条件，点击“添加条件”添加。</p> : null}
-              <p>复杂组合通过成立／不成立出口连接其他判断卡片。</p>
-            </InspectorGroup>;
-          })() : null}
+          {selectedNode?.kind === 'condition' ? <InspectorGroup property={{ nodeId: selectedNode.id, scope: 'conditions' }} title="判断公式"
+            focused={selection.kind === 'condition-mode'} focusToken={selection}>
+            <DialogueFormulaEditor formula={selectedNode.formula ?? ''} bindings={document.textVariables}
+              manage={() => { if (textBindingsPanel.current) { textBindingsPanel.current.open = true; textBindingsPanel.current.scrollIntoView({ block: 'nearest' }); } }}
+              onChange={formula => updateNode(selectedNode.id, node => {
+                if (node.kind === 'condition') { node.formula = formula; delete node.condition; }
+              })} />
+          </InspectorGroup> : null}
           {target?.kind === 'edge' ? (
             <InspectorGroup title="连线">
               <label className="field">

@@ -23,9 +23,13 @@ export const dungeonDialogueInteractionLabModule: LabModule = {
     const consumed = new Set<string>();
     const player = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
     let disposed = false;
-    const offProvider = router.register({ id: 'dungeon-dialogue', blocked: () => dialogue.inspect().busy,
+    const offProvider = router.register({ id: 'dungeon-dialogue', blocked() {
+      const state = dialogue.inspect();
+      return state.busy && !state.allowsMovement;
+    },
       isConsumed: (loadId, componentId) => consumed.has(`${loadId}:${componentId}`),
       find(query) {
+        if (dialogue.inspect().busy) return [];
         return control.find(query).flatMap(match => {
           const action = match.action;
           if (action.type !== 'dialogue' || router.isConsumed(query.loadId, match.onceKey)) return [];

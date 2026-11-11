@@ -24,9 +24,16 @@ class DialogueV5Tests(unittest.TestCase):
     def test_new_three_node_preset_save_read(self):
         self.round_trip(self.preset)
 
+    def test_text_variables_round_trip_and_validate_shape(self):
+        self.preset['textVariables'] = {'次数': {'key': 'counter', 'path': []}}
+        self.round_trip(self.preset)
+        for invalid in ([], {'次数': {'key': 'counter', 'path': 'value'}}, {'无 效': {'key': 'counter', 'path': []}}):
+            self.preset['textVariables'] = invalid
+            self.assertTrue(server._validate_dialogue_map_library({'village_gate': self.preset}))
+
     def test_incomplete_rules_and_dangling_connections_save_as_drafts(self):
         self.preset['graph']['nodes']['gate_check']['condition'] = {'type': 'all', 'conditions': []}
-        self.preset['graph']['nodes']['open_gate']['events'][0].update({'eventType': '', 'version': 0})
+        self.preset['graph']['nodes']['accept_quest']['events'][0].update({'eventType': '', 'version': 0})
         edge = copy.deepcopy(next(iter(self.preset['graph']['edges'].values())))
         edge['id'] = 'dangling'; edge['from'] = {'nodeId': 'absent', 'portId': 'missing'}
         edge['to'] = {'nodeId': 'absent2', 'portId': 'missing2'}
@@ -72,14 +79,29 @@ class DialogueV5Tests(unittest.TestCase):
             self.assertTrue(server._validate_dialogue_map_library({'village_gate': preset}))
 
     def test_send_event_lists_and_wait_cardinality(self):
-        node = self.preset['graph']['nodes']['open_gate']
+        node = self.preset['graph']['nodes']['accept_quest']
         node['events'].append(copy.deepcopy(node['events'][0]))
         self.round_trip(self.preset)
         node['mode'] = 'wait'
         self.assertTrue(server._validate_dialogue_map_library({'village_gate': self.preset}))
         node['events'] = [node['events'][0]]
+        node['events'][0].pop('payload')
+        node['wait'] = {'filters': [], 'timeoutMs': 1000}
         self.assertFalse(server._validate_dialogue_map_library({'village_gate': self.preset}))
         node['events'] = []
+        self.assertTrue(server._validate_dialogue_map_library({'village_gate': self.preset}))
+
+    def test_v5_wait_payload_and_v6_wait_options(self):
+        legacy = copy.deepcopy(self.preset)
+        legacy['schemaVersion'] = 5
+        nodes = legacy['graph']['nodes']
+        del nodes['open_gate']
+        wait = nodes['wait_gate']
+        del wait['wait']
+        wait['events'][0]['payload'] = {'gateId': {'type': 'literal', 'value': 'north'}}
+        self.round_trip(legacy)
+        wait = self.preset['graph']['nodes']['wait_gate']
+        wait['wait']['timeoutMs'] = -1
         self.assertTrue(server._validate_dialogue_map_library({'village_gate': self.preset}))
 
     def test_node_whitespace_save_read_and_validation(self):

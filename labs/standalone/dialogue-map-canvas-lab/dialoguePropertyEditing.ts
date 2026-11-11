@@ -6,7 +6,7 @@ export type DialoguePropertyScope = 'node' | 'appearance' | 'spacing' | 'line' |
 export type DialoguePropertyTarget = { nodeId: string; scope: DialoguePropertyScope; id?: string; index?: number };
 export type DialoguePropertySnapshot = {
   scope: DialoguePropertyScope; title?: string; tags?: string[]; display?: DialogueNodeDisplay; whitespace?: Partial<DialogueNodeWhitespace>;
-  lines?: Array<Omit<DialogueEditorLine, 'id'>>; labels?: string[]; condition?: DialogueCondition; event?: DialogueEffect; events?: DialogueEffect[]; mode?: 'send' | 'wait';
+  lines?: Array<Omit<DialogueEditorLine, 'id'>>; labels?: string[]; condition?: DialogueCondition; formula?: string; event?: DialogueEffect; events?: DialogueEffect[]; mode?: 'send' | 'wait';
 };
 const comparisons = (node: DialogueEditorNode) => node.kind === 'condition' && node.condition ? node.condition.type === 'compare' ? [node.condition] : node.condition.conditions : [];
 export function captureDialogueProperties(document: DialogueEditorDocument, target: DialoguePropertyTarget): DialoguePropertySnapshot {
@@ -22,10 +22,14 @@ export function captureDialogueProperties(document: DialogueEditorDocument, targ
     case 'outputs': if (node.kind === 'condition') throw new Error('判断出口为固定只读属性。'); result.labels = node.outputOrder.map(id => node.outputs.get(id)?.label ?? ''); break;
     case 'output': if (node.kind === 'condition') throw new Error('判断出口为固定只读属性。'); if (!node.outputs.has(target.id ?? '')) throw new Error('出口已不存在。'); result.labels = [node.outputs.get(target.id!)?.label ?? '']; break;
     case 'input': if (!node.inputs.has(target.id ?? '')) throw new Error('入口已不存在。'); result.labels = [node.inputs.get(target.id!)?.label ?? '']; break;
-    case 'conditions': if (node.kind !== 'condition') throw new Error('仅判断节点支持条件。'); result.condition = node.condition ?? { type: 'all', conditions: [] }; break;
+    case 'conditions':
+      if (node.kind !== 'condition') throw new Error('仅判断节点支持条件。');
+      if (node.condition) result.condition = node.condition;
+      else result.formula = node.formula ?? '';
+      break;
     case 'condition': { const item = comparisons(node)[target.index ?? -1]; if (!item) throw new Error('条件已不存在。'); result.condition = item; break; }
-    case 'events': if (node.kind !== 'event') throw new Error('仅事件节点支持事件。'); result.events = node.events; result.mode = node.mode; break;
-    case 'event': if (node.kind !== 'event' || !node.events[target.index ?? -1]) throw new Error('事件已不存在。'); result.event = node.events[target.index!]; break;
+    case 'events': if (node.kind !== 'event' || node.mode !== 'send') throw new Error('仅发布节点支持事件列表。'); result.events = node.events; result.mode = node.mode; break;
+    case 'event': if (node.kind !== 'event' || node.mode !== 'send' || !node.events[target.index ?? -1]) throw new Error('发布事件已不存在。'); result.event = node.events[target.index!]; break;
   }
   return structuredClone(result);
 }
@@ -35,12 +39,12 @@ export function dialoguePropertyPasteReason(document: DialogueEditorDocument, ta
   if (clipboard.scope !== target.scope) return '属性类型不兼容，请复制同类面板。';
   try { captureDialogueProperties(document, target); } catch (error) { return (error as Error).message; }
   const node = document.graph.nodes.get(target.nodeId)!;
+  if (target.scope === 'conditions' && append && (clipboard.formula !== undefined || node.kind === 'condition' && !node.condition)) return '请在公式中使用 && 或 || 组合条件。';
   if (append && !['lines', 'outputs', 'conditions', 'events'].includes(target.scope)) return '该面板不支持追加。';
   if (target.scope === 'outputs') {
     if (append && node.kind !== 'choice') return '只有选项节点支持追加选项。';
     if (!append && clipboard.labels?.length !== node.outputOrder.length) return '选项数量不同：请使用“追加为新选项”，不会替换现有端口或连线。';
   }
-  if (target.scope === 'events' && node.kind === 'event' && append && node.mode === 'wait') return '等待节点只能保留一个事件。';
   return undefined;
 }
 
@@ -64,9 +68,17 @@ export function applyDialogueProperties(document: DialogueEditorDocument, target
       if (!append) { node.lines.clear(); node.lineOrder = []; }
       for (const line of data.lines!) { const id = freshDialogueId(dialogueLineId(node.id, 'line'), new Set(node.lines.keys())); node.lines.set(id, { ...line, id }); node.lineOrder.push(id); }
       break;
-    case 'conditions': if (node.kind === 'condition') { if (append) { const incoming = data.condition!.type === 'compare' ? [data.condition as Extract<DialogueCondition, { type: 'compare' }>] : data.condition!.conditions; node.condition = { type: node.condition?.type === 'any' ? 'any' : 'all', conditions: [...comparisons(node), ...incoming] }; } else node.condition = data.condition; } break;
+    case 'conditions':
+      if (node.kind === 'condition') {
+        if (data.formula !== undefined) { node.formula = data.formula; delete node.condition; }
+        else if (append && data.condition) {
+          const incoming = data.condition.type === 'compare' ? [data.condition] : data.condition.conditions;
+          node.condition = { type: node.condition?.type === 'any' ? 'any' : 'all', conditions: [...comparisons(node), ...incoming] };
+        } else { node.condition = data.condition; delete node.formula; }
+      }
+      break;
     case 'condition': if (node.kind === 'condition') { const items = comparisons(node); items[target.index!] = data.condition as Extract<DialogueCondition, { type: 'compare' }>; node.condition = { type: node.condition?.type === 'any' ? 'any' : 'all', conditions: items }; } break;
-    case 'events': if (node.kind === 'event') { node.events = append ? [...node.events, ...data.events!] : data.events!; if (!append) node.mode = data.mode!; } break;
-    case 'event': if (node.kind === 'event') node.events[target.index!] = data.event!; break;
+    case 'events': if (node.kind === 'event' && node.mode === 'send') node.events = append ? [...node.events, ...data.events!] : data.events!; break;
+    case 'event': if (node.kind === 'event' && node.mode === 'send') node.events[target.index!] = data.event!; break;
   }
 }

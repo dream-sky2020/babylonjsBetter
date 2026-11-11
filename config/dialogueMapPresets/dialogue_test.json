@@ -1,66 +1,9 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "presetKey": "dialogue_test",
   "name": "对话模块 · 基础测试",
   "graph": {
     "nodes": {
-      "greeting": {
-        "id": "greeting",
-        "title": "开始测试",
-        "position": {
-          "x": 24,
-          "y": 24
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "greeting:line:0": {
-            "id": "greeting:line:0",
-            "speaker": "向导",
-            "text": "你好，欢迎来到对话测试场景。"
-          },
-          "greeting:line:1": {
-            "id": "greeting:line:1",
-            "speaker": "向导",
-            "text": "这段文字来自对话预设，界面布局来自 UI 预设。你想先看看什么？"
-          }
-        },
-        "lineOrder": [
-          "greeting:line:0",
-          "greeting:line:1"
-        ],
-        "inputs": {
-          "greeting:in": {
-            "id": "greeting:in"
-          }
-        },
-        "inputOrder": [
-          "greeting:in"
-        ],
-        "outputs": {
-          "greeting:about": {
-            "id": "greeting:about",
-            "label": "了解对话模块",
-            "branch": "choice"
-          },
-          "greeting:leave": {
-            "id": "greeting:leave",
-            "label": "结束这次交谈",
-            "branch": "choice"
-          }
-        },
-        "outputOrder": [
-          "greeting:about",
-          "greeting:leave"
-        ],
-        "kind": "choice"
-      },
       "about": {
         "id": "about",
         "title": "模块说明",
@@ -104,191 +47,6 @@
         "outputOrder": [],
         "kind": "choice"
       },
-      "repeat-notice": {
-        "id": "repeat-notice",
-        "title": "蓝格 · 可重复调查",
-        "position": {
-          "x": 24,
-          "y": 420
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "kind": "choice",
-        "lines": {
-          "repeat-notice:line:0": {
-            "id": "repeat-notice:line:0",
-            "speaker": "调查",
-            "text": "这是可重复调查的蓝格。结束对话后，再按 E 还可以查看。"
-          }
-        },
-        "lineOrder": [
-          "repeat-notice:line:0"
-        ],
-        "inputs": {
-          "repeat-notice:in": {
-            "id": "repeat-notice:in"
-          }
-        },
-        "inputOrder": [
-          "repeat-notice:in"
-        ],
-        "outputs": {},
-        "outputOrder": []
-      },
-      "once-notice": {
-        "id": "once-notice",
-        "title": "蓝格 · 本次进入只调查一次",
-        "position": {
-          "x": 384,
-          "y": 420
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "kind": "choice",
-        "lines": {
-          "once-notice:line:0": {
-            "id": "once-notice:line:0",
-            "speaker": "调查",
-            "text": "这是一次性调查的蓝格。本次进入地图只会显示一次；离开地图再回来后可以重新调查。"
-          }
-        },
-        "lineOrder": [
-          "once-notice:line:0"
-        ],
-        "inputs": {
-          "once-notice:in": {
-            "id": "once-notice:in"
-          }
-        },
-        "inputOrder": [
-          "once-notice:in"
-        ],
-        "outputs": {},
-        "outputOrder": []
-      },
-      "goodbye": {
-        "id": "goodbye",
-        "title": "结束交谈",
-        "position": {
-          "x": 744,
-          "y": 120
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "goodbye:line:0": {
-            "id": "goodbye:line:0",
-            "speaker": "向导",
-            "text": "好的，下次再聊。对话结束后，会恢复场景输入。"
-          }
-        },
-        "lineOrder": [
-          "goodbye:line:0"
-        ],
-        "inputs": {
-          "goodbye:in": {
-            "id": "goodbye:in"
-          }
-        },
-        "inputOrder": [
-          "goodbye:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
-      "direction-front": {
-        "id": "direction-front",
-        "title": "你正站在我的正面，这是正面交谈。",
-        "position": {
-          "x": 1800,
-          "y": 200
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "direction-front:line": {
-            "id": "direction-front:line",
-            "speaker": "方向交互测试",
-            "text": "你正站在我的正面，这是正面交谈。"
-          }
-        },
-        "lineOrder": [
-          "direction-front:line"
-        ],
-        "inputs": {
-          "direction-front:in": {
-            "id": "direction-front:in"
-          }
-        },
-        "inputOrder": [
-          "direction-front:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
-      "direction-side": {
-        "id": "direction-side",
-        "title": "你正站在我的侧面，左右两侧共用这条对白。",
-        "position": {
-          "x": 2200,
-          "y": 200
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "direction-side:line": {
-            "id": "direction-side:line",
-            "speaker": "方向交互测试",
-            "text": "你正站在我的侧面，左右两侧共用这条对白。"
-          }
-        },
-        "lineOrder": [
-          "direction-side:line"
-        ],
-        "inputs": {
-          "direction-side:in": {
-            "id": "direction-side:in"
-          }
-        },
-        "inputOrder": [
-          "direction-side:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
       "direction-back": {
         "id": "direction-back",
         "title": "你正站在我的背面，这是背面交谈。",
@@ -321,43 +79,6 @@
         },
         "inputOrder": [
           "direction-back:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
-      "direction-fallback": {
-        "id": "direction-fallback",
-        "title": "当前没有可匹配的方向规则，这是通用后备。",
-        "position": {
-          "x": 3000,
-          "y": 200
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "direction-fallback:line": {
-            "id": "direction-fallback:line",
-            "speaker": "方向交互测试",
-            "text": "当前没有可匹配的方向规则，这是通用后备。"
-          }
-        },
-        "lineOrder": [
-          "direction-fallback:line"
-        ],
-        "inputs": {
-          "direction-fallback:in": {
-            "id": "direction-fallback:in"
-          }
-        },
-        "inputOrder": [
-          "direction-fallback:in"
         ],
         "outputs": {},
         "outputOrder": [],
@@ -400,80 +121,6 @@
         "outputOrder": [],
         "kind": "choice"
       },
-      "direction-north": {
-        "id": "direction-north",
-        "title": "你从机关北侧操作。",
-        "position": {
-          "x": 2200,
-          "y": 600
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "direction-north:line": {
-            "id": "direction-north:line",
-            "speaker": "方向交互测试",
-            "text": "你从机关北侧操作。"
-          }
-        },
-        "lineOrder": [
-          "direction-north:line"
-        ],
-        "inputs": {
-          "direction-north:in": {
-            "id": "direction-north:in"
-          }
-        },
-        "inputOrder": [
-          "direction-north:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
-      "direction-south": {
-        "id": "direction-south",
-        "title": "你从机关南侧操作。",
-        "position": {
-          "x": 2600,
-          "y": 600
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "direction-south:line": {
-            "id": "direction-south:line",
-            "speaker": "方向交互测试",
-            "text": "你从机关南侧操作。"
-          }
-        },
-        "lineOrder": [
-          "direction-south:line"
-        ],
-        "inputs": {
-          "direction-south:in": {
-            "id": "direction-south:in"
-          }
-        },
-        "inputOrder": [
-          "direction-south:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
       "direction-east": {
         "id": "direction-east",
         "title": "你从机关东侧操作；东西两侧本次共用一次机会。",
@@ -506,43 +153,6 @@
         },
         "inputOrder": [
           "direction-east:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
-      "direction-west": {
-        "id": "direction-west",
-        "title": "你从机关西侧操作；东西两侧本次共用一次机会。",
-        "position": {
-          "x": 1800,
-          "y": 1000
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "direction-west:line": {
-            "id": "direction-west:line",
-            "speaker": "方向交互测试",
-            "text": "你从机关西侧操作；东西两侧本次共用一次机会。"
-          }
-        },
-        "lineOrder": [
-          "direction-west:line"
-        ],
-        "inputs": {
-          "direction-west:in": {
-            "id": "direction-west:in"
-          }
-        },
-        "inputOrder": [
-          "direction-west:in"
         ],
         "outputs": {},
         "outputOrder": [],
@@ -617,6 +227,396 @@
         },
         "inputOrder": [
           "direction-enter-other:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "direction-fallback": {
+        "id": "direction-fallback",
+        "title": "当前没有可匹配的方向规则，这是通用后备。",
+        "position": {
+          "x": 3000,
+          "y": 200
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "direction-fallback:line": {
+            "id": "direction-fallback:line",
+            "speaker": "方向交互测试",
+            "text": "当前没有可匹配的方向规则，这是通用后备。"
+          }
+        },
+        "lineOrder": [
+          "direction-fallback:line"
+        ],
+        "inputs": {
+          "direction-fallback:in": {
+            "id": "direction-fallback:in"
+          }
+        },
+        "inputOrder": [
+          "direction-fallback:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "direction-front": {
+        "id": "direction-front",
+        "title": "你正站在我的正面，这是正面交谈。",
+        "position": {
+          "x": 1800,
+          "y": 200
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "direction-front:line": {
+            "id": "direction-front:line",
+            "speaker": "方向交互测试",
+            "text": "你正站在我的正面，这是正面交谈。"
+          }
+        },
+        "lineOrder": [
+          "direction-front:line"
+        ],
+        "inputs": {
+          "direction-front:in": {
+            "id": "direction-front:in"
+          }
+        },
+        "inputOrder": [
+          "direction-front:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "direction-north": {
+        "id": "direction-north",
+        "title": "你从机关北侧操作。",
+        "position": {
+          "x": 2200,
+          "y": 600
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "direction-north:line": {
+            "id": "direction-north:line",
+            "speaker": "方向交互测试",
+            "text": "你从机关北侧操作。"
+          }
+        },
+        "lineOrder": [
+          "direction-north:line"
+        ],
+        "inputs": {
+          "direction-north:in": {
+            "id": "direction-north:in"
+          }
+        },
+        "inputOrder": [
+          "direction-north:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "direction-side": {
+        "id": "direction-side",
+        "title": "你正站在我的侧面，左右两侧共用这条对白。",
+        "position": {
+          "x": 2200,
+          "y": 200
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "direction-side:line": {
+            "id": "direction-side:line",
+            "speaker": "方向交互测试",
+            "text": "你正站在我的侧面，左右两侧共用这条对白。"
+          }
+        },
+        "lineOrder": [
+          "direction-side:line"
+        ],
+        "inputs": {
+          "direction-side:in": {
+            "id": "direction-side:in"
+          }
+        },
+        "inputOrder": [
+          "direction-side:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "direction-south": {
+        "id": "direction-south",
+        "title": "你从机关南侧操作。",
+        "position": {
+          "x": 2600,
+          "y": 600
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "direction-south:line": {
+            "id": "direction-south:line",
+            "speaker": "方向交互测试",
+            "text": "你从机关南侧操作。"
+          }
+        },
+        "lineOrder": [
+          "direction-south:line"
+        ],
+        "inputs": {
+          "direction-south:in": {
+            "id": "direction-south:in"
+          }
+        },
+        "inputOrder": [
+          "direction-south:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "direction-west": {
+        "id": "direction-west",
+        "title": "你从机关西侧操作；东西两侧本次共用一次机会。",
+        "position": {
+          "x": 1800,
+          "y": 1000
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "direction-west:line": {
+            "id": "direction-west:line",
+            "speaker": "方向交互测试",
+            "text": "你从机关西侧操作；东西两侧本次共用一次机会。"
+          }
+        },
+        "lineOrder": [
+          "direction-west:line"
+        ],
+        "inputs": {
+          "direction-west:in": {
+            "id": "direction-west:in"
+          }
+        },
+        "inputOrder": [
+          "direction-west:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "goodbye": {
+        "id": "goodbye",
+        "title": "结束交谈",
+        "position": {
+          "x": 744,
+          "y": 120
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "goodbye:line:0": {
+            "id": "goodbye:line:0",
+            "speaker": "向导",
+            "text": "好的，下次再聊。对话结束后，会恢复场景输入。"
+          }
+        },
+        "lineOrder": [
+          "goodbye:line:0"
+        ],
+        "inputs": {
+          "goodbye:in": {
+            "id": "goodbye:in"
+          }
+        },
+        "inputOrder": [
+          "goodbye:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "greeting": {
+        "id": "greeting",
+        "title": "开始测试",
+        "position": {
+          "x": 24,
+          "y": 24
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "greeting:line:0": {
+            "id": "greeting:line:0",
+            "speaker": "向导",
+            "text": "你好，欢迎来到对话测试场景。"
+          },
+          "greeting:line:1": {
+            "id": "greeting:line:1",
+            "speaker": "向导",
+            "text": "这段文字来自对话预设，界面布局来自 UI 预设。你想先看看什么？"
+          }
+        },
+        "lineOrder": [
+          "greeting:line:0",
+          "greeting:line:1"
+        ],
+        "inputs": {
+          "greeting:in": {
+            "id": "greeting:in"
+          }
+        },
+        "inputOrder": [
+          "greeting:in"
+        ],
+        "outputs": {
+          "greeting:about": {
+            "id": "greeting:about",
+            "label": "了解对话模块",
+            "branch": "choice"
+          },
+          "greeting:leave": {
+            "id": "greeting:leave",
+            "label": "结束这次交谈",
+            "branch": "choice"
+          }
+        },
+        "outputOrder": [
+          "greeting:about",
+          "greeting:leave"
+        ],
+        "kind": "choice"
+      },
+      "once-notice": {
+        "id": "once-notice",
+        "title": "蓝格 · 本次进入只调查一次",
+        "position": {
+          "x": 384,
+          "y": 420
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "once-notice:line:0": {
+            "id": "once-notice:line:0",
+            "speaker": "调查",
+            "text": "这是一次性调查的蓝格。本次进入地图只会显示一次；离开地图再回来后可以重新调查。"
+          }
+        },
+        "lineOrder": [
+          "once-notice:line:0"
+        ],
+        "inputs": {
+          "once-notice:in": {
+            "id": "once-notice:in"
+          }
+        },
+        "inputOrder": [
+          "once-notice:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "repeat-notice": {
+        "id": "repeat-notice",
+        "title": "蓝格 · 可重复调查",
+        "position": {
+          "x": 24,
+          "y": 420
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "repeat-notice:line:0": {
+            "id": "repeat-notice:line:0",
+            "speaker": "调查",
+            "text": "这是可重复调查的蓝格。结束对话后，再按 E 还可以查看。"
+          }
+        },
+        "lineOrder": [
+          "repeat-notice:line:0"
+        ],
+        "inputs": {
+          "repeat-notice:in": {
+            "id": "repeat-notice:in"
+          }
+        },
+        "inputOrder": [
+          "repeat-notice:in"
         ],
         "outputs": {},
         "outputOrder": [],

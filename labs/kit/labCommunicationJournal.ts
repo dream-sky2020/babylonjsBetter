@@ -21,6 +21,8 @@ export type LabCommunicationLogError = Readonly<{
   code?: string;
 }>;
 
+type LabEventRecipient = Readonly<{ listenerId: string; moduleId: string; temporary?: true }>;
+
 export type LabCommunicationLogEntry = Readonly<{
   sequence: number;
   timestamp: number;
@@ -41,8 +43,8 @@ export type LabCommunicationLogEntry = Readonly<{
   deliveredCount?: number;
   failedCount?: number;
   /** Dispatch-time identities, unaffected by later unsubscribe or module disposal. */
-  recipients?: readonly Readonly<{ listenerId: string; moduleId: string }>[];
-  listenerResults?: readonly Readonly<{ listenerId: string; moduleId: string; status: 'success' | 'failed'; error?: LabCommunicationLogError }>[];
+  recipients?: readonly LabEventRecipient[];
+  listenerResults?: readonly Readonly<LabEventRecipient & { status: 'success' | 'failed' | 'ignored'; error?: LabCommunicationLogError }>[];
 }>;
 
 export type LabCommunicationLogInput = Omit<LabCommunicationLogEntry, 'sequence' | 'timestamp'> & {

@@ -1,4 +1,4 @@
-import { createLabEvent } from '@/labs/kit';
+import { createLabEvent } from '../../../kit/labCommunication.types.ts';
 import type { DungeonAgentInteractionIntent } from '@/core/dungeon-agent/dungeonAgent.types';
 
 export const dungeonAgentInteractionEvent = createLabEvent<Readonly<{

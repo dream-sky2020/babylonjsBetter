@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 3,
+  "identity": {
+    "id": "dungeon-map:dungeon_dialogue_test",
+    "presetKey": "dungeon_dialogue_test",
+    "name": "对话机制测试室"
+  },
+  "grid": {
+    "width": 10,
+    "height": 8,
+    "topologyMode": "bounded"
+  },
+  "terrain": {
+    "default": {
+      "walkable": true
+    }
+  },
+  "entities": [
+    {
+      "id": "environment",
+      "entityType": "map",
+      "name": "对话机制测试室",
+      "enabled": true
+    },
+    {
+      "id": "spawn",
+      "entityType": "spawn-point",
+      "name": "玩家出生点",
+      "enabled": true
+    },
+    {
+      "id": "arrival",
+      "entityType": "dungeon-entrance",
+      "name": "从交互测试场进入",
+      "enabled": true
+    },
+    {
+      "id": "return-exit",
+      "entityType": "dungeon-exit",
+      "name": "返回交互测试场",
+      "enabled": true
+    },
+    {
+      "id": "memory-desk",
+      "entityType": "interaction-point",
+      "name": "共享变量与石障控制 · E",
+      "enabled": true
+    },
+    {
+      "id": "event-desk",
+      "entityType": "interaction-point",
+      "name": "发布与等待事件 · E",
+      "enabled": true
+    },
+    {
+      "id": "signal-plate",
+      "entityType": "interaction-point",
+      "name": "等待测试踏板 · 踩入",
+      "enabled": true
+    },
+    {
+      "id": "dialogue-gate",
+      "entityType": "obstacle",
+      "name": "对话控制石障",
+      "enabled": true
+    }
+  ],
+  "components": {
+    "spatial-attachment": [
+      {
+        "id": "environment:spatial-attachment",
+        "entityId": "environment",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "map"
+          }
+        ]
+      },
+      {
+        "id": "spawn:spatial-attachment",
+        "entityId": "spawn",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:1,5"
+          }
+        ]
+      },
+      {
+        "id": "arrival:spatial-attachment",
+        "entityId": "arrival",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:1,5"
+          }
+        ]
+      },
+      {
+        "id": "return-exit:spatial-attachment",
+        "entityId": "return-exit",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:1,6"
+          }
+        ]
+      },
+      {
+        "id": "memory-desk:spatial-attachment",
+        "entityId": "memory-desk",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:3,2"
+          }
+        ]
+      },
+      {
+        "id": "event-desk:spatial-attachment",
+        "entityId": "event-desk",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:6,2"
+          }
+        ]
+      },
+      {
+        "id": "signal-plate:spatial-attachment",
+        "entityId": "signal-plate",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:7,3"
+          }
+        ]
+      },
+      {
+        "id": "dialogue-gate:spatial-attachment",
+        "entityId": "dialogue-gate",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:5,5"
+          }
+        ]
+      }
+    ],
+    "scene-environment": [
+      {
+        "id": "environment:scene-environment",
+        "entityId": "environment",
+        "type": "scene-environment",
+        "version": 3,
+        "presetKey": "dialogue-test-ground",
+        "mapAnchorMode": "first-tile",
+        "mapOffset": [
+          0,
+          0,
+          0
+        ],
+        "tileSpacing": [
+          8,
+          8
+        ],
+        "tileSize": [
+          7.5,
+          0.5,
+          7.5
+        ]
+      }
+    ],
+    "actor-spawn": [
+      {
+        "id": "spawn:actor-spawn",
+        "entityId": "spawn",
+        "type": "actor-spawn",
+        "version": 1
+      }
+    ],
+    "dungeon-entrance": [
+      {
+        "id": "arrival:dungeon-entrance",
+        "entityId": "arrival",
+        "type": "dungeon-entrance",
+        "version": 1,
+        "entranceId": "start",
+        "facing": "north"
+      }
+    ],
+    "dungeon-exit": [
+      {
+        "id": "return-exit:dungeon-exit",
+        "entityId": "return-exit",
+        "type": "dungeon-exit",
+        "version": 2,
+        "targetMapPresetKey": "dungeon_interaction_test",
+        "targetEntranceId": "dialogue-room-return",
+        "triggers": [
+          "interact"
+        ]
+      }
+    ],
+    "event": [
+      {
+        "id": "memory-desk:event",
+        "entityId": "memory-desk",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_room_memory",
+          "entryNodeId": "start"
+        }
+      },
+      {
+        "id": "event-desk:event",
+        "entityId": "event-desk",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dialogue_room_events",
+          "entryNodeId": "start"
+        }
+      },
+      {
+        "id": "signal-plate:event",
+        "entityId": "signal-plate",
+        "type": "event",
+        "version": 2,
+        "trigger": "enter",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "shared-variable",
+          "variableId": "dialogue-signal-count",
+          "variableOperation": "add",
+          "value": 1
+        }
+      }
+    ],
+    "shared-variable": [
+      {
+        "id": "environment:dialogue-gate-count",
+        "entityId": "environment",
+        "type": "shared-variable",
+        "version": 1,
+        "variableId": "dialogue-gate-count",
+        "label": "对话石障计数",
+        "valueType": "integer",
+        "initialValue": 0,
+        "scope": "map"
+      },
+      {
+        "id": "environment:dialogue-signal-count",
+        "entityId": "environment",
+        "type": "shared-variable",
+        "version": 1,
+        "variableId": "dialogue-signal-count",
+        "label": "事件踏板次数",
+        "valueType": "integer",
+        "initialValue": 0,
+        "scope": "map"
+      }
+    ],
+    "spatial-body": [
+      {
+        "id": "dialogue-gate:spatial-body",
+        "entityId": "dialogue-gate",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
+      }
+    ],
+    "spatial-collider": [
+      {
+        "id": "dialogue-gate:spatial-collider",
+        "entityId": "dialogue-gate",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "box",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    ]
+  }
+}

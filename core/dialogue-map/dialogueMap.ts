@@ -1,63 +1,94 @@
 import { DIALOGUE_NODE_WHITESPACE_DEFAULTS } from './dialogueMap.types.ts';
 import { type DialogueEditorDocument, type DialogueEditorDocumentLibrary, type DialogueEditorNode, type DialogueEditorEdge, type DialogueEditorSelection, type DialogueEditorSelectionTarget, type DialogueNodeDisplay, type DialogueNodeKind, type DialogueOutputPort, type DialogueMapValidationIssue, type StoredDialogueEditorDocument, type StoredDialogueEditorDocumentLibrary, type StoredDialogueEditorNode } from './dialogueMap.types.ts';
 import { computeDialogueNodeLayout } from './dialogueNodeLayout.ts';
-import { parseDialogueCondition, parseDialogueEffect } from './dialogueRules.ts';
+import { parseDialogueCondition, parseDialogueEffect, parseDialogueEventWait, parseDialogueMapAction } from './dialogueRules.ts';
+import { isDialogueTextVariableName } from './dialogueText.ts';
+import { migrateDialogueConditions } from './dialogueRules.ts';
 
-export const DIALOGUE_NODE_KIND_LABEL: Record<DialogueNodeKind, string> = { condition: '判断', choice: '选项', event: '事件' };
+export const DIALOGUE_NODE_KIND_LABEL: Record<DialogueNodeKind, string> = { condition: '判断', choice: '选项', event: '发布事件', action: '执行动作' };
+export const dialogueNodeKindLabel = (node: DialogueEditorNode) => node.kind === 'event' && node.mode === 'wait' ? '等待事件' : DIALOGUE_NODE_KIND_LABEL[node.kind];
 export const createDefaultDialogueNodeDisplay = (): DialogueNodeDisplay => ({ whitespace: { ...DIALOGUE_NODE_WHITESPACE_DEFAULTS }, shape: 'rectangle', colorToken: 'blue-muted', widthUnits: 10, heightUnits: 6, showSpeakerList: true, showPreviewText: true });
 export const dialogueNodeInputPortId = (id: string) => `port:${id}:in`;
 export const dialogueOutputPortId = (id: string, suffix: string) => `port:${id}:output:${suffix}`;
 export const dialogueLineId = (id: string, suffix = 'main') => `line:${id}:${suffix}`;
 export const dialogueEdgeId = (id: string, suffix: string) => `edge:${id}:${suffix}`;
-export const createDialogueEditorNode = (id: string, position: { x: number; y: number }, kind: DialogueNodeKind = 'choice'): DialogueEditorNode => {
+export const createDialogueEditorNode = (id: string, position: { x: number; y: number }, kind: DialogueNodeKind = 'choice', eventMode: 'send' | 'wait' = 'send'): DialogueEditorNode => {
   const inputId = dialogueNodeInputPortId(id), lineId = dialogueLineId(id);
   const base = { id, title: `新${DIALOGUE_NODE_KIND_LABEL[kind]}节点`, position, display: createDefaultDialogueNodeDisplay(), lines: new Map<string, { id: string; speaker: string; text: string }>(), lineOrder: [] as string[], inputs: new Map([[inputId, { id: inputId }]]), inputOrder: [inputId], outputs: new Map<string, DialogueOutputPort>(), outputOrder: [] as string[] };
-  base.display.colorToken = { condition: 'violet-muted', choice: 'green-muted', event: 'red-muted' }[kind];
+  base.display.colorToken = { condition: 'violet-muted', choice: 'green-muted', event: 'red-muted', action: 'blue-muted' }[kind];
   const add = (branch: DialogueOutputPort['branch'], label: string, suffix: string = branch) => {
     const portId = dialogueOutputPortId(id, suffix); base.outputs.set(portId, { id: portId, label, branch }); base.outputOrder.push(portId);
   };
-  if (kind === 'condition') { add('true', '成立'); add('false', '不成立'); return { ...base, kind, condition: { type: 'compare', left: { type: 'memory', key: '', path: [] }, operator: 'eq', right: { type: 'literal', value: 0 } } }; }
-  if (kind === 'event') { add('next', '完成后继续'); return { ...base, kind, mode: 'send', events: [{ type: 'event', eventType: '', version: 1 }] }; }
+  if (kind === 'condition') { add('true', '成立'); add('false', '不成立'); return { ...base, kind }; }
+  if (kind === 'event') {
+    const events = [{ type: 'event' as const, eventType: '', version: 1 }];
+    add('next', eventMode === 'wait' ? '收到事件' : '发布后继续');
+    return eventMode === 'wait' ? { ...base, title: '新等待事件节点', kind, mode: 'wait', events, wait: { filters: [] } } : { ...base, kind, mode: 'send', events };
+  }
+  if (kind === 'action') { add('next', '执行成功'); return { ...base, kind }; }
   base.lines.set(lineId, { id: lineId, speaker: '', text: '' }); base.lineOrder.push(lineId); add('choice', '继续', 'next'); return { ...base, kind };
 };
 export const createDialogueEditorDocument = (presetKey: string, name: string): DialogueEditorDocument => {
   const node = createDialogueEditorNode('start', { x: 96, y: 96 }); node.title = '开场'; node.lines.get(node.lineOrder[0])!.text = '在这里写下第一句对话。';
-  return { schemaVersion: 5, presetKey, name, graph: { nodes: new Map([[node.id, node]]), edges: new Map() } };
+  return { schemaVersion: 6, presetKey, name, graph: { nodes: new Map([[node.id, node]]), edges: new Map() } };
 };
 const object = (value: unknown, label: string): Record<string, unknown> => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${label}必须是对象。`); return value as Record<string, unknown>;
 };
 const string = (value: unknown): string => { if (typeof value !== 'string') throw new Error('字段必须是字符串。'); return value; };
 const list = (value: unknown): string[] => { if (!Array.isArray(value)) throw new Error('顺序必须是数组。'); return value.map(string); };
-const parseNode = (value: unknown): DialogueEditorNode => {
+const parseNode = (value: unknown, legacy: boolean): DialogueEditorNode => {
   const raw = object(value, '节点'), pos = object(raw.position, '位置'), display = object(raw.display, '显示');
   if (!['rectangle', 'rounded', 'diamond', 'hexagon', 'pill', 'document'].includes(string(display.shape)) || typeof display.colorToken !== 'string') throw new Error('显示字段无效。');
   const ports = (name: string) => new Map(Object.entries(object(raw[name], name)).map(([key, value]) => {
     const port = object(value, '端口');
-    if (name === 'outputs' && !['next', 'true', 'false', 'choice'].includes(string(port.branch))) throw new Error('未知出口分支。');
+    if (name === 'outputs' && !['next', 'true', 'false', 'choice', ...(legacy ? [] : ['timeout'])].includes(string(port.branch))) throw new Error('未知出口分支。');
     return [key, { id: string(port.id), ...(port.label === undefined ? {} : { label: string(port.label) }), ...(name === 'outputs' ? { branch: port.branch } : {}) }];
   }));
   const base = { id: string(raw.id), title: string(raw.title), position: { x: Number(pos.x), y: Number(pos.y) }, display: structuredClone(display) as DialogueNodeDisplay,
     lines: new Map(Object.entries(object(raw.lines, '对白')).map(([key, value]) => { const line = object(value, '对白'); return [key, { id: string(line.id), speaker: string(line.speaker), text: string(line.text) }]; })), lineOrder: list(raw.lineOrder),
     inputs: ports('inputs'), inputOrder: list(raw.inputOrder), outputs: ports('outputs') as Map<string, DialogueOutputPort>, outputOrder: list(raw.outputOrder), ...(raw.tags === undefined ? {} : { tags: list(raw.tags) }) };
   if (raw.kind === 'choice') return { ...base, kind: raw.kind };
-  if (raw.kind === 'condition') return { ...base, kind: raw.kind, ...(raw.condition === undefined ? {} : { condition: parseDialogueCondition(raw.condition) }) };
-  if (raw.kind === 'event' && (raw.mode === 'send' || raw.mode === 'wait')) return { ...base, kind: raw.kind, mode: raw.mode, events: (() => { if (!Array.isArray(raw.events)) throw new Error('事件列表必须是数组。'); return raw.events.map(parseDialogueEffect); })() };
+  if (raw.kind === 'condition') {
+    if (raw.formula !== undefined && raw.condition !== undefined) throw new Error('判断卡只能保存一种条件格式。');
+    return { ...base, kind: raw.kind, ...(raw.formula === undefined ? {} : { formula: string(raw.formula) }),
+      ...(raw.condition === undefined ? {} : { condition: parseDialogueCondition(raw.condition) }) };
+  }
+  if (!legacy && raw.kind === 'action') return { ...base, kind: raw.kind, ...(raw.action === undefined ? {} : { action: parseDialogueMapAction(raw.action) }) };
+  if (raw.kind === 'event' && (raw.mode === 'send' || raw.mode === 'wait')) {
+    if (!Array.isArray(raw.events)) throw new Error('事件列表必须是数组。');
+    const events = raw.events.map(parseDialogueEffect);
+    if (raw.mode === 'send') return { ...base, kind: 'event', mode: 'send', events };
+    if (!legacy && events.some(event => event.payload !== undefined || event.correlationId !== undefined)) throw new Error('等待事件请在 wait 中配置匹配条件。');
+    const filters = Object.entries(events[0]?.payload ?? {}).map(([field, value]) => ({ field, operator: 'eq' as const, value }));
+    return { ...base, kind: 'event', mode: 'wait', events: events.map(({ eventType, version }) => ({ type: 'event', eventType, version })),
+      wait: legacy ? { filters } : parseDialogueEventWait(raw.wait) };
+  }
   throw new Error('不支持的节点类型或事件模式。');
 };
 export const parseDialogueEditorDocument = (value: unknown, expectedKey?: string): DialogueEditorDocument => {
-  const raw = object(value, '对话图'); if (raw.schemaVersion !== 5) throw new Error('只支持 V5 三类节点数据，请使用新预设。');
+  const raw = object(value, '对话图'); if (raw.schemaVersion !== 5 && raw.schemaVersion !== 6) throw new Error('只支持 V5 和 V6 对话预设。');
   const presetKey = string(raw.presetKey); if (expectedKey && expectedKey !== presetKey) throw new Error('预设 Key 不一致。'); const graph = object(raw.graph, '图');
-  const document: DialogueEditorDocument = { schemaVersion: 5, presetKey, name: string(raw.name), graph: {
-    nodes: new Map(Object.entries(object(graph.nodes, '节点')).map(([key, node]) => [key, parseNode(node)])),
+  const document: DialogueEditorDocument = { schemaVersion: 6, presetKey, name: string(raw.name), graph: {
+    nodes: new Map(Object.entries(object(graph.nodes, '节点')).map(([key, node]) => [key, parseNode(node, raw.schemaVersion === 5)])),
     edges: new Map(Object.entries(object(graph.edges, '连线')).map(([key, value]) => { const edge = object(value, '连线'), from = object(edge.from, '起点'), to = object(edge.to, '终点'); return [key, { id: string(edge.id), from: { nodeId: string(from.nodeId), portId: string(from.portId) }, to: { nodeId: string(to.nodeId), portId: string(to.portId) }, ...(edge.label === undefined ? {} : { label: string(edge.label) }) }]; })),
   } };
+  if (raw.textVariables !== undefined) {
+    document.textVariables = Object.fromEntries(Object.entries(object(raw.textVariables, '文本变量')).map(([alias, value]) => {
+      const binding = object(value, '文本变量绑定');
+      if (!isDialogueTextVariableName(alias)) throw new Error(`文本变量名无效：${alias}`);
+      return [alias, { key: string(binding.key), path: list(binding.path) }];
+    }));
+  }
+  migrateDialogueConditions(document);
   const errors = validateDialogueEditorDocument(document); if (errors.length) throw new Error(errors[0].message); return document;
 };
 const encodeNode = (node: DialogueEditorNode): StoredDialogueEditorNode => {
   const copy = structuredClone(node); return { ...copy, lines: Object.fromEntries(copy.lines), inputs: Object.fromEntries(copy.inputs), outputs: Object.fromEntries(copy.outputs) };
 };
-export const encodeDialogueEditorDocument = (document: DialogueEditorDocument): StoredDialogueEditorDocument => ({ schemaVersion: 5, presetKey: document.presetKey, name: document.name, graph: { nodes: Object.fromEntries([...document.graph.nodes].map(([id, node]) => [id, encodeNode(node)])), edges: Object.fromEntries(structuredClone(document.graph.edges)) } });
+export const encodeDialogueEditorDocument = (document: DialogueEditorDocument): StoredDialogueEditorDocument => ({ schemaVersion: 6, presetKey: document.presetKey, name: document.name,
+  ...(document.textVariables === undefined ? {} : { textVariables: structuredClone(document.textVariables) }),
+  graph: { nodes: Object.fromEntries([...document.graph.nodes].map(([id, node]) => [id, encodeNode(node)])), edges: Object.fromEntries(structuredClone(document.graph.edges)) } });
 export const encodeDialogueEditorDocumentLibrary = (library: DialogueEditorDocumentLibrary): StoredDialogueEditorDocumentLibrary => Object.fromEntries(Object.entries(library).map(([key, document]) => [key, encodeDialogueEditorDocument(document)]));
 export const cloneDialogueEditorDocument = (document: DialogueEditorDocument) => structuredClone(document);
 export const resolveDialogueEditorSelection = (document: DialogueEditorDocument, selection: DialogueEditorSelection): DialogueEditorSelectionTarget | undefined => {
@@ -80,7 +111,7 @@ const issue = (code: string, message: string, severity: DialogueMapValidationIss
 /** Storage validation permits dangling references and unfinished rules, but enforces edge invariants. */
 export const validateDialogueEditorDocument = (document: DialogueEditorDocument): DialogueMapValidationIssue[] => {
   const issues: DialogueMapValidationIssue[] = [];
-  if (document.schemaVersion !== 5 || !/^[A-Za-z0-9_-]+$/.test(document.presetKey) || !document.name.trim()) issues.push(issue('invalid-document', '文档版本、名称或 Key 无效。', 'error'));
+  if (document.schemaVersion !== 6 || !/^[A-Za-z0-9_-]+$/.test(document.presetKey) || !document.name.trim()) issues.push(issue('invalid-document', '文档版本、名称或 Key 无效。', 'error'));
   document.graph.nodes.forEach((node, key) => {
     const whitespace = node.display.whitespace;
     if (whitespace !== undefined && (!whitespace || typeof whitespace !== 'object' || Array.isArray(whitespace) || Object.entries(whitespace).some(([name, value]) => !Object.hasOwn(DIALOGUE_NODE_WHITESPACE_DEFAULTS, name) || typeof value !== 'boolean'))) issues.push(issue('invalid-whitespace', '节点留白设置必须包含有效区域和布尔开关。', 'error', { nodeId: key }));

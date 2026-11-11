@@ -18,14 +18,27 @@ export const settleDialogueFlowPreview = (document: DialogueEditorDocument, init
     if (!state.nodeId) return state;
     const node = previewNode(document, state);
     if (!node) return { ...state, nodeId: undefined, ended: '起始节点不存在，预览已停止。' };
-    if (node.kind !== 'event') return state;
-    const events = [...state.events, ...node.events.map(event => `${node.mode === 'wait' ? '等待已放行' : '模拟触发'}：${event.eventType || '未命名事件'}`)].slice(-100);
+    if (node.kind === 'event' && node.mode === 'wait') return state;
+    if (node.kind !== 'event' && node.kind !== 'action') return state;
+    const summaries = node.kind === 'action' ? [`模拟执行：${node.action?.type ?? '未配置动作'}`]
+      : node.events.map(event => `模拟发布：${event.eventType || '未命名事件'}`);
+    const events = [...state.events, ...summaries].slice(-100);
     state = route(document, { ...state, events }, node.outputOrder[0]);
   }
   return { ...state, nodeId: undefined, ended: '连续事件形成循环或超过 100 步，预览已停止。' };
 };
 export const startDialogueFlowPreview = (document: DialogueEditorDocument, nodeId: string) => settleDialogueFlowPreview(document, { nodeId, lineIndex: 0, events: [] });
-export const chooseDialogueFlowPreview = (document: DialogueEditorDocument, state: DialogueFlowPreviewState, portId?: string) => settleDialogueFlowPreview(document, route(document, state, portId));
+export const chooseDialogueFlowPreview = (document: DialogueEditorDocument, state: DialogueFlowPreviewState, portId?: string) => {
+  const node = previewNode(document, state);
+  const next = node?.kind === 'event' && node.mode === 'wait'
+    ? { ...state, events: [...state.events, `模拟${node.outputs.get(portId ?? '')?.branch === 'timeout' ? '超时' : '收到事件'}：${node.events[0].eventType}`].slice(-100) }
+    : state;
+  if (node?.kind === 'event' && node.mode === 'wait' && node.outputs.get(portId ?? '')?.branch === 'timeout'
+      && ![...document.graph.edges.values()].some(edge => edge.from.nodeId === node.id && edge.from.portId === portId)) {
+    return { ...next, nodeId: undefined, ended: '等待事件超时，未连接超时出口。' };
+  }
+  return settleDialogueFlowPreview(document, route(document, next, portId));
+};
 export const nextDialogueFlowPreviewLine = (document: DialogueEditorDocument, state: DialogueFlowPreviewState): DialogueFlowPreviewState => {
   const node = previewNode(document, state);
   return node?.kind === 'choice' && state.lineIndex + 1 < node.lineOrder.length ? { ...state, lineIndex: state.lineIndex + 1 } : state;

@@ -58,6 +58,10 @@ const row = (id: string, x: number, y: number, width: number, height: number): D
 export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
   if (node.kind === 'choice') return node.lines;
   if (node.kind === 'condition') {
+    if (node.formula !== undefined) {
+      const id = `summary:${node.id}`;
+      return new Map([[id, { id, speaker: '判断公式', text: node.formula || '未设置判断公式' }]]);
+    }
     const condition = node.condition;
     if (!condition) return new Map([[`summary:${node.id}`, { id: `summary:${node.id}`, speaker: '判断条件', text: '未设置判断条件' }]]);
     const comparisons = condition.type === 'compare' ? [condition] : condition.conditions;
@@ -67,8 +71,13 @@ export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
       ...comparisons.map((item, index) => { const id = `condition:${node.id}:${index}`; return [id, { id, speaker: `条件 ${index + 1}`, text: summarizeDialogueCondition(item) }] as const; }),
     ]);
   }
+  if (node.kind === 'action') {
+    const action = node.action;
+    const text = action?.type === 'service' ? action.commandId : action?.type ?? '未设置动作';
+    return new Map([[`summary:${node.id}`, { id: `summary:${node.id}`, speaker: '地图动作', text }]]);
+  }
   return new Map([
-    [`summary:${node.id}`, { id: `summary:${node.id}`, speaker: '事件模式', text: node.mode === 'wait' ? '等待一个事件' : `依次触发 ${node.events.length} 个事件` }],
+    [`summary:${node.id}`, { id: `summary:${node.id}`, speaker: '事件模式', text: node.mode === 'wait' ? `等待事件 · ${node.wait.filters.length} 条匹配条件` : `依次发布 ${node.events.length} 个事件` }],
     ...node.events.map((event, index) => {
       const id = `event:${node.id}:${index}`;
       const text = `${event.eventType || '未设置事件'} @${event.version}\n${Object.entries(event.payload ?? {}).map(([key, value]) => `${key}: ${value.type === 'memory' ? value.key + '.' + value.path.join('.') : JSON.stringify(value.value)}`).join(' · ')}`;

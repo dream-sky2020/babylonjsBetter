@@ -6,22 +6,33 @@ import { compileDialogueEditorDocument } from './dialogueCompiler.ts';
 import { dialogueRuleCatalog } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueRuleCatalog.ts';
 
 const preset = () => parseDialogueEditorDocument(JSON.parse(readFileSync(new URL('../../config/dialogueMapPresets/village_gate.json', import.meta.url), 'utf8')));
-test('new preset contains three node kinds and send/wait events, compiles with no issues', () => {
+test('text bindings survive storage and compilation reports unbound placeholders', () => {
+  const document = createDialogueEditorDocument('text', 'Text');
+  document.textVariables = { 次数: { key: 'counter', path: [] } };
+  const node = document.graph.nodes.get('start')!;
+  node.lines.get(node.lineOrder[0])!.text = '{次数}，{未绑定}，{{普通文字}}';
+  const restored = parseDialogueEditorDocument(encodeDialogueEditorDocument(document));
+  const result = compileDialogueEditorDocument(restored, node.id);
+  assert.deepEqual(result.program?.textVariables, document.textVariables);
+  assert.deepEqual(result.issues.filter(issue => issue.code === 'text-variable').map(issue => issue.message), ['对白变量「未绑定」未绑定。']);
+});
+test('V6 preset compiles publishing, waiting and map actions', () => {
   const document = preset();
-  assert.deepEqual(new Set([...document.graph.nodes.values()].map(node => node.kind)), new Set(['condition', 'choice', 'event']));
+  assert.deepEqual(new Set([...document.graph.nodes.values()].map(node => node.kind)), new Set(['condition', 'choice', 'event', 'action']));
   const result = compileDialogueEditorDocument(document, 'greeting', dialogueRuleCatalog);
-  assert.deepEqual(result.issues, []); assert.ok(result.program);
+  assert.deepEqual(result.issues.filter(issue => issue.severity === 'error'), []); assert.ok(result.program);
+  assert.equal(result.program.instructions.open_gate.kind, 'action');
   assert.equal(result.program.instructions.gate_check.kind, 'condition');
   const event = result.program.instructions.wait_gate; assert.equal(event.kind, 'event'); if (event.kind === 'event') assert.equal(event.mode, 'wait');
   assert.equal('display' in result.program.instructions.greeting, false);
 });
-test('V5 round trip preserves typed nodes, rules, ports and edges without aliasing', () => {
+test('V6 round trip preserves typed nodes, rules, ports and edges without aliasing', () => {
   const document = preset(), encoded = encodeDialogueEditorDocument(document);
   assert.deepEqual(encodeDialogueEditorDocument(parseDialogueEditorDocument(encoded)), encoded);
   encoded.graph.nodes.greeting.lines['line:greeting:main'].text = 'changed';
   assert.notEqual(document.graph.nodes.get('greeting')!.lines.get('line:greeting:main')!.text, 'changed');
-  const cloned = cloneDialogueEditorDocument(document), node = cloned.graph.nodes.get('open_gate')!;
-  if (node.kind === 'event') node.events[0].payload!.gateId = { type: 'literal', value: 'changed' };
+  const cloned = cloneDialogueEditorDocument(document), node = cloned.graph.nodes.get('accept_quest')!;
+  if (node.kind === 'event') node.events[0].payload!.questId = { type: 'literal', value: 'changed' };
   assert.notDeepEqual(encodeDialogueEditorDocument(cloned), encodeDialogueEditorDocument(document));
 });
 test('old schemas and legacy rules are rejected explicitly', () => {
@@ -86,8 +97,8 @@ test('compilation catches node/branch mismatches, missing choices and absent ent
 });
 test('compiled instructions are independent snapshots of authoring data', () => {
   const document = preset(), result = compileDialogueEditorDocument(document, 'greeting'); assert.ok(result.program);
-  const node = result.program.instructions.open_gate; if (node.kind === 'event') node.events[0].eventType = 'changed';
-  const original = document.graph.nodes.get('open_gate')!; assert.equal(original.kind, 'event'); if (original.kind === 'event') assert.equal(original.events[0].eventType, 'dialogue.demo.gate.open');
+  const node = result.program.instructions.accept_quest; if (node.kind === 'event') node.events[0].eventType = 'changed';
+  const original = document.graph.nodes.get('accept_quest')!; assert.equal(original.kind, 'event'); if (original.kind === 'event') assert.equal(original.events[0].eventType, 'dialogue.quest.accepted');
 });
 
 test('one continuation and multiple choices share dialogue content in compiled instructions', () => {
@@ -114,34 +125,58 @@ test('every card requires exactly one input at the storage boundary', () => {
   }
 });
 
-test('flat condition selections resolve their owning card and reject missing rows', () => {
+test('legacy conditions migrate to a single formula using preset bindings', () => {
   const document = preset();
+  const node = document.graph.nodes.get('gate_check');
+  assert.ok(node?.kind === 'condition');
+  assert.match(node.formula ?? '', /&&/);
+  assert.equal(node.condition, undefined);
+  assert.ok(Object.keys(document.textVariables ?? {}).length);
   assert.equal(resolveDialogueEditorSelection(document, { kind: 'condition-mode', nodeId: 'gate_check' })?.kind, 'condition-mode');
-  assert.equal(resolveDialogueEditorSelection(document, { kind: 'condition', nodeId: 'gate_check', conditionIndex: 1 })?.kind, 'condition');
+  assert.equal(resolveDialogueEditorSelection(document, { kind: 'condition', nodeId: 'gate_check', conditionIndex: 1 }), undefined);
   assert.equal(resolveDialogueEditorSelection(document, { kind: 'condition', nodeId: 'gate_check', conditionIndex: 99 }), undefined);
   assert.equal(resolveDialogueEditorSelection(document, { kind: 'condition-mode', nodeId: 'greeting' }), undefined);
 });
 
 test('event content selection resolves only event cards', () => {
   const document = preset();
-  const target = resolveDialogueEditorSelection(document, { kind: 'event', nodeId: 'open_gate' });
-  assert.equal(target?.kind, 'event'); assert.equal(target?.node.id, 'open_gate');
+  const target = resolveDialogueEditorSelection(document, { kind: 'event', nodeId: 'accept_quest' });
+  assert.equal(target?.kind, 'event'); assert.equal(target?.node.id, 'accept_quest');
   assert.equal(resolveDialogueEditorSelection(document, { kind: 'event', nodeId: 'greeting' }), undefined);
 });
 
 test('send lists compile in order while wait and empty lists enforce event counts', () => {
-  const document = preset(), node = document.graph.nodes.get('open_gate')!; if (node.kind !== 'event') return;
+  const document = preset(), node = document.graph.nodes.get('accept_quest')!; assert.ok(node.kind === 'event' && node.mode === 'send');
   node.events.push({ type: 'event', eventType: 'second.event', version: 1 });
   assert.deepEqual(validateDialogueEditorDocument(document), []);
   const program = compileDialogueEditorDocument(document, 'greeting').program!;
-  const instruction = program.instructions.open_gate; if (instruction.kind !== 'event') return;
-  assert.deepEqual(instruction.events.map(event => event.eventType), ['dialogue.demo.gate.open', 'second.event']);
+  const instruction = program.instructions.accept_quest; assert.ok(instruction.kind === 'event');
+  assert.deepEqual(instruction.events.map(event => event.eventType), ['dialogue.quest.accepted', 'second.event']);
   assert.equal(resolveDialogueEditorSelection(document, { kind: 'event', nodeId: node.id, eventIndex: 1 })?.kind, 'event');
   assert.equal(resolveDialogueEditorSelection(document, { kind: 'event', nodeId: node.id, eventIndex: 2 }), undefined);
-  node.mode = 'wait';
+  const wait = document.graph.nodes.get('wait_gate')!; assert.ok(wait.kind === 'event' && wait.mode === 'wait');
+  wait.events.push({ type: 'event', eventType: 'extra', version: 1 });
   assert.throws(() => parseDialogueEditorDocument(encodeDialogueEditorDocument(document)), /等待节点/);
-  node.mode = 'send'; node.events = [];
+  wait.events.pop(); node.events = [];
   assert.throws(() => parseDialogueEditorDocument(encodeDialogueEditorDocument(document)), /触发节点/);
+});
+
+test('V5 wait payload migrates to equality filters with its existing ports and edges', () => {
+  const raw = encodeDialogueEditorDocument(preset());
+  const node = raw.graph.nodes.wait_gate;
+  assert.ok(node.kind === 'event' && node.mode === 'wait');
+  const { wait: _wait, ...legacyNode } = node;
+  legacyNode.events[0].payload = { gateId: { type: 'literal', value: 'north' } };
+  const { open_gate: _action, ...legacyNodes } = raw.graph.nodes;
+  const migrated = parseDialogueEditorDocument({ ...raw, schemaVersion: 5,
+    graph: { ...raw.graph, nodes: { ...legacyNodes, wait_gate: legacyNode } } });
+  assert.equal(migrated.schemaVersion, 6);
+  const wait = migrated.graph.nodes.get('wait_gate')!;
+  assert.ok(wait.kind === 'event' && wait.mode === 'wait');
+  assert.equal(wait.events[0].payload, undefined);
+  assert.deepEqual(wait.wait.filters, [{ field: 'gateId', operator: 'eq', value: { type: 'literal', value: 'north' } }]);
+  assert.deepEqual(wait.outputOrder, node.outputOrder);
+  assert.deepEqual(encodeDialogueEditorDocument(migrated).graph.edges, raw.graph.edges);
 });
 
 

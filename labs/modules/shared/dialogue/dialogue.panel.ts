@@ -16,7 +16,7 @@ export function mountDialoguePanel(ui: LabUi, manager: DialogueManager, config: 
   const cancel = document.createElement('button'); cancel.type = 'button'; cancel.textContent = '结束当前对话'; cancel.dataset.dialogueStop = '';
   const actions = document.createElement('div'); actions.className = 'lab-module-actions'; actions.append(start, cancel);
   const status = createLabStatus('正在读取对话预设……'); status.dataset.dialogueStatus = '';
-  const hint = createLabStatus('对白和选项测试。Enter / 空格继续，数字键选择，Esc 结束；条件与剧情事件尚未接入。');
+  const hint = createLabStatus('Enter / 空格继续，数字键选择，Esc 结束。地牢动作需从地图中的对话入口启动。');
   panel.content.append(createLabField('对话预设', preset), createLabField('入口节点', entry), createLabField('UI 预设', uiPreset), actions, status, hint);
   let catalog: readonly DialogueCatalogEntry[] = [], getUiOptions: UiOptionsProvider | undefined;
   let uiIssue = '';
@@ -30,7 +30,7 @@ export function mountDialoguePanel(ui: LabUi, manager: DialogueManager, config: 
     start.disabled = !getUiOptions || !!uiIssue || state.busy; cancel.disabled = !state.busy;
     const labels = { idle: '等待开始', loading: '正在准备对话', playing: '对话进行中', ended: '对话已结束', cancelled: '对话已取消', error: '无法开始对话' };
     const selectionError = !state.busy && uiIssue;
-    status.textContent = selectionError || state.error || `${labels[state.status]}${state.playback?.status === 'playing' ? ` · ${state.playback.speaker || '旁白'}` : ''}`;
+    status.textContent = selectionError || state.error || (state.waiting ? '等待事件' : `${labels[state.status]}${state.playback?.status === 'playing' ? ` · ${state.playback.speaker || '旁白'}` : ''}`);
     status.dataset.error = String(!!selectionError || state.status === 'error');
   };
   const fillUiPresets = () => {

@@ -8,6 +8,7 @@ import { createDialogueHistory, commitDialogueHistory, undoDialogueHistory } fro
 const graph = () => {
   const doc = createDialogueEditorDocument('test', 'Test');
   const a = doc.graph.nodes.get('start'), b = createDialogueEditorNode('b', { x: 385, y: 197 }, 'condition'), c = createDialogueEditorNode('c', { x: 800, y: 90 }, 'event');
+  b.condition = { type: 'compare', left: { type: 'memory', key: '', path: [] }, operator: 'eq', right: { type: 'literal', value: 0 } };
   doc.graph.nodes.set('b', b); doc.graph.nodes.set('c', c);
   connectDialogueNodes(doc, { nodeId: a.id, portId: a.outputOrder[0] }, { nodeId: b.id, portId: b.inputOrder[0] });
   connectDialogueNodes(doc, { nodeId: b.id, portId: b.outputOrder[0] }, { nodeId: c.id, portId: c.inputOrder[0] });
@@ -88,7 +89,7 @@ test('event and condition collections copy snapshots, reject incompatible append
   applyDialogueProperties(doc, { nodeId: event.id, scope: 'events' }, e, true);
   assert.equal(event.events.length, 2); assert.equal(event.events[1].eventType, '');
   event.mode = 'wait'; event.events = [event.events[0]];
-  assert.match(dialoguePropertyPasteReason(doc, { nodeId: event.id, scope: 'events' }, e, true), /一个事件/);
+  assert.match(dialoguePropertyPasteReason(doc, { nodeId: event.id, scope: 'events' }, e, true), /仅发布节点/);
   const outputIds = [...condition.outputOrder], snapshot = captureDialogueProperties(doc, { nodeId: condition.id, scope: 'conditions' });
   applyDialogueProperties(doc, { nodeId: condition.id, scope: 'conditions' }, snapshot, true);
   assert.equal(condition.condition.conditions.length, 2); assert.deepEqual(condition.outputOrder, outputIds);

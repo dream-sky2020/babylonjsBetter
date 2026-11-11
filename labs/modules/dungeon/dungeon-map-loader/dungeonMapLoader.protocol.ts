@@ -1,7 +1,7 @@
 import type { DungeonRuntimeSaveState } from '@/core/dungeon-runtime-save';
 import type { DungeonMapDefinitionRefsDelta } from '@/core/map';
 import type { DungeonMapDocumentDeltaV1 } from '@/core/map-document';
-import { createLabEvent, createLabRequest } from '@/labs/kit';
+import { createLabEvent, createLabRequest } from '../../../kit/labCommunication.types.ts';
 
 export type DungeonMapChangedEvent = {
   loadId: number;
@@ -35,7 +35,10 @@ export type DungeonRuntimeChangedEvent = {
   presetKey: string;
 };
 
-export const dungeonRuntimeChangedEvent = createLabEvent<DungeonRuntimeChangedEvent>('dungeon.runtime.changed');
+export const dungeonRuntimeChangedEvent = createLabEvent<DungeonRuntimeChangedEvent>('dungeon.runtime.changed', 1, {
+  label: '运行状态变化',
+  fields: [{ name: 'loadId', type: 'number' }, { name: 'revision', type: 'number' }, { name: 'presetKey', type: 'string' }, { name: 'reason', type: 'string' }],
+});
 
 export type DungeonRuntimeCommitRequest = { reason: DungeonRuntimeChangedReason };
 export type DungeonRuntimeCommitResult = {

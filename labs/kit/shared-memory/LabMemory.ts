@@ -26,6 +26,7 @@ export type LabSharedData<T> = Readonly<{
 
 export type LabMemoryScope = {
   acquire<T>(definition: LabSharedDataDefinition<T>): LabSharedData<T>;
+  readScalar(key: string, path: readonly string[]): string | number | boolean | null | undefined;
 };
 
 export type LabMemoryInspection = Readonly<{
@@ -73,7 +74,22 @@ export class LabMemoryRegistry {
 
   scope(moduleId: string): LabMemoryScope {
     const id = name(moduleId, '共享数据申请模块');
-    return Object.freeze({ acquire: <T>(definition: LabSharedDataDefinition<T>) => this.acquire(id, definition) });
+    return Object.freeze({
+      acquire: <T>(definition: LabSharedDataDefinition<T>) => this.acquire(id, definition),
+      readScalar: (key: string, path: readonly string[]) => this.readScalar(key, path),
+    });
+  }
+
+  private readScalar(key: string, path: readonly string[]): string | number | boolean | null | undefined {
+    this.requireActive();
+    let value = this.entries.get(key)?.value;
+    for (const field of path) {
+      if (value === null || typeof value !== 'object' || !Object.hasOwn(value, field)) return undefined;
+      value = (value as Record<string, unknown>)[field];
+    }
+    if (value === null || typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number' && Number.isFinite(value)) return value;
+    if (value !== undefined) throw new TypeError(`共享内存字段必须是标量：${[key, ...path].join('.')}`);
+    return undefined;
   }
 
   private acquire<T>(moduleId: string, definition: LabSharedDataDefinition<T>): LabSharedData<T> {

@@ -1,9 +1,46 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "presetKey": "room_threshold_arrivals",
   "name": "来路感应格 · 进入方向",
   "graph": {
     "nodes": {
+      "fallback": {
+        "id": "fallback",
+        "title": "其他来路",
+        "position": {
+          "x": 24,
+          "y": 304
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "fallback:line": {
+            "id": "fallback:line",
+            "speaker": "来路感应格",
+            "text": "通用来路已记录。你从其余方向走进了感应格。"
+          }
+        },
+        "lineOrder": [
+          "fallback:line"
+        ],
+        "inputs": {
+          "fallback:in": {
+            "id": "fallback:in"
+          }
+        },
+        "inputOrder": [
+          "fallback:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
       "north": {
         "id": "north",
         "title": "北侧进入",
@@ -73,43 +110,6 @@
         },
         "inputOrder": [
           "west:in"
-        ],
-        "outputs": {},
-        "outputOrder": [],
-        "kind": "choice"
-      },
-      "fallback": {
-        "id": "fallback",
-        "title": "其他来路",
-        "position": {
-          "x": 24,
-          "y": 304
-        },
-        "display": {
-          "colorToken": "blue-muted",
-          "heightUnits": 6,
-          "shape": "rounded",
-          "showPreviewText": true,
-          "showSpeakerList": true,
-          "widthUnits": 12
-        },
-        "lines": {
-          "fallback:line": {
-            "id": "fallback:line",
-            "speaker": "来路感应格",
-            "text": "通用来路已记录。你从其余方向走进了感应格。"
-          }
-        },
-        "lineOrder": [
-          "fallback:line"
-        ],
-        "inputs": {
-          "fallback:in": {
-            "id": "fallback:in"
-          }
-        },
-        "inputOrder": [
-          "fallback:in"
         ],
         "outputs": {},
         "outputOrder": [],

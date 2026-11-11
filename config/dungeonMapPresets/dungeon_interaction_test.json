@@ -159,6 +159,24 @@
       "entityType": "interaction-point",
       "name": "计数踏板 · 脚踏板触发次数",
       "enabled": true
+    },
+    {
+      "id": "dialogue-event-demo",
+      "entityType": "interaction-point",
+      "name": "机关对话测试 · 蓝格 (12,9)",
+      "enabled": true
+    },
+    {
+      "id": "dialogue-room-exit",
+      "entityType": "dungeon-exit",
+      "name": "前往对话机制测试室",
+      "enabled": true
+    },
+    {
+      "id": "dialogue-room-arrival",
+      "entityType": "dungeon-entrance",
+      "name": "对话机制测试室回程落点",
+      "enabled": true
     }
   ],
   "components": {
@@ -449,6 +467,42 @@
             "tileId": "tile:12,8"
           }
         ]
+      },
+      {
+        "id": "dialogue-event-demo:spatial-attachment",
+        "entityId": "dialogue-event-demo",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:12,9"
+          }
+        ]
+      },
+      {
+        "id": "dialogue-room-exit:spatial-attachment",
+        "entityId": "dialogue-room-exit",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:14,8"
+          }
+        ]
+      },
+      {
+        "id": "dialogue-room-arrival:spatial-attachment",
+        "entityId": "dialogue-room-arrival",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:14,9"
+          }
+        ]
       }
     ],
     "scene-environment": [
@@ -498,6 +552,14 @@
         "type": "dungeon-entrance",
         "version": 1,
         "entranceId": "direct",
+        "facing": "north"
+      },
+      {
+        "id": "dialogue-room-arrival:dungeon-entrance",
+        "entityId": "dialogue-room-arrival",
+        "type": "dungeon-entrance",
+        "version": 1,
+        "entranceId": "dialogue-room-return",
         "facing": "north"
       }
     ],
@@ -1366,6 +1428,20 @@
           "variableOperation": "add",
           "value": 1
         }
+      },
+      {
+        "id": "dialogue-event-demo:event",
+        "entityId": "dialogue-event-demo",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 0,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "village_gate",
+          "entryNodeId": "dialogue-event-demo"
+        }
       }
     ],
     "dungeon-exit": [
@@ -1390,6 +1466,17 @@
         "targetEntranceId": "direct",
         "triggers": [
           "enter"
+        ]
+      },
+      {
+        "id": "dialogue-room-exit:dungeon-exit",
+        "entityId": "dialogue-room-exit",
+        "type": "dungeon-exit",
+        "version": 2,
+        "targetMapPresetKey": "dungeon_dialogue_test",
+        "targetEntranceId": "start",
+        "triggers": [
+          "interact"
         ]
       }
     ],

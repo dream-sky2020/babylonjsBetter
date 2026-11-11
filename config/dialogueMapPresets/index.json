@@ -1,35 +1,45 @@
 {
   "version": 1,
   "presets": {
-    "village_gate": {
-      "presetKey": "village_gate",
-      "name": "村口守卫 · 三类节点示例",
-      "file": "village_gate.json"
+    "dialogue_room_events": {
+      "presetKey": "dialogue_room_events",
+      "name": "对话测试室 · 发布与等待事件",
+      "file": "dialogue_room_events.json"
+    },
+    "dialogue_room_memory": {
+      "presetKey": "dialogue_room_memory",
+      "name": "对话测试室 · 共享变量与石障",
+      "file": "dialogue_room_memory.json"
     },
     "dialogue_test": {
       "presetKey": "dialogue_test",
       "name": "对话模块 · 基础测试",
       "file": "dialogue_test.json"
     },
-    "room_guard_sides": {
-      "presetKey": "room_guard_sides",
-      "name": "回廊守卫 · 自身四侧",
-      "file": "room_guard_sides.json"
-    },
     "room_console_sides": {
       "presetKey": "room_console_sides",
       "name": "四面控制台 · 地图四向",
       "file": "room_console_sides.json"
+    },
+    "room_contact_tests": {
+      "presetKey": "room_contact_tests",
+      "name": "传送后的房间 · 移动受阻测试",
+      "file": "room_contact_tests.json"
+    },
+    "room_guard_sides": {
+      "presetKey": "room_guard_sides",
+      "name": "回廊守卫 · 自身四侧",
+      "file": "room_guard_sides.json"
     },
     "room_threshold_arrivals": {
       "presetKey": "room_threshold_arrivals",
       "name": "来路感应格 · 进入方向",
       "file": "room_threshold_arrivals.json"
     },
-    "room_contact_tests": {
-      "presetKey": "room_contact_tests",
-      "name": "传送后的房间 · 移动受阻测试",
-      "file": "room_contact_tests.json"
+    "village_gate": {
+      "presetKey": "village_gate",
+      "name": "村口守卫 · 事件与动作示例",
+      "file": "village_gate.json"
     }
   }
 }

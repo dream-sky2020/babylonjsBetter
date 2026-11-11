@@ -28,14 +28,14 @@ export const createLabCommunicationPanel = (ui: LabUi, viewport: LabViewportMana
   const sidebar = el('aside', 'lab-memory-sidebar'), stage = el('main', 'lab-memory-stage'), details = el('aside', 'lab-memory-inspector');
   const search = el('input'); search.placeholder = '搜索事件或模块'; search.setAttribute('aria-label', '搜索通信事件或模块');
   const filter = el('select'); filter.setAttribute('aria-label', '通信事件筛选');
-  for (const [value, label] of [['all', '全部事件'], ['unheard', '无监听者'], ['failed', '最近记录有失败']]) {
+  for (const [value, label] of [['all', '全部事件'], ['unheard', '无常驻监听'], ['failed', '最近记录有失败']]) {
     const option = el('option', '', label); option.value = value; filter.append(option);
   }
   const list = el('div', 'lab-memory-list'); sidebar.append(search, filter, list);
   const toolbar = el('div', 'lab-memory-toolbar'), host = el('div', 'lab-memory-graph');
   const svg = svgEl('svg', { role: 'group', 'aria-label': '模块与事件通信关系图', tabindex: '0' });
   const graph = svgEl('g'); svg.append(graph); host.append(svg);
-  stage.append(toolbar, host, el('div', 'lab-memory-hint', '发布模块 → 事件 → 监听模块 · 实线为已观察发布，虚线为声明 · 拖动空白平移，滚轮缩放'));
+  stage.append(toolbar, host, el('div', 'lab-memory-hint', '发布模块 → 事件 → 常驻监听模块 · 实线为已观察发布，虚线为声明 · 拖动空白平移，滚轮缩放'));
   const heading = el('h3', '', '选择模块或事件'), meta = el('p', 'lab-memory-meta'), contract = el('section');
   const bindings = el('section'), history = el('section'), payload = createSharedDataInspector();
   details.append(heading, meta, contract, bindings, history, payload.root);
@@ -86,7 +86,8 @@ export const createLabCommunicationPanel = (ui: LabUi, viewport: LabViewportMana
     contract.replaceChildren(el('h4', '', '事件规范'), el('p', '', definition?.description ?? '旧协议尚未补充说明。'), el('p', '', `触发时机：${definition?.trigger ?? '尚未声明'}`));
     for (const field of definition?.fields ?? []) contract.append(el('p', '', `${field.name} · ${field.type} · ${field.required === false ? '可选' : '必需'}${field.description ? ` · ${field.description}` : ''}`));
     }
-    const nextBindingsKey = JSON.stringify([event.protocol, event.declaredPublishers, event.observedPublishers, event.listeners.map(listener => listener.moduleId)]);
+    const nextBindingsKey = JSON.stringify([event.protocol, event.declaredPublishers, event.observedPublishers,
+      event.listeners.map(listener => listener.moduleId), event.waits.map(wait => wait.moduleId)]);
     if (bindingsKey !== nextBindingsKey) {
     bindingsKey = nextBindingsKey;
     bindings.replaceChildren(el('h4', '', '当前关系'),
@@ -95,6 +96,11 @@ export const createLabCommunicationPanel = (ui: LabUi, viewport: LabViewportMana
     const counts = new Map<string, number>();
     for (const listener of event.listeners) counts.set(listener.moduleId, (counts.get(listener.moduleId) ?? 0) + 1);
     for (const [moduleId, count] of counts) bindings.append(el('p', '', `${moduleId} · ${count} 个监听回调`));
+    const waits = new Map<string, number>();
+    for (const { moduleId } of event.waits) waits.set(moduleId, (waits.get(moduleId) ?? 0) + 1);
+    bindings.append(el('h4', '', '当前等待'));
+    if (!waits.size) bindings.append(el('p', '', '无'));
+    for (const [moduleId, count] of waits) bindings.append(el('p', '', `${moduleId} · ${count} 个临时等待`));
     }
     const records = entries().filter(entry => `${entry.type}@${entry.version}` === event.protocol);
     const nextHistoryKey = JSON.stringify([event.protocol, selectedMessage, records.map(entry => entry.sequence)]);
@@ -224,7 +230,10 @@ export const createLabCommunicationPanel = (ui: LabUi, viewport: LabViewportMana
     const world = graphWorldPoint(anchor, view), scale = Math.max(0.08, Math.min(2.5, view.scale * Math.exp(-event.deltaY * 0.001)));
     view = { x: anchor.x - world.x * scale, y: anchor.y - world.y * scale, scale }; syncView();
   }, { passive: false });
-  const offBindings = communication.subscribeBindings(() => { structureDirty = true; schedule(); });
+  const offBindings = communication.subscribeBindings(change => {
+    if (change === 'routing') structureDirty = true;
+    schedule();
+  });
   const offJournal = communication.journal.subscribe(schedule);
   return () => { disposed = true; offBindings(); offJournal(); if (frame) cancelAnimationFrame(frame); visibility.disconnect(); resize.disconnect(); layer.dispose(); panel.root.remove(); };
 };
