@@ -62,6 +62,7 @@ const WHITESPACE_LABELS: Record<keyof DialogueNodeWhitespace, string> = {
 };
 const GRID = DIALOGUE_MAP_GRID_SIZE;
 const WORKSPACE_KEY = 'dialogue-map-canvas-lab:v5:preview-entries';
+const NEAREST_CONTENT_KEY = 'dialogue-map-canvas-lab:select-content-in-padding';
 const SHAPE_LABEL: Record<DialogueNodeDisplay['shape'], string> = {
   rectangle: '长方形',
   rounded: '圆角长方形',
@@ -141,6 +142,7 @@ type DialogueCanvasApi = { center(): Point; focus(ids: readonly string[]): void;
 type CanvasProps = {
   document: DialogueEditorDocument;
   selection: DialogueEditorSelection;
+  selectContentInPadding: boolean;
   previewEntry?: string;
   resetViewToken: number;
   onSelection: (value: DialogueEditorSelection) => void;
@@ -160,6 +162,7 @@ type CanvasProps = {
 const DialogueCanvas: React.FC<CanvasProps> = ({
   document: sourceDocument,
   selection,
+  selectContentInPadding,
   previewEntry,
   resetViewToken,
   onSelection,
@@ -293,14 +296,35 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         )
       )
         continue;
-      if (layout.whitespaceRegions.some(rect => dialogueGridRectContains(rect, local))) return { kind: 'spacing', nodeId: node.id };
-      for (const [id, value] of layout.outputRows)
-        if (dialogueGridRectContains(value.rect, local))
-          return { kind: 'output', nodeId: node.id, portId: id };
-      for (const [id, value] of layout.lineRows)
-        if (dialogueGridRectContains(value.rect, local))
-          return node.kind === 'choice' ? { kind: 'line', nodeId: node.id, lineId: id } : node.kind === 'condition' ? (id.startsWith('condition:') ? { kind: 'condition', nodeId: node.id, conditionIndex: Number(id.split(':').at(-1)) } : { kind: 'condition-mode', nodeId: node.id }) : node.kind === 'action' ? { kind: 'node', nodeId: node.id } : id.startsWith('event:') ? { kind: 'event', nodeId: node.id, eventIndex: Number(id.split(':').at(-1)) } : { kind: 'event-mode', nodeId: node.id };
-      return { kind: 'node', nodeId: node.id };
+      if (!selectContentInPadding && layout.whitespaceRegions.some(rect => dialogueGridRectContains(rect, local))) return { kind: 'spacing', nodeId: node.id };
+      const title: DialogueEditorSelection = { kind: 'node', nodeId: node.id };
+      if (dialogueGridRectContains(layout.header, local)) return title;
+      const lineHit = (id: string): DialogueEditorSelection => {
+        if (node.kind === 'choice') return { kind: 'line', nodeId: node.id, lineId: id };
+        if (node.kind === 'condition') return id.startsWith('condition:')
+          ? { kind: 'condition', nodeId: node.id, conditionIndex: Number(id.split(':').at(-1)) }
+          : { kind: 'condition-mode', nodeId: node.id };
+        if (node.kind === 'action') return title;
+        return id.startsWith('event:')
+          ? { kind: 'event', nodeId: node.id, eventIndex: Number(id.split(':').at(-1)) }
+          : { kind: 'event-mode', nodeId: node.id };
+      };
+      for (const [id, value] of layout.outputRows) {
+        if (dialogueGridRectContains(value.rect, local)) return { kind: 'output', nodeId: node.id, portId: id };
+      }
+      for (const [id, value] of layout.lineRows) {
+        if (dialogueGridRectContains(value.rect, local)) return lineHit(id);
+      }
+      if (!selectContentInPadding || node.display.collapsed) return title;
+      let closest: DialogueEditorSelection = title;
+      let distance = local.y - (layout.header.y + layout.header.height);
+      const consider = (row: { y: number; height: number }, target: DialogueEditorSelection) => {
+        const gap = Math.max(0, row.y - local.y, local.y - row.y - row.height);
+        if (gap < distance) { distance = gap; closest = target; }
+      };
+      for (const [id, value] of layout.lineRows) consider(value.rect, lineHit(id));
+      for (const [id, value] of layout.outputRows) consider(value.rect, { kind: 'output', nodeId: node.id, portId: id });
+      return closest;
     }
     for (const edge of document.graph.edges.values()) {
       const points = edgePoints(document, edge);
@@ -634,7 +658,7 @@ const DIALOGUE_OPERATION_HELP = [
   ['选项集合', '“替换现有选项文本”要求数量相同，只改标签，保留端口和连线；“追加为新选项”保留旧选项并生成新端口。判断出口为固定只读属性。'],
   ['批量编辑与整理', '多选后在右侧点击“批量编辑属性”，可统一颜色、尺寸和留白；不同值显示“混合”，只修改操作的字段。对齐至少选择 2 个节点，等间距分布至少选择 3 个，按卡片实际边界计算。'],
   ['连接节点', '从紫色出口圆点拖到其他卡片的灰色入口圆点。一个出口至多一条线，入口可汇入多条线；从已连接出口拖动立即断开旧线，取消后可撤销恢复。'],
-  ['留白与检查入口', '点击留白区域或“留白设置”标题，独立调整 7 项留白并随草稿保存。检查入口在右键菜单、节点属性或左侧下拉框中明确设置，右键本身不再更改入口。'],
+  ['留白与检查入口', '开启工具栏的“留白选最近内容”后，点卡片留白会选择邻近的标题、内容或出口。仍可从右侧“留白设置”调整 7 项留白。检查入口可在右键菜单、节点属性或左侧下拉框中设置。'],
   ['流程预览', '“预览选中节点”从当前属性所属节点开始；右键也可指定起点。事件仅模拟，判断手动选择，Esc 关闭预览。'],
   ['撤销与保存', 'Ctrl+Z 撤销；Ctrl+Shift+Z 或 Ctrl+Y 重做。一次批量删除、粘贴、属性粘贴或整组移动只需撤销一次。输入框保留原生文字快捷键，菜单及弹窗不触发画布快捷键。'],
   ['检查与导出', '“检查／编译”验证当前入口，成功后可“导出数据”；“保存草稿”保存全部预设。节点和属性剪贴板保留在当前页面，刷新后清空。'],
@@ -678,6 +702,9 @@ export const DialogueMapCanvasLab: React.FC = () => {
     setHistory(current => commitDialogueHistory(current, update(current.present)));
   }, []);
   const [helpOpen, setHelpOpen] = useState(false);
+  const [selectContentInPadding, setSelectContentInPadding] = useState(() => {
+    try { return localStorage.getItem(NEAREST_CONTENT_KEY) === 'true'; } catch { return false; }
+  });
   const [flowPreview, setFlowPreview] = useState<{ document: DialogueEditorDocument; nodeId: string }>();
   const [selectedKey, setActiveKey] = useState('');
   const [targetLab, setTargetLab] = useState<DialogueLabTarget>('all');
@@ -1010,14 +1037,52 @@ export const DialogueMapCanvasLab: React.FC = () => {
     <div className="dialogue-lab">
       {helpOpen ? <DialogueOperationHelp onClose={() => setHelpOpen(false)} /> : null}
       {flowPreview ? <DialogueFlowPreview document={flowPreview.document} startNodeId={flowPreview.nodeId} onClose={() => setFlowPreview(undefined)} /> : null}
-      <header className="dialogue-lab__header">
-        <div>
-          <span className="eyebrow">DIALOGUE DATA WORKBENCH · V6</span>
-          <h1>Dialogue Map Canvas Lab</h1>
+      <header className="dialogue-lab__header stage-toolbar">
+        <div className="stage-toolbar__meta">
+          <h1>对话地图</h1>
+          <strong title={document.name}>{document.name}</strong>
+          <span>{document.presetKey}</span>
+          {dirty ? <em>未保存</em> : <em className="is-saved">已保存</em>}
+          <div className={`server-status${isError ? ' is-error' : ''}`} role="status" title={message}>
+            <i aria-hidden="true" />
+            <span>{message}</span>
+          </div>
         </div>
-        <div className={`server-status${isError ? ' is-error' : ''}`}>
-          <i />
-          {message}
+        <div className="stage-toolbar__actions">
+          <div className="stage-toolbar__group">
+            <label className="stage-toolbar__toggle" title="点击卡片留白时，选中最近的标题、内容或出口">
+              <input type="checkbox" checked={selectContentInPadding} onChange={event => {
+                const checked = event.currentTarget.checked;
+                setSelectContentInPadding(checked);
+                try { localStorage.setItem(NEAREST_CONTENT_KEY, String(checked)); } catch { /* Preference storage is optional. */ }
+              }} />留白选最近内容
+            </label>
+            <button disabled={!selectedNode} onClick={() => { if (selectedNode) setFlowPreview({ document: cloneDialogueEditorDocument(document), nodeId: selectedNode.id }); }}>预览选中节点</button>
+            <button aria-haspopup="dialog" onClick={() => setHelpOpen(true)}>操作说明</button>
+            <button disabled={!history.past.length} onClick={() => setHistory(undoDialogueHistory)} title="撤销 Ctrl+Z">撤销</button>
+            <button disabled={!history.future.length} onClick={() => setHistory(redoDialogueHistory)} title="重做 Ctrl+Shift+Z">重做</button>
+          </div>
+          <span
+            className={`stage-toolbar__check-status${currentCheck ? (issues.length ? ' has-issues' : ' is-passed') : ''}`}
+            title={currentCheck ? (issues.length ? `${issues.length} 项诊断` : '编译通过') : '尚未检查当前草稿'}
+          >
+            {currentCheck ? (issues.length ? `${issues.length} 项诊断` : '已通过') : '待检查'}
+          </span>
+          <div className="stage-toolbar__group">
+            <button onClick={runCheck} title="检查并编译当前草稿">检查／编译</button>
+            <button disabled={!currentCheck?.program} onClick={exportCompiled} title="导出编译数据">导出数据</button>
+          </div>
+          <div className="stage-toolbar__group">
+            <button onClick={() => setResetViewToken((v) => v + 1)} title="适配全部节点到画布">适配画布</button>
+          </div>
+          <button
+            className="save-button"
+            disabled={saving}
+            onClick={() => void save()}
+            title="保存全部草稿"
+          >
+            {saving ? '保存中…' : '保存草稿'}
+          </button>
         </div>
       </header>
       <aside className="dialogue-lab__sidebar">
@@ -1120,45 +1185,10 @@ export const DialogueMapCanvasLab: React.FC = () => {
         </section>
       </aside>
       <main className="dialogue-lab__stage">
-        <div className="stage-toolbar">
-          <div className="stage-toolbar__meta">
-            <strong>{document.name}</strong>
-            <span>{document.presetKey}</span>
-            {dirty ? <em>未保存</em> : <em className="is-saved">已保存</em>}
-          </div>
-          <div className="stage-toolbar__actions">
-            <div className="stage-toolbar__group">
-              <button disabled={!selectedNode} onClick={() => { if (selectedNode) setFlowPreview({ document: cloneDialogueEditorDocument(document), nodeId: selectedNode.id }); }}>预览选中节点</button>
-              <button aria-haspopup="dialog" onClick={() => setHelpOpen(true)}>操作说明</button>
-              <button disabled={!history.past.length} onClick={() => setHistory(undoDialogueHistory)} title="撤销 Ctrl+Z">撤销</button>
-              <button disabled={!history.future.length} onClick={() => setHistory(redoDialogueHistory)} title="重做 Ctrl+Shift+Z">重做</button>
-            </div>
-            <span
-              className={`stage-toolbar__check-status${currentCheck ? (issues.length ? ' has-issues' : ' is-passed') : ''}`}
-              title={currentCheck ? (issues.length ? `${issues.length} 项诊断` : '编译通过') : '尚未检查当前草稿'}
-            >
-              {currentCheck ? (issues.length ? `${issues.length} 项诊断` : '已通过') : '待检查'}
-            </span>
-            <div className="stage-toolbar__group">
-              <button onClick={runCheck} title="检查并编译当前草稿">检查／编译</button>
-              <button disabled={!currentCheck?.program} onClick={exportCompiled} title="导出编译数据">导出数据</button>
-            </div>
-            <div className="stage-toolbar__group">
-              <button onClick={() => setResetViewToken((v) => v + 1)} title="适配全部节点到画布">适配画布</button>
-            </div>
-            <button
-              className="save-button"
-              disabled={saving}
-              onClick={() => void save()}
-              title="保存全部草稿"
-            >
-              {saving ? '保存中…' : '保存草稿'}
-            </button>
-          </div>
-        </div>
         <DialogueCanvas key={activeKey}
           document={document}
           selection={selection}
+          selectContentInPadding={selectContentInPadding}
           previewEntry={previewEntry}
           resetViewToken={resetViewToken}
           onSelection={setSelection}
@@ -1229,7 +1259,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
             <>
               <InspectorGroup property={{ nodeId: selectedNode.id, scope: 'spacing' }} title="留白设置" defaultOpen={false} focused={selection.kind === 'spacing'} focusToken={selection}
                 onSelect={() => { if (selection.kind !== 'spacing') setSelection({ kind: 'spacing', nodeId: selectedNode.id }); }}>
-                <p>仅作用于当前节点，随草稿保存。点击卡片留白区域也可选中此面板。</p>
+                <p>仅作用于当前节点，随草稿保存。关闭“留白选最近内容”时，也可以点画布上的留白选中这里。</p>
                 <div className="inline-actions">
                   <button onClick={() => updateNode(selectedNode.id, node => { node.display.whitespace = { ...DIALOGUE_NODE_WHITESPACE_DEFAULTS }; })}>全部保留</button>
                   <button onClick={() => updateNode(selectedNode.id, node => { node.display.whitespace = Object.fromEntries(Object.keys(DIALOGUE_NODE_WHITESPACE_DEFAULTS).map(key => [key, false])); })}>全部收紧</button>

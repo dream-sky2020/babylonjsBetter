@@ -44,8 +44,15 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     assert.equal(toolbarButtons[0].textContent, '预览选中节点');
     assert.equal(toolbarButtons[1].textContent, '操作说明');
     assert.equal(toolbarButtons[2].textContent, '撤销');
-    assert.equal(document.querySelector('.dialogue-lab__header').textContent.includes('预览选中节点'), false);
-    assert.equal(document.querySelector('.dialogue-lab__header').textContent.includes('操作说明'), false);
+    const header = document.querySelector('.dialogue-lab__header');
+    assert.ok(header.contains(toolbarButtons[0]));
+    assert.ok(header.contains(toolbarButtons[1]));
+    assert.equal(header.querySelector('.stage-toolbar__toggle').nextElementSibling, toolbarButtons[0]);
+    assert.equal(header.querySelector('h1').textContent, '对话地图');
+    const status = header.querySelector('.stage-toolbar__meta .server-status');
+    assert.ok(status);
+    assert.equal(status.previousElementSibling, header.querySelector('.stage-toolbar__meta em'));
+    assert.equal(document.querySelector('.dialogue-lab__stage .stage-toolbar'), null);
     const helpButton = toolbarButtons.find(button => button.textContent === '操作说明');
     assert.ok(helpButton);
     const savedState = document.querySelector('.stage-toolbar__meta em').textContent;
@@ -61,7 +68,8 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     assert.equal(document.activeElement, helpButton);
     assert.equal(document.querySelector('.stage-toolbar__meta em').textContent, savedState);
 
-    assert.equal([...document.querySelectorAll('.stage-toolbar button')].some(button => button.textContent.includes('卡片留白')), false);
+    const selectContentInPadding = document.querySelector('.stage-toolbar__toggle input');
+    assert.equal(selectContentInPadding.checked, false);
     const spacingGroup = [...document.querySelectorAll('.inspector-group')].find(section => section.querySelector(':scope > button strong')?.textContent === '留白设置');
     assert.equal(spacingGroup.querySelector('.inspector-group__heading').getAttribute('aria-expanded'), 'false');
     const { getDialogueCanvasLayout } = await server.ssrLoadModule('/labs/standalone/dialogue-map-canvas-lab/dialogueCanvasLayout.ts');
@@ -77,6 +85,26 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     assert.equal(spacingGroup.style.order, '-10');
     assert.equal(spacingGroup.querySelector('.inspector-group__heading').getAttribute('aria-expanded'), 'true');
     assert.ok(spacingGroup.classList.contains('inspector-group--focused'));
+    const clickAt = async ({ x, y }) => React.act(async () => {
+      canvas.dispatchEvent(new dom.window.MouseEvent('pointerdown', { bubbles: true, clientX: x, clientY: y }));
+      canvas.dispatchEvent(new dom.window.MouseEvent('pointerup', { bubbles: true, clientX: x, clientY: y }));
+    });
+    const inspectorSelection = () => document.querySelector('.inspector-title span').textContent;
+    await React.act(async () => selectContentInPadding.click());
+    assert.equal(localStorage.getItem('dialogue-map-canvas-lab:select-content-in-padding'), 'true');
+    await clickAt(at);
+    assert.equal(inspectorSelection(), 'NODE');
+    assert.equal(spacingGroup.classList.contains('inspector-group--focused'), false);
+    const layout = getDialogueCanvasLayout(initialNode);
+    const line = layout.lineRows.values().next().value;
+    await clickAt(graphScreenPoint({ x: initialNode.position.x + 120, y: initialNode.position.y + line.rect.y * 24 + 1 }, view));
+    assert.equal(inspectorSelection(), 'LINE');
+    await clickAt(graphScreenPoint({ x: initialNode.position.x + 120, y: initialNode.position.y + layout.actualHeightUnits * 24 - 2 }, view));
+    assert.equal(inspectorSelection(), 'OUTPUT');
+    assert.equal(document.querySelector('.stage-toolbar__meta em').textContent, savedState);
+    await React.act(async () => selectContentInPadding.click());
+    await clickAt(at);
+    assert.equal(inspectorSelection(), 'SPACING');
     await React.act(async () => [...spacingGroup.querySelectorAll('button')].find(button => button.textContent === '全部收紧').click());
     assert.ok([...spacingGroup.querySelectorAll('input')].every(input => !input.checked));
     await React.act(async () => spacingGroup.querySelector('input[aria-label="保留标题留白"]').click());
@@ -155,6 +183,11 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     };
     const pointEvent = async (type, at, extra = {}) => React.act(async () => canvas.dispatchEvent(new dom.window.MouseEvent(type, { bubbles: true, clientX: at.x, clientY: at.y, ...extra })));
     const initialGraph = await snapshot(), initialCount = initialGraph.graph.nodes.size;
+    await key('Escape');
+    await key('c', true);
+    assert.equal(status.textContent.trim(), '请先选择节点。');
+    assert.ok(status.classList.contains('is-error'));
+    assert.equal(status.previousElementSibling.textContent, '已保存');
     const entrySelect = [...document.querySelectorAll('.field')].find(field => field.querySelector(':scope > span')?.textContent === '当前检查入口').querySelector('select');
     const entryBeforeMenu = entrySelect.value;
     await contextMenu(nodeButtons()[1]);
