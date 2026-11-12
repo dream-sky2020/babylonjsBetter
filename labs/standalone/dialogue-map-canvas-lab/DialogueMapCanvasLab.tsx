@@ -52,13 +52,13 @@ import { dialogueRuleCatalog, type DialogueLabTarget } from './dialogueRuleCatal
 import { createDialogueHistory, commitDialogueHistory, undoDialogueHistory, redoDialogueHistory } from './dialogueHistory';
 import { fitGraphView, graphWorldPoint, graphScreenPoint, zoomGraphViewWithWheel } from '@/core/ui/node-graph/graphViewport';
 import { getDialogueCanvasLayout as computeDialogueNodeLayout, measureDialogueCanvasText } from './dialogueCanvasLayout';
-import { getDialogueNodeDisplayLines, DIALOGUE_NODE_TEXT_STYLE, dialogueNodeTextFont } from '@/core/dialogue-map/dialogueNodeLayout';
+import { getDialogueNodeDisplayLines, DIALOGUE_NODE_TEXT_STYLE, dialogueNodeTextFont, type DialogueNodeLayoutDensity } from '@/core/dialogue-map/dialogueNodeLayout';
 import { layoutCanvasText, type CanvasTextLayout } from '@/core/ui/canvas-text/canvasTextLayout';
-import { drawDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail, getDialogueCanvasTextWidthInset } from './dialogueCanvasText';
+import { drawDialogueCanvasText, fitDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail, getDialogueCanvasTextWidthInset } from './dialogueCanvasText';
 
 const WHITESPACE_LABELS: Record<keyof DialogueNodeWhitespace, string> = {
   header: '保留标题留白', content: '保留内容行留白', outputs: '保留出口行留白',
-  top: '保留内容顶部留白', sections: '保留内容与出口间距', bottom: '保留底部留白', height: '保留设定高度的额外留白',
+  top: '保留内容顶部留白', height: '保留设定高度的额外留白',
 };
 const GRID = DIALOGUE_MAP_GRID_SIZE;
 const WORKSPACE_KEY = 'dialogue-map-canvas-lab:v5:preview-entries';
@@ -85,8 +85,8 @@ const makeId = (prefix: string, ids: ReadonlySet<string>) => {
   return id;
 };
 const snap = (value: number) => Math.round(value / GRID) * GRID;
-const nodeSize = (node: DialogueEditorNode) => {
-  const layout = computeDialogueNodeLayout(node);
+const nodeSize = (node: DialogueEditorNode, density?: DialogueNodeLayoutDensity) => {
+  const layout = computeDialogueNodeLayout(node, density);
   return {
     width: layout.widthUnits * GRID,
     height: layout.actualHeightUnits * GRID,
@@ -109,8 +109,8 @@ const selected = (
         : 'portId' in selection && selection.portId === id);
 type Point = { x: number; y: number };
 
-const portPosition = (node: DialogueEditorNode, portId: string): Point => {
-  const layout = computeDialogueNodeLayout(node);
+const portPosition = (node: DialogueEditorNode, portId: string, density: DialogueNodeLayoutDensity): Point => {
+  const layout = computeDialogueNodeLayout(node, density);
   const anchor =
     layout.inputAnchors.get(portId) ?? layout.outputAnchors.get(portId);
   return anchor
@@ -120,11 +120,12 @@ const portPosition = (node: DialogueEditorNode, portId: string): Point => {
 const edgePoints = (
   document: DialogueEditorDocument,
   edge: DialogueEditorEdge,
+  density: DialogueNodeLayoutDensity,
 ): [Point, Point] | undefined => {
   const from = document.graph.nodes.get(edge.from.nodeId);
   const to = document.graph.nodes.get(edge.to.nodeId);
   return from && to
-    ? [portPosition(from, edge.from.portId), portPosition(to, edge.to.portId)]
+    ? [portPosition(from, edge.from.portId, density), portPosition(to, edge.to.portId, density)]
     : undefined;
 };
 const distanceToSegment = (p: Point, a: Point, b: Point) => {
@@ -183,6 +184,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [size, setSize] = useState({ width: 1, height: 1 });
   const [view, setView] = useState({ x: 48, y: 48, scale: 1 });
+  const density = getDialogueCanvasTextDetail(view.scale);
   const [connectPointer, setConnectPointer] = useState<Point>();
   const gesture = useRef<{
     mode: 'pan' | 'node' | 'connect' | 'marquee';
@@ -258,28 +260,29 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
   });
   const world = (point: Point) => graphWorldPoint(point, view);
   const screen = (point: Point) => graphScreenPoint(point, view);
+  const portHitRadius = DIALOGUE_NODE_LAYOUT_METRICS.portRadiusUnits * GRID * view.scale + 5;
   const isPortAnchor = (point: Point, nodeId: string, portId: string) => {
     const node = document.graph.nodes.get(nodeId);
     if (!node) return false;
-    const anchor = screen(portPosition(node, portId));
-    return Math.hypot(point.x - anchor.x, point.y - anchor.y) <= 12;
+    const anchor = screen(portPosition(node, portId, density));
+    return Math.hypot(point.x - anchor.x, point.y - anchor.y) <= portHitRadius;
   };
   const hitTest = (point: Point): DialogueEditorSelection | undefined => {
     const p = world(point);
     for (const node of [...document.graph.nodes.values()].reverse()) {
-      const layout = computeDialogueNodeLayout(node);
-      const portHitRadius =
-        DIALOGUE_NODE_LAYOUT_METRICS.portRadiusUnits * GRID + 5 / view.scale;
-      for (const id of node.inputOrder) {
-        const q = portPosition(node, id);
-        if (Math.hypot(p.x - q.x, p.y - q.y) <= portHitRadius)
-          return { kind: 'input', nodeId: node.id, portId: id };
+      const layout = computeDialogueNodeLayout(node, density);
+      let nearestPort: DialogueEditorSelection | undefined;
+      let portDistance = portHitRadius / view.scale;
+      for (const [kind, anchors] of [['input', layout.inputAnchors], ['output', layout.outputAnchors]] as const) {
+        for (const [portId, anchor] of anchors) {
+          const q = dialogueLayoutPointToWorld(node, anchor);
+          const distance = Math.hypot(p.x - q.x, p.y - q.y);
+          if (distance > portDistance || (nearestPort && distance === portDistance)) continue;
+          nearestPort = { kind, nodeId: node.id, portId };
+          portDistance = distance;
+        }
       }
-      for (const id of node.outputOrder) {
-        const q = portPosition(node, id);
-        if (Math.hypot(p.x - q.x, p.y - q.y) <= portHitRadius)
-          return { kind: 'output', nodeId: node.id, portId: id };
-      }
+      if (nearestPort) return nearestPort;
       const local = {
         x: (p.x - node.position.x) / GRID,
         y: (p.y - node.position.y) / GRID,
@@ -304,7 +307,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         if (node.kind === 'condition') return id.startsWith('condition:')
           ? { kind: 'condition', nodeId: node.id, conditionIndex: Number(id.split(':').at(-1)) }
           : { kind: 'condition-mode', nodeId: node.id };
-        if (node.kind === 'action') return title;
+        if (node.kind === 'action') return { kind: 'action', nodeId: node.id };
         return id.startsWith('event:')
           ? { kind: 'event', nodeId: node.id, eventIndex: Number(id.split(':').at(-1)) }
           : { kind: 'event-mode', nodeId: node.id };
@@ -327,7 +330,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       return closest;
     }
     for (const edge of document.graph.edges.values()) {
-      const points = edgePoints(document, edge);
+      const points = edgePoints(document, edge, density);
       if (points && distanceToSegment(p, points[0], points[1]) < 9 / view.scale)
         return { kind: 'edge', edgeId: edge.id };
     }
@@ -369,7 +372,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       ctx.stroke();
     }
     document.graph.edges.forEach((edge) => {
-      const points = edgePoints(document, edge);
+      const points = edgePoints(document, edge, density);
       if (!points) return;
       const a = screen(points[0]);
       const b = screen(points[1]);
@@ -383,15 +386,13 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       ctx.stroke();
     });
     document.graph.nodes.forEach((node) => {
-      const layout = computeDialogueNodeLayout(node);
+      const layout = computeDialogueNodeLayout(node, density);
       const p = screen(node.position);
       const unit = GRID * view.scale;
       const width = layout.widthUnits * unit;
       const height = layout.actualHeightUnits * unit;
       const color = COLORS[node.display.colorToken] ?? COLORS['gray-muted'];
-      const detail = getDialogueCanvasTextDetail(view.scale);
-      const fullDetail = detail === 'full';
-      const compactDetail = detail !== 'overview';
+      const fullDetail = density === 'full';
       const contentX = p.x + layout.contentInsetUnits * unit;
       const contentWidth = layout.content.width * unit;
       const singleLine = (text: string, screenWidth: number, fontSize: number = DIALOGUE_NODE_TEXT_STYLE.bodySize, weight = 400): CanvasTextLayout => layoutCanvasText(text, {
@@ -401,6 +402,11 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       const textPaints: Array<() => void> = [];
       const paintText = (text: CanvasTextLayout, box: Parameters<typeof drawDialogueCanvasText>[2]) => {
         textPaints.push(() => drawDialogueCanvasText(ctx, text, { ...box, pixelRatio: ratio }));
+      };
+      const paintFittedText = (text: string, maxLines: number, box: Parameters<typeof drawDialogueCanvasText>[2]) => {
+        const font = dialogueNodeTextFont(getDialogueCanvasFontSize(DIALOGUE_NODE_TEXT_STYLE.bodySize, view.scale, ratio));
+        const fitted = fitDialogueCanvasText(text, { ...box, pixelRatio: ratio, maxLines }, value => measureDialogueCanvasText(value, font));
+        if (fitted.lines.some(Boolean)) paintText(fitted, box);
       };
       ctx.fillStyle = color.body;
       ctx.strokeStyle = selectedIds.includes(node.id)
@@ -419,10 +425,11 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       ctx.stroke();
       ctx.fillStyle = color.header;
       ctx.fillRect(p.x, p.y, width, layout.header.height * unit);
-      const previewWidth = previewEntry === node.id && compactDetail
+      const previewWidth = previewEntry === node.id && fullDetail
         ? Math.min(contentWidth, measureDialogueCanvasText('PREVIEW', dialogueNodeTextFont(getDialogueCanvasFontSize(DIALOGUE_NODE_TEXT_STYLE.titleSize, view.scale, ratio), 600)) + getDialogueCanvasTextWidthInset(view.scale, ratio)) : 0;
       const titleWidth = Math.max(0, contentWidth - previewWidth - (previewWidth ? 8 * view.scale : 0));
-      paintText(singleLine(`${dialogueNodeKindLabel(node)} · ${node.title || node.id}`, titleWidth, DIALOGUE_NODE_TEXT_STYLE.titleSize, 600), {
+      const title = node.title || node.id;
+      paintText(singleLine(fullDetail ? `${dialogueNodeKindLabel(node)} · ${title}` : title, titleWidth, DIALOGUE_NODE_TEXT_STYLE.titleSize, 600), {
         x: contentX, y: p.y, width: titleWidth, height: layout.header.height * unit, scale: view.scale,
         color: '#e5eaf1', fontSize: DIALOGUE_NODE_TEXT_STYLE.titleSize, weight: 600, center: true,
       });
@@ -443,14 +450,19 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         ctx.lineTo(p.x + width, y);
         ctx.stroke();
       });
-      if (compactDetail && !node.display.collapsed) {
+      if (!node.display.collapsed) {
+        const displayLines = getDialogueNodeDisplayLines(node);
         layout.lineRows.forEach((rowLayout, id) => {
-          const line = getDialogueNodeDisplayLines(node).get(id);
+          const line = displayLines.get(id);
           if (!line) return;
           const x = p.x + rowLayout.rect.x * unit;
           const y = p.y + rowLayout.rect.y * unit;
           const rowWidth = rowLayout.rect.width * unit;
-          if ((selection.kind === 'event-mode' && selection.nodeId === node.id && id === `summary:${node.id}`) || (selection.kind === 'event' && selection.nodeId === node.id && id === `event:${node.id}:${selection.eventIndex ?? 0}`) || selected(selection, 'line', id) || (selection.kind === 'condition-mode' && selection.nodeId === node.id && id === `summary:${node.id}`) || (selection.kind === 'condition' && selection.nodeId === node.id && id === `condition:${node.id}:${selection.conditionIndex}`)) {
+          const summarySelected = (selection.kind === 'action' || selection.kind === 'event-mode' || selection.kind === 'condition-mode')
+            && selection.nodeId === node.id && id === `summary:${node.id}`;
+          if (summarySelected || selected(selection, 'line', id)
+            || (selection.kind === 'event' && selection.nodeId === node.id && id === `event:${node.id}:${selection.eventIndex ?? 0}`)
+            || (selection.kind === 'condition' && selection.nodeId === node.id && id === `condition:${node.id}:${selection.conditionIndex}`)) {
             ctx.fillStyle = 'rgba(168,184,200,.14)';
             ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit);
           }
@@ -460,9 +472,8 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
               height: block.lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight * view.scale,
               scale: view.scale, color: block.role === 'speaker' ? '#aeb9c7' : '#d3dae3',
             }));
-          } else {
-            const text = (node.display.showSpeakerList !== false ? line.speaker : '') || (node.display.showPreviewText !== false ? line.text || '空对白' : '');
-            paintText(singleLine(text, rowWidth), {
+          } else if (node.display.showPreviewText !== false) {
+            paintFittedText(line.text || '（空对白）', density === 'compact' ? Infinity : DIALOGUE_NODE_TEXT_STYLE.dialogueMaxLines, {
               x, y, width: rowWidth, height: rowLayout.rect.height * unit, scale: view.scale, color: '#d3dae3', center: true,
             });
           }
@@ -477,21 +488,20 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
             ctx.fillStyle = 'rgba(167,139,250,.14)';
             ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit);
           }
-          const icon = output.branch === 'true' ? '✓' : output.branch === 'false' ? '✕' : '›';
           if (fullDetail) {
             rowLayout.textBlocks?.forEach(block => paintText(block, {
               x, y: y + block.offsetY * view.scale, width: rowWidth,
               height: block.lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight * view.scale,
               scale: view.scale, color: block.role === 'label' ? '#d8d0ef' : '#8f9db1',
             }));
-          } else paintText(singleLine(`${icon} ${output.label || output.id}`, rowWidth), {
+          } else paintFittedText(output.label || output.id, density === 'compact' ? Infinity : 1, {
             x, y, width: rowWidth, height: rowLayout.rect.height * unit, scale: view.scale, color: '#d8d0ef', center: true,
           });
         });
       }
       const baseRadius = DIALOGUE_NODE_LAYOUT_METRICS.portRadiusUnits * unit;
       node.inputOrder.forEach((id) => {
-        const q = screen(portPosition(node, id));
+        const q = screen(portPosition(node, id, density));
         ctx.beginPath();
         ctx.arc(
           q.x,
@@ -507,7 +517,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         ctx.stroke();
       });
       node.outputOrder.forEach((id) => {
-        const q = screen(portPosition(node, id));
+        const q = screen(portPosition(node, id, density));
         ctx.beginPath();
         ctx.arc(
           q.x,
@@ -529,7 +539,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
     if (active?.mode === 'connect' && active.nodeId && active.portId && connectPointer) {
       const source = document.graph.nodes.get(active.nodeId);
       if (source) {
-        const start = screen(portPosition(source, active.portId));
+        const start = screen(portPosition(source, active.portId, density));
         ctx.save();
         ctx.strokeStyle = '#c4b5fd';
         ctx.lineWidth = 2;
@@ -604,7 +614,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
             const start = world(active.start), end = world(p), rect = normalizedSelectionRect(start, end);
             const mode = active.selectionMode ?? 'replace';
             setMarquee({ start, end, mode });
-            const hits = [...sourceDocument.graph.nodes.values()].filter(node => dialogueRectsIntersect(rect, { ...node.position, ...nodeSize(node) })).map(node => node.id);
+            const hits = [...sourceDocument.graph.nodes.values()].filter(node => dialogueRectsIntersect(rect, { ...node.position, ...nodeSize(node, density) })).map(node => node.id);
             onSelectedIds(applyDialogueSelection(active.selectionBefore ?? [], hits, mode));
           }
         }}
@@ -1307,7 +1317,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 }
                 draft.graph.nodes.set(next.id, next);
               })} /> : null}
-              {selectedNode.kind === 'action' ? <DialogueActionEditor key={selectedNode.id} action={selectedNode.action} onChange={action => updateNode(selectedNode.id, node => {
+              {selectedNode.kind === 'action' ? <DialogueActionEditor key={selectedNode.id} action={selectedNode.action} selection={selection} onChange={action => updateNode(selectedNode.id, node => {
                 if (node.kind === 'action') node.action = action;
               })} /> : null}
               {selectedNode.kind === 'action' && targetLab === 'dialogue-test-lab' ? <p>对话测试 Lab 未装配地图动作执行器。</p> : null}

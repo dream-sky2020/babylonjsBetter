@@ -3,17 +3,17 @@
   "presetKey": "village_gate",
   "name": "村口守卫 · 事件与动作示例",
   "textVariables": {
+    "status": {
+      "key": "dungeon.session",
+      "path": [
+        "status"
+      ]
+    },
     "tileX": {
       "key": "dungeon.player-state",
       "path": [
         "playerPosition",
         "tileX"
-      ]
-    },
-    "status": {
-      "key": "dungeon.session",
-      "path": [
-        "status"
       ]
     }
   },

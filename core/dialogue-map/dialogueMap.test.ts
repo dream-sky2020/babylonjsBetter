@@ -183,10 +183,12 @@ test('V5 wait payload migrates to equality filters with its existing ports and e
 test('node whitespace survives storage, remains independent and validates boolean flags', () => {
   const document = preset();
   const node = document.graph.nodes.get('open_gate')!;
-  node.display.whitespace = { header: true, content: false, outputs: false, top: false, sections: false, bottom: false, height: false };
+  node.display.whitespace = { header: true, content: false, outputs: false, top: false, height: false };
   const encoded = encodeDialogueEditorDocument(document);
+  Object.assign(encoded.graph.nodes.open_gate.display.whitespace!, { sections: true, bottom: false });
   const restored = parseDialogueEditorDocument(encoded);
   assert.deepEqual(restored.graph.nodes.get('open_gate')!.display.whitespace, node.display.whitespace);
+  assert.deepEqual(encodeDialogueEditorDocument(restored).graph.nodes.open_gate.display.whitespace, node.display.whitespace);
   assert.equal(restored.graph.nodes.get('gate_check')!.display.whitespace, undefined);
   assert.deepEqual(resolveDialogueEditorSelection(restored, { kind: 'spacing', nodeId: node.id }), { kind: 'spacing', node: restored.graph.nodes.get(node.id) });
   restored.graph.nodes.get(node.id)!.display.whitespace!.header = false;

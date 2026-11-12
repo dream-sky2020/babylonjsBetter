@@ -3,7 +3,7 @@ import test from 'node:test';
 import { createDialogueEditorNode as createNode } from './dialogueMap.ts';
 import { DIALOGUE_NODE_WHITESPACE_DEFAULTS } from './dialogueMap.types.ts';
 import { computeDialogueNodeLayout, dialogueLayoutPointToWorld } from './dialogueNodeLayout.ts';
-import { drawDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueCanvasText.ts';
+import { drawDialogueCanvasText, fitDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueCanvasText.ts';
 
 const createDialogueEditorNode = (id: string, position: { x: number; y: number }) => { const node = createNode(id, position); node.outputs.clear(); node.outputOrder = []; return node; };
 
@@ -15,10 +15,10 @@ test('node rows use one shared discrete grid', () => {
   const layout = computeDialogueNodeLayout(node);
   assert.equal(layout.header.height, 2);
   assert.deepEqual([...layout.lineRows.values()].map((row) => [row.rect.y, row.rect.height]), [[3, 2], [5, 2]]);
-  assert.deepEqual([...layout.outputRows.values()].map((row) => [row.rect.y, row.rect.height, row.centerY]), [[8, 2, 9], [10, 2, 11]]);
-  assert.deepEqual(layout.outputAnchors.get(firstOutput), { x: 10, y: 9 });
-  assert.equal(layout.minimumHeightUnits, 13);
-  assert.equal(layout.actualHeightUnits, 13);
+  assert.deepEqual([...layout.outputRows.values()].map((row) => [row.rect.y, row.rect.height, row.centerY]), [[7, 2, 8], [9, 2, 10]]);
+  assert.deepEqual(layout.outputAnchors.get(firstOutput), { x: 10, y: 8 });
+  assert.equal(layout.minimumHeightUnits, 11);
+  assert.equal(layout.actualHeightUnits, 11);
 });
 
 test('actual height is the larger of requested and content minimum', () => {
@@ -27,8 +27,8 @@ test('actual height is the larger of requested and content minimum', () => {
   assert.equal(computeDialogueNodeLayout(node).actualHeightUnits, 12);
   node.display.heightUnits = 3;
   const layout = computeDialogueNodeLayout(node);
-  assert.equal(layout.minimumHeightUnits, 6);
-  assert.equal(layout.actualHeightUnits, 6);
+  assert.equal(layout.minimumHeightUnits, 5);
+  assert.equal(layout.actualHeightUnits, 5);
 });
 
 test('input rail uses integer slots and can raise minimum height', () => {
@@ -36,7 +36,7 @@ test('input rail uses integer slots and can raise minimum height', () => {
   for (let index = 1; index <= 5; index += 1) { const id = `port:node:in_${index}`; node.inputs.set(id, { id }); node.inputOrder.push(id); }
   const layout = computeDialogueNodeLayout(node);
   assert.deepEqual([...layout.inputAnchors.values()].map((point) => point.y), [2.5, 3.5, 4.5, 5.5, 6.5, 7.5]);
-  assert.equal(layout.minimumHeightUnits, 9);
+  assert.equal(layout.minimumHeightUnits, 8);
 });
 
 test('layout anchors convert to canvas world coordinates once', () => {
@@ -115,9 +115,47 @@ test('readability modes and font sizes remain bounded at fractional zoom and DPR
     assert.ok(size >= 10);
     assert.ok(Math.abs(size * ratio - Math.round(size * ratio)) < 1e-8);
   }
-  assert.equal(getDialogueCanvasTextDetail(.3), 'overview');
-  assert.equal(getDialogueCanvasTextDetail(.75), 'compact');
+  assert.equal(getDialogueCanvasTextDetail(.3), 'compact');
+  assert.equal(getDialogueCanvasTextDetail(.65), 'content');
   assert.equal(getDialogueCanvasTextDetail(.9), 'full');
+});
+
+test('zoom gives whitespace to text rows without changing the card bounds', () => {
+  const node = createNode('action', { x: 0, y: 0 }, 'action');
+  assert.ok(node.kind === 'action');
+  node.action = { type: 'shared-variable', variableId: '脚踏板次数', variableOperation: 'add', value: 1 };
+  node.display.heightUnits = 24;
+  const full = computeDialogueNodeLayout(node, undefined, measure);
+  const content = computeDialogueNodeLayout(node, undefined, measure, 'content');
+  const compact = computeDialogueNodeLayout(node, undefined, measure, 'compact');
+  const row = compact.lineRows.get('summary:action')!;
+  assert.equal(content.actualHeightUnits, full.actualHeightUnits);
+  assert.equal(compact.actualHeightUnits, full.actualHeightUnits);
+  assert.equal(row.rect.y, full.header.height);
+  assert.deepEqual(compact.whitespaceRegions, []);
+  const port = node.outputOrder[0];
+  const output = compact.outputRows.get(port)!;
+  assert.equal(row.rect.y + row.rect.height, output.rect.y);
+  assert.equal(output.rect.y + output.rect.height, full.actualHeightUnits);
+  assert.equal(compact.outputAnchors.get(port)?.y, output.centerY);
+  assert.equal(node.display.heightUnits, 24);
+
+  const text = '一段需要换行的较长文字。'.repeat(5);
+  const boxFor = (height: number) => ({ width: 90, height: height * 24 * .45, scale: .45, pixelRatio: 1, maxLines: Infinity });
+  const standardRow = full.lineRows.get('summary:action')!;
+  const before = fitDialogueCanvasText(text, boxFor(standardRow.rect.height), measure);
+  const after = fitDialogueCanvasText(text, boxFor(row.rect.height), measure);
+  assert.ok(before.truncated);
+  assert.ok(after.lines.length > before.lines.length);
+  assert.equal(after.truncated, false);
+});
+
+test('text is abbreviated only when its row cannot fit it in full', () => {
+  const box = { width: 90, height: 16, scale: .45, pixelRatio: 1, maxLines: 2 };
+  assert.deepEqual(fitDialogueCanvasText('继续', box, measure).lines, ['继续']);
+  assert.deepEqual(fitDialogueCanvasText('继续', { ...box, height: 9 }, measure).lines, []);
+  assert.equal(fitDialogueCanvasText('一段需要换行的较长对白', box, measure).lines[0].endsWith('…'), true);
+  assert.equal(fitDialogueCanvasText('一段需要换行的较长对白', { ...box, height: 27 }, measure).lines.length, 2);
 });
 
 test('condition and event cards expose their own measured summaries without saved dialogue lines', () => {
@@ -181,7 +219,7 @@ test('title spacing can remain spacious while each other node region is compact'
   assert.equal([...mixed.lineRows.values()][0].rect.y, mixed.header.height);
   for (const [id, anchor] of mixed.outputAnchors) assert.equal(anchor.y, compact.outputAnchors.get(id)!.y + 1);
   const expected = mixed;
-  for (const key of ['content', 'outputs', 'top', 'sections', 'bottom', 'height'] as const) {
+  for (const key of ['content', 'outputs', 'top', 'height'] as const) {
     node.display.whitespace[key] = true;
     const layout = computeDialogueNodeLayout(node, undefined, measure);
     assert.ok(layout.actualHeightUnits > expected.actualHeightUnits, key);

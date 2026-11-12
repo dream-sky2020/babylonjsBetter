@@ -4,7 +4,7 @@ export type DialogueNodeKind = 'condition' | 'choice' | 'event' | 'action';
 
 /** Missing flags retain the original editor spacing. */
 export const DIALOGUE_NODE_WHITESPACE_DEFAULTS = Object.freeze({
-  header: true, content: true, outputs: true, top: true, sections: true, bottom: true, height: true,
+  header: true, content: true, outputs: true, top: true, height: true,
 });
 export type DialogueNodeWhitespace = Record<keyof typeof DIALOGUE_NODE_WHITESPACE_DEFAULTS, boolean>;
 
@@ -90,6 +90,7 @@ export type DialogueEditorSelection =
   | { kind: 'spacing'; nodeId: string }
   | { kind: 'event'; nodeId: string; eventIndex?: number }
   | { kind: 'event-mode'; nodeId: string }
+  | { kind: 'action'; nodeId: string }
   | { kind: 'condition-mode'; nodeId: string }
   | { kind: 'condition'; nodeId: string; conditionIndex: number }
   | { kind: 'line'; nodeId: string; lineId: string }
@@ -102,6 +103,7 @@ export type DialogueEditorSelectionTarget =
   | { kind: 'spacing'; node: DialogueEditorNode }
   | { kind: 'event'; node: DialogueEditorNode; eventIndex: number }
   | { kind: 'event-mode'; node: DialogueEditorNode }
+  | { kind: 'action'; node: DialogueEditorNode }
   | { kind: 'condition-mode'; node: DialogueEditorNode }
   | { kind: 'condition'; node: DialogueEditorNode; conditionIndex: number }
   | { kind: 'line'; node: DialogueEditorNode; line: DialogueEditorLine }

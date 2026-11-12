@@ -1,12 +1,14 @@
 import { DIALOGUE_MAP_GRID_SIZE, DIALOGUE_NODE_WHITESPACE_DEFAULTS, type DialogueEditorNode } from './dialogueMap.types.ts';
 import { layoutCanvasText, type CanvasTextLayout } from '../ui/canvas-text/canvasTextLayout.ts';
 import { summarizeDialogueCondition } from './dialogueRules.ts';
+import { visualStateOperationOptions } from '../entity/components/event.component.ts';
 
 export type DialogueGridPoint = { x: number; y: number };
 export type DialogueGridRect = DialogueGridPoint & { width: number; height: number };
 export type DialogueNodeTextBlock = CanvasTextLayout & { role: 'speaker' | 'body' | 'label' | 'detail'; offsetY: number };
 export type DialogueNodeRowLayout = { id: string; rect: DialogueGridRect; centerY: number; textBlocks?: DialogueNodeTextBlock[] };
 export type DialogueNodeTextMeasure = (text: string, font: string) => number;
+export type DialogueNodeLayoutDensity = 'full' | 'content' | 'compact';
 export const DIALOGUE_NODE_TEXT_STYLE = Object.freeze({
   family: '"Segoe UI", "Microsoft YaHei", sans-serif', titleSize: 14, bodySize: 12,
   lineHeight: 18, padding: 8, blockGap: 4, dialogueMaxLines: 3, detailMaxLines: 2,
@@ -17,9 +19,7 @@ export type DialogueNodeLayoutMetrics = {
   headerUnits: number;
   topPaddingUnits: number;
   lineUnits: number;
-  sectionGapUnits: number;
   outputUnits: number;
-  bottomPaddingUnits: number;
   inputSlotUnits: number;
   portRadiusUnits: number;
 };
@@ -44,9 +44,7 @@ export const DIALOGUE_NODE_LAYOUT_METRICS: Readonly<DialogueNodeLayoutMetrics> =
   headerUnits: 2,
   topPaddingUnits: 1,
   lineUnits: 2,
-  sectionGapUnits: 1,
   outputUnits: 2,
-  bottomPaddingUnits: 1,
   inputSlotUnits: 1,
   portRadiusUnits: .25,
 });
@@ -73,7 +71,24 @@ export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
   }
   if (node.kind === 'action') {
     const action = node.action;
-    const text = action?.type === 'service' ? action.commandId : action?.type ?? '未设置动作';
+    let text = '未设置动作';
+    if (action?.type === 'message') text = action.text || '显示消息';
+    if (action?.type === 'service') text = action.commandId || '调用公开服务操作';
+    if (action?.type === 'visual-state') {
+      const operation = action.operation ?? 'set';
+      const label = visualStateOperationOptions.find(option => option.value === operation)?.label;
+      text = [action.targetEntityId || '视觉状态', label, operation === 'set' ? action.stateId : action.groupId].filter(Boolean).join(' · ');
+    }
+    if (action?.type === 'shared-variable') {
+      const variable = action.variableId || '共享变量';
+      const value = action.value === undefined ? '？' : JSON.stringify(action.value);
+      switch (action.variableOperation ?? 'set') {
+        case 'add': text = `${variable} ${typeof action.value === 'number' && action.value < 0 ? '−' : '+'}${typeof action.value === 'number' ? Math.abs(action.value) : value}`; break;
+        case 'toggle': text = `切换 ${variable}`; break;
+        case 'reset': text = `重置 ${variable}`; break;
+        case 'set': text = `${variable} = ${value}`; break;
+      }
+    }
     return new Map([[`summary:${node.id}`, { id: `summary:${node.id}`, speaker: '地图动作', text }]]);
   }
   return new Map([
@@ -86,15 +101,13 @@ export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
   ]);
 };
 
-export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Readonly<DialogueNodeLayoutMetrics> = DIALOGUE_NODE_LAYOUT_METRICS, measureText?: DialogueNodeTextMeasure): DialogueNodeLayout => {
+export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Readonly<DialogueNodeLayoutMetrics> = DIALOGUE_NODE_LAYOUT_METRICS, measureText?: DialogueNodeTextMeasure, density: DialogueNodeLayoutDensity = 'full'): DialogueNodeLayout => {
   const whitespace = { ...DIALOGUE_NODE_WHITESPACE_DEFAULTS, ...node.display.whitespace };
   metrics = { ...metrics,
     headerUnits: whitespace.header ? metrics.headerUnits : 1,
     topPaddingUnits: whitespace.top ? metrics.topPaddingUnits : 0,
     lineUnits: whitespace.content ? metrics.lineUnits : 1,
-    sectionGapUnits: whitespace.sections ? metrics.sectionGapUnits : 0,
     outputUnits: whitespace.outputs ? metrics.outputUnits : 1,
-    bottomPaddingUnits: whitespace.bottom ? metrics.bottomPaddingUnits : 0,
   };
   const whitespaceRegions: DialogueGridRect[] = [];
   const widthUnits = Math.max(4, Math.floor(node.display.widthUnits));
@@ -132,7 +145,6 @@ export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Rea
       ]);
       lineRows.set(id, value); cursor += value.rect.height; separators.push(cursor);
     });
-    if (displayLines.size && node.outputOrder.length) { cursor += metrics.sectionGapUnits; separators.push(cursor); }
     node.outputOrder.forEach((id) => {
       const output = node.outputs.get(id);
       const icon = output?.branch === 'true' ? '✓' : output?.branch === 'false' ? '✕' : '›';
@@ -149,15 +161,41 @@ export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Rea
 
   const inputStart = metrics.headerUnits;
   node.inputOrder.forEach((id, index) => { const value = row(id, inset, inputStart + index * metrics.inputSlotUnits, rowWidth, metrics.inputSlotUnits); inputRows.set(id, value); inputAnchors.set(id, { x: 0, y: value.centerY }); });
-  const contentMinimum = cursor + metrics.bottomPaddingUnits;
-  const inputMinimum = inputStart + node.inputOrder.length * metrics.inputSlotUnits + metrics.bottomPaddingUnits;
-  const minimumHeightUnits = Math.max(3, contentMinimum, inputMinimum);
+  const inputMinimum = inputStart + node.inputOrder.length * metrics.inputSlotUnits;
+  const minimumHeightUnits = Math.max(3, cursor, inputMinimum);
   const actualHeightUnits = whitespace.height ? Math.max(requestedHeightUnits, minimumHeightUnits) : minimumHeightUnits;
+  const textRows = node.display.showPreviewText !== false && lineRows.size ? lineRows : outputRows;
+  const reuseWhitespace = density === 'compact' && !node.display.collapsed && textRows.size > 0;
+  if (reuseWhitespace) {
+    const tailSpace = actualHeightUnits - cursor;
+    const firstText = textRows.keys().next().value;
+    let remainingSpace = tailSpace;
+    let remainingRows = textRows.size;
+    cursor = metrics.headerUnits;
+    separators.length = 1;
+    for (const rows of [lineRows, outputRows]) {
+      for (const [id, previous] of rows) {
+        let height = previous.rect.height;
+        if (rows === textRows) {
+          const share = remainingRows === 1 ? remainingSpace : Math.floor(remainingSpace / remainingRows);
+          height += share;
+          remainingSpace -= share;
+          remainingRows -= 1;
+          if (id === firstText) height += metrics.topPaddingUnits;
+        }
+        const expanded = row(id, inset, cursor, rowWidth, height);
+        rows.set(id, expanded);
+        if (rows === outputRows) outputAnchors.set(id, { x: widthUnits, y: expanded.centerY });
+        cursor += height;
+        separators.push(cursor);
+      }
+    }
+  }
   const band = (y: number, height: number, x = 0, width = widthUnits) => { if (height > 0) whitespaceRegions.push({ x, y, width, height }); };
   const headerPadding = Math.max(0, (metrics.headerUnits - DIALOGUE_NODE_TEXT_STYLE.lineHeight / DIALOGUE_MAP_GRID_SIZE) / 2);
-  band(0, headerPadding); band(metrics.headerUnits - headerPadding, headerPadding);
-  band(metrics.headerUnits, metrics.topPaddingUnits);
-  for (const value of [...lineRows.values(), ...outputRows.values()]) {
+  if (density === 'full') { band(0, headerPadding); band(metrics.headerUnits - headerPadding, headerPadding); }
+  if (!reuseWhitespace) band(metrics.headerUnits, metrics.topPaddingUnits);
+  if (density === 'full') for (const value of [...lineRows.values(), ...outputRows.values()]) {
     let end = value.rect.y;
     for (const block of value.textBlocks ?? []) {
       const start = value.rect.y + block.offsetY / DIALOGUE_MAP_GRID_SIZE;
@@ -165,10 +203,6 @@ export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Rea
       end = start + block.lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight / DIALOGUE_MAP_GRID_SIZE;
     }
     if (value.textBlocks) band(end, value.rect.y + value.rect.height - end, value.rect.x, value.rect.width);
-  }
-  if (!node.display.collapsed && lineRows.size && outputRows.size) {
-    const last = [...lineRows.values()].at(-1)!;
-    band(last.rect.y + last.rect.height, metrics.sectionGapUnits);
   }
   band(cursor, actualHeightUnits - cursor);
   return {

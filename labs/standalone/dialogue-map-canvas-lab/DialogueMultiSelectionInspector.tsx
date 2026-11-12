@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { DIALOGUE_NODE_WHITESPACE_DEFAULTS, type DialogueEditorNode, type DialogueNodeDisplay, type DialogueNodeWhitespace } from '../../../core/dialogue-map/dialogueMap.types.ts';
 import type { DialogueArrange } from './dialogueGraphEditing.ts';
 
-const whitespaceLabels: Record<keyof DialogueNodeWhitespace, string> = { header: '标题留白', content: '内容行留白', outputs: '出口行留白', top: '顶部留白', sections: '内容与出口间距', bottom: '底部留白', height: '设定高度额外留白' };
+const whitespaceLabels: Record<keyof DialogueNodeWhitespace, string> = { header: '标题留白', content: '内容行留白', outputs: '出口行留白', top: '顶部留白', height: '设定高度额外留白' };
 export function DialogueMultiSelectionInspector({ nodes, onPatch, onArrange, onFocus, onCopy, onDelete }: {
   nodes: DialogueEditorNode[]; onPatch(patch: Partial<DialogueNodeDisplay>): void; onArrange(mode: DialogueArrange): void; onFocus(): void; onCopy(): void; onDelete(): void;
 }) {

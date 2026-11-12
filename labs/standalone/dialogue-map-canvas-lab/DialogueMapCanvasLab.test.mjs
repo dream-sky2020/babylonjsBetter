@@ -10,7 +10,11 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
   const previous = new Map();
   let finishLoad;
   const libraryPromise = new Promise(resolve => { finishLoad = resolve; });
-  const context = new Proxy({ measureText: text => ({ width: text.length * 8, actualBoundingBoxRight: text.length * 8, actualBoundingBoxLeft: 0 }), setLineDash() {} }, { get(target, key) { return target[key] ?? (() => {}); } });
+  const viewport = { width: 1600, height: 1200 };
+  const paintedText = [];
+  Object.defineProperty(dom.window.HTMLElement.prototype, 'clientWidth', { get: () => viewport.width });
+  Object.defineProperty(dom.window.HTMLElement.prototype, 'clientHeight', { get: () => viewport.height });
+  const context = new Proxy({ measureText: text => ({ width: text.length * 8, actualBoundingBoxRight: text.length * 8, actualBoundingBoxLeft: 0, actualBoundingBoxAscent: 8, actualBoundingBoxDescent: 2 }), fillText: text => paintedText.push(text), setLineDash() {} }, { get(target, key) { return target[key] ?? (() => {}); } });
   dom.window.HTMLCanvasElement.prototype.getContext = () => context;
   dom.window.HTMLCanvasElement.prototype.setPointerCapture = () => {};
   for (const [key, value] of Object.entries({ window: dom.window, document: dom.window.document, localStorage: dom.window.localStorage, HTMLElement: dom.window.HTMLElement, HTMLButtonElement: dom.window.HTMLButtonElement, Node: dom.window.Node, __dialogueTestSavedLibrary: undefined,
@@ -73,8 +77,8 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     const spacingGroup = [...document.querySelectorAll('.inspector-group')].find(section => section.querySelector(':scope > button strong')?.textContent === '留白设置');
     assert.equal(spacingGroup.querySelector('.inspector-group__heading').getAttribute('aria-expanded'), 'false');
     const { getDialogueCanvasLayout } = await server.ssrLoadModule('/labs/standalone/dialogue-map-canvas-lab/dialogueCanvasLayout.ts');
-    const { fitGraphView, graphScreenPoint } = await server.ssrLoadModule('/core/ui/node-graph/graphViewport.ts');
-    const view = fitGraphView([...initialDocument.graph.nodes.values()].map(node => ({ ...node.position, width: getDialogueCanvasLayout(node).widthUnits * 24, height: getDialogueCanvasLayout(node).actualHeightUnits * 24 })), { width: 1, height: 1 });
+    const { fitGraphView, graphScreenPoint, zoomGraphViewAtPoint } = await server.ssrLoadModule('/core/ui/node-graph/graphViewport.ts');
+    const view = fitGraphView([...initialDocument.graph.nodes.values()].map(node => ({ ...node.position, width: getDialogueCanvasLayout(node).widthUnits * 24, height: getDialogueCanvasLayout(node).actualHeightUnits * 24 })), viewport);
     const initialNode = initialDocument.graph.nodes.values().next().value;
     const at = graphScreenPoint({ x: initialNode.position.x + 120, y: initialNode.position.y + 6 }, view);
     let canvas = document.querySelector('canvas');
@@ -109,7 +113,9 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     assert.ok([...spacingGroup.querySelectorAll('input')].every(input => !input.checked));
     await React.act(async () => spacingGroup.querySelector('input[aria-label="保留标题留白"]').click());
     assert.equal(spacingGroup.querySelector('input[aria-label="保留标题留白"]').checked, true);
-    assert.equal(spacingGroup.querySelector('input[aria-label="保留底部留白"]').checked, false);
+    assert.equal(spacingGroup.querySelector('input[aria-label="保留内容顶部留白"]').checked, false);
+    assert.equal(spacingGroup.querySelector('input[aria-label="保留底部留白"]'), null);
+    assert.equal(spacingGroup.querySelector('input[aria-label="保留内容与出口间距"]'), null);
     const undoButton = [...document.querySelectorAll('.stage-toolbar button')].find(button => button.textContent === '撤销');
     await React.act(async () => undoButton.click());
     assert.equal(spacingGroup.querySelector('input[aria-label="保留标题留白"]').checked, false);
@@ -141,7 +147,7 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     assert.ok(newCondition);
     await React.act(async () => newCondition.click());
     await React.act(async () => group('留白设置').querySelector('.inspector-group__heading').click());
-    assert.equal(group('留白设置').querySelectorAll('input').length, 7);
+    assert.equal(group('留白设置').querySelectorAll('input').length, 5);
     assert.ok([...group('留白设置').querySelectorAll('input')].every(input => input.checked));
     const formula = group('判断公式');
     assert.ok(formula);
@@ -230,7 +236,7 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     const beforeProperties = await snapshot();
     await React.act(async () => [...spacing.querySelectorAll('button')].find(button => button.textContent === '粘贴属性').click());
     const afterProperties = await snapshot();
-    assert.deepEqual([...afterProperties.graph.nodes.values()][1].display.whitespace, { header: true, content: true, outputs: true, top: true, sections: true, bottom: true, height: true, ...sourceSettings });
+    assert.deepEqual([...afterProperties.graph.nodes.values()][1].display.whitespace, { header: true, content: true, outputs: true, top: true, height: true, ...sourceSettings });
     assert.deepEqual(afterProperties.graph.edges, beforeProperties.graph.edges);
     await key('z', true);
     assert.deepEqual((await snapshot()).graph, beforeProperties.graph);
@@ -242,11 +248,12 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     const beforeMove = await snapshot();
     const firstNode = beforeMove.graph.nodes.values().next().value;
     const dragStart = graphScreenPoint({ x: firstNode.position.x + 120, y: firstNode.position.y + 24 }, view);
+    const dragDistance = 72 * view.scale;
     await pointEvent('pointerdown', dragStart);
-    await pointEvent('pointermove', { x: dragStart.x + 12, y: dragStart.y + 12 });
-    await pointEvent('pointermove', { x: dragStart.x + 24, y: dragStart.y + 24 });
+    await pointEvent('pointermove', { x: dragStart.x + dragDistance / 2, y: dragStart.y + dragDistance / 2 });
+    await pointEvent('pointermove', { x: dragStart.x + dragDistance, y: dragStart.y + dragDistance });
     assert.deepEqual((await snapshot()).graph, beforeMove.graph, 'preview movement must not modify saved data');
-    await pointEvent('pointerup', { x: dragStart.x + 24, y: dragStart.y + 24 });
+    await pointEvent('pointerup', { x: dragStart.x + dragDistance, y: dragStart.y + dragDistance });
     const afterMove = await snapshot();
     for (const [id, node] of afterMove.graph.nodes) {
       assert.equal(node.position.x - beforeMove.graph.nodes.get(id).position.x, 72);
@@ -342,7 +349,77 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     await contextMenu(canvas, { x: 200, y: 100 });
     await menuAction('create-event');
     const created = (await snapshot('other')).graph.nodes.values().next().value;
-    assert.equal(created.kind, 'event'); assert.equal(created.position.x % 24, 0); assert.equal(created.position.y % 24, 0);
+    assert.equal(created.kind, 'event');
+    assert.ok(Number.isInteger(created.position.x / 24) && Number.isInteger(created.position.y / 24));
+
+    const newAction = [...document.querySelectorAll('.node-create-actions button')].find(button => button.textContent === '＋执行动作');
+    await React.act(async () => newAction.click());
+    const actionGraph = (await snapshot('other')).graph;
+    const actionNode = [...actionGraph.nodes.values()].find(node => node.kind === 'action');
+    const actionLayout = getDialogueCanvasLayout(actionNode);
+    const actionRow = actionLayout.lineRows.get(`summary:${actionNode.id}`);
+    await React.act(async () => toolbarButton('适配画布').click());
+    const actionView = fitGraphView([...actionGraph.nodes.values()].map(node => {
+      const layout = getDialogueCanvasLayout(node);
+      return { ...node.position, width: layout.widthUnits * 24, height: layout.actualHeightUnits * 24 };
+    }), viewport);
+    const actionPoint = (x, y) => graphScreenPoint({ x: actionNode.position.x + x * 24, y: actionNode.position.y + y * 24 }, actionView);
+    const actionEditor = group('执行地图动作');
+    const actionHeading = actionEditor.querySelector('.inspector-group__heading');
+    await React.act(async () => actionHeading.click());
+    assert.equal(actionHeading.getAttribute('aria-expanded'), 'false');
+
+    await clickAt(actionPoint(actionLayout.widthUnits / 2, actionRow.centerY));
+    assert.equal(inspectorSelection(), 'ACTION');
+    assert.equal(actionEditor.style.order, '-10');
+    assert.ok(actionEditor.classList.contains('inspector-group--focused'));
+    assert.equal(actionHeading.getAttribute('aria-expanded'), 'true');
+    assert.equal(group('节点属性').style.order, '0');
+
+    await clickAt(actionPoint(actionLayout.widthUnits / 2, actionLayout.header.height / 2));
+    assert.equal(inspectorSelection(), 'NODE');
+    assert.equal(actionEditor.style.order, '0');
+    await React.act(async () => selectContentInPadding.click());
+    await clickAt(actionPoint(actionRow.rect.x / 2, actionRow.centerY));
+    assert.equal(inspectorSelection(), 'ACTION');
+    assert.deepEqual((await snapshot('other')).graph, actionGraph, 'selecting the action does not edit its data');
+
+    const zoomFrom = async (from, scale) => {
+      paintedText.length = 0;
+      const delta = Math.log(from / scale) * 1000;
+      const steps = Math.ceil(Math.abs(delta) / 200);
+      await React.act(async () => {
+        for (let step = 0; step < steps; step++) canvas.dispatchEvent(new dom.window.WheelEvent('wheel', { deltaY: delta / steps, cancelable: true }));
+      });
+    };
+    await zoomFrom(actionView.scale, .75);
+    assert.ok(paintedText.includes('未设置动作'));
+    assert.equal(paintedText.includes('地图动作'), false);
+    await zoomFrom(.75, .52);
+    assert.ok(paintedText.includes('未设置动作'));
+    assert.ok(paintedText.includes('执行成功'));
+    const compactView = zoomGraphViewAtPoint(actionView, { x: 0, y: 0 }, .52);
+    const compactLayout = getDialogueCanvasLayout(actionNode, 'compact');
+    const compactRow = compactLayout.lineRows.get(`summary:${actionNode.id}`);
+    const compactPoint = (node, { x, y }) => graphScreenPoint({ x: node.position.x + x * 24, y: node.position.y + y * 24 }, compactView);
+    assert.equal(compactLayout.actualHeightUnits, actionLayout.actualHeightUnits);
+    assert.equal(compactRow.rect.y, compactLayout.header.height);
+    await React.act(async () => selectContentInPadding.click());
+    await clickAt(compactPoint(actionNode, { x: compactLayout.widthUnits / 2, y: actionRow.rect.y - .5 }));
+    assert.equal(inspectorSelection(), 'ACTION');
+    assert.equal(group('执行地图动作').style.order, '-10');
+    assert.deepEqual((await snapshot('other')).graph, actionGraph);
+
+    const fromPort = actionNode.outputOrder[0], toPort = created.inputOrder[0];
+    const fromPoint = compactPoint(actionNode, compactLayout.outputAnchors.get(fromPort));
+    const toPoint = compactPoint(created, getDialogueCanvasLayout(created, 'compact').inputAnchors.get(toPort));
+    await pointEvent('pointerdown', fromPoint);
+    await pointEvent('pointermove', toPoint);
+    await pointEvent('pointerup', toPoint);
+    const connected = (await snapshot('other')).graph;
+    assert.deepEqual([...connected.edges.values()].map(edge => [edge.from.portId, edge.to.portId]), [[fromPort, toPort]]);
+    await zoomFrom(.52, actionView.scale);
+    assert.ok(paintedText.includes('地图动作'));
 
   } finally {
     if (root) { const React = await import('react'); await React.act(async () => root.unmount()); }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { DialogueMapAction } from '@/core/dialogue-map';
+import type { DialogueEditorSelection, DialogueMapAction } from '@/core/dialogue-map';
 import { visualStateOperationOptions } from '@/core/entity/components/event.component';
 import { sharedVariableOperationOptions } from '@/core/entity/components/shared-variable.component';
 import { InspectorGroup } from './InspectorGroup';
@@ -25,10 +25,14 @@ function JsonParameters({ parameters, onChange }: { parameters?: Record<string, 
     }} />{error ? <span role="alert">{error}</span> : null}</label>;
 }
 
-export function DialogueActionEditor({ action, onChange }: { action?: DialogueMapAction; onChange(value?: DialogueMapAction): void }) {
+export function DialogueActionEditor({ action, selection, onChange }: {
+  action?: DialogueMapAction;
+  selection: DialogueEditorSelection;
+  onChange(value?: DialogueMapAction): void;
+}) {
   const text = (label: string, value: string | undefined, update: (value: string) => void) =>
     <label className="field"><span>{label}</span><input value={value ?? ''} onChange={e => update(e.target.value)} /></label>;
-  return <InspectorGroup title="执行地图动作">
+  return <InspectorGroup title="执行地图动作" focused={selection.kind === 'action'} focusToken={selection}>
     <label className="field"><span>动作类型</span><select value={action?.type ?? ''} onChange={e => onChange(structuredClone(defaults[e.target.value as keyof typeof defaults]))}>
       <option value="">选择动作</option><option value="message">显示消息</option><option value="visual-state">视觉状态</option>
       <option value="shared-variable">共享变量</option><option value="service">调用公开服务操作</option>

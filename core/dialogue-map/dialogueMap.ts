@@ -40,12 +40,18 @@ const list = (value: unknown): string[] => { if (!Array.isArray(value)) throw ne
 const parseNode = (value: unknown, legacy: boolean): DialogueEditorNode => {
   const raw = object(value, '节点'), pos = object(raw.position, '位置'), display = object(raw.display, '显示');
   if (!['rectangle', 'rounded', 'diamond', 'hexagon', 'pill', 'document'].includes(string(display.shape)) || typeof display.colorToken !== 'string') throw new Error('显示字段无效。');
+  const nodeDisplay = structuredClone(display);
+  if (nodeDisplay.whitespace && typeof nodeDisplay.whitespace === 'object' && !Array.isArray(nodeDisplay.whitespace)) {
+    const whitespace = object(nodeDisplay.whitespace, '留白设置');
+    delete whitespace.sections;
+    delete whitespace.bottom;
+  }
   const ports = (name: string) => new Map(Object.entries(object(raw[name], name)).map(([key, value]) => {
     const port = object(value, '端口');
     if (name === 'outputs' && !['next', 'true', 'false', 'choice', ...(legacy ? [] : ['timeout'])].includes(string(port.branch))) throw new Error('未知出口分支。');
     return [key, { id: string(port.id), ...(port.label === undefined ? {} : { label: string(port.label) }), ...(name === 'outputs' ? { branch: port.branch } : {}) }];
   }));
-  const base = { id: string(raw.id), title: string(raw.title), position: { x: Number(pos.x), y: Number(pos.y) }, display: structuredClone(display) as DialogueNodeDisplay,
+  const base = { id: string(raw.id), title: string(raw.title), position: { x: Number(pos.x), y: Number(pos.y) }, display: nodeDisplay as DialogueNodeDisplay,
     lines: new Map(Object.entries(object(raw.lines, '对白')).map(([key, value]) => { const line = object(value, '对白'); return [key, { id: string(line.id), speaker: string(line.speaker), text: string(line.text) }]; })), lineOrder: list(raw.lineOrder),
     inputs: ports('inputs'), inputOrder: list(raw.inputOrder), outputs: ports('outputs') as Map<string, DialogueOutputPort>, outputOrder: list(raw.outputOrder), ...(raw.tags === undefined ? {} : { tags: list(raw.tags) }) };
   if (raw.kind === 'choice') return { ...base, kind: raw.kind };
@@ -95,6 +101,7 @@ export const resolveDialogueEditorSelection = (document: DialogueEditorDocument,
   if (selection.kind === 'edge') { const edge = document.graph.edges.get(selection.edgeId); return edge ? { kind: 'edge', edge } : undefined; }
   const node = document.graph.nodes.get(selection.nodeId); if (!node) return;
   if (selection.kind === 'node' || selection.kind === 'spacing') return { kind: selection.kind, node };
+  if (selection.kind === 'action') return node.kind === 'action' ? { kind: selection.kind, node } : undefined;
   if (selection.kind === 'event-mode') return node.kind === 'event' ? { kind: selection.kind, node } : undefined;
   if (selection.kind === 'event') { const eventIndex = selection.eventIndex ?? 0; return node.kind === 'event' && node.events[eventIndex] ? { kind: selection.kind, node, eventIndex } : undefined; }
   if (selection.kind === 'condition-mode') return node.kind === 'condition' ? { kind: selection.kind, node } : undefined;

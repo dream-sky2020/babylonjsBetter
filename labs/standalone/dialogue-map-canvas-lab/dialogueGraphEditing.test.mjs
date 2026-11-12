@@ -60,10 +60,10 @@ test('one bulk graph commit undoes removal of every node and all connections', (
 test('property paste preserves identity, geometry, fixed branches and edge endpoints', () => {
   const doc = graph(), a = doc.graph.nodes.get('start'), b = doc.graph.nodes.get('b');
   const edgeBefore = structuredClone(doc.graph.edges), position = { ...b.position }, input = [...b.inputOrder], outputs = [...b.outputOrder];
-  a.title = 'Replacement'; a.display.whitespace = { header: true, bottom: false };
+  a.title = 'Replacement'; a.display.whitespace = { header: true, top: false };
   applyDialogueProperties(doc, { nodeId: b.id, scope: 'node' }, captureDialogueProperties(doc, { nodeId: a.id, scope: 'node' }));
   applyDialogueProperties(doc, { nodeId: b.id, scope: 'spacing' }, captureDialogueProperties(doc, { nodeId: a.id, scope: 'spacing' }));
-  assert.equal(b.title, 'Replacement'); assert.equal(b.display.whitespace.bottom, false);
+  assert.equal(b.title, 'Replacement'); assert.equal(b.display.whitespace.top, false);
   assert.deepEqual(b.position, position); assert.deepEqual(b.inputOrder, input); assert.deepEqual(b.outputOrder, outputs); assert.deepEqual(doc.graph.edges, edgeBefore);
   assert.ok(dialoguePropertyPasteReason(doc, { nodeId: b.id, scope: 'output', id: outputs[0] }, { scope: 'output', labels: ['bad'] }).includes('固定'));
   assert.ok(dialoguePropertyPasteReason(doc, { nodeId: b.id, scope: 'spacing' }, { scope: 'appearance' }).includes('不兼容'));
@@ -132,9 +132,9 @@ test('individual content and appearance panels copy only their editable values w
   assert.equal(target.outputs.get(target.outputOrder[0]).label, 'Continue');
   const appearance = captureDialogueProperties(doc, { nodeId: source.id, scope: 'appearance' });
   applyDialogueProperties(doc, { nodeId: target.id, scope: 'appearance' }, appearance);
-  target.display.whitespace.bottom = false;
-  assert.equal(appearance.display.whitespace.bottom, true);
-  assert.equal(source.display.whitespace.bottom, true);
+  target.display.whitespace.top = false;
+  assert.equal(appearance.display.whitespace.top, true);
+  assert.equal(source.display.whitespace.top, true);
   assert.deepEqual({ id: target.id, lines: target.lineOrder, inputs: target.inputOrder, outputs: target.outputOrder, position: target.position }, identities);
   const event = doc.graph.nodes.get('c'), comparison = doc.graph.nodes.get('b');
   const e = captureDialogueProperties(doc, { nodeId: event.id, scope: 'event', index: 0 });

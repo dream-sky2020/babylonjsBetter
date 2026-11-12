@@ -1,15 +1,27 @@
-import type { CanvasTextLayout } from '../../../core/ui/canvas-text/canvasTextLayout.ts';
-import { dialogueNodeTextFont, DIALOGUE_NODE_TEXT_STYLE } from '../../../core/dialogue-map/dialogueNodeLayout.ts';
-import { ellipsizeCanvasText } from '../../../core/ui/canvas-text/canvasTextLayout.ts';
+import { ellipsizeCanvasText, layoutCanvasText, type CanvasTextLayout } from '../../../core/ui/canvas-text/canvasTextLayout.ts';
+import { dialogueNodeTextFont, DIALOGUE_NODE_TEXT_STYLE, type DialogueNodeLayoutDensity } from '../../../core/dialogue-map/dialogueNodeLayout.ts';
 
 /** Integer device-pixel font sizes avoid fractional rasterization of tiny glyphs. */
 export const getDialogueCanvasFontSize = (fontSize: number, scale: number, pixelRatio: number): number => (
   Math.max(Math.ceil(DIALOGUE_NODE_TEXT_STYLE.minimumScreenFontSize * pixelRatio), Math.floor(fontSize * scale * pixelRatio)) / pixelRatio
 );
-export const getDialogueCanvasTextDetail = (scale: number): 'full' | 'compact' | 'overview' => scale >= .9 ? 'full' : scale >= .45 ? 'compact' : 'overview';
+export const getDialogueCanvasTextDetail = (scale: number): DialogueNodeLayoutDensity => scale >= .9 ? 'full' : scale >= .65 ? 'content' : 'compact';
 export const getDialogueCanvasTextWidthInset = (scale: number, pixelRatio: number): number => (
   2 * Math.max(1 / pixelRatio, DIALOGUE_NODE_TEXT_STYLE.glyphPadding * scale) + 3 / pixelRatio
 );
+
+export const fitDialogueCanvasText = (text: string, box: {
+  width: number; height: number; scale: number; pixelRatio: number; maxLines: number;
+}, measure: (text: string) => number): CanvasTextLayout => {
+  const fontSize = getDialogueCanvasFontSize(DIALOGUE_NODE_TEXT_STYLE.bodySize, box.scale, box.pixelRatio);
+  const lineHeight = Math.max(fontSize, DIALOGUE_NODE_TEXT_STYLE.lineHeight * box.scale);
+  const availableHeight = box.height - 3 / box.pixelRatio;
+  return layoutCanvasText(text, {
+    maxWidth: box.width - getDialogueCanvasTextWidthInset(box.scale, box.pixelRatio),
+    maxLines: Math.min(box.maxLines, Math.floor(availableHeight / lineHeight)),
+    wrap: box.maxLines > 1, measure,
+  });
+};
 
 export const drawDialogueCanvasText = (context: CanvasRenderingContext2D, layout: CanvasTextLayout, box: {
   x: number; y: number; width: number; height: number; scale: number; color: string;
