@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain, screen, Menu } = require("electron");
 const fs = require("node:fs");
 const path = require("node:path");
+const { registerAppMemoryHandler } = require("./appMemory.cjs");
+const { registerLabSaveStorage } = require("./labSaveStorage.cjs");
 
 // Runtime mode flags:
 // - dev: load pages from Vite dev server URL
@@ -9,6 +11,9 @@ const isDev = Boolean(process.env.ELECTRON_RENDERER_URL);
 const rendererBaseUrl = process.env.ELECTRON_RENDERER_URL || null;
 const distDir = path.join(__dirname, "..", "dist");
 const preloadPath = path.join(__dirname, "preload.cjs");
+const gameEntry = process.argv.includes("--dungeon-interaction-lab")
+  ? "labs/composable/dungeon-interaction-lab/index.html"
+  : "apps/mainGame/index.html";
 
 /** @type {{ mood: "idle" | "happy" | "sleep"; animation_speed: number }} */
 let petState = {
@@ -46,11 +51,12 @@ const getSpritePresetPath = () => {
 // Unified page loader:
 // - in dev, load from dev server
 // - in prod, load built html file
-const loadPage = (window, relativePath) => {
+const loadPage = (window, relativePath, query = {}) => {
   if (rendererBaseUrl) {
-    return window.loadURL(`${rendererBaseUrl}/${relativePath}`);
+    const search = new URLSearchParams(query).toString();
+    return window.loadURL(`${rendererBaseUrl}/${relativePath}${search ? `?${search}` : ""}`);
   }
-  return window.loadFile(path.join(distDir, relativePath));
+  return window.loadFile(path.join(distDir, relativePath), { query });
 };
 
 // Broadcast an event to both windows when they exist.
@@ -125,8 +131,8 @@ const createWindows = async () => {
   positionPetWindow();
 
   await Promise.all([
-    loadPage(gameWindow, "apps/mainGame/index.html"),
-    loadPage(petWindow, "apps/desktopPet/index.html?debug=1"),
+    loadPage(gameWindow, gameEntry),
+    loadPage(petWindow, "apps/desktopPet/index.html", { debug: "1" }),
   ]);
 };
 
@@ -251,6 +257,8 @@ const stopHeartbeat = () => {
 app.whenReady().then(async () => {
   Menu.setApplicationMenu(null);
   registerIpcHandlers();
+  registerLabSaveStorage({ distDir, rendererBaseUrl, projectRoot: path.join(__dirname, "..") });
+  registerAppMemoryHandler();
   await createWindows();
   startHeartbeat();
 

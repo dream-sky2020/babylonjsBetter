@@ -1,15 +1,32 @@
 const { resolveRepoPath } = require('./electronWorkspace.cjs');
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
+const { registerAppMemoryHandler } = require('../electron/appMemory.cjs');
+const { registerLabSaveStorage } = require('../electron/labSaveStorage.cjs');
 const fs = require('node:fs');
+const path = require('node:path');
 const assert = require('node:assert/strict');
+const testUserData = path.join(process.cwd(), 'user-data');
+fs.mkdirSync(testUserData);
+app.setPath('userData', testUserData);
 app.commandLine.appendSwitch('use-angle', 'swiftshader');
 app.commandLine.appendSwitch('enable-unsafe-swiftshader');
 app.whenReady().then(async () => {
-  const win = new BrowserWindow({ show: false, width: 1440, height: 1000, webPreferences: { offscreen: true, backgroundThrottling: false } });
+  registerAppMemoryHandler();
+  registerLabSaveStorage({ distDir: resolveRepoPath('node_modules/.cache/dungeon-interaction-build') });
   const errors = [], network = [], checks = [];
-  win.webContents.on('console-message', details => { if (details.level === 'error') errors.push(details.message); });
+  const labHtml = resolveRepoPath('node_modules/.cache/dungeon-interaction-build/labs/composable/dungeon-interaction-lab/index.html');
+  const createWindow = () => {
+    const window = new BrowserWindow({ show: false, width: 1440, height: 1000, webPreferences: {
+      offscreen: true, backgroundThrottling: false, preload: resolveRepoPath('electron/preload.cjs'),
+    } });
+    window.webContents.on('console-message', details => { if (details.level === 'error') errors.push(details.message); });
+    return window;
+  };
+  let win = createWindow();
   win.webContents.session.webRequest.onBeforeRequest({ urls: ['http://*/*', 'https://*/*'] }, (details, callback) => { network.push(details.url); callback({ cancel: true }); });
-  const page = source => win.webContents.executeJavaScript(source);
+  const page = source => win.webContents.executeJavaScript(source).catch(error => {
+    throw new Error(`页面验证脚本执行失败：${source.slice(0, 240)}`, { cause: error });
+  });
   const wait = async expression => {
     const deadline = Date.now() + 30000;
     while (!await page(expression)) {
@@ -48,8 +65,14 @@ app.whenReady().then(async () => {
     await wait(`(() => { const state = JSON.parse(document.querySelector('[data-lab-panel="player-movement"] .lab-json').textContent); return state.playerPosition?.tileX === ${x} && state.playerPosition?.tileY === ${y} && !state.playerMovement; })()`);
   };
   try {
-    await win.loadFile(resolveRepoPath('node_modules/.cache/dungeon-interaction-build/labs/composable/dungeon-interaction-lab/index.html'));
+    await win.loadFile(labHtml);
     await wait(`document.querySelector('.lab-global-status')?.textContent.startsWith('已组合') && ${mapIs('dungeon_interaction_test')}`);
+    await click('[data-performance-action="toggle-fps"]');
+    const memoryLabel = process.platform === 'win32' ? 'Electron 应用私有提交内存' : 'Electron 应用工作集合计';
+    await wait(`document.querySelector('.lab-performance-hud')?.textContent.includes(${JSON.stringify(memoryLabel)}) &&
+      document.querySelector('.lab-performance-hud')?.textContent.endsWith(' MiB')`);
+    await click('[data-performance-action="toggle-fps"]');
+    checks.push('performance HUD measures Electron app memory through the production preload and IPC handler');
     await wait(`!!document.querySelector('${messageOverlay} [data-ui-document="message_bar_default"] [data-ui-node="message-list"]')`);
     assert.equal(await page(`document.querySelector('[data-lab-panel="message-bar"] [data-lab-setting="ui-preset"]').value`), 'message_bar_default');
     assert.equal(await page(`(() => {
@@ -691,6 +714,166 @@ app.whenReady().then(async () => {
     await teleport(1, 6); await key('KeyE');
     await wait(`${mapIs('dungeon_interaction_test')} && ${playerState}.playerPosition.tileX === 14 && ${playerState}.playerPosition.tileY === 9`);
     checks.push('dialogue test room round trip, live scalar branches, obstacle control, publication, event match and timeout');
+
+    const checkpointStatus = `document.querySelector('[data-lab-checkpoint="status"]')?.textContent`;
+    const checkpoint = action => click(`[data-lab-checkpoint="${action}"]`);
+    const selectMap = async preset => {
+      await page(`(() => { const select = document.querySelector('[data-lab-panel="dungeon-config"] select');
+        select.value = ${JSON.stringify(preset)}; select.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+      await wait(mapIs(preset));
+    };
+    const exportCheckpoint = async () => {
+      await page(`(() => {
+        window.checkpointFile = undefined;
+        const createUrl = URL.createObjectURL, click = HTMLAnchorElement.prototype.click;
+        URL.createObjectURL = blob => { blob.text().then(text => { window.checkpointFile = JSON.parse(text); }); return createUrl(blob); };
+        HTMLAnchorElement.prototype.click = function () {};
+        const stop = () => { URL.createObjectURL = createUrl; HTMLAnchorElement.prototype.click = click; };
+        document.querySelector('[data-lab-checkpoint="export"]').click();
+        const timer = setInterval(() => { if (window.checkpointFile) { clearInterval(timer); stop(); } }, 25);
+      })()`);
+      await wait('window.checkpointFile');
+      return page('window.checkpointFile');
+    };
+    const importCheckpoint = (snapshot, name) => page(`(() => {
+      const input = document.querySelector('[data-lab-checkpoint="import"]');
+      const files = new DataTransfer();
+      files.items.add(new File([JSON.stringify(${JSON.stringify(snapshot)})], ${JSON.stringify(name)}, { type: 'application/json' }));
+      input.files = files.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    })()`);
+    const bodyAt = (snapshot, id) => snapshot.modules['dungeon-map-loader']['runtime-save-states'].data.dungeon_push_test
+      .bodies.find(body => body.entityId === id);
+    const pushFromTheSide = async () => {
+      // The next north tile is occupied by a second box. Push into the free tile on the east instead.
+      await move('west', 7, 7);
+      await move('north', 7, 6);
+      await move('east', 8, 6);
+      const box = bodyAt(await exportCheckpoint(), 'push-test:01');
+      assert.deepEqual([box.tileX, box.tileY], [9, 6]);
+    };
+    await selectMap('dungeon_push_test');
+    await wait(`${playerState}.playerPosition.tileX === 8 && ${playerState}.playerPosition.tileY === 8`);
+    await page(`(() => {
+      document.querySelector('[data-move="north"]').click();
+      document.querySelector('[data-lab-checkpoint="save"]').click();
+    })()`);
+    await wait(`${checkpointStatus}.includes('已快速保存') && ${playerState}.playerPosition.tileY === 7`);
+    const saved = await exportCheckpoint();
+    assert.equal(saved.labId, 'dungeon-interaction-lab');
+    assert.equal(saved.modules['dungeon-map-loader']['active-map'].data, 'dungeon_push_test');
+    assert.equal(bodyAt(saved, 'push-test:01').tileY, 6);
+    await selectMap('dungeon_interaction_room');
+    await checkpoint('load');
+    await wait(`${checkpointStatus}.includes('已恢复快速存档') && ${mapIs('dungeon_push_test')} && ${playerState}.playerPosition.tileY === 7`);
+    await pushFromTheSide();
+
+    const previousWindow = win;
+    win = createWindow();
+    previousWindow.destroy();
+    await win.loadFile(labHtml);
+    await wait(`document.querySelector('.lab-global-status')?.textContent.startsWith('已组合') && ${mapIs('dungeon_interaction_test')}`);
+    assert.equal(await page(`document.querySelector('[data-lab-checkpoint="load"]').disabled`), true);
+    await importCheckpoint({ ...saved, labId: 'other-lab' }, 'other.json');
+    await wait(`${checkpointStatus}.includes('属于其他 Lab')`);
+    const bad = structuredClone(saved);
+    bad.modules['dungeon-map-loader']['runtime-save-states'].data.dungeon_push_test.bodies
+      .find(body => body.entityId === 'push-test:01').tileY = 999;
+    await importCheckpoint(bad, 'bad.json');
+    await wait(`${checkpointStatus}.includes('数据无效')`);
+    assert.equal(await page(mapIs('dungeon_interaction_test')), true);
+    await importCheckpoint(saved, 'checkpoint.json');
+    await wait(`${checkpointStatus}.includes('已从') && ${mapIs('dungeon_push_test')} && ${playerState}.playerPosition.tileY === 7`);
+    await pushFromTheSide();
+    checks.push('checkpoint waits for a push, restores the loaded map and collision occupancy across map switches and JSON import, and rejects invalid or foreign saves');
+
+    const folder = path.join(process.cwd(), 'chosen-saves');
+    fs.mkdirSync(folder);
+    const pathInput = '[data-lab-save-directory="path"]';
+    const pathIs = directory => `document.querySelector('${pathInput}')?.value === ${JSON.stringify(directory)}`;
+    const defaultDirectory = path.join(testUserData, 'saves', 'dungeon-interaction-lab');
+    await wait(pathIs(defaultDirectory));
+    assert.ok(fs.statSync(defaultDirectory).isDirectory());
+    const manual = path.join(process.cwd(), 'manual-saves');
+    await page(`(() => { const input = document.querySelector('${pathInput}'); input.value = ${JSON.stringify(manual)};
+      input.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+    await click('[data-lab-save-directory="apply"]');
+    await wait(`document.querySelector('[data-lab-save-directory="location"]').textContent === ${JSON.stringify(manual)}`);
+    assert.ok(fs.statSync(manual).isDirectory());
+    await click('[data-lab-save-directory="reset"]');
+    await wait(pathIs(defaultDirectory));
+    assert.ok(fs.statSync(manual).isDirectory());
+    const chooser = dialog.showOpenDialog;
+    try {
+      dialog.showOpenDialog = async () => ({ canceled: false, filePaths: [folder] });
+      await wait(`!document.querySelector('[data-lab-save-directory="choose"]').disabled`);
+      await click('[data-lab-save-directory="choose"]');
+      await wait(pathIs(folder));
+    } finally { dialog.showOpenDialog = chooser; }
+    const action = id => click(`[data-lab-slot-action="${id}"]`);
+    const openSaves = async () => {
+      await wait(`document.querySelector('[aria-label="存档 UI 预设"]')?.value === 'lab_save_default' &&
+        document.querySelector('[data-lab-save-directory="open"]')?.disabled === false`);
+      await click('[data-lab-save-directory="open"]');
+      await wait(`document.querySelector('[data-ui-document="lab_save_default"] [data-lab-slot-action="create"]')?.disabled === false`);
+    };
+    const writeSave = async name => {
+      await page(`(() => {
+        const input = document.querySelector('[aria-label="存档名称"]');
+        Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(input, ${JSON.stringify(name)});
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      })()`);
+      await action('create');
+      await wait(`document.querySelector('[data-lab-slot-status]')?.textContent.includes(${JSON.stringify(`已保存「${name}」`)})`);
+    };
+    const names = () => page(`Array.from(document.querySelectorAll('[data-lab-slot-id] strong'), row => row.textContent)`);
+    await openSaves();
+    assert.deepEqual(await names(), []);
+    await writeSave('推动后');
+    await writeSave('另一个存档');
+    assert.deepEqual((await names()).sort(), ['另一个存档', '推动后'].sort());
+    const files = fs.readdirSync(folder).filter(file => file.endsWith('.json'));
+    assert.equal(files.length, 2);
+    const readSlot = name => {
+      for (const file of files) {
+        const data = JSON.parse(fs.readFileSync(path.join(folder, file), 'utf8'));
+        if (data.slot.name === name) return { file, data };
+      }
+      throw new Error(`missing slot ${name}`);
+    };
+    const first = readSlot('推动后');
+    assert.ok(first.data.runTimeMs > 0 && first.data.slot.saveCount === 1);
+    assert.equal(first.data.version, 1);
+    await click(`[data-lab-slot-id="${first.file}"]`);
+    await action('overwrite');
+    await wait(`document.querySelector('[data-lab-slot-status]')?.textContent.includes('已保存「推动后」')`);
+    const overwritten = readSlot('推动后');
+    assert.equal(overwritten.file, first.file);
+    assert.equal(overwritten.data.slot.saveCount, 2);
+    assert.equal(readSlot('另一个存档').data.slot.saveCount, 1);
+    assert.ok(overwritten.data.runTimeMs >= first.data.runTimeMs);
+    const renderedSlot = await page(`Array.from(document.querySelector(${JSON.stringify(`[data-lab-slot-id="${first.file}"]`)}).children, cell => cell.textContent)`);
+    assert.match(renderedSlot[1], /\d\d:\d\d:\d\d/);
+    assert.ok(renderedSlot[2]);
+    assert.deepEqual(renderedSlot.slice(3), ['2', 'v1']);
+    fs.writeFileSync(path.join(folder, 'foreign.json'), JSON.stringify({ ...overwritten.data, labId: 'other-lab' }));
+    fs.writeFileSync(path.join(folder, 'broken.json'), '{"invalid":');
+    const slotWindow = win;
+    win = createWindow();
+    slotWindow.destroy();
+    await win.loadFile(labHtml);
+    await wait(mapIs('dungeon_interaction_test'));
+    await openSaves();
+    assert.equal(await page(pathIs(folder)), true);
+    assert.deepEqual((await names()).sort(), ['另一个存档', '推动后'].sort());
+    await click(`[data-lab-slot-id="${first.file}"]`);
+    await action('load');
+    await wait(`document.querySelector('[data-lab-slot-status]')?.textContent.includes('已读取「推动后」') &&
+      ${mapIs('dungeon_push_test')} && ${playerState}.playerPosition.tileY === 6`);
+    await action('close');
+    await wait(`!document.querySelector('[data-ui-document="lab_save_default"]')`);
+    checks.push('preset save UI creates the default directory, applies and resets a typed path, persists a picked directory, and writes, overwrites and reloads its Lab save files');
+
     assert.deepEqual(errors, []); assert.deepEqual(network, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-interaction.json'), JSON.stringify({ passed: true, checks, errors, network }, null, 2));
     console.log(JSON.stringify({ passed: true, checks })); win.destroy(); app.exit(0);

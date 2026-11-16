@@ -286,7 +286,7 @@
 
     <div id="api-status-bar">
         <span id="api-status-text">正在检查后端服务连接...</span>
-        <input type="text" id="api-base-input" class="api-config-input" value="http://127.0.0.1:5050" placeholder="后端 API 地址">
+        <input type="text" id="api-base-input" class="api-config-input" placeholder="后端 API 地址">
         <button type="button" id="api-reconnect-btn" class="pick-btn" style="padding: 2px 8px;">重新连接</button>
     </div>
 
@@ -369,7 +369,8 @@
             { id: 'blunt', label: '打', color: '#1890ff' },
         ];
         
-        let API_BASE = localStorage.getItem('SKILL_TOOL_API_BASE') || 'http://127.0.0.1:5050';
+        const defaultApiBase = /^https?:$/.test(location.protocol) ? location.origin : 'http://127.0.0.1:4550';
+        let API_BASE = localStorage.getItem('SKILL_TOOL_API_BASE') || defaultApiBase;
         
         const apiStatusBar = document.getElementById('api-status-bar');
         const apiStatusText = document.getElementById('api-status-text');
@@ -390,13 +391,14 @@
                     return true;
                 }
             } catch (e) {}
-            apiStatusText.textContent = `后端连接失败，请确保 server.py 已启动并检查地址`;
+            apiStatusText.textContent = '后端连接失败，请检查开发服务和当前地址。';
             apiStatusBar.className = 'offline';
             return false;
         }
 
         apiReconnectBtn.addEventListener('click', () => {
-            API_BASE = apiBaseInput.value.trim().replace(/\/+$/, '');
+            API_BASE = apiBaseInput.value.trim().replace(/\/+$/, '') || defaultApiBase;
+            apiBaseInput.value = API_BASE;
             localStorage.setItem('SKILL_TOOL_API_BASE', API_BASE);
             checkBackendConnection();
         });
@@ -734,7 +736,7 @@
                 } catch (err) {
                     console.error('Pick error:', err);
                     setLayerStatus(key, `选择失败：${err.message}`, true);
-                    alert(`无法调用后端接口，请检查：\n1. server.py 是否已启动\n2. 后端地址是否正确: ${API_BASE}\n3. 错误信息: ${err.message}`);
+                    alert(`无法调用后端接口，请检查开发服务和地址 ${API_BASE}。\n${err.message}`);
                     return;
                 }
             });
@@ -786,7 +788,7 @@
                     alert(`获取失败：${data.message}`);
                 }
             } catch (err) {
-                alert(`无法连接到后端服务，请检查 server.py 是否启动。`);
+                alert(`无法连接到后端服务，请检查开发服务和地址 ${API_BASE}。`);
             }
         });
 

@@ -63,6 +63,13 @@ export const requestDevServer = async (pathWithQuery: string, init?: RequestInit
     throw new Error('当前环境无法访问浏览器 dev server');
   }
 
+  if (import.meta.env.VITE_SAME_ORIGIN_DEV_BACKEND === true && /^https?:$/.test(window.location.protocol)) {
+    const path = '/' + pathWithQuery.replace(/^\/+/, '');
+    const response = await fetchWithTimeout(path, init);
+    activePort = Number(window.location.port || (window.location.protocol === 'https:' ? 443 : 80));
+    return response;
+  }
+
   if (activePort !== null) {
     const directResponse = await tryRequestAtPort(activePort, pathWithQuery, init);
     if (isUsableResponse(directResponse)) {

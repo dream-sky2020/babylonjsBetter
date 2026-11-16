@@ -10,6 +10,7 @@
 .lab-performance-workspace td:nth-child(2) { overflow-wrap: anywhere; }
 .lab-performance-hud { position: absolute; top: 12px; left: 12px; z-index: 30; pointer-events: none; padding: 7px 10px; border-radius: 6px; background: #07111ddd; color: #a6f3cf; font: 12px/1.4 monospace; font-variant-numeric: tabular-nums; }
 .lab-performance-hud[hidden] { display: none; }
+.lab-card [data-performance-action="copy-current"]:disabled { opacity: .45; cursor: default; background: #245d52; }
 .lab-performance-timing { margin: 16px 0; padding: 14px; background: #101a2b; border-radius: 8px; }
 .lab-performance-timing > strong { margin-right: 20px; }
 .lab-performance-timing input { width: 70px; }

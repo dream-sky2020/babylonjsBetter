@@ -10,6 +10,8 @@ export type LabUiOverlay = {
 export type LabUiOverlayOptions = {
   id: string;
   presetKey: string;
+  /** Ready-to-render document when the caller has already resolved the selected preset. */
+  presetDocument?: UiDocument;
   context?: Record<string, unknown>;
   onAction?(action: string): void | Promise<void>;
   /** Modal captures the viewport and pauses scene input; HUD passes empty space through. */

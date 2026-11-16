@@ -8,7 +8,8 @@ import { labNavigationPlugin, recoverLabNavigation } from './labNavigation.ts';
 
 const map = '/labs/standalone/dungeon-map-canvas-lab/index.html';
 const scene = '/labs/standalone/scene-environment-lab/index.html';
-const entries = new Set(['/index.html', map, scene, '/tools/editor/index.html', '/apps/game/index.html']);
+const interaction = '/labs/composable/dungeon-interaction-lab/index.html';
+const entries = new Set(['/index.html', map, scene, interaction, '/tools/editor/index.html', '/apps/game/index.html']);
 const reported = `/labs/labs/standalone/scene-environment-lab${map}`;
 
 test('recovers repeated entry prefixes and the old homepage without losing query strings', () => {
@@ -62,6 +63,13 @@ for (const mode of ['development', 'preview']) test(`${mode}: redirects malforme
       const response = await request(url);
       assert.equal(response.status, 200, url);
       assert.equal(response.headers.get('location'), null);
+      assert.equal(response.headers.get('cross-origin-embedder-policy'), null);
+    }
+    for (const url of [interaction, `${interaction.slice(0, -10)}?preset=1`]) {
+      const response = await request(url);
+      assert.equal(response.status, 200, url);
+      assert.equal(response.headers.get('cross-origin-opener-policy'), 'same-origin');
+      assert.equal(response.headers.get('cross-origin-embedder-policy'), 'credentialless');
     }
     const missing = await request('/labs/no-such-lab/index.html');
     assert.equal(missing.status, 404);

@@ -10,7 +10,7 @@ const parseResponse = async (response: Response): Promise<Record<string, unknown
   const text = await response.text();
   let payload: Record<string, unknown>;
   try { payload = JSON.parse(text) as Record<string, unknown>; }
-  catch { throw new Error('模型展览配置接口没有返回 JSON，请确认 python/server.py 已启动'); }
+  catch { throw new Error('模型展览配置接口没有返回 JSON，请确认本地开发后端已启动'); }
   if (!response.ok || payload.success === false) {
     const errors = Array.isArray(payload.errors) ? payload.errors : [];
     throw new Error(`${String(payload.message ?? `HTTP ${response.status}`)}${errors.length ? `：${String(errors[0])}` : ''}`);

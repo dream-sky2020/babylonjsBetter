@@ -16,6 +16,21 @@ export type LabStateSnapshot = {
   readonly modules: Readonly<Record<string, Readonly<Record<string, LabStateSnapshotEntry>>>>;
 };
 
+export type LabCheckpoint = Omit<LabStateSnapshot, 'format'> & {
+  readonly format: 'lab-checkpoint';
+  readonly labId: string;
+  readonly runTimeMs?: number;
+  readonly slot?: { readonly name: string; readonly saveCount: number; readonly revision: string };
+};
+
+export type LabCheckpointOperation = 'save' | 'load';
+
+export type LabCheckpointLoad = {
+  read(moduleId: string, key: string): LabStateJsonValue | undefined;
+  /** Apply the validated module entries after preparing the replacement scene. */
+  apply(): Promise<void>;
+};
+
 export type LabStateInspection = {
   readonly moduleId: string;
   readonly key: string;
@@ -31,7 +46,9 @@ export type LabStateSaveDefinition<TLive, TSaved extends LabStateJsonValue> = {
   /** 恢复逻辑归模块所有，并且必须原地修改，以保持模块与 LabState 共用同一个引用。 */
   restore(current: TLive, saved: TSaved): void;
   /** 所有引用均完成原地恢复后执行；用于重建依赖该状态的场景等派生资源。 */
-  afterRestore?(current: TLive): void | Promise<void>;
+  afterRestore?(current: TLive, options: { checkpoint: boolean }): void | Promise<void>;
+  /** A scene owner can stage a replacement before applying the other module states. */
+  loadCheckpoint?(saved: TSaved, load: LabCheckpointLoad): Promise<void>;
 };
 
 export type LabStateReferenceOptions<TLive, TSaved extends LabStateJsonValue = never> = {

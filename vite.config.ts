@@ -2,6 +2,7 @@ import { writeSceneEnvironmentPreset, readSceneEnvironmentPresets } from './code
 import { handleUiPreviewPresetRequest } from './codex-tools/uiPreviewPresetStore.ts'
 import { defineConfig, type Plugin } from 'vite'
 import { labNavigationPlugin } from './codex-tools/labNavigation.ts'
+import { createBackendHandler } from './nodejs/server.mjs'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import fs from 'fs'
@@ -233,6 +234,10 @@ const sharedConfigPlugin = (): Plugin => ({
       res.setHeader('Content-Type', contentTypeFromExt(absPath))
       fs.createReadStream(absPath).pipe(res)
     })
+    server.middlewares.use(createBackendHandler({
+      root: server.config.root,
+      servePublicResources: false,
+    }))
   },
   async writeBundle(options) {
     const outDir = options.dir ?? path.resolve(__dirname, 'dist')
@@ -256,6 +261,7 @@ export default defineConfig({
   base: './',
   // Each Lab is a real HTML entry. Missing pages must not silently serve the homepage.
   appType: 'mpa',
+  define: { 'import.meta.env.VITE_SAME_ORIGIN_DEV_BACKEND': true },
   plugins: [react(), labNavigationPlugin(), sharedConfigPlugin()],
   server: {
     // Use the same loopback address as verification clients. Separate ::1/127.0.0.1
@@ -265,6 +271,8 @@ export default defineConfig({
     strictPort: true, // 如果端口被占用，直接报错退出，而不是自动切换到下一个端口
     open: true, // 项目启动后自动在浏览器打开
     hmr: true,
+    fs: { deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/saves/**'] },
+    watch: { ignored: ['**/saves/**'] },
   },
   resolve: {
     alias: {

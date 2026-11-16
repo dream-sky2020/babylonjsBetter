@@ -4,15 +4,24 @@ import path from 'node:path';
 import { createServer } from 'vite';
 import { JSDOM } from 'jsdom';
 
-test('module workspace controls capture, separates lifecycle/wait time, searches without changing capture and reuses rows', async () => {
+test('module workspace controls capture, separates timings, reuses rows and reports live JS heap usage', async t => {
   const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/lab-performance-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false }, optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<body></body>'), originals = new Map(), timers = new Map();
   let cleanup, timerId = 0;
-  for (const [key, value] of Object.entries({ document: dom.window.document, MutationObserver: dom.window.MutationObserver,
+  const originalMemory = Object.getOwnPropertyDescriptor(performance, 'memory');
+  const originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+  for (const [key, value] of Object.entries({ window: dom.window, document: dom.window.document, MutationObserver: dom.window.MutationObserver,
     setInterval: callback => { timers.set(++timerId, callback); return timerId; }, clearInterval: id => timers.delete(id) })) { originals.set(key, globalThis[key]); globalThis[key] = value; }
   try {
     const { LabPerformance, profileSystemTask } = await server.ssrLoadModule('/labs/kit/performance/LabPerformance.ts');
     const { createLabPerformancePanel } = await server.ssrLoadModule('/labs/kit/performance/labPerformancePanel.ts');
+    const { createLabMemoryReader } = await server.ssrLoadModule('/labs/kit/performance/labMemoryReading.ts');
+    let heapClock = 0, heapBytes, heapReads = 0;
+    t.mock.method(performance, 'now', () => heapClock);
+    Object.defineProperty(performance, 'memory', { configurable: true, get() {
+      heapReads++;
+      return heapBytes === undefined ? undefined : { usedJSHeapSize: heapBytes };
+    } });
     let clock = 0;
     const stats = new LabPerformance(['a', 'b'], () => clock);
     stats.measure('a', 'setup', () => { clock += 10; });
@@ -22,9 +31,24 @@ test('module workspace controls capture, separates lifecycle/wait time, searches
     layer.root.append(layer.content); document.body.append(layer.root);
     cleanup = createLabPerformancePanel({ addPanel: () => panel }, { openHtmlLayer: () => layer }, stats);
     assert.equal(timers.size, 0); assert.equal(stats.enabled, false);
+    assert.equal(heapReads, 0);
+    const copyButton = panel.content.querySelector('[data-performance-action="copy-current"]');
+    const copyStatus = panel.content.querySelector('[role="status"]');
+    const clipboard = [];
+    let clipboardDenied = false;
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: {
+      async writeText(text) {
+        if (clipboardDenied) throw new Error('clipboard denied');
+        clipboard.push(text);
+      },
+    } });
+    assert.equal(copyButton.disabled, true);
     const action = name => document.querySelector(`[data-performance-action="${name}"]`).click();
     const tick = () => [...timers.values()].forEach(callback => callback());
-    action('open'); action('start'); stats.beginFrame(); stats.measure('a', 'task', () => { clock += 3; }); stats.endFrame(); tick();
+    action('open');
+    assert.match(layer.content.textContent, /JS 堆内存 不可用/);
+    assert.match(layer.content.textContent, /当前页面未启用跨源隔离/);
+    action('start'); stats.beginFrame(); stats.measure('a', 'task', () => { clock += 3; }); stats.endFrame(); tick();
     const row = layer.root.querySelector('[data-performance-row="a"]'); assert.equal(row.cells[2].textContent, '3.000');
     tick(); assert.equal(layer.root.querySelector('[data-performance-row="a"]'), row);
     const search = layer.root.querySelector('input'); search.value = 'b'; search.dispatchEvent(new dom.window.Event('input'));
@@ -53,12 +77,41 @@ test('module workspace controls capture, separates lifecycle/wait time, searches
     let resolve; const pending = stats.measure('b', 'event', () => new Promise(done => { resolve = done; })); clock += 20; resolve(); await pending; await Promise.resolve();
     mode.value = 'async'; mode.dispatchEvent(new dom.window.Event('change')); assert.match(layer.root.querySelector('tbody').textContent, /事件监听.*20.000/);
     action('stop'); assert.equal(stats.enabled, false); action('clear'); assert.equal(stats.inspect().frames, 0);
-    action('toggle-fps'); assert.equal(document.querySelector('.lab-performance-hud').hidden, false);
+    heapClock = 1000;
+    heapBytes = 32.5 * 1024 ** 2;
+    action('toggle-fps');
+    const hud = document.querySelector('.lab-performance-hud');
+    assert.equal(hud.hidden, false);
+    assert.match(hud.textContent, /JS 堆内存 32\.5 MiB/);
+    assert.equal(stats.enabled, false);
     action('start'); stats.frameStarted(); stats.beginFrame(); stats.measure('a', 'task', () => { clock += 4; }); stats.endFrame(); clock += 36; stats.frameStarted(); tick();
-    assert.match(document.querySelector('.lab-performance-hud').textContent, /FPS 25/);
+    assert.match(hud.textContent, /FPS 25/);
+    assert.match(layer.content.textContent, /JS 堆内存 32\.5 MiB/);
+    heapBytes = 40 * 1024 ** 2;
+    heapClock = 1250;
+    tick();
+    assert.equal(heapReads, 2);
+    heapClock = 2000;
+    tick();
+    assert.match(hud.textContent, /JS 堆内存 40\.0 MiB/);
+    assert.match(layer.content.textContent, /JS 堆内存 40\.0 MiB/);
+    assert.equal(heapReads, 3);
+    assert.equal(copyButton.disabled, false);
+    action('copy-current');
+    assert.equal(copyButton.disabled, true);
+    await Promise.resolve();
+    assert.deepEqual(clipboard, ['FPS 25 · 帧 40.0 ms · 峰值 40.0 ms · JS 堆内存 40.0 MiB']);
+    assert.match(copyStatus.textContent, /已复制到剪贴板/);
+    clipboardDenied = true;
+    action('copy-current');
+    await Promise.resolve();
+    assert.match(copyStatus.textContent, /无法访问剪贴板/);
+    assert.ok(copyStatus.textContent.endsWith(hud.textContent));
+    assert.equal(copyButton.disabled, false);
     assert.equal(layer.root.querySelectorAll('.lab-performance-chart button').length, 1);
     layer.root.querySelector('.lab-performance-chart button').click(); assert.match(layer.root.querySelector('.lab-performance-timing').textContent, /a 4.00 ms/);
-    action('toggle-fps'); assert.equal(document.querySelector('.lab-performance-hud').hidden, true);
+    action('toggle-fps'); assert.equal(hud.hidden, true);
+    assert.equal(copyButton.disabled, true);
     action('stop'); action('clear');
     const createUrl = URL.createObjectURL, revokeUrl = URL.revokeObjectURL, click = dom.window.HTMLAnchorElement.prototype.click;
     let exported, filename;
@@ -69,5 +122,56 @@ test('module workspace controls capture, separates lifecycle/wait time, searches
     finally { URL.createObjectURL = createUrl; URL.revokeObjectURL = revokeUrl; dom.window.HTMLAnchorElement.prototype.click = click; }
     layer.visible = false; layer.root.hidden = true; await Promise.resolve(); assert.equal(timers.size, 0);
     cleanup(); cleanup = undefined; assert.equal(layer.root.isConnected, false);
-  } finally { cleanup?.(); for (const [key, value] of originals) { if (value === undefined) delete globalThis[key]; else globalThis[key] = value; } dom.window.close(); await server.close(); }
+
+    let resolvePageMemory, pageReads = 0;
+    Object.defineProperty(window, 'crossOriginIsolated', { value: true });
+    const originalPageMemory = Object.getOwnPropertyDescriptor(performance, 'measureUserAgentSpecificMemory');
+    Object.defineProperty(performance, 'measureUserAgentSpecificMemory', { configurable: true, value() {
+      assert.equal(this, performance);
+      pageReads++;
+      return new Promise(resolve => { resolvePageMemory = resolve; });
+    } });
+    try {
+      const readPage = createLabMemoryReader();
+      assert.equal(readPage().label, 'JS 堆内存 40.0 MiB（网页内存测量中）');
+      assert.equal(readPage().label, 'JS 堆内存 40.0 MiB（网页内存测量中）');
+      assert.equal(pageReads, 1);
+      resolvePageMemory({ bytes: 128 * 1024 ** 2 });
+      await Promise.resolve();
+      assert.equal(readPage().label, '网页内存估算 128.0 MiB');
+      heapClock += 29_999;
+      readPage();
+      assert.equal(pageReads, 1);
+
+      let nativeReads = 0;
+      window.electronAPI = { runtime: 'electron', async invoke(channel) {
+        assert.equal(channel, 'performance:get-app-memory');
+        nativeReads++;
+        if (nativeReads > 1) throw new Error('IPC unavailable');
+        return { kind: 'private-commit', bytes: 512 * 1024 ** 2 };
+      } };
+      const readElectron = createLabMemoryReader();
+      assert.equal(readElectron().label, 'Electron 应用内存 读取中');
+      await new Promise(resolve => setImmediate(resolve));
+      assert.equal(readElectron().label, 'Electron 应用私有提交内存 512.0 MiB');
+      assert.equal(pageReads, 1);
+      heapClock += 1000;
+      readElectron();
+      await new Promise(resolve => setImmediate(resolve));
+      assert.equal(readElectron().label, 'Electron 应用内存 不可用');
+    } finally {
+      if (originalPageMemory) Object.defineProperty(performance, 'measureUserAgentSpecificMemory', originalPageMemory);
+      else delete performance.measureUserAgentSpecificMemory;
+    }
+  } finally {
+    cleanup?.();
+    t.mock.restoreAll();
+    if (originalMemory) Object.defineProperty(performance, 'memory', originalMemory);
+    else delete performance.memory;
+    if (originalClipboard) Object.defineProperty(navigator, 'clipboard', originalClipboard);
+    else delete navigator.clipboard;
+    for (const [key, value] of originals) { if (value === undefined) delete globalThis[key]; else globalThis[key] = value; }
+    dom.window.close();
+    await server.close();
+  }
 });

@@ -63,6 +63,8 @@ export const dialogueLabModule: LabModule = {
       onKeyDown(event) { if (!event.repeat) manager.cancel(); return 'handled'; },
     });
     const offWaiting = manager.subscribe(() => cancelWait.setEnabled(manager.inspect().waiting));
+    const offCheckpoint = context.labState.registerCheckpointGuard(() => manager.inspect().busy
+      ? { message: '对话尚未结束，请结束或取消对话后再存档或读档。' } : undefined);
     context.services.set(LAB_DIALOGUE, manager);
     const panel = mountDialoguePanel(context.ui, manager, config, patch => {
       if (context.config) context.config.update('dialogue', patch);
@@ -75,7 +77,7 @@ export const dialogueLabModule: LabModule = {
           entries: [...source.graph.nodes.values()].map(node => ({ id: node.id, name: node.title })) })), (preset, entry) =>
           getDialogueUiOptions(interfaces, !!sources[preset] && dialogueEntryHasChoices(sources[preset], entry)));
       },
-      dispose() { panel.dispose(); offWaiting(); manager.dispose(); cancelWait.dispose(); keyboard.dispose(); context.services.delete(LAB_DIALOGUE); library = undefined; },
+      dispose() { panel.dispose(); offWaiting(); offCheckpoint(); manager.dispose(); cancelWait.dispose(); keyboard.dispose(); context.services.delete(LAB_DIALOGUE); library = undefined; },
     };
   },
 };

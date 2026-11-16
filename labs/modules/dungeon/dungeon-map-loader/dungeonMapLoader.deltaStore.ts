@@ -36,7 +36,7 @@ export type DungeonMapDeltaStore = {
 };
 
 export const createDungeonMapDeltaStore = (): DungeonMapDeltaStore => {
-  const deltas: Record<string, DungeonMapSavedDelta> = {};
+  const deltas: Record<string, DungeonMapSavedDelta> = Object.create(null);
   const preview: DungeonMapDeltaStore['preview'] = (presetKey, base, live) => (
     createDungeonMapDocumentDelta(presetKey, base, live)
   );

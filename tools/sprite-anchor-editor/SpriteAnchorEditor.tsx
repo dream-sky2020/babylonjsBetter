@@ -148,7 +148,7 @@ export const SpriteAnchorEditor: React.FC = () => {
         <p style={{ marginTop: 0, color: '#9fb0c5', fontSize: 13 }}>右侧画布支持拖拽平移、滚轮缩放、左下角小地图与回正视角。</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
           <div style={{ fontSize: 12, color: serverConnected ? '#95d5a6' : '#f0a8a8' }}>
-            服务状态：{serverConnected ? `已连接（端口 ${serverPort ?? '-'}）` : isConfigWritable() ? '未连接（将自动扫描 4550-4600）' : '正式构建为只读，不连接开发服务器'}
+            服务状态：{serverConnected ? `已连接（端口 ${serverPort ?? '-'}）` : isConfigWritable() ? '未连接本地开发服务' : '正式构建为只读，不连接开发服务器'}
           </div>
           {isConfigWritable() && <button onClick={retryServerConnection} style={{ padding: '2px 8px', fontSize: 12 }}>手动重连</button>}
         </div>

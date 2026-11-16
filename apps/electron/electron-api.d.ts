@@ -7,6 +7,8 @@ type ElectronInvokeChannel =
   | "window:switch-to-game-mode"
   | "window:get-display-settings"
   | "window:apply-display-settings"
+  | "performance:get-app-memory"
+  | "checkpoint:slots"
   | "sprite-presets:read-json"
   | "sprite-presets:write-json";
 

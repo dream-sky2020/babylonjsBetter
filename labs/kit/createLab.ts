@@ -191,7 +191,26 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const objects = new LabObjects(error => ui.setStatus(error instanceof Error ? error.message : String(error), true));
   const disposeExecutionPlanPanel = createLabExecutionPlanPanel(ui, executionMonitor, runner, services, communication);
   const disposeCommunicationLogPanel = createLabCommunicationLogPanel(ui, communication.journal);
-  const labState = createLabState();
+  let checkpointLoading = false;
+  const labState = createLabState({
+    labId: options.labId,
+    canWait: () => !runner.isPaused && !document.hidden,
+    begin(operation) {
+      const lock = keyboard.acquireLock({ ownerId: 'lab:checkpoint', label: operation === 'load' ? '正在读档' : '正在保存检查点' });
+      const wasInert = options.root.inert;
+      if (operation === 'load') {
+        checkpointLoading = true;
+        options.root.inert = true;
+      }
+      return () => {
+        lock.release();
+        if (operation === 'load') {
+          checkpointLoading = false;
+          options.root.inert = wasInert;
+        }
+      };
+    },
+  });
   const keyboardStateRegistration = labState.registerReference<KeyboardSettingsState, KeyboardSettingsState>({
     moduleId: 'lab:host',
     key: 'keyboard-settings',
@@ -230,7 +249,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     },
   });
   markKeyboardSettingsChanged = keyboardStateRegistration.markChanged;
-  const disposeLabStatePanel = createLabStatePanel(ui, labState);
+  const labStatePanel = createLabStatePanel(ui, labState);
+  let disposeSaveDirectory = () => {};
   const disposeKeyboardPanel = createLabKeyboardDebugPanel(ui, keyboard);
   const cameraSystem = createLabCameraSystem(stage, ui, camera, keyboard, options.initialCamera, options.cameraPresets);
   let objectEditor: LabObjectEditor | undefined;
@@ -263,7 +283,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     config: configuration,
     objects: objects.scope('lab:host'),
     memory: memory.scope('lab:host'),
-    scheduler: { get isPaused() { return runner.isPaused; }, register: task => registerTask('lab:host', task) },
+    scheduler: { get isPaused() { return runner.isPaused || checkpointLoading; }, register: task => registerTask('lab:host', task) },
     labState,
     engine,
     scene,
@@ -316,7 +336,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
           memory: memory.scope(entry.moduleId),
           objects: objects.scope(entry.moduleId),
           ui: ui.scope(entry.module),
-          scheduler: { get isPaused() { return runner.isPaused; }, register: task => registerTask(entry.moduleId, task) },
+          scheduler: { get isPaused() { return runner.isPaused || checkpointLoading; }, register: task => registerTask(entry.moduleId, task) },
           communication: moduleCommunication,
           services: services.scope(entry.moduleId, entry.module.manifest
             ? new Set(entry.dependencies) : collectDependencyIds(entry.moduleId, executionPlan)),
@@ -356,6 +376,12 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       disposeConfigToolbar = mountLabConfigToolbar(workbench.header, configuration, configRevision, () => ui.validateConfig(), () => ui.importRememberedConfig());
     }
     services.setPhase('ready');
+    if (options.labId) {
+      const mount = options.mountSaveDirectory ?? (await import('../modules/shared/lab-save/labSaveDirectoryPanel')).mountLabSaveDirectory;
+      disposeSaveDirectory = mount(labStatePanel.directoryControls, context);
+    } else {
+      labStatePanel.directoryControls.style.display = 'none';
+    }
     engine.runRenderLoop(() => {
       const deltaSeconds = frameClock.next(engine.getDeltaTime() / 1000, document.hidden);
       if (deltaSeconds === null) return;
@@ -363,7 +389,10 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       performanceStats.frameStarted();
       performanceStats.beginFrame();
       try {
-        performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('simulation', deltaSeconds));
+        if (!checkpointLoading) {
+          performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('simulation', deltaSeconds));
+          if (!runner.isPaused) labState.advanceRunTime(deltaSeconds);
+        }
         performanceStats.measure('lab:host/camera', 'host', () => cameraSystem.update(deltaSeconds));
         if (!viewport.isBabylonRenderingPaused) {
           performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('presentation', deltaSeconds));
@@ -387,8 +416,9 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     disposeFrameClock();
     disposeObjectTree();
     disposeTransformPanel(); objectEditor.dispose(); transformPanel.root.remove();
+    disposeSaveDirectory();
     const cleanupErrors = disposeModules();
-    disposeLabStatePanel();
+    labStatePanel.dispose();
     disposeKeyboardPanel();
     disposeMemoryPanel();
     disposeServiceDiagnostics();
@@ -432,9 +462,10 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       disposeFrameClock();
       disposeObjectTree();
       disposeTransformPanel(); objectEditor.dispose(); transformPanel.root.remove();
+      disposeSaveDirectory();
       const cleanupErrors = disposeModules();
       performanceStats.stop(); finalPerformance = performanceStats.inspect();
-      disposeLabStatePanel();
+      labStatePanel.dispose();
       disposeKeyboardPanel();
       disposeMemoryPanel();
       disposeServiceDiagnostics();

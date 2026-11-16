@@ -1,0 +1,49 @@
+.lab-save-list {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background: var(--save-bg);
+  color: var(--save-text);
+  border-style: solid;
+  border-color: var(--save-border);
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+  line-height: 1.4;
+}
+.lab-save-list-heading, .lab-save-list-actions { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+.lab-save-list-heading > div { min-width: 0; }
+.lab-save-list-heading h2, .lab-save-list p { margin: 0; }
+.lab-save-list-heading h2 { font-size: 1.5em; }
+.lab-save-list-heading p { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: .75; }
+.lab-save-list-records { overflow: auto; overscroll-behavior: contain; border-block: 1px solid var(--save-border); }
+.lab-save-list-columns, .lab-save-list-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, .85fr) minmax(0, 1.3fr) 40px 44px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  font-variant-numeric: tabular-nums;
+}
+.lab-save-list-columns { position: sticky; top: 0; z-index: 1; background: var(--save-bg); opacity: .9; font-size: .85em; }
+.lab-save-list button, .lab-save-list input {
+  padding: 8px 12px;
+  color: inherit;
+  font: inherit;
+  background: var(--save-bg);
+  border: 1px solid var(--save-border);
+  border-radius: 5px;
+}
+.lab-save-list button { cursor: pointer; }
+.lab-save-list button:disabled { opacity: .55; cursor: default; }
+.lab-save-list button:hover:not(:disabled), .lab-save-list button:focus-visible, .lab-save-list input:focus-visible { outline: 1px solid var(--save-accent); outline-offset: -1px; }
+.lab-save-list button.lab-save-list-row { width: 100%; padding: 10px 12px; text-align: left; border-inline: 0; border-top: 0; border-radius: 0; }
+.lab-save-list .lab-save-list-row[aria-pressed="true"] { background: color-mix(in srgb, var(--save-accent) 20%, var(--save-bg)); box-shadow: inset 3px 0 var(--save-accent); }
+.lab-save-list-row strong, .lab-save-list-row small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lab-save-list-row small { opacity: .75; }
+.lab-save-list p.lab-save-list-empty { padding: 20px 12px; }
+.lab-save-list-actions input { min-width: 0; flex: 1; }
+.lab-save-list-actions button { white-space: nowrap; }
+.lab-save-list-status { min-height: 1.4em; overflow-wrap: anywhere; }

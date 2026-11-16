@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createLabState } from './LabState.ts';
+import { isLabSaveFileName, summarizeLabSave } from '../../../runtime/labSaveFile.mjs';
 
 type CounterState = { value: number; history: number[] };
 
@@ -125,4 +126,108 @@ test('afterRestore runs after every registered reference has been restored', asy
     } },
   });
   assert.equal(observedSecond, 2);
+});
+
+test('quick save waits for the committed state and keeps its slot when a later save is blocked', async () => {
+  const state = createLabState({ labId: 'room' });
+  const value: CounterState = { value: 1, history: [] };
+  state.registerReference(counterOptions(value));
+  let moving = true;
+  const off = state.registerCheckpointGuard(operation => operation === 'save' && moving
+    ? { wait: true, message: 'moving' } : undefined);
+  const save = state.quickSave();
+  value.value = 2;
+  moving = false;
+  await save;
+  off();
+  value.value = 3;
+  const unblock = state.registerCheckpointGuard(() => ({ message: 'dialogue' }));
+  await assert.rejects(state.quickSave(), /dialogue/);
+  unblock();
+  await state.quickLoad();
+  assert.equal(value.value, 2);
+});
+
+test('only the originating Lab can restore its checkpoint and scene preparation precedes mutation', async () => {
+  const state = createLabState({ labId: 'room' });
+  const value: CounterState = { value: 4, history: [] };
+  state.registerReference(counterOptions(value));
+  let failPreparation = false;
+  let activeMap = 'map-a';
+  state.registerReference<null, string>({
+    moduleId: 'map', key: 'active', value: null, version: 1, inspect: () => activeMap,
+    save: {
+      serialize: () => activeMap,
+      validate(saved) { if (typeof saved !== 'string') throw Error('invalid map'); return saved; },
+      restore() {},
+      async loadCheckpoint(saved, load) {
+        assert.equal(value.value, 9);
+        assert.deepEqual(load.read('counter', 'main'), { value: 4, history: [] });
+        if (failPreparation) throw Error('preparation failed');
+        await load.apply();
+        activeMap = saved;
+      },
+    },
+  });
+  const snapshot = JSON.parse(JSON.stringify(await state.captureCheckpoint()));
+  activeMap = 'map-b';
+  value.value = 9;
+  await assert.rejects(state.restoreCheckpoint({ ...snapshot, labId: 'other' }), /其他 Lab/);
+  await assert.rejects(state.restoreCheckpoint(state.createSnapshot()), /Lab ID/);
+  failPreparation = true;
+  await assert.rejects(state.restoreCheckpoint(snapshot), /preparation failed/);
+  assert.equal(value.value, 9);
+  assert.equal(activeMap, 'map-b');
+  failPreparation = false;
+  await state.restoreCheckpoint(snapshot);
+  assert.equal(value.value, 4);
+  assert.equal(activeMap, 'map-a');
+});
+
+test('checkpoint rolls module state back when a restore hook fails', async () => {
+  const state = createLabState({ labId: 'room' });
+  const value: CounterState = { value: 4, history: [] };
+  const options = counterOptions(value);
+  let derived = value.value;
+  state.registerReference({
+    ...options,
+    save: {
+      ...options.save,
+      afterRestore(current) {
+        derived = current.value;
+        if (current.value === 4) throw Error('restore hook failed');
+      },
+    },
+  });
+  const snapshot = await state.captureCheckpoint();
+  value.value = 9;
+  derived = 9;
+  await assert.rejects(state.restoreCheckpoint(snapshot), /restore hook failed/);
+  assert.equal(value.value, 9);
+  assert.equal(derived, 9);
+});
+
+test('checkpoint retains elapsed runtime across loads and summarizes new and old slot files', async () => {
+  const state = createLabState({ labId: 'room' });
+  state.advanceRunTime(123.456);
+  const snapshot = await state.captureCheckpoint();
+  assert.equal(snapshot.runTimeMs, 123456);
+  state.advanceRunTime(9);
+  await assert.rejects(state.restoreCheckpoint({ ...snapshot, runTimeMs: -1 }), /运行时间/);
+  assert.equal((await state.captureCheckpoint()).runTimeMs, 132456);
+  await state.restoreCheckpoint(snapshot);
+  state.advanceRunTime(.5);
+  assert.equal((await state.captureCheckpoint()).runTimeMs, 123956);
+
+  const versionedSlot = { ...snapshot, slot: { name: '场景一', saveCount: 2, revision: 'second' } };
+  assert.deepEqual(summarizeLabSave(versionedSlot, 'room', 'room.json'), {
+    id: 'room.json', name: '场景一', map: null, version: 1, createdAt: snapshot.createdAt,
+    runTimeMs: 123456, saveCount: 2, revision: 'second',
+  });
+  assert.equal(summarizeLabSave({ ...snapshot, runTimeMs: undefined }, 'room', '旧存档.json')?.runTimeMs, null);
+  assert.equal(summarizeLabSave(snapshot, 'room', '旧存档.json')?.saveCount, null);
+  assert.equal(summarizeLabSave(snapshot, 'other-room', 'room.json'), undefined);
+  assert.equal(summarizeLabSave({ ...snapshot, version: 2 }, 'room', 'room.json'), undefined);
+  assert.equal(isLabSaveFileName('../room.json'), false);
+  assert.equal(isLabSaveFileName('D:\\room.json'), false);
 });

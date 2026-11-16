@@ -3,12 +3,13 @@ import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
 import { parseWeaponLibrary, type WeaponPresetLibrary } from './firstPersonWeaponPreset.ts';
 const api = '/api/first-person-weapon-presets';
 const requestWeaponServer = async (path: string, init?: RequestInit): Promise<Response> => {
+  if (import.meta.env.VITE_SAME_ORIGIN_DEV_BACKEND === true) return requestDevServer(path, init);
   if (import.meta.env.DEV && typeof window !== 'undefined' && /^https?:$/.test(window.location.protocol)) {
     try {
       const response = await fetch(path, { ...init, cache: 'no-store' });
       if (response.status !== 404 && response.headers.get('content-type')?.includes('application/json')) return response;
     } catch {
-      // 当前 Vite 服务不可用时，继续探测独立 Python 开发服务。
+      // 其他开发入口仍可以探测单独运行的服务。
     }
   }
   return requestDevServer(path, init);

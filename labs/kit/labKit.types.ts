@@ -80,6 +80,8 @@ export type CreateLabOptions = {
   catalog: LabModuleCatalog;
   /** 在全部模块 setup 并注册引用后、所有 start 执行前恢复。 */
   initialState?: LabStateSnapshot;
+  /** Override the standard save-directory controls for a Lab with a stable ID. */
+  mountSaveDirectory?(element: HTMLElement, context: LabContext): () => void;
 };
 
 export type LabHost = {

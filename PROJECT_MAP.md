@@ -1,3 +1,11 @@
+## 组合式 Lab 检查点存档
+
+`labs/kit/lab-state` 继续持有模块状态登记，并为带 `labId` 的 Host 提供快速保存和 JSON 导入导出。地牢地图加载器根据存档的地图 ID、地图差分和已提交运行状态准备候选地图，准备通过后提交 LabState 和场景。玩家短动作结束后保存，活动对话会阻止存读档。使用说明见 `labs/kit/README.md`。
+
+带 `labId` 的组合式 Lab 由 Host 接入目录和存档预设菜单。存档列表使用 React UI 预制件 `lab-save-list` 并绑定 `lab-save.model`，默认预设为 `lab_save_default`。Host 优先使用已装配的 UI Runtime，其他 Lab 在打开存档界面时按需创建同一类覆盖层。每个槽位一份检查点 JSON，并记录已累计的模拟时间、保存时间、保存次数和版本。
+
+开发版默认使用项目根目录的 `saves/<labId>/`。本机浏览器通过 `/api/lab-saves` 读写项目存档，Vite 和独立 Node.js 入口共用 `nodejs/labSaves.mjs`。手输路径限定在 `saves/` 下，外部目录通过浏览器授权访问。Vite 阻止存档静态访问，写档不触发页面热重载。Electron 正式版默认使用应用数据目录，正式网页版使用浏览器授权目录。「恢复默认」切回当前环境的默认选择。
+
 ## 2026-11-11：对话事件与地图动作
 
 对话判断卡用公式复用预设的文本变量绑定，按共享内存标量求值并选择成立或不成立出口。读取旧结构化条件时转换成公式并保留连线，预览用输入的模拟值执行同一求值器。
@@ -642,6 +650,8 @@ Dungeon Loader 保持运行时暂停，先发布新领域内存并等待地图�
 玩家摘要至多读取 20 个活动请求，只查询这些请求涉及的格子和交叉点预约，障碍仅输出前 20 项及总数；不再遍历完整预约表。Resolver/MovementControl 的 debugActiveMoves 支持可选上限，默认保持完整输出。完整数据沿原共享内存分页检查，地图切换时释放旧 Debug 订阅，卸载注销两个调度任务。回归覆盖索引顺序/开关/局部查询、受阻接管和检查次数、模拟阶段不序列化、隐藏跳过和有界摘要。
 
 ## 2026-10-13：模块级 Lab 性能统计工作台
+
+实时悬浮窗和工作台通过 `runtime/nativeBridge.ts` 识别 Electron，由主进程汇总应用关联进程内存。浏览器在支持跨源隔离测量时显示网页内存估算，缺少结果时读取 JS 堆。Vite 开发和预览仅为地牢交互 Lab 文档启用跨源隔离。Electron 的 `--dungeon-interaction-lab` 参数把主窗口入口指向该 Lab。
 
 `labs/kit/performance/` 提供 LabPerformance 和全窗口统计面板，createLab 自动安装，运行采集默认关闭。Host 在 scoped scheduler 注册时包装任务和启用判断，不修改 Core SystemRunner 调度规则；LabCommunication 可选计时钩子按接收模块统计监听/处理入口，原请求、Promise、异常隔离和发布行为保持。setup/start/dispose 独立记录，Host 调度、相机、scene.render 单独归属。
 
@@ -1815,9 +1825,10 @@ spriteAshPresets.json / monsterDissolvePresets.json
 - `core/`：应用和实验室共享的无页面核心能力。
 - `labs/`：普通与组合式实验室、Lab 基础设施和可复用模块。
 - `tools/`：独立资源编辑器、编辑定义和公共工具组件。
-- `config/`：构建时收录进应用、开发期可由 Python 服务写回的 JSON 配置源文件。
+- `config/`：构建时收录进应用、开发期可由 Node.js 或 Python 服务写回的 JSON 配置源文件。
 - `public/resources/`：图片、模型、图集等原始资源。
 - `python/server.py`：开发期配置读写 API。
+- `nodejs/server.mjs`：本地开发 API。Vite 将处理器挂载到网页同一个端口，独立入口仍使用 4550–4600。单文件配置、分文件预设、Lab 配置、图片资源分别由相邻的路由模块管理，配置规则在 `nodejs/validation/`。
 - `electron/`、`runtime/`：桌面壳与 Web/Electron 桥接。
 
 主要依赖：Babylon.js 9、React 19、Vite 8、TypeScript 6、Zustand。
@@ -1834,7 +1845,8 @@ npm run electron:dev
 ```
 
 - Vite 的固定开发端口由 `vite.config.ts` 配置，Electron 默认等待 `http://localhost:1184/apps/mainGame/index.html`。
-- 编辑器需要写回 JSON 时，启动 `python/server.py` 或使用 Vite 已提供的对应开发 API。
+- `npm run dev` 和 `npm run electron:dev` 自动提供 Node.js 配置及存档 API。页面通过同源请求读写 JSON。独立联调可运行 `npm run backend:node`，旧 Python 配置接口仍可通过 `python python/server.py` 单独启动。
+- Node.js 开发后端验证用 `npm run test:backend:node`，启动参数和文件权限范围见 `nodejs/README.md`。Electron 的运行时存档仍使用桌面桥接。
 - 只读预览统一使用 `core/config`，禁止新增直接 `fetch('/config/*.json')`；写回仍使用开发 API。
 - 静态资源统一使用 `core/resources`，禁止新增以 `/resources/`、`/` 开头的运行时 URL 字面量。
 - 构建产物需通过 `npm run verify:file` 在 `file://` 下自检。

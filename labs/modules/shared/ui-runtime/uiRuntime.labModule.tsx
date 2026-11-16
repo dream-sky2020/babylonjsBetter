@@ -2,25 +2,22 @@ import { createRoot } from 'react-dom/client';
 import { UiDocumentView } from '@/core/ui-document/UiDocumentView';
 import { createReactUiDefinitionRegistry } from '@/core/ui-document/react/uiReactDefinitions';
 import { loadDialoguePreviewPresetLibrary } from '@/core/dialogue-preview/dialoguePreviewPresetRepository';
-import type { LabModule } from '@/labs/kit';
-import { LAB_UI_RUNTIME, type LabUiOverlay, type LabUiOverlayOptions } from './uiRuntime.service';
+import type { LabContext, LabModule } from '@/labs/kit';
+import { LAB_UI_RUNTIME, type LabUiOverlay, type LabUiOverlayOptions, type LabUiRuntimeService } from './uiRuntime.service';
 
 /** Provides a UI surface; callers own bindings, actions and their overlay handles. */
-export const uiRuntimeLabModule: LabModule = {
-  id: 'ui-runtime',
-  setup(context) {
+export function createLabUiRuntime(context: Pick<LabContext, 'viewport' | 'ui'>) {
     const registry = createReactUiDefinitionRegistry();
     const active = new Set<LabUiOverlay>(); const pending = new Set<string>();
     let disposed = false;
-    context.services.set(LAB_UI_RUNTIME, { async open(options: LabUiOverlayOptions) {
+    const service: LabUiRuntimeService = { async open(options: LabUiOverlayOptions) {
       const id = options.id.trim();
       if (disposed || !id || pending.has(id) || activeIds.has(id)) throw new Error(`UI 覆盖层 ID 无效或重复：${id}`);
       pending.add(id);
       try {
-        const library = await loadDialoguePreviewPresetLibrary();
+        const document = options.presetDocument ?? (await loadDialoguePreviewPresetLibrary())[options.presetKey];
         if (disposed) throw new Error('UI 运行模块已释放。');
-        const document = library[options.presetKey];
-        if (!document) throw new Error(`UI 预设不存在：${options.presetKey}`);
+        if (!document || document.presetKey !== options.presetKey) throw new Error(`UI 预设不存在：${options.presetKey}`);
         options.validatePreset?.(document);
         const passthrough = options.inputMode !== 'modal';
         const layer = context.viewport.openHtmlLayer({ id: `ui:${id}`, title: document.name, mode: 'overlay', inputMode: passthrough ? 'passthrough' : 'modal', chrome: false, initiallyVisible: true });
@@ -39,8 +36,16 @@ export const uiRuntimeLabModule: LabModule = {
         const handle: LabUiOverlay = { update(next) { if (!closed) { values = next; render(); } }, show: () => { if (!closed) { layer.show(); render(); } }, hide: () => { if (!closed) layer.hide(); }, dispose: () => { if (closed) return; closed = true; observer.disconnect(); root.unmount(); layer.dispose(); active.delete(handle); activeIds.delete(id); } };
         active.add(handle); activeIds.add(id); render(); return handle;
       } finally { pending.delete(id); }
-    } });
+    } };
     const activeIds = new Set<string>();
-    return () => { disposed = true; for (const overlay of [...active]) overlay.dispose(); };
+    return { service, dispose() { disposed = true; for (const overlay of [...active]) overlay.dispose(); } };
+}
+
+export const uiRuntimeLabModule: LabModule = {
+  id: 'ui-runtime',
+  setup(context) {
+    const runtime = createLabUiRuntime(context);
+    context.services.set(LAB_UI_RUNTIME, runtime.service);
+    return runtime.dispose;
   },
 };

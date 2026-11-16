@@ -37,6 +37,7 @@ import {
   createLabJson,
   createLabStatus,
   type LabModule,
+  type LabCheckpointLoad,
   type LabStateJsonValue,
   type LabStateRegistration,
 } from '@/labs/kit';
@@ -51,7 +52,6 @@ import {
   type DungeonRuntimeCommitRequest,
   dungeonRuntimeSaveStatesRequest,
   dungeonMapSwitchRequest,
-  type DungeonLabMapLoader,
 } from './dungeonMapLoader.protocol';
 import { DUNGEON_SESSION_INFO_MEMORY, createDungeonSessionInfoController } from './dungeonSession.memory';
 import { DUNGEON_PLAYER_SPAWN_MEMORY, createDungeonPlayerSpawnData } from '../player-spawn/playerSpawn.memory';
@@ -68,6 +68,7 @@ import type { DungeonPlayerSystem } from '@/core/dungeon-player-movement/dungeon
 import { DUNGEON_AGENT_CONTROL_SERVICE_KEY, createDungeonAgentControl } from '@/core/dungeon-agent/dungeonAgentControl';
 import type { DungeonAgentSystem } from '@/core/dungeon-agent/dungeonAgentSystem';
 import { DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY, createDungeonTraversalControl } from '@/core/dungeon-traversal/dungeonTraversalControl';
+import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '@/core/dungeon-traversal';
 import { DUNGEON_OBSTACLES_MEMORY, createDungeonObstaclesData } from '../dungeon-obstacle/dungeonObstacles.memory';
 import { DUNGEON_OBSTACLE_CONTROL_SERVICE_KEY, type DungeonObstacleControl } from '@/core/dungeon-obstacle/dungeonObstacleControl';
 import { setDungeonObstacleActive } from '@/core/dungeon-obstacle';
@@ -210,6 +211,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
     let activeBaseDocument: DungeonMapDocumentV2 | null = null;
     let activeLiveDocument: DungeonMapDocumentV2 | null = null;
     let restoringLabState = false;
+    let checkpointSwitching = false;
     const runtimeSaves = context.memory.acquire(DUNGEON_RUNTIME_SAVES_MEMORY);
     const dungeonMapDeltaStore = createDungeonMapDeltaStore();
     let deltaStateRegistration: LabStateRegistration<DungeonMapDeltaStore> | null = null;
@@ -341,6 +343,17 @@ export const dungeonMapLoaderLabModule: LabModule = {
       runtimeSaves.markChanged();
       runtimeStatesRegistration?.markChanged();
     };
+    const offCheckpoint = context.labState.registerCheckpointGuard(operation => {
+      if (!activePresetKey || pendingLoad || sessionMemory.current.status !== 'ready') {
+        return { message: '请等待地牢地图准备完成后再存档或读档。' };
+      }
+      if (operation === 'save' && activeRuntime && (
+        activeRuntime.playerMovement || (activeRuntime.installedSystems?.movement !== false
+          && activeRuntime.movementResolver.isBusy(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID))
+      )) {
+        return { message: '请等待玩家当前动作完成后再保存。', wait: !assembly.isPaused };
+      }
+    });
     const readMapDeltaSnapshot = () => ({
       activePresetKey,
       activeDelta: activePresetKey && activeBaseDocument && activeLiveDocument
@@ -393,8 +406,13 @@ export const dungeonMapLoaderLabModule: LabModule = {
       inspect: (store) => store.readAll() as SavedDungeonMapDeltas,
       save: {
         serialize: (store) => {
-          captureActiveMapDelta();
-          return store.readAll() as SavedDungeonMapDeltas;
+          const saved = { ...store.readAll() };
+          if (activePresetKey && activeBaseDocument && activeLiveDocument) {
+            const delta = store.preview(activePresetKey, activeBaseDocument, activeLiveDocument);
+            if (delta) saved[activePresetKey] = delta;
+            else delete saved[activePresetKey];
+          }
+          return saved as SavedDungeonMapDeltas;
         },
         validate: (saved, savedVersion) => {
           if (savedVersion !== 1) throw new Error(`地图 Delta 存档版本 ${savedVersion} 不受支持。`);
@@ -404,8 +422,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
           store.replaceAll(saved);
           refreshDeltaPanel();
         },
-        afterRestore: async () => {
-          if (!activePresetKey) return;
+        afterRestore: async (_store, { checkpoint }) => {
+          if (checkpoint || !activePresetKey) return;
           restoringLabState = true;
           try { await loader.switchDungeon(activePresetKey); } finally { restoringLabState = false; }
         },
@@ -419,8 +437,13 @@ export const dungeonMapLoaderLabModule: LabModule = {
       inspect: (states) => structuredClone(states.current) as SavedDungeonRuntimeStates,
       save: {
         serialize: (states) => {
-          saveActiveRuntime();
-          return structuredClone(states.current) as SavedDungeonRuntimeStates;
+          const saved = structuredClone(states.current);
+          if (activePresetKey && activeRuntime && activeSpawn) {
+            const state = createDungeonRuntimeSaveState(activePresetKey, activeRuntime, activeSpawn);
+            if (state) saved[activePresetKey] = state;
+            else delete saved[activePresetKey];
+          }
+          return saved as SavedDungeonRuntimeStates;
         },
         validate: (saved, savedVersion) => {
           if (savedVersion !== 1) throw new Error(`地牢 Runtime 存档版本 ${savedVersion} 不受支持。`);
@@ -434,14 +457,53 @@ export const dungeonMapLoaderLabModule: LabModule = {
       },
     });
 
-    const loader: DungeonLabMapLoader = {
-      async switchDungeon(presetKey, options) {
+    const activeMapRegistration = context.labState.registerReference<null, string | null>({
+      moduleId: 'dungeon-map-loader', key: 'active-map', version: 1, value: null,
+      inspect: () => activePresetKey,
+      save: {
+        serialize: () => activePresetKey,
+        validate(saved, version) {
+          if (version !== 1 || (saved !== null && (typeof saved !== 'string' || !saved.trim()))) {
+            throw new Error('存档中的目标地图无效。');
+          }
+          return saved;
+        },
+        restore() {},
+        async loadCheckpoint(presetKey, checkpoint) {
+          if (!presetKey) throw new Error('存档没有指定目标地图。');
+          const read = (key: string) => checkpoint.read('dungeon-map-loader', key);
+          const deltas = validateSavedDungeonMapDeltas(read('map-deltas'));
+          const runtime = validateSavedDungeonRuntimeStates(read('runtime-save-states'));
+          if (read('scene-transforms') === undefined) throw new Error('存档缺少场景变换数据。');
+          const store = createDungeonMapDeltaStore();
+          store.replaceAll(deltas);
+          const maps = librariesReference.require().maps;
+          for (const key of new Set([...Object.keys(deltas), ...Object.keys(runtime)])) {
+            if (!Object.hasOwn(maps, key)) throw new Error(`存档引用了不存在的地图“${key}”。`);
+            if (key !== presetKey && Object.hasOwn(deltas, key)) store.restore(key, maps[key]);
+          }
+          const loaded = await loader.switchDungeon(presetKey, {
+            checkpoint: { store, runtime, apply: checkpoint.apply },
+          });
+          if (!loaded) throw new Error('本次读档已取消。');
+        },
+      },
+    });
+
+    const loader = {
+      async switchDungeon(presetKey: string, options?: {
+        entranceId?: string;
+        checkpoint?: { store: DungeonMapDeltaStore; runtime: SavedDungeonRuntimeStates; apply: LabCheckpointLoad['apply'] };
+      }): Promise<boolean> {
+        if (checkpointSwitching) throw new Error('正在读取存档，请等待地图准备完成。');
+        const checkpoint = options?.checkpoint;
         const libraries = librariesReference.require();
-        const preset = libraries.maps[presetKey];
+        const preset = Object.hasOwn(libraries.maps, presetKey) ? libraries.maps[presetKey] : undefined;
         if (!preset) throw new Error(`找不到地牢预设“${presetKey}”。`);
+        checkpointSwitching = Boolean(checkpoint);
         const loadId = ++generation;
         sceneEditingBusy = true; objectRegistration?.refresh();
-        assembly.beginSession(loadId);
+        if (!checkpoint) assembly.beginSession(loadId);
         const releasePause = assembly.acquirePause();
         failedWarmupLayer?.dispose(); failedWarmupLayer = null;
         failedWarmupPause?.(); failedWarmupPause = null;
@@ -449,8 +511,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
         let abort: AbortController | null = null;
         let warming = false;
         try {
-          sessionInfo.begin(loadId, presetKey);
-          if (!restoringLabState) {
+          if (!checkpoint) sessionInfo.begin(loadId, presetKey);
+          if (!checkpoint && !restoringLabState) {
             saveActiveRuntime();
             captureActiveMapDelta();
           }
@@ -458,13 +520,12 @@ export const dungeonMapLoaderLabModule: LabModule = {
           abort = new AbortController();
           pendingLoad = abort;
           const baseDocument = preset;
-          const liveDocument = dungeonMapDeltaStore.restore(presetKey, baseDocument);
+          const liveDocument = (checkpoint?.store ?? dungeonMapDeltaStore).restore(presetKey, baseDocument);
           const transitionIssues = validateDungeonTransitionDocument(liveDocument);
           if (transitionIssues.length) {
             throw new Error(`地图“${presetKey}”的入口/出口配置无效：${transitionIssues.map(({ message }) => message).join(' ')}`);
           }
           const binding = resolveDungeonDocumentSceneEnvironment(liveDocument, libraries.environments);
-          const sceneDraft = getSceneDraft(binding.preset);
           if (binding.preset.renderWarmup?.enabled) {
             loadingLayer = context.viewport.openHtmlLayer({ id: `dungeon:loading:${loadId}`, title: '场景准备',
               mode: 'overlay', interactive: true, initiallyVisible: true, closable: false, pauseBabylonRendering: true });
@@ -513,13 +574,14 @@ export const dungeonMapLoaderLabModule: LabModule = {
                 traversal.occupantIdsByTile.length, traversal.map.topology.pointIds.length),
             });
             if (runtime.installedSystems?.movement !== false) runtime.movementResolver.externallyDriven = true;
-            const saved = runtimeSaves.current[presetKey];
+            const saved = (checkpoint ? checkpoint.runtime : runtimeSaves.current)[presetKey];
             const warnings = saved
               ? applyDungeonRuntimeSaveState(runtime, saved, (position) => resolveDungeonMapTileWorldLayout(
                 spawn.sceneEnvironmentComponent, liveDocument.grid.width, liveDocument.grid.height,
                 position.tileX, position.tileY,
               ).center).warnings
               : [];
+            if (checkpoint && warnings.length) throw new Error(warnings.join(' '));
             if (options?.entranceId) {
               const entrance = findDungeonDocumentEntrance(liveDocument, options.entranceId);
               applyDungeonEntranceToRuntime(runtime, entrance, spawn.sceneEnvironmentComponent);
@@ -528,6 +590,29 @@ export const dungeonMapLoaderLabModule: LabModule = {
             resolveDungeonPlayerArrival(runtime, { resolveWorldPosition: (x, y) => resolveDungeonMapTileWorldLayout(
               spawn.sceneEnvironmentComponent, liveDocument.grid.width, liveDocument.grid.height, x, y,
             ).center });
+            if (checkpoint) {
+              const oldRoot = activeInstance?.root;
+              const wasEnabled = oldRoot?.isEnabled() ?? false;
+              if (binding.preset.renderWarmup?.enabled) {
+                oldRoot?.setEnabled(false);
+                instance.root.setEnabled(true);
+                try {
+                  await warmupSceneRendering(context.scene, binding.preset.renderWarmup, {
+                    signal: abort.signal,
+                    onProgress: message => { if (loadingLayer) loadingLayer.content.textContent = message; },
+                  });
+                } finally {
+                  if (!instance.root.isDisposed()) instance.root.setEnabled(false);
+                  if (oldRoot && !oldRoot.isDisposed()) oldRoot.setEnabled(wasEnabled);
+                }
+              }
+              if (abort.signal.aborted || loadId !== generation) { instance.dispose(); return false; }
+              await checkpoint.apply();
+              if (abort.signal.aborted || loadId !== generation) { instance.dispose(); return false; }
+              assembly.beginSession(loadId);
+              sessionInfo.begin(loadId, presetKey);
+            }
+            const sceneDraft = getSceneDraft(binding.preset);
             const obstacles = runtime.obstacles;
             const previousPresetKey = activePresetKey;
             const previousInstance = activeInstance;
@@ -587,7 +672,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
             try {
               if (abort.signal.aborted || loadId !== generation) return false;
               warming = Boolean(binding.preset.renderWarmup?.enabled);
-              await warmupSceneRendering(context.scene, binding.preset.renderWarmup, {
+              if (!checkpoint) await warmupSceneRendering(context.scene, binding.preset.renderWarmup, {
                 signal: abort.signal,
                 onProgress: message => { if (loadingLayer) loadingLayer.content.textContent = message; status.textContent = message; },
               });
@@ -603,6 +688,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
           } catch (error) { if (!committed) instance.dispose(); throw error; }
         } catch (error) {
           if (abort?.signal.aborted || loadId !== generation) return false;
+          if (checkpoint && activeLoadId !== loadId) throw error;
           sessionInfo.fail(loadId, error); assembly.failSession(loadId, error);
           status.textContent = `场景准备失败：${String(error)}`;
           if (warming && loadingLayer) {
@@ -616,6 +702,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
           }
           throw error;
         } finally {
+          if (checkpoint) checkpointSwitching = false;
           if (loadId === generation) { sceneEditingBusy = false; objectRegistration?.refresh(); }
           if (pendingLoad === abort) pendingLoad = null;
           loadingLayer?.dispose(); releasePause();
@@ -706,6 +793,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
     return {
       dispose() {
         deltaRefreshButton.removeEventListener('click', refreshDelta);
+        offCheckpoint();
+        activeMapRegistration.unregister();
         loader.dispose();
         sceneView.dispose();
         offSessionStatus();

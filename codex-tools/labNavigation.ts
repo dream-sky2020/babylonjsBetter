@@ -27,7 +27,15 @@ export function labNavigationPlugin(): Plugin {
   const install = (server: ViteDevServer | PreviewServer, htmlRoot: string) => {
     server.middlewares.use((req, res, next) => {
       if (req.method !== 'GET' && req.method !== 'HEAD') return next();
-      const target = recoverLabNavigation(req.url ?? '/', entries);
+      const url = req.url ?? '/';
+      const target = recoverLabNavigation(url, entries);
+      const pathname = url.split('?')[0];
+      // Opt this Lab's document into Chromium's page memory API.
+      if (pathname === '/labs/composable/dungeon-interaction-lab/index.html' ||
+          pathname === '/labs/composable/dungeon-interaction-lab/') {
+        res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+        res.setHeader('Cross-Origin-Embedder-Policy', 'credentialless');
+      }
       if (!target) return next();
       res.writeHead(302, { Location: target, 'Cache-Control': 'no-store' });
       res.end();

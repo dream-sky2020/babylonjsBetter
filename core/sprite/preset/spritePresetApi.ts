@@ -92,7 +92,7 @@ export const fetchSpritePresetValidationReport = async (): Promise<SpritePresetV
       reachable: false,
       valid: false,
       errors: [],
-      message: '无法连接 python/server.py 校验接口',
+      message: '无法连接本地开发后端的校验接口',
       port: undefined
     };
   }

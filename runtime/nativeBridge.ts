@@ -37,6 +37,17 @@ export type ApplyDisplaySettingsResult = {
   message?: string;
 };
 
+export type AppMemorySample = {
+  kind: "private-commit" | "working-set-sum";
+  bytes: number;
+};
+
+export type LabSaveRequest =
+  | { labId: string; action: 'directory' | 'choose' | 'list' | 'reset-directory' }
+  | { labId: string; action: 'set-directory'; path: string }
+  | { labId: string; action: 'read'; id: string }
+  | { labId: string; action: 'write'; id: string; expectedRevision: string | null; text: string };
+
 // Event channels pushed from Electron main process to renderer.
 type NativeEventPayloadMap = {
   "pet://state_changed": PetStatePayload;
@@ -52,6 +63,8 @@ type NativeInvokeMap = {
   "window:switch-to-game-mode": undefined;
   "window:get-display-settings": undefined;
   "window:apply-display-settings": ApplyDisplaySettingsPayload;
+  "performance:get-app-memory": undefined;
+  "checkpoint:slots": LabSaveRequest;
   "sprite-presets:read-json": undefined;
   "sprite-presets:write-json": string;
 };

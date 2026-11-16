@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 2,
+  "presetKey": "lab_save_default",
+  "name": "Lab 存档 · 默认界面",
+  "canvas": { "width": 940, "height": 640, "backgroundTop": "#0b1321", "backgroundBottom": "#152436", "gridSize": 20 },
+  "rootIds": ["save-list"],
+  "nodes": {
+    "save-list": {
+      "id": "save-list",
+      "type": "lab-save-list",
+      "definitionVersion": 1,
+      "name": "存档列表",
+      "parentId": null,
+      "childIds": [],
+      "layout": { "mode": "absolute", "x": 40, "y": 50, "width": 860, "height": 540, "zIndex": 1 },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "Lab 存档",
+        "fill": "#142235",
+        "stroke": "#486077",
+        "textColor": "#e9f0f7",
+        "accent": "#71cdb5",
+        "fontSize": 18,
+        "cornerRadius": 12,
+        "strokeWidth": 1
+      },
+      "bindings": { "model": { "source": "lab-save.model" } }
+    }
+  },
+  "previewContext": {
+    "lab-save.model": "{\"directory\":\"存档目录\",\"directoryReady\":true,\"canChooseDirectory\":true,\"rows\":[{\"id\":\"example.json\",\"name\":\"探索开始\",\"map\":\"dungeon_interaction_test\",\"version\":1,\"createdAt\":\"2026-11-16T10:30:00Z\",\"runTimeMs\":1530000,\"saveCount\":2}],\"selected\":\"example.json\",\"busy\":false,\"message\":\"\"}"
+  }
+}

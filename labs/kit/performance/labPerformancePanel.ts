@@ -1,10 +1,12 @@
-import type { LabUi } from '../labUi';
+import { createLabStatus, type LabUi } from '../labUi';
 import type { LabViewportManager } from '../labViewportManager';
 import type { LabPerformance } from './LabPerformance';
+import { createLabMemoryReader } from './labMemoryReading';
 import './lab-performance.css';
 
 const el = <K extends keyof HTMLElementTagNameMap>(tag: K, text = '') => { const node = document.createElement(tag); node.textContent = text; return node; };
 const ms = (value: number) => value.toFixed(3);
+
 export function createLabPerformancePanel(ui: LabUi, viewport: LabViewportManager, stats: LabPerformance) {
   const panel = ui.addPanel('system-performance', 'Lab 性能统计'); panel.root.classList.add('lab-system-panel');
   const layer = viewport.openHtmlLayer({ id: 'lab:performance', title: 'Lab 性能统计工作台', mode: 'exclusive', initiallyVisible: false,
@@ -17,8 +19,10 @@ export function createLabPerformancePanel(ui: LabUi, viewport: LabViewportManage
   const sort = el('select'); sort.setAttribute('aria-label', '性能排序');
   for (const [value, label] of [['total', '累计耗时'], ['mean', '平均每帧'], ['p95', '每帧 P95'], ['max', '最大单帧']]) { const option = el('option', label); option.value = value; sort.append(option); }
   const table = el('table'), head = el('thead'), body = el('tbody'); table.append(head, body);
-  const hud = el('div', 'FPS — · 帧耗时 —'); hud.className = 'lab-performance-hud'; hud.hidden = true;
+  const hud = el('div'); hud.className = 'lab-performance-hud'; hud.hidden = true;
   (viewport.root ?? panel.root).append(hud);
+  const memoryStatus = el('p');
+  const readMemory = createLabMemoryReader();
   const timing = el('section'), timingSummary = el('p'), chart = el('div'), spikeList = el('div'), detail = el('p');
   timing.className = 'lab-performance-timing'; chart.className = 'lab-performance-chart';
   spikeList.className = 'lab-performance-spikes';
@@ -36,6 +40,10 @@ export function createLabPerformancePanel(ui: LabUi, viewport: LabViewportManage
   let timer: ReturnType<typeof setInterval> | undefined, hudTimer: ReturnType<typeof setInterval> | undefined, disposed = false, headerKey = '';
   const render = () => {
     if (disposed || !layer.visible) return;
+    const memory = readMemory();
+    const memoryText = memory.detail ? `${memory.label} · ${memory.detail}` : memory.label;
+    if (memoryStatus.textContent !== memoryText) memoryStatus.textContent = memoryText;
+    if (memoryStatus.title !== memory.title) memoryStatus.title = memory.title;
     const snapshot = stats.inspect(), query = search.value.trim().toLowerCase();
     const samples = snapshot.frameTiming.samples, spikes = samples.filter(sample => sample.intervalMs >= snapshot.frameTiming.thresholdMs);
     timingSummary.textContent = `最近保留 ${samples.length} 帧 · 超过 ${snapshot.frameTiming.thresholdMs} ms：${spikes.length} 帧 · 点击柱状图查看对应帧的同步耗时`;
@@ -96,15 +104,51 @@ export function createLabPerformancePanel(ui: LabUi, viewport: LabViewportManage
       const url = URL.createObjectURL(new Blob([JSON.stringify(stats.inspect(), null, 2)], { type: 'application/json' }));
       const link = el('a'); link.href = url; link.download = 'lab-performance.json'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 0);
     }, 'export'), search, mode, sort);
-  layer.content.append(toolbar, status, timing, notice, table);
-  const toggleHud = button('显示实时 FPS', () => {
+  layer.content.append(toolbar, status, memoryStatus, timing, notice, table);
+  const copyStatus = createLabStatus('');
+  copyStatus.setAttribute('role', 'status');
+  let copying = false;
+  const copyPerformance = button('复制当前性能', async () => {
+    copying = true;
+    copyPerformance.disabled = true;
+    copyStatus.textContent = '';
+    const text = hud.textContent ?? '';
+    try {
+      await navigator.clipboard.writeText(text);
+      copyStatus.textContent = '当前性能已复制到剪贴板。';
+    } catch {
+      copyStatus.textContent = `无法访问剪贴板，可手动复制这行数据：${text}`;
+    } finally {
+      copying = false;
+      copyPerformance.disabled = hud.hidden;
+    }
+  }, 'copy-current');
+  copyPerformance.disabled = true;
+  const toggleHud = button('显示实时性能', () => {
     hud.hidden = !hud.hidden; stats.setLiveEnabled(!hud.hidden);
-    toggleHud.textContent = hud.hidden ? '显示实时 FPS' : '隐藏实时 FPS';
+    toggleHud.textContent = hud.hidden ? '显示实时性能' : '隐藏实时性能';
+    copyPerformance.disabled = hud.hidden || copying;
     if (hudTimer) clearInterval(hudTimer); hudTimer = undefined;
-    if (!hud.hidden) { const update = () => { const live = stats.liveFrame(); hud.textContent = live.fps ? `FPS ${live.fps.toFixed(0)} · 帧 ${live.intervalMs.toFixed(1)} ms · 峰值 ${live.maxMs.toFixed(1)} ms` : 'FPS — · 帧耗时 —'; }; update(); hudTimer = setInterval(update, 250); }
+    if (!hud.hidden) {
+      const update = () => {
+        const live = stats.liveFrame();
+        const frameLabel = live.fps
+          ? `FPS ${live.fps.toFixed(0)} · 帧 ${live.intervalMs.toFixed(1)} ms · 峰值 ${live.maxMs.toFixed(1)} ms`
+          : 'FPS — · 帧耗时 —';
+        const label = `${frameLabel} · ${readMemory().label}`;
+        if (hud.textContent !== label) hud.textContent = label;
+      };
+      update();
+      hudTimer = setInterval(update, 250);
+    }
   }, 'toggle-fps');
   threshold.addEventListener('change', () => { const value = Number(threshold.value); if (Number.isFinite(value) && value >= 1 && value <= 1000) stats.setStallThreshold(value); else threshold.value = String(stats.inspect().frameTiming.thresholdMs); render(); });
-  panel.content.append(el('p', '按模块统计耗时，可分别查看模拟与 Debug 任务。运行采集默认关闭。'), toggleHud, button('打开性能工作台', () => { layer.show(); syncTimer(); }, 'open'));
+  panel.content.append(
+    el('p', '按模块统计耗时，可分别查看模拟与 Debug 任务。运行采集默认关闭。打开实时性能后可复制读数。'),
+    toggleHud, copyPerformance,
+    button('打开性能工作台', () => { layer.show(); syncTimer(); }, 'open'),
+    copyStatus,
+  );
   search.addEventListener('input', render); mode.addEventListener('change', render); sort.addEventListener('change', render);
   const observer = new MutationObserver(syncTimer); observer.observe(layer.root, { attributes: true, attributeFilter: ['hidden'] });
   return () => { disposed = true; if (timer) clearInterval(timer); if (hudTimer) clearInterval(hudTimer); stats.setLiveEnabled(false); hud.remove(); observer.disconnect(); layer.dispose(); panel.root.remove(); };

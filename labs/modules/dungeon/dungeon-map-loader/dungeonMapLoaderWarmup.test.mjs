@@ -49,7 +49,7 @@ test('loader warms after view publication, keeps loading paused and fails closed
     const assembly = () => services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
     cleanup = dungeonMapLoaderLabModule.setup({ scene, services, memory: memory.scope('dungeon-map-loader'), scheduler: { isPaused: false, register: () => () => {} },
       ui: new LabUi(document.querySelector('aside'), document.querySelector('#status')),
-      labState: { registerReference: () => ({ markChanged() {}, unregister() {} }) },
+      labState: { registerReference: () => ({ markChanged() {}, unregister() {} }), registerCheckpointGuard: () => () => {} },
       viewport: { openHtmlLayer(options) {
         assert.equal(options.pauseBabylonRendering, true); assert.equal(options.closable, false);
         const layer = { root: document.createElement('div'), content: document.createElement('div'), disposed: false,
