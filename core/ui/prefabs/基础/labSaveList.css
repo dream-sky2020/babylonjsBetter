@@ -44,6 +44,9 @@
 .lab-save-list-row strong, .lab-save-list-row small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lab-save-list-row small { opacity: .75; }
 .lab-save-list p.lab-save-list-empty { padding: 20px 12px; }
-.lab-save-list-actions input { min-width: 0; flex: 1; }
+.lab-save-list > .lab-save-list-actions { flex-wrap: wrap; justify-content: flex-start; }
+.lab-save-list-actions input { min-width: 0; flex: 1 1 9rem; }
 .lab-save-list-actions button { white-space: nowrap; }
+.lab-save-list-confirmation span { flex: 1 1 12rem; overflow-wrap: anywhere; }
+.lab-save-list button[data-lab-slot-action="delete-confirm"] { color: #ffd8df; background: #76293a; border-color: #bd6676; }
 .lab-save-list-status { min-height: 1.4em; overflow-wrap: anywhere; }

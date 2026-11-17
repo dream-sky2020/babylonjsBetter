@@ -1,3 +1,4 @@
+import { dungeonRuntimeChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import { controlSetting } from '@/labs/kit/settings/LabSettingsStore';
 import { DUNGEON_AGENT_NAVIGATION_MEMORY } from './dungeonAgentNavigation.memory';
 import { DUNGEON_TRAVERSAL_STATE_MEMORY } from '../dungeon-traversal/dungeonTraversal.memory';
@@ -821,6 +822,11 @@ export const dungeonAgentLabModule: LabModule = {
       },
     });
 
+    const offTeleported = context.communication.on(dungeonRuntimeChangedEvent, ({ loadId, reason }) => {
+      if (reason !== 'actor-position-teleported' || loaded?.loadId !== loadId) return;
+      renderMarkers();
+      queuePanelRefresh();
+    });
     const offMapChanged = context.communication.on(dungeonMapChangedEvent, (changed) => {
       const next = gridMemory.current;
       if (!next || next.loadId !== changed.loadId) return;
@@ -881,6 +887,7 @@ export const dungeonAgentLabModule: LabModule = {
       offPreparation();
       prepared = null;
       offMapChanged();
+      offTeleported();
       offRuntimeChanged();
       offView();
       stopFrameTask();

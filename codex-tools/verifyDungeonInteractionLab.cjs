@@ -81,14 +81,14 @@ app.whenReady().then(async () => {
       return Math.abs(canvas.left - layer.left) < 1 && Math.abs(canvas.top - layer.top) < 1;
     })()`), true, 'the default UI preset is anchored to the top left of the viewport');
     checks.push('message-bar loads the configured UI preset, uses its message-list node and anchors it to the viewport');
-    await wait(`document.querySelector('[data-interaction-debug-summary]')?.dataset.count === '26'`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]')?.dataset.count === '29'`);
     assert.equal(await page(`document.querySelector(${JSON.stringify(controllers)}).checked`), true);
-    assert.equal(await page(`document.querySelector('[aria-label="选择 Agent"]').options.length`), 8);
+    assert.equal(await page(`document.querySelector('[aria-label="选择 Agent"]').options.length`), 9);
     await trackAgentMessages();
     await waitForAgentLoops();
     assert.equal(await page(lampState), 'lit', 'Agent plate switches the preloaded lamp in the main map');
     assert.equal(await page(`!!document.querySelector('[data-viewport-layer="ui:dialogue"]')`), false);
-    checks.push('the expanded default map loads all six room Agents and repeats all three Agent interactions with controllers enabled by default');
+    checks.push('the default map loads all nine Agents and repeats all three Agent interactions with controllers enabled by default');
     await click(controllers);
     await wait(`${messages}.length === 0`);
     const testMessage = '消息栏测试\n自定义第二行';
@@ -199,7 +199,7 @@ app.whenReady().then(async () => {
     await wait(`document.querySelector('[data-ui-node="dialogue-box"]')?.textContent.includes('欢迎来到对话测试场景')`);
     await cancel();
     await click('[data-interaction-debug-toggle]');
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '26'`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '29'`);
     checks.push('debug toggles independently; interaction still works with debug hidden');
     // Isolated session only: hide other diagnostic overlays to inspect the new markers clearly.
     await page(`['[data-lab-panel="dungeon-grid-debug"] [data-lab-setting="all-tiles"]', '[data-lab-panel="dungeon-transition"] [data-lab-setting="debug-boxes"]'].forEach(selector => { const input = document.querySelector(selector); if (input?.checked) input.click(); }); document.querySelector('[data-lab-panel="dungeon-interaction"]').scrollIntoView({ block: 'nearest' });`);
@@ -280,7 +280,7 @@ app.whenReady().then(async () => {
     await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '27'`);
     await wait(`!document.querySelector('[data-viewport-layer="ui:dialogue"]')`);
     await key('KeyE'); await wait(mapIs('dungeon_interaction_test'));
-    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '26' && !document.querySelector('[data-interaction-debug-summary]').textContent.includes('本次已触发')`);
+    await wait(`document.querySelector('[data-interaction-debug-summary]').dataset.count === '29' && !document.querySelector('[data-interaction-debug-summary]').textContent.includes('本次已触发')`);
     checks.push('explicit E teleport and return without spawning an enter dialogue');
     await key('KeyE'); await wait(`!!document.querySelector('[data-dialogue-cancel]')`);
     checks.push('self tile interaction remains available after returning to a new map session');
@@ -742,8 +742,43 @@ app.whenReady().then(async () => {
       input.files = files.files;
       input.dispatchEvent(new Event('change', { bubbles: true }));
     })()`);
-    const bodyAt = (snapshot, id) => snapshot.modules['dungeon-map-loader']['runtime-save-states'].data.dungeon_push_test
+    const bodyAt = (snapshot, id, map = 'dungeon_push_test') => snapshot.modules['dungeon-map-loader']['runtime-save-states'].data[map]
       .bodies.find(body => body.entityId === id);
+    await teleport(3, 3);
+    await move('east', 4, 3);
+    const pushedAgent = bodyAt(await exportCheckpoint(), 'test-push-agent', 'dungeon_interaction_test');
+    assert.deepEqual([pushedAgent.tileX, pushedAgent.tileY], [5, 3]);
+    checks.push('walking east into the stationary Agent on the default map pushes it from (4,3) to (5,3)');
+    await teleport(3, 3);
+    await move('east', 4, 3);
+    await move('east', 5, 3);
+    await teleport(2, 4);
+    await key('KeyE');
+    const actorBody = async () => bodyAt(await exportCheckpoint(), 'test-push-agent', 'dungeon_interaction_test');
+    let scriptedAgent = await actorBody();
+    assert.deepEqual([scriptedAgent.tileX, scriptedAgent.tileY], [5, 3], 'the one-use switch relocates the Agent from (6,3) to (5,3)');
+    await teleport(3, 4);
+    await key('KeyE');
+    await wait(dialogueText('按继续，让可推动测试 Agent 向东走一格。'));
+    await key('Digit1');
+    assert.equal(await page(dialogueText('测试 Agent 已走完这一格。')), false, 'dialogue must wait for the move');
+    await wait(dialogueText('测试 Agent 已走完这一格。'));
+    await key('Enter');
+    await wait('!' + dialogue);
+    scriptedAgent = await actorBody();
+    assert.deepEqual([scriptedAgent.tileX, scriptedAgent.tileY], [6, 3], 'the dialogue waited for the spatial move to finish');
+    await teleport(2, 4);
+    await key('KeyE');
+    scriptedAgent = await actorBody();
+    assert.deepEqual([scriptedAgent.tileX, scriptedAgent.tileY], [6, 3], 'the used switch cannot teleport the Agent back');
+    await teleport(5, 3);
+    await move('east', 6, 3);
+    scriptedAgent = await actorBody();
+    assert.deepEqual([scriptedAgent.tileX, scriptedAgent.tileY], [7, 3], 'the Agent remains pushable after both scripted actions');
+    await teleport(2, 5);
+    await key('KeyE');
+    await wait(playerState + '.playerPosition.tileX === 12 && ' + playerState + '.playerPosition.tileY === 5');
+    checks.push('map teleport, completed dialogue step, repeat protection, player target, and manual push share live spatial state');
     const pushFromTheSide = async () => {
       // The next north tile is occupied by a second box. Push into the free tile on the east instead.
       await move('west', 7, 7);
@@ -870,9 +905,24 @@ app.whenReady().then(async () => {
     await action('load');
     await wait(`document.querySelector('[data-lab-slot-status]')?.textContent.includes('已读取「推动后」') &&
       ${mapIs('dungeon_push_test')} && ${playerState}.playerPosition.tileY === 6`);
+    const other = readSlot('另一个存档');
+    await click(`[data-lab-slot-id="${other.file}"]`);
+    await action('delete');
+    await wait(`document.querySelector('[aria-label="确认删除存档"]')?.textContent.includes('另一个存档')`);
+    await action('delete-cancel');
+    assert.ok(fs.existsSync(path.join(folder, other.file)));
+    await action('delete');
+    await action('delete-confirm');
+    await wait(`document.querySelector('[data-lab-slot-status]')?.textContent.includes('已删除「另一个存档」')`);
+    assert.deepEqual(await names(), ['推动后']);
+    assert.equal(fs.existsSync(path.join(folder, other.file)), false);
+    for (const id of [first.file, 'foreign.json', 'broken.json']) assert.ok(fs.existsSync(path.join(folder, id)));
+    await action('refresh');
+    await wait(`document.querySelector('[data-lab-slot-action="delete"]')?.disabled === false`);
+    assert.deepEqual(await names(), ['推动后']);
     await action('close');
     await wait(`!document.querySelector('[data-ui-document="lab_save_default"]')`);
-    checks.push('preset save UI creates the default directory, applies and resets a typed path, persists a picked directory, and writes, overwrites and reloads its Lab save files');
+    checks.push('preset save UI creates the default directory, applies and resets a typed path, persists a picked directory, writes and reloads files, and cancels or confirms deletion of the selected slot');
 
     assert.deepEqual(errors, []); assert.deepEqual(network, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-interaction.json'), JSON.stringify({ passed: true, checks, errors, network }, null, 2));

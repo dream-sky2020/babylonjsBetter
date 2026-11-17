@@ -1,5 +1,6 @@
 import { EVENT_ENTITY_TYPES, validateInteractionEvent, type IEventComponent } from '../entity/components/event.component.ts';
 import type { DungeonMapDocumentV2, DungeonMapSpatialAttachmentComponent } from '../map-document/dungeonMapDocument.types.ts';
+import { readDungeonActorAction, validateDungeonActorReferences } from './dungeonActorAction.ts';
 import { collectDungeonSharedVariables } from './dungeonSharedVariables.ts';
 import { validateSharedVariableOperation } from '../entity/components/shared-variable.component.ts';
 /** Execution validation is deliberately stricter than authoring/storage validation. */
@@ -11,6 +12,8 @@ export function validateDungeonInteractionDocument(document: DungeonMapDocumentV
     const entity = document.entities.find(row => row.id === raw.entityId);
     if (event.enabled === false || entity?.enabled === false || event.version === 1 || event.action?.type === 'legacy') continue;
     errors.push(...validateInteractionEvent(event).map(error => `${raw.id}: ${error}`));
+    const actorAction = readDungeonActorAction(event.action);
+    if (actorAction) errors.push(...validateDungeonActorReferences(document, actorAction).map(error => raw.id + ': ' + error));
     if (event.action?.type === 'shared-variable') {
       const definition = definitions.get(event.action.variableId);
       const error = definition ? validateSharedVariableOperation(event.action, definition.valueType)

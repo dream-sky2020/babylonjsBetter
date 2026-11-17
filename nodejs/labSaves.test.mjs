@@ -53,6 +53,26 @@ test('the Node.js backend creates Lab directories and reads and writes only chec
     await symlink(outside, path.join(root, 'saves', 'linked'), process.platform === 'win32' ? 'junction' : 'dir');
     assert.equal((await request('list', { directory: 'saves/linked' })).status, 400);
     assert.equal((await fetch(`${origin}/${defaultPath}/${id}`)).ok, false);
+
+    assert.equal((await request('delete', { id, expectedRevision: 'stale' })).status, 400);
+    assert.equal((await request('delete', { id, expectedRevision: 'first', labId: 'other-lab', directory: defaultPath })).status, 400);
+    assert.equal((await request('delete', { id: '../slot.json', expectedRevision: 'first' })).status, 400);
+    assert.equal((await request('delete', { id, expectedRevision: 'first', directory: 'saves/linked' })).status, 400);
+    assert.equal(await readFile(path.join(outside, id), 'utf8'), text);
+    assert.equal((await request('read', { id })).data, text);
+    const updated = JSON.stringify({ ...archive, slot: { ...archive.slot, revision: 'second' } });
+    const [write, deletion] = await Promise.all([
+      request('write', { id, text: updated, expectedRevision: 'first' }),
+      request('delete', { id, expectedRevision: 'first' }),
+    ]);
+    assert.deepEqual([write.status, deletion.status].sort(), [200, 400]);
+    if (write.status === 200) {
+      assert.equal((await request('read', { id })).data, updated);
+      assert.deepEqual(await request('delete', { id, expectedRevision: 'second' }), { status: 200, data: null });
+    }
+    await assert.rejects(stat(path.join(root, defaultPath, id)), { code: 'ENOENT' });
+    assert.deepEqual((await request('list')).data, []);
+    assert.equal((await request('read', { id })).status, 400);
   } finally {
     if (server?.listening) await new Promise(resolve => server.close(resolve));
     if (path.dirname(path.resolve(root)) === temp && path.basename(root).startsWith('lab-save-api-')) {

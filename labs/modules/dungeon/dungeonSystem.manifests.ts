@@ -50,7 +50,7 @@ export const dungeonSystemManifests: Readonly<Record<string, LabSystemManifest>>
     [core('dungeon-runtime/dungeonRuntimeAssembly.ts', 'DungeonRuntimeAssembly', '显式系统安装、候选 Runtime 准备'),
      core('scene/createDungeonMapSceneEnvironment.ts', 'createDungeonDocumentSceneEnvironmentAsync', '地图场景资源'),
      core('dungeon-runtime-save/dungeonRuntimeSave.ts', 'applyDungeonRuntimeSaveState', '恢复运行态')],
-    ['共享内存 dungeon.session 元信息/ dungeon.runtime-saves / dungeon.player-spawn / dungeon.grid / dungeon.player-state / dungeon.obstacle-state / dungeon.obstacles / dungeon.spatial-world / dungeon.spatial-actions / dungeon.deformation-settings / dungeon.overhead-settings / dungeon.transitions', '提供 dungeon:runtime-assembly、dungeon:obstacle-control、dungeon:traversal-control、dungeon:movement-control、dungeon:player-control、dungeon:transition-control、dungeon:interaction-control、dungeon:agent-control；在障碍服务公开 obstacle.set-active', '提供场景对象显示 View', '读取共享预设库'],
+    ['共享内存 dungeon.session 元信息/ dungeon.runtime-saves / dungeon.player-spawn / dungeon.grid / dungeon.player-state / dungeon.obstacle-state / dungeon.obstacles / dungeon.spatial-world / dungeon.spatial-actions / dungeon.deformation-settings / dungeon.overhead-settings / dungeon.transitions', '提供 dungeon:runtime-assembly、dungeon:obstacle-control、dungeon:traversal-control、dungeon:movement-control、dungeon:player-control、dungeon:transition-control、dungeon:interaction-control、dungeon:agent-control；在障碍服务公开 obstacle.set-active，在角色服务公开 actor.teleport 和 actor.move-step', '提供场景对象显示 View', '读取共享预设库'],
     ['处理 dungeon.map.switch / dungeon.runtime.commit', '观察通知 dungeon.map.changed / dungeon.runtime.changed'],
     '命令触发异步准备；必需 Core 准备成功后提交；广播只负责观察'),
   'dungeon-config': manifest('configuration', '选择初始地图与手动切图',

@@ -1,12 +1,13 @@
 import { createServiceToken } from '../system-runtime/ServiceToken.ts';
 import type { DungeonAgentSystem } from './dungeonAgentSystem';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
-import { requestDungeonAgentInteraction, startDungeonAgentMovement, startDungeonAgentTurn, syncDungeonAgentPathReservation } from './dungeonAgent.runtime.ts';
+import { requestDungeonAgentInteraction, startDungeonAgentMovement, startDungeonAgentTurn, syncDungeonAgentPathReservation, teleportDungeonAgent } from './dungeonAgent.runtime.ts';
 import { setDungeonAgentControllerOverride, clearDungeonAgentControllerOverride, type DungeonAgentController } from './dungeonAgent.controllers.ts';
 
 /** Agent's existing domain state is retained while its map dependency is migrated. */
 export type DungeonAgentCommands = Pick<DungeonAgentSystem, 'state' | 'settings' | 'update' | 'afterPlayerStep'> & {
   move(...args: Parameters<typeof startDungeonAgentMovement> extends [unknown, unknown, ...infer Rest] ? Rest : never): ReturnType<typeof startDungeonAgentMovement>;
+  teleport(entityId: string, tileIndex: number): void;
   setController(entityId: string, controller: DungeonAgentController, parameters?: Readonly<Record<string, unknown>>): void;
   resetController(entityId: string): void;
   turn(entityId: string, turn: Parameters<typeof startDungeonAgentTurn>[2], durationSeconds: number): ReturnType<typeof startDungeonAgentTurn>;
@@ -30,6 +31,7 @@ export const createDungeonAgentControl = (read: () => Session | null): DungeonAg
       update: delta => requireCurrent().system.update(delta),
       afterPlayerStep: event => requireCurrent().system.afterPlayerStep(event),
       move: (...args) => { const current = requireCurrent(); return startDungeonAgentMovement(current.system.state, current.map, ...args); },
+      teleport: (entityId, tileIndex) => teleportDungeonAgent(requireCurrent().system.state, entityId, tileIndex),
       turn: (entityId, turn, duration) => startDungeonAgentTurn(requireCurrent().system.state, entityId, turn, duration),
       interact: entityId => requestDungeonAgentInteraction(requireCurrent().system.state, entityId),
       setMovementProfile: (entityId, profileId) => {

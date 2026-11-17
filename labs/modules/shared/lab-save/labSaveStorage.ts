@@ -17,6 +17,7 @@ type SaveStorage = {
   list(): Promise<LabSaveSummary[]>;
   read(id: string): Promise<string>;
   write(id: string, text: string, expectedRevision: string | null): Promise<void>;
+  delete(id: string, expectedRevision: string): Promise<void>;
 };
 
 async function accessHandle(labId: string, handle?: SaveDirectory | null): Promise<SaveDirectory | null> {
@@ -63,6 +64,8 @@ function createBrowserStorage(labId: string): SaveStorage {
     try { return await directory.getFileHandle(id); }
     catch (error) { if (error instanceof DOMException && error.name === 'NotFoundError') return null; throw error; }
   };
+  const mutate = (id: string, operation: () => Promise<void>) =>
+    navigator.locks ? navigator.locks.request(`lab-save:${id}`, operation) : operation();
   return {
     canChooseDirectory: Boolean(picker),
     async directory() {
@@ -115,8 +118,8 @@ function createBrowserStorage(labId: string): SaveStorage {
     async write(id, text, expectedRevision) {
       if (!summarizeLabSave(JSON.parse(text), labId, id)) throw new Error('存档内容无效。');
       const directory = await requireDirectory();
-      const write = async () => {
-        let file = await getFile(directory, id);
+      await mutate(id, async () => {
+        const file = await getFile(directory, id);
         if (expectedRevision === null) {
           if (file) throw new Error('存档文件已存在，请重新创建。');
         } else {
@@ -142,9 +145,18 @@ function createBrowserStorage(labId: string): SaveStorage {
           }
           throw error;
         }
-      };
-      if (navigator.locks) await navigator.locks.request(`lab-save:${id}`, write);
-      else await write();
+      });
+    },
+    async delete(id, expectedRevision) {
+      const directory = await requireDirectory();
+      await mutate(id, async () => {
+        const file = await getFile(directory, id);
+        const current = file && summarizeLabSave(JSON.parse(await (await file.getFile()).text()), labId, id);
+        if (!current || current.revision !== expectedRevision) {
+          throw new Error('存档已被修改或移走，请刷新列表后重试。');
+        }
+        await directory.removeEntry(id);
+      });
     },
   };
 }
@@ -170,7 +182,7 @@ function createProjectStorage(labId: string, browser: SaveStorage): SaveStorage 
     const hadSelectedDirectory = await previousChoice;
     return mode ? mode === 'browser' : hadSelectedDirectory;
   };
-  async function request<T>(action: 'directory' | 'list' | 'read' | 'write', args = {}, directory = projectPath): Promise<T> {
+  async function request<T>(action: 'directory' | 'list' | 'read' | 'write' | 'delete', args = {}, directory = projectPath): Promise<T> {
     const response = await fetch(LAB_SAVE_DEV_ROUTE, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...args, labId, action, directory }),
@@ -209,6 +221,10 @@ function createProjectStorage(labId: string, browser: SaveStorage): SaveStorage 
       if (await usesBrowserDirectory()) await browser.write(id, text, expectedRevision);
       else await request('write', { id, text, expectedRevision });
     },
+    async delete(id, expectedRevision) {
+      if (await usesBrowserDirectory()) await browser.delete(id, expectedRevision);
+      else await request('delete', { id, expectedRevision });
+    },
   };
 }
 
@@ -228,5 +244,6 @@ export function createLabSaveStorage(labId: string): SaveStorage {
     list: () => invoke<LabSaveSummary[]>({ labId, action: 'list' }),
     read: id => invoke<string>({ labId, action: 'read', id }),
     write: (id, text, expectedRevision) => invoke<void>({ labId, action: 'write', id, text, expectedRevision }),
+    delete: (id, expectedRevision) => invoke<void>({ labId, action: 'delete', id, expectedRevision }),
   };
 }

@@ -99,6 +99,27 @@ app.whenReady().then(async () => {
         [...card.querySelectorAll('label')].find(label => label.querySelector('span')?.textContent === '操作值')
           ?.querySelector('input[type="number"]')?.value === '1';
     })()`), true);
+    await page('document.querySelector(\'' + entityList + ' [data-object-id="entity:actor-teleport-demo"]\').click()');
+    const actorCard = '[data-component-id="actor-teleport-demo:event"]';
+    await wait('!!document.querySelector(\'' + actorCard + ' option[value="test-push-agent"]\')');
+    const actorForm = await page(`(async () => {
+      const card = () => document.querySelector('${actorCard}');
+      const field = label => [...card().querySelectorAll('label')].find(row => row.querySelector('span')?.textContent === label);
+      const target = field('目标角色').querySelector('select');
+      const canChoosePlayer = !!target.querySelector('option[value="$dungeon-player"]');
+      const trigger = field('触发时机').querySelector('select').value;
+      const original = field('落点格 ID').querySelector('input').value;
+      [...card().querySelectorAll('button')].find(button => button.textContent.startsWith('修改落点')).click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      card().querySelector('[aria-label="格子 6,3"]').click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const changed = field('落点格 ID').querySelector('input').value;
+      document.querySelector('button[title="撤销最近一次数据修改"]').click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const undone = field('落点格 ID').querySelector('input').value;
+      return { canChoosePlayer, trigger, original, changed, undone };
+    })()`);
+    assert.deepEqual(actorForm, { canChoosePlayer: true, trigger: 'interact', original: 'tile:5,3', changed: 'tile:6,3', undone: 'tile:5,3' });
     assert.deepEqual(errors, []); assert.deepEqual(writes, []);
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-editor.png'), (await win.webContents.capturePage()).toPNG());
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/dungeon-direction-editor.json'), JSON.stringify({ passed: true, ...result, errors, writes }, null, 2));

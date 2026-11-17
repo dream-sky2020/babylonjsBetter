@@ -64,6 +64,9 @@ import { DUNGEON_DEFORMATION_SETTINGS_MEMORY, createDungeonDeformationData } fro
 import { DUNGEON_OVERHEAD_SETTINGS_MEMORY, createDungeonOverheadSettingsData } from '../dungeon-overhead-view/dungeonOverhead.memory';
 import { DUNGEON_TRANSITION_DATA_MEMORY, createDungeonTransitionData } from '../dungeon-transition/dungeonTransition.memory';
 import { DUNGEON_TRANSITION_CONTROL_SERVICE_KEY, createDungeonTransitionControl } from '@/core/dungeon-transition/dungeonTransitionControl';
+import { executeDungeonActorAction } from '@/core/dungeon-runtime/dungeonActorCommands';
+import { dungeonActorActionFromService, dungeonActorActionOptions, type DungeonActorAction } from '@/core/dungeon-interaction/dungeonActorAction';
+import { createServiceToken } from '@/core/system-runtime/ServiceToken';
 import type { DungeonPlayerSystem } from '@/core/dungeon-player-movement/dungeonPlayerSystem';
 import { DUNGEON_AGENT_CONTROL_SERVICE_KEY, createDungeonAgentControl } from '@/core/dungeon-agent/dungeonAgentControl';
 import type { DungeonAgentSystem } from '@/core/dungeon-agent/dungeonAgentSystem';
@@ -258,13 +261,14 @@ export const dungeonMapLoaderLabModule: LabModule = {
       },
     });
     let agentCommandSession: { loadId: number; map: DungeonRuntime['map']; system: DungeonAgentSystem } | null = null;
-    context.services.set(DUNGEON_AGENT_CONTROL_SERVICE_KEY, createDungeonAgentControl(() => {
+    const agentControl = createDungeonAgentControl(() => {
       if (!activeRuntime) return null;
       if (agentCommandSession?.map === activeRuntime.map && agentCommandSession.loadId === activeLoadId) return agentCommandSession;
       const system = assembly.readPreparation<DungeonAgentSystem>(activeRuntime, 'dungeon-agent');
       agentCommandSession = { loadId: activeLoadId, map: activeRuntime.map, system };
       return agentCommandSession;
-    }));
+    });
+    context.services.set(DUNGEON_AGENT_CONTROL_SERVICE_KEY, agentControl);
     const interactionAgentSystem = (): DungeonAgentSystem | undefined => {
       if (!activeRuntime) return undefined;
       // Agent is optional in composed labs, and candidate sessions are not ready yet.
@@ -287,13 +291,41 @@ export const dungeonMapLoaderLabModule: LabModule = {
     context.services.set(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY, createDungeonTransitionControl(() =>
       activeRuntime ? { loadId: activeLoadId, map: activeRuntime.map } : null));
     let playerCommandSession: { loadId: number; runtime: DungeonRuntime; system: DungeonPlayerSystem } | null = null;
-    context.services.set(DUNGEON_PLAYER_CONTROL_SERVICE_KEY, createDungeonPlayerControl(() => {
+    const playerControl = createDungeonPlayerControl(() => {
       if (!activeRuntime) return null;
       if (playerCommandSession?.runtime === activeRuntime) return playerCommandSession;
       const system = assembly.readPreparation<DungeonPlayerSystem>(activeRuntime, 'player-movement');
       playerCommandSession = { loadId: activeLoadId, runtime: activeRuntime, system };
       return playerCommandSession;
-    }));
+    });
+    context.services.set(DUNGEON_PLAYER_CONTROL_SERVICE_KEY, playerControl);
+    let actorActionSession = new AbortController();
+    const resetActorActionSession = () => {
+      actorActionSession.abort(new Error('角色命令所属地图已切换或卸载。'));
+      actorActionSession = new AbortController();
+    };
+    const actorControl = {
+      execute(loadId: number, action: DungeonActorAction) {
+        const runtime = activeRuntime;
+        if (!runtime || loadId !== activeLoadId || assembly.isPaused || context.scheduler.isPaused) {
+          throw new Error('角色命令所属地图会话不可用。');
+        }
+        if (runtime.installedSystems?.movement === false || runtime.installedSystems?.traversal === false) {
+          throw new Error('当前 Lab 未装配角色移动所需的系统。');
+        }
+        return executeDungeonActorAction(action, {
+          runtime, signal: actorActionSession.signal,
+          player: () => playerControl.acquire(loadId),
+          agent: () => interactionAgentSystem() ? agentControl.acquire(loadId) : null,
+          onTeleport: () => { void commitRuntime('actor-position-teleported').catch(error => console.error('发布角色位置失败。', error)); },
+        });
+      },
+    };
+    const actorControlToken = createServiceToken<typeof actorControl>('dungeon:actor-control');
+    context.services.set(actorControlToken, actorControl, Object.fromEntries(dungeonActorActionOptions.map(({ commandId }) =>
+      [commandId, (parameters: Readonly<Record<string, unknown>>, { sessionId }: { sessionId?: number }) => actorControl.execute(sessionId ?? activeLoadId,
+        dungeonActorActionFromService(commandId, parameters)!)],
+    )));
     context.services.set(DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY, createDungeonMovementControl(() =>
       activeRuntime && activeRuntime.installedSystems?.movement !== false
         ? { loadId: activeLoadId, resolver: activeRuntime.movementResolver } : null));
@@ -623,6 +655,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
             sceneEditing.sync();
             objectRegistration?.refresh(); previousSceneEditing?.dispose();
             activePresetKey = presetKey;
+            resetActorActionSession();
             activeRuntime = runtime;
             actionPause?.(); actionPause=null;
             actionStatus.textContent=''; actionDetails.hidden=true; reloadActions.hidden=true;
@@ -724,6 +757,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         activeInstance?.dispose();
         activeInstance = null;
         activePresetKey = null;
+        resetActorActionSession();
         activeRuntime = null;
         agentCommandSession = null;
         playerCommandSession = null;
@@ -805,6 +839,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         deltaStateRegistration?.unregister();
         loadedStateRegistration.unregister();
         context.services.delete(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
+        context.services.delete(actorControlToken);
         context.services.delete(DUNGEON_AGENT_CONTROL_SERVICE_KEY);
         context.services.delete(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY);
         context.services.delete(DUNGEON_INTERACTION_CONTROL);

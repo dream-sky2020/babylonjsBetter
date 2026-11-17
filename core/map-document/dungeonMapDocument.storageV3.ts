@@ -120,6 +120,15 @@ const remapComponents = (
 ): Record<string, DungeonMapDocumentComponent[]> => Object.fromEntries(
   Object.entries(components).map(([type, table]) => [type, table.map((component) => {
     const cloned = cloneJson(component);
+    if (type === 'event' || type === 'variable-trigger') {
+      const action = cloned.action as Record<string, unknown> | undefined;
+      if (action?.type === 'actor-teleport' && typeof action.tileId === 'string') {
+        action.tileId = maps.tile.get(action.tileId) ?? action.tileId;
+      } else if (action?.type === 'service' && action.commandId === 'actor.teleport' && action.parameters && typeof action.parameters === 'object') {
+        const params = action.parameters as Record<string, unknown>;
+        if (typeof params.tileId === 'string') params.tileId = maps.tile.get(params.tileId) ?? params.tileId;
+      }
+    }
     if (type !== 'spatial-attachment') return cloned;
     const attachment = cloned as DungeonMapSpatialAttachmentComponent;
     return { ...attachment, targets: attachment.targets.map((target) => remapTarget(target, maps)) };

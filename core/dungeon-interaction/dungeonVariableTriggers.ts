@@ -1,6 +1,7 @@
 import { validateVariableTrigger, type IVariableTriggerComponent } from '../entity/components/variable-trigger.component.ts';
 import { isSharedVariableValueOfType, validateSharedVariableOperation } from '../entity/components/shared-variable.component.ts';
 import type { DungeonMapDocumentV2 } from '../map-document/dungeonMapDocument.types.ts';
+import { readDungeonActorAction, validateDungeonActorReferences } from './dungeonActorAction.ts';
 import { collectDungeonSharedVariables } from './dungeonSharedVariables.ts';
 
 export function collectDungeonVariableTriggers(document: DungeonMapDocumentV2, complete = false) {
@@ -16,6 +17,8 @@ export function collectDungeonVariableTriggers(document: DungeonMapDocumentV2, c
     const errors = validateVariableTrigger(rule, complete && enabled);
     if (owner?.entityType !== 'map') errors.push('变量变化触发必须挂在地图实体上。');
     if (complete && enabled) {
+      const actorAction = readDungeonActorAction(rule.action);
+      if (actorAction) errors.push(...validateDungeonActorReferences(document, actorAction));
       const source = rule.variableId ? definitions.get(rule.variableId) : undefined;
       if (!source) errors.push(`监听变量「${rule.variableId ?? ''}」尚未在本地图声明。`);
       else if (!isSharedVariableValueOfType(source.valueType, rule.threshold)) errors.push('比较值必须符合监听变量类型。');

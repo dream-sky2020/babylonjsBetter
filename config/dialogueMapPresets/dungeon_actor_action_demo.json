@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 6,
+  "presetKey": "dungeon_actor_action_demo",
+  "name": "角色动作测试台",
+  "graph": {
+    "nodes": {
+      "intro": {
+        "id": "intro",
+        "title": "让测试 Agent 向东走一格",
+        "position": {
+          "x": 48,
+          "y": 48
+        },
+        "kind": "choice",
+        "lines": {
+          "line:intro:main": {
+            "id": "line:intro:main",
+            "speaker": "机关调试台",
+            "text": "按继续，让可推动测试 Agent 向东走一格。"
+          }
+        },
+        "lineOrder": [
+          "line:intro:main"
+        ],
+        "inputs": {
+          "port:intro:in": {
+            "id": "port:intro:in"
+          }
+        },
+        "inputOrder": [
+          "port:intro:in"
+        ],
+        "outputs": {
+          "port:intro:output:next": {
+            "id": "port:intro:output:next",
+            "label": "继续",
+            "branch": "choice"
+          }
+        },
+        "outputOrder": [
+          "port:intro:output:next"
+        ],
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        }
+      },
+      "step": {
+        "id": "step",
+        "title": "测试 Agent 向东走一格",
+        "position": {
+          "x": 480,
+          "y": 48
+        },
+        "kind": "action",
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:step:in": {
+            "id": "port:step:in"
+          }
+        },
+        "inputOrder": [
+          "port:step:in"
+        ],
+        "outputs": {
+          "port:step:output:next": {
+            "id": "port:step:output:next",
+            "label": "继续",
+            "branch": "next"
+          }
+        },
+        "outputOrder": [
+          "port:step:output:next"
+        ],
+        "action": {
+          "type": "actor-move-step",
+          "targetEntityId": "test-push-agent",
+          "direction": "east"
+        },
+        "display": {
+          "colorToken": "red-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        }
+      },
+      "complete": {
+        "id": "complete",
+        "title": "走格已完成",
+        "position": {
+          "x": 912,
+          "y": 48
+        },
+        "kind": "choice",
+        "lines": {
+          "line:complete:main": {
+            "id": "line:complete:main",
+            "speaker": "机关调试台",
+            "text": "测试 Agent 已走完这一格。"
+          }
+        },
+        "lineOrder": [
+          "line:complete:main"
+        ],
+        "inputs": {
+          "port:complete:in": {
+            "id": "port:complete:in"
+          }
+        },
+        "inputOrder": [
+          "port:complete:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        }
+      }
+    },
+    "edges": {
+      "edge:intro:next": {
+        "id": "edge:intro:next",
+        "from": {
+          "nodeId": "intro",
+          "portId": "port:intro:output:next"
+        },
+        "to": {
+          "nodeId": "step",
+          "portId": "port:step:in"
+        }
+      },
+      "edge:step:next": {
+        "id": "edge:step:next",
+        "from": {
+          "nodeId": "step",
+          "portId": "port:step:output:next"
+        },
+        "to": {
+          "nodeId": "complete",
+          "portId": "port:complete:in"
+        }
+      }
+    }
+  }
+}

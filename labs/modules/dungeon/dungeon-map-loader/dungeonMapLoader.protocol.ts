@@ -26,6 +26,7 @@ export type DungeonRuntimeChangedReason =
   | 'player-turn-completed'
   | 'player-relative-movement-completed'
   | 'player-position-teleported'
+  | 'actor-position-teleported'
   | 'dungeon-transition-arrived';
 
 export type DungeonRuntimeChangedEvent = {

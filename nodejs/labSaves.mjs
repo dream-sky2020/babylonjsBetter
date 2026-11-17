@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import { constants } from 'node:fs'
 import path from 'node:path'
 import { isLabSaveFileName } from '../runtime/labSaveFile.mjs'
-import { isLabSaveLabId, listSaveFiles, readSaveFile, writeSaveFile } from '../runtime/labSaveDisk.mjs'
+import { deleteSaveFile, isLabSaveLabId, listSaveFiles, readSaveFile, writeSaveFile } from '../runtime/labSaveDisk.mjs'
 import { json, readBody } from './http.mjs'
 
 const localHostnames = new Set(['localhost', '127.0.0.1', '[::1]'])
@@ -63,13 +63,14 @@ export async function handleLabSave(request, root) {
     const body = await readBody(request, Infinity)
     const { labId, action, directory: input, id, text, expectedRevision } = JSON.parse(body.toString('utf8'))
     if (!isLabSaveLabId(labId)) throw new Error('Lab ID 无效。')
-    if (!['directory', 'list', 'read', 'write'].includes(action)) throw new Error('未知的存档操作。')
+    if (!['directory', 'list', 'read', 'write', 'delete'].includes(action)) throw new Error('未知的存档操作。')
     const parts = directoryParts(input ?? ('saves/' + labId))
     const directory = await projectDirectory(root, parts)
     if (action === 'directory') return saveResponse(200, { path: parts.join('/') })
     if (action === 'list') return saveResponse(200, await listSaveFiles(directory, labId))
     if (action === 'read') return saveResponse(200, await readSaveFile(directory, labId, id))
-    await writeSaveFile(directory, labId, id, text, expectedRevision)
+    if (action === 'delete') await deleteSaveFile(directory, labId, id, expectedRevision)
+    else await writeSaveFile(directory, labId, id, text, expectedRevision)
     return saveResponse(200, null)
   } catch (error) {
     return saveResponse(400, { error: error instanceof Error ? error.message : '存档操作失败。' })

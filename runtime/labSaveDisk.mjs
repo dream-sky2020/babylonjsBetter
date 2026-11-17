@@ -54,25 +54,46 @@ export async function readSaveFile(directory, labId, id) {
 }
 
 /** @type {Map<string, Promise<void>>} */
-const writes = new Map();
+const mutations = new Map();
+
+/** @param {string} file @param {() => Promise<void>} operation */
+async function mutateSave(file, operation) {
+  const key = process.platform === 'win32' ? file.toLowerCase() : file;
+  const previous = mutations.get(key);
+  const next = (async () => {
+    if (previous) await previous.catch(() => {});
+    await operation();
+  })();
+  mutations.set(key, next);
+  try { await next; }
+  finally { if (mutations.get(key) === next) mutations.delete(key); }
+}
 
 /** @param {string} directory @param {string} labId @param {string} id @param {string} text @param {string|null} expectedRevision */
 export async function writeSaveFile(directory, labId, id, text, expectedRevision) {
   if (!isLabSaveFileName(id) || typeof text !== 'string'
       || !summarizeLabSave(JSON.parse(text), labId, id)) throw new Error('存档内容无效。');
   const file = path.join(directory, id);
-  const key = process.platform === 'win32' ? file.toLowerCase() : file;
-  const previous = writes.get(key);
-  const writing = (async () => {
-    if (previous) await previous.catch(() => {});
+  await mutateSave(file, async () => {
     const oldText = await readSaveText(file);
     const current = oldText && summarizeLabSave(JSON.parse(oldText), labId, id);
     if (expectedRevision === null ? oldText !== null : !current || current.revision !== expectedRevision) {
       throw new Error('存档已被修改或移走，请刷新列表后重试。');
     }
     await writeSaveAtomically(file, text);
-  })();
-  writes.set(key, writing);
-  try { await writing; }
-  finally { if (writes.get(key) === writing) writes.delete(key); }
+  });
+}
+
+/** @param {string} directory @param {string} labId @param {string} id @param {string} expectedRevision */
+export async function deleteSaveFile(directory, labId, id, expectedRevision) {
+  if (!isLabSaveFileName(id)) throw new Error('存档文件名无效。');
+  const file = path.join(directory, id);
+  await mutateSave(file, async () => {
+    const text = await readSaveText(file);
+    const current = text && summarizeLabSave(JSON.parse(text), labId, id);
+    if (!current || current.revision !== expectedRevision) {
+      throw new Error('存档已被修改或移走，请刷新列表后重试。');
+    }
+    await fs.unlink(file);
+  });
 }

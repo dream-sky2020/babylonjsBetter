@@ -1,3 +1,4 @@
+import { readDungeonActorAction, validateDungeonActorAction, validateDungeonActorReferences } from '@/core/dungeon-interaction/dungeonActorAction';
 import { prepareDungeonMapEditorDocument } from './dungeonMapEditorDocument';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { validateDungeonTransitionMap } from '@/core/dungeon-transition';
@@ -911,9 +912,17 @@ const saveMapPresets = async () => {
         }];
       }),
     ));
-    const documentPayload = encodeDungeonMapDocumentLibraryV3(runtimeDocuments);
     setPresetSaving(true);
     try {
+      for (const document of Object.values(runtimeDocuments)) {
+        for (const row of [...document.components.event ?? [], ...document.components['variable-trigger'] ?? []]) {
+          const action = readDungeonActorAction(row.action);
+          if (!action || row.enabled === false || document.entities.some(entity => entity.id === row.entityId && entity.enabled === false)) continue;
+          const errors = [...validateDungeonActorAction(action, true), ...validateDungeonActorReferences(document, action)];
+          if (errors.length) throw new Error(document.identity.name + ' / ' + row.id + '：' + errors.join(' '));
+        }
+      }
+      const documentPayload = encodeDungeonMapDocumentLibraryV3(runtimeDocuments);
       const response = await requestDevServer('/api/dungeon-map-presets', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

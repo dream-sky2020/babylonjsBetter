@@ -1,3 +1,5 @@
+import { createDungeonActorAction, isDungeonActorActionType, type DungeonActorAction } from '@/core/dungeon-interaction/dungeonActorAction';
+import { DungeonActorActionFields, DungeonKnownServiceParameters, DungeonServiceIdField, isKnownDungeonService } from '../shared/DungeonActionFields';
 import { useEffect, useMemo, useRef } from 'react';
 import { InteractionDirectionPicker } from '@/tools/entity-container-editor/InteractionDirectionPicker';
 import { DialogueUiPresetPicker } from '@/tools/entity-container-editor/DialogueUiPresetPicker';
@@ -249,6 +251,31 @@ const renderComponentCard = (entity: IEntity, component: IComponent) => {
           }
           if (component.type === 'event' || component.type === 'variable-trigger') {
             const action = (component as IEventComponent | IVariableTriggerComponent).action;
+            const writeActorAction = (next: DungeonActorAction) => updateComponentById(entity.id, component.id,
+              '修改角色动作', current => ({ ...current, action: next }));
+            if (field.path === 'action.type') return <label key={field.path}><span>{field.label}</span>
+              <select value={action?.type ?? ''} onChange={event => {
+                const type = event.target.value;
+                if (isDungeonActorActionType(type)) writeActorAction(createDungeonActorAction(type));
+                else if (isDungeonActorActionType(action?.type)) updateComponentById(entity.id, component.id, '修改执行动作',
+                  current => ({ ...current, action: { type } }));
+                else setField(field, type);
+              }}><option value="" disabled>选择动作</option>
+                {field.options?.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+              </select></label>;
+            if (field.path.startsWith('action.') && (action?.type === 'actor-teleport' || action?.type === 'actor-move-step')) {
+              return field.path === 'action.targetEntityId'
+                ? <DungeonActorActionFields key={field.path} action={action} map={mapDocument ?? undefined} onChange={writeActorAction} />
+                : null;
+            }
+            if (action?.type === 'service') {
+              if (field.path === 'action.commandId') return <DungeonServiceIdField key={field.path} value={action.commandId ?? ''}
+                onChange={value => setField(field, value)} />;
+              if (field.path === 'action.parameters' && isKnownDungeonService(action.commandId)) {
+                return <DungeonKnownServiceParameters key={field.path} id={action.commandId} parameters={action.parameters}
+                  map={mapDocument ?? undefined} onChange={value => setField(field, value)} />;
+              }
+            }
             if (action?.type === 'shared-variable') {
               const target = sharedVariables.get(action.variableId);
               const operation = action.variableOperation ?? 'set';

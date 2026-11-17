@@ -25,7 +25,7 @@ function registerLabSaveStorage({ distDir, rendererBaseUrl, projectRoot }) {
       throw new Error('当前页面不能访问存档目录。');
     }
     const { labId, action } = request ?? {};
-    const { isLabSaveLabId, readSaveText, writeSaveAtomically, listSaveFiles, readSaveFile, writeSaveFile } = await disk;
+    const { deleteSaveFile, isLabSaveLabId, readSaveText, writeSaveAtomically, listSaveFiles, readSaveFile, writeSaveFile } = await disk;
     if (!isLabSaveLabId(labId)) throw new Error('Lab ID 无效。');
     const userData = app.getPath('userData');
     const defaultDirectory = path.join(projectRoot && allowedOrigin ? projectRoot : userData, 'saves', labId);
@@ -71,6 +71,7 @@ function registerLabSaveStorage({ distDir, rendererBaseUrl, projectRoot }) {
     if (action === 'list') return listSaveFiles(directory, labId);
     if (action === 'read') return readSaveFile(directory, labId, request.id);
     if (action === 'write') return writeSaveFile(directory, labId, request.id, request.text, request.expectedRevision);
+    if (action === 'delete') return deleteSaveFile(directory, labId, request.id, request.expectedRevision);
     throw new Error('未知的存档操作。');
   });
 }

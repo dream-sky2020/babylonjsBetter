@@ -60,17 +60,22 @@ export const dungeonInteractionLabModule: LabModule = {
     });
     const router = new DungeonInteractionRouter();
     const consumedActions = new Set<string>();
+    const pendingActions = new Set<string>();
     const contacts = new Map<string, Map<string, Set<string>>>();
     let offContact = () => {};
     const resetInteractions = () => {
       consumedActions.clear();
+      pendingActions.clear();
       contacts.clear();
     };
     const offActions = router.register({
       id: 'dungeon-feedback',
       acceptsAgents: true,
       acceptsBlockedMovement: true,
-      isConsumed: (loadId, key) => consumedActions.has(`${loadId}:${key}`),
+      isConsumed: (loadId, key) => {
+        const scopedKey = loadId + ':' + key;
+        return consumedActions.has(scopedKey) || pendingActions.has(scopedKey);
+      },
       find(query) {
         const actorId = query.actorId ?? DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID;
         return control.find(query).flatMap(match => {
@@ -89,13 +94,23 @@ export const dungeonInteractionLabModule: LabModule = {
                 const previous = actorContacts.get(match.onceKey);
                 actorContacts.set(match.onceKey, new Set([...(previous ?? []), ...match.contactBlockers]));
               }
-              const result = executor.execute(action, { loadId: query.loadId, ruleId: match.id, sourceEntityId: match.entityId,
-                actorId, actorLabel: match.actorLabel });
+              const key = query.loadId + ':' + match.onceKey;
+              if (match.once) pendingActions.add(key);
+              const release = () => { if (match.once) pendingActions.delete(key); };
+              let result: ReturnType<typeof executor.execute>;
+              try {
+                result = executor.execute(action, { loadId: query.loadId, ruleId: match.id, sourceEntityId: match.entityId,
+                  actorId, actorLabel: match.actorLabel });
+              } catch (error) {
+                release();
+                throw error;
+              }
               const markConsumed = () => {
                 if (match.once && player.current?.loadId === query.loadId) consumedActions.add(`${query.loadId}:${match.onceKey}`);
               };
-              if (result) return result.then(markConsumed);
+              if (result) return result.then(markConsumed).finally(release);
               markConsumed();
+              release();
             },
           }];
         });

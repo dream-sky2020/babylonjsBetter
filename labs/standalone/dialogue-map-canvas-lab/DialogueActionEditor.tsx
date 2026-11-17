@@ -1,3 +1,5 @@
+import { createDungeonActorAction, dungeonActorActionOptions } from '@/core/dungeon-interaction/dungeonActorAction';
+import { DialogueActionReferenceMap, DungeonActorActionFields, DungeonKnownServiceParameters, DungeonServiceIdField, isKnownDungeonService } from '../shared/DungeonActionFields';
 import { useState } from 'react';
 import type { DialogueEditorSelection, DialogueMapAction } from '@/core/dialogue-map';
 import { visualStateOperationOptions } from '@/core/entity/components/event.component';
@@ -8,6 +10,8 @@ const defaults: Record<DialogueMapAction['type'], DialogueMapAction> = {
   message: { type: 'message', text: '' },
   'visual-state': { type: 'visual-state', targetEntityId: '', stateId: '' },
   'shared-variable': { type: 'shared-variable', variableId: '' },
+  'actor-teleport': createDungeonActorAction('actor-teleport'),
+  'actor-move-step': createDungeonActorAction('actor-move-step'),
   service: { type: 'service', commandId: 'obstacle.set-active', parameters: { entityId: '', active: false } },
 };
 
@@ -36,6 +40,7 @@ export function DialogueActionEditor({ action, selection, onChange }: {
     <label className="field"><span>动作类型</span><select value={action?.type ?? ''} onChange={e => onChange(structuredClone(defaults[e.target.value as keyof typeof defaults]))}>
       <option value="">选择动作</option><option value="message">显示消息</option><option value="visual-state">视觉状态</option>
       <option value="shared-variable">共享变量</option><option value="service">调用公开服务操作</option>
+      {dungeonActorActionOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
     </select></label>
     {action?.type === 'message' ? <>
       {text('消息文字', action.text, value => onChange({ ...action, text: value }))}
@@ -62,12 +67,17 @@ export function DialogueActionEditor({ action, selection, onChange }: {
         : typeof action.value === 'string' ? text('值', action.value, value => onChange({ ...action, value }))
           : <label className="field"><span>整数值</span><input type="number" step={1} value={action.value ?? ''} onChange={e => onChange({ ...action, value: e.target.value ? Math.trunc(Number(e.target.value)) : undefined })} /></label> : null}
     </> : null}
+    {action?.type === 'actor-teleport' || action?.type === 'actor-move-step' ? <DialogueActionReferenceMap>
+      {map => <DungeonActorActionFields action={action} map={map} onChange={onChange} />}
+    </DialogueActionReferenceMap> : null}
     {action?.type === 'service' ? <>
-      {text('公开操作 ID', action.commandId, value => onChange({ ...action, commandId: value }))}
-      {action.commandId === 'obstacle.set-active' ? <>
-        {text('障碍实体 ID', String(action.parameters?.entityId ?? ''), value => onChange({ ...action, parameters: { active: false, ...action.parameters, entityId: value } }))}
-        <label><input type="checkbox" checked={action.parameters?.active === true} onChange={e => onChange({ ...action, parameters: { ...action.parameters, active: e.target.checked } })} />启用障碍</label>
-      </> : <JsonParameters key={action.commandId} parameters={action.parameters} onChange={parameters => onChange({ ...action, parameters })} />}
+      <DungeonServiceIdField value={action.commandId} onChange={commandId => onChange({ ...action, commandId })} />
+      {isKnownDungeonService(action.commandId) ? action.commandId.startsWith('actor.') ? <DialogueActionReferenceMap>
+        {map => <DungeonKnownServiceParameters id={action.commandId} parameters={action.parameters} map={map}
+          onChange={parameters => onChange({ ...action, parameters })} />}
+      </DialogueActionReferenceMap> : <DungeonKnownServiceParameters id={action.commandId} parameters={action.parameters}
+        onChange={parameters => onChange({ ...action, parameters })} />
+        : <JsonParameters key={action.commandId} parameters={action.parameters} onChange={parameters => onChange({ ...action, parameters })} />}
       {text('成功提示（可选）', action.successMessage, value => onChange({ ...action, successMessage: value || undefined }))}
     </> : null}
   </InspectorGroup>;

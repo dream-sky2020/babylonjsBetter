@@ -2,6 +2,7 @@ import { createEntityDataId } from '../entity.utils.ts';
 import type { ComponentDefinition, IComponent } from '../entity.types.ts';
 import { visualRotationLabels, visualRotationModes, type VisualRotationMode } from './visual-state.component.ts';
 import { isSharedVariableId, isSharedVariableValue, sharedVariableOperations, sharedVariableOperationOptions, type SharedVariableAction } from './shared-variable.component.ts';
+import { dungeonActorActionOptions, dungeonActorActionFromService, isDungeonActorActionType, validateDungeonActorAction, type DungeonActorAction } from '../../dungeon-interaction/dungeonActorAction.ts';
 import { isDungeonInteractionCommandId } from '../../dungeon-interaction/dungeonInteractionCommand.ts';
 
 export type DialogueInteractionAction = { type: 'dialogue'; presetKey: string; entryNodeId: string; uiPresetKey?: string };
@@ -11,7 +12,7 @@ export type VisualStateInteractionAction = {
   stateId?: string; groupId?: string; feedback?: string;
 };
 export type ServiceInteractionAction = { type: 'service'; commandId: string; parameters?: Record<string, unknown>; successMessage?: string };
-export type ExecutableInteractionAction = DialogueInteractionAction | MessageInteractionAction | VisualStateInteractionAction | ServiceInteractionAction | SharedVariableAction;
+export type ExecutableInteractionAction = DialogueInteractionAction | MessageInteractionAction | VisualStateInteractionAction | ServiceInteractionAction | SharedVariableAction | DungeonActorAction;
 export type LegacyInteractionAction = { type: 'legacy'; actionId: string; payload?: Record<string, unknown> };
 export type InteractionLocalSide = 'front' | 'right' | 'back' | 'left';
 export type InteractionWorldSide = 'north' | 'east' | 'south' | 'west';
@@ -65,18 +66,19 @@ export function validateInteractionEvent(component: IEventComponent, complete = 
   if (complete && component.targetRule === 'self' && component.trigger === 'interact' && component.directionSpace && component.directionSpace !== 'any') errors.push('脚下主动交互没有侧面；请使用面前目标，或进入触发的来路。');
   const action = component.action;
   if (complete && (movementRule && component.movementPhase === 'blocked' || (actionRule && component.movementPhase !== 'contact')
-    || (component.actorScope === 'agent' || component.actorScope === 'both') && action?.type !== 'visual-state' && action?.type !== 'service' && action?.type !== 'shared-variable') && action?.type !== 'message') errors.push('此交互必须使用地图提示。');
+    || (component.actorScope === 'agent' || component.actorScope === 'both') && action?.type !== 'visual-state' && action?.type !== 'service' && action?.type !== 'shared-variable' && !isDungeonActorActionType(action?.type)) && action?.type !== 'message') errors.push('此交互必须使用地图提示。');
   if (action?.type === 'legacy') return errors;
   if (!['interact', 'enter', 'move-attempt'].includes(component.trigger)) errors.push('交互触发时机无效。');
   if (complete && component.trigger === 'enter' && component.targetRule !== 'self') errors.push('进入触发必须使用 self 位置规则。');
   if (complete && movementRule && !component.movementPhase && !actionRule && component.targetRule !== 'front') errors.push('旧式受阻规则使用 front，或明确选择新的执行时机。');
-  if (complete && movementRule && (action?.type === 'visual-state' || action?.type === 'shared-variable' || action?.type === 'service')) {
+  if (complete && movementRule && (action?.type === 'visual-state' || action?.type === 'shared-variable' || action?.type === 'service' || isDungeonActorActionType(action?.type))) {
     errors.push('此地图动作只支持进入格子或主动交互。');
   }
   return [...errors, ...validateDungeonMapAction(action, complete)];
 }
 export function validateDungeonMapAction(action: IEventComponent['action'], complete = true): string[] {
   const errors: string[] = [];
+  if (action && isDungeonActorActionType(action.type)) return validateDungeonActorAction(action as DungeonActorAction, complete);
   if (action?.type === 'message') {
     if ((complete || action.text !== undefined) && (typeof action.text !== 'string' || action.text.length > 256 || complete && !nonempty(action.text))) errors.push('消息文字不能为空且不能超过 256 字符。');
     if (action.durationSeconds !== undefined && (!Number.isFinite(action.durationSeconds) || action.durationSeconds < .5 || action.durationSeconds > 15)) errors.push('消息停留时间必须在 0.5 至 15 秒之间。');
@@ -99,12 +101,14 @@ export function validateDungeonMapAction(action: IEventComponent['action'], comp
   } else if (action?.type === 'service') {
     if ((complete || action.commandId !== undefined && action.commandId !== '') && !isDungeonInteractionCommandId(action.commandId)) errors.push('服务指令 ID 无效，例如 obstacle.set-active。');
     if (action.parameters !== undefined && (!action.parameters || typeof action.parameters !== 'object' || Array.isArray(action.parameters))) errors.push('服务参数必须是 JSON 对象。');
+    const actorAction = dungeonActorActionFromService(action.commandId, action.parameters);
+    if (actorAction) errors.push(...validateDungeonActorAction(actorAction, complete));
     if (action.successMessage !== undefined && (typeof action.successMessage !== 'string' || action.successMessage.length > 256)) errors.push('成功提示不能超过 256 字符。');
   } else if (action?.type === 'dialogue') {
     if ((complete || action.presetKey !== undefined) && (typeof action.presetKey !== 'string' || action.presetKey.length > 256 || complete && !nonempty(action.presetKey))) errors.push('对话预设 Key 不能为空且不能超过 256 字符。');
     if ((complete || action.entryNodeId !== undefined) && (typeof action.entryNodeId !== 'string' || action.entryNodeId.length > 256 || complete && !nonempty(action.entryNodeId))) errors.push('对话入口不能为空且不能超过 256 字符。');
     if (action.uiPresetKey !== undefined && !nonempty(action.uiPresetKey)) errors.push('UI 预设 Key 无效。');
-  } else errors.push('交互动作必须为 dialogue、message、visual-state、service、shared-variable 或兼容的 legacy。');
+  } else errors.push('交互动作必须为 dialogue、message、visual-state、service、shared-variable、actor-teleport、actor-move-step 或兼容的 legacy。');
   return errors;
 }
 export const visualStateOperationOptions = [
@@ -122,7 +126,11 @@ export function upgradeInteractionEvent(source: IEventComponent): IEventComponen
     action: { type: 'legacy', actionId: source.actionId ?? '', ...(source.payload ? { payload: structuredClone(source.payload) } : {}) } };
 }
 export const mapActionFields = [
-    { path: 'action.type', label: '执行动作', control: 'select', options: [{ value: 'dialogue', label: '开始对话' }, { value: 'message', label: '显示地图提示' }, { value: 'visual-state', label: '切换视觉状态' }, { value: 'service', label: '触发服务' }, { value: 'shared-variable', label: '修改共享变量' }, { value: 'legacy', label: '保留旧事件（未接执行器）' }] },
+    { path: 'action.type', label: '执行动作', control: 'select', options: [{ value: 'dialogue', label: '开始对话' }, { value: 'message', label: '显示地图提示' }, { value: 'visual-state', label: '切换视觉状态' }, { value: 'service', label: '触发服务' }, { value: 'shared-variable', label: '修改共享变量' }, ...dungeonActorActionOptions, { value: 'legacy', label: '保留旧事件（未接执行器）' }] },
+    { path: 'action.targetEntityId', label: '目标角色', control: 'text', visibleWhen: { path: 'action.type', equals: 'actor-teleport' } },
+    { path: 'action.tileId', label: '落点格 ID', control: 'text', visibleWhen: { path: 'action.type', equals: 'actor-teleport' } },
+    { path: 'action.targetEntityId', label: '目标角色', control: 'text', visibleWhen: { path: 'action.type', equals: 'actor-move-step' } },
+    { path: 'action.direction', label: '移动方向', control: 'text', visibleWhen: { path: 'action.type', equals: 'actor-move-step' } },
     { path: 'action.variableId', label: '目标变量', control: 'text', visibleWhen: { path: 'action.type', equals: 'shared-variable' } },
     { path: 'action.variableOperation', label: '变量操作', control: 'select', options: sharedVariableOperationOptions, visibleWhen: { path: 'action.type', equals: 'shared-variable' } },
     { path: 'action.value', label: '操作值', control: 'json', optional: true, visibleWhen: { path: 'action.type', equals: 'shared-variable' } },

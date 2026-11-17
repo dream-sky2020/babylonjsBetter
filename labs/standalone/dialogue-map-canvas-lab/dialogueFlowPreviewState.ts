@@ -1,3 +1,4 @@
+import { isDungeonActorActionType } from '@/core/dungeon-interaction/dungeonActorAction';
 import type { DialogueEditorDocument, DialogueEditorNode } from '../../../core/dialogue-map/dialogueMap.types.ts';
 
 export type DialogueFlowPreviewState = { nodeId?: string; lineIndex: number; ended?: string; events: string[] };
@@ -20,7 +21,10 @@ export const settleDialogueFlowPreview = (document: DialogueEditorDocument, init
     if (!node) return { ...state, nodeId: undefined, ended: '起始节点不存在，预览已停止。' };
     if (node.kind === 'event' && node.mode === 'wait') return state;
     if (node.kind !== 'event' && node.kind !== 'action') return state;
-    const summaries = node.kind === 'action' ? [`模拟执行：${node.action?.type ?? '未配置动作'}`]
+    const summaries = node.kind === 'action' && (isDungeonActorActionType(node.action?.type)
+      || node.action?.type === 'service' && ['actor.teleport', 'actor.move-step'].includes(node.action.commandId))
+      ? ['角色动作需要在地图中运行；预览未移动角色。']
+      : node.kind === 'action' ? [`模拟执行：${node.action?.type ?? '未配置动作'}`]
       : node.events.map(event => `模拟发布：${event.eventType || '未命名事件'}`);
     const events = [...state.events, ...summaries].slice(-100);
     state = route(document, { ...state, events }, node.outputOrder[0]);

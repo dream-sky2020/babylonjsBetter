@@ -199,3 +199,18 @@ test('node whitespace survives storage, remains independent and validates boolea
     assert.throws(() => parseDialogueEditorDocument(raw), /留白/);
   }
 });
+
+test('shared actor actions in dialogue survive preset loading and compile with the same parameters', () => {
+  const raw = JSON.parse(readFileSync(new URL('../../config/dialogueMapPresets/dungeon_actor_action_demo.json', import.meta.url), 'utf8'));
+  const document = parseDialogueEditorDocument(raw);
+  const result = compileDialogueEditorDocument(document, 'intro');
+  assert.deepEqual(result.issues.filter(issue => issue.severity === 'error'), []);
+  const step = result.program?.instructions.step;
+  assert.ok(step?.kind === 'action');
+  assert.equal(step.next, 'complete');
+  assert.deepEqual(step.action, { type: 'actor-move-step', targetEntityId: 'test-push-agent', direction: 'east' });
+  raw.graph.nodes.step.action = { type: 'actor-teleport', targetEntityId: '$dungeon-player', tileId: 'tile:3,5' };
+  const warp = compileDialogueEditorDocument(parseDialogueEditorDocument(raw), 'intro').program?.instructions.step;
+  assert.ok(warp?.kind === 'action');
+  assert.deepEqual(warp.action, raw.graph.nodes.step.action);
+});

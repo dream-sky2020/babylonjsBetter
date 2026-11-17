@@ -46,6 +46,7 @@ export type LabSaveRequest =
   | { labId: string; action: 'directory' | 'choose' | 'list' | 'reset-directory' }
   | { labId: string; action: 'set-directory'; path: string }
   | { labId: string; action: 'read'; id: string }
+  | { labId: string; action: 'delete'; id: string; expectedRevision: string }
   | { labId: string; action: 'write'; id: string; expectedRevision: string | null; text: string };
 
 // Event channels pushed from Electron main process to renderer.

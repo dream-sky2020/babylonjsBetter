@@ -9,7 +9,7 @@ export type LabServiceCall = LabServiceCallOrigin & {
   id: number; at: number; caller: string; serviceId?: string; owner?: string; operation: string;
   status: 'pending' | 'succeeded' | 'rejected' | 'failed'; error?: string;
 };
-type LabServiceAction = (input: Readonly<Record<string, unknown>>, origin: LabServiceCallOrigin) => boolean;
+type LabServiceAction = (input: Readonly<Record<string, unknown>>, origin: LabServiceCallOrigin) => boolean | Promise<boolean>;
 type ServiceFunction = (...args: never[]) => unknown;
 type ServiceMethod<T> = { [K in keyof T]-?: T[K] extends ServiceFunction ? K : never }[keyof T] & string;
 type ServiceFunctionAt<T, K extends keyof T> = Extract<T[K], ServiceFunction>;
@@ -18,7 +18,7 @@ export type LabServiceScope = {
   set<T>(key: string | ServiceToken<T>, value: NoInfer<T>, actions?: Readonly<Record<string, LabServiceAction>>): void;
   invoke<T, K extends ServiceMethod<T>>(key: ServiceToken<T>, method: K,
     args: Parameters<ServiceFunctionAt<T, K>>, origin?: LabServiceCallOrigin): ReturnType<ServiceFunctionAt<T, K>>;
-  invokeAction(id: string, input: Readonly<Record<string, unknown>>, origin?: LabServiceCallOrigin): boolean;
+  invokeAction(id: string, input: Readonly<Record<string, unknown>>, origin?: LabServiceCallOrigin): boolean | Promise<boolean>;
   get<T>(key: string | ServiceToken<T>): T;
   find<T>(key: string | ServiceToken<T>): T | undefined;
   delete(key: string | { readonly id: string }): void;
@@ -176,7 +176,7 @@ export class LabServiceRegistry {
           return Reflect.apply(implementation, entry.value, args) as ReturnType<ServiceFunctionAt<T, K>>;
         });
       },
-      invokeAction: (id: string, input: Readonly<Record<string, unknown>>, origin: LabServiceCallOrigin = {}): boolean => {
+      invokeAction: (id: string, input: Readonly<Record<string, unknown>>, origin: LabServiceCallOrigin = {}): boolean | Promise<boolean> => {
         const action = this.actions.get(id);
         return this.recordCall(moduleId, action?.serviceId, id, origin, () => {
           if (!action) throw new Error(`当前 Lab 未公开服务操作“${id}”。`);

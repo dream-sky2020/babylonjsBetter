@@ -33,6 +33,8 @@ export const DUNGEON_PLAYER_TURN_TIMING_MODES = ['radians-per-second', 'seconds-
 export type DungeonPlayerTurnTimingMode = typeof DUNGEON_PLAYER_TURN_TIMING_MODES[number];
 
 export type DungeonPlayerMovementOptions = {
+  /** A scripted step rejects a blocked landing without contact takeover, push, swap or bump animation. */
+  scriptedStep?: boolean;
   /** Synchronous rule hook using the existing inspection; true consumes the blocked attempt. */
   onBlockedAttempt?: (inspection: DungeonPlayerMovementResult, attemptId: number) => boolean;
   onMovementAttemptResolved?: (attempt: DungeonPlayerMovementAttemptResolution) => void;
@@ -260,7 +262,7 @@ export const startDungeonPlayerMovement = (
   const inspection = inspectDungeonPlayerMovement(runtime, direction, options);
   let interactionFailure: DungeonPlayerMovementResult['interactionFailure'];
   const { from, to } = inspection;
-  if (inspection.blockedReason === 'movement-in-progress') return inspection;
+  if (inspection.blockedReason && (options.scriptedStep || inspection.blockedReason === 'movement-in-progress')) return inspection;
   const contactId = inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle'
     ? createDungeonMovementAttemptId() : undefined;
   const report = (outcome: DungeonMovementAttemptOutcome, result = inspection) =>
@@ -411,6 +413,7 @@ export const startDungeonPlayerMovement = (
     report(isDungeonMovementArbitrationRejection(requestResult.blockedReason) ? 'arbitration-rejected' : 'blocked', {
       ...inspection, blockedObstacleIds: requestResult.blockingEntityIds,
     });
+    if (options.scriptedStep) return { ...inspection, blockedReason: 'movement-obstacle', blockedObstacleIds: requestResult.blockingEntityIds };
     return startBlockedAttempt(
       requestResult.blockedReason === 'map-boundary' ? 'map-boundary' : 'movement-obstacle',
       requestResult.blockingEntityIds,

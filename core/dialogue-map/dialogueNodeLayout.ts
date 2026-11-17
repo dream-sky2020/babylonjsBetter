@@ -73,6 +73,8 @@ export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
     const action = node.action;
     let text = '未设置动作';
     if (action?.type === 'message') text = action.text || '显示消息';
+    if (action?.type === 'actor-teleport') text = '传送角色 · ' + (action.targetEntityId || '未选角色');
+    if (action?.type === 'actor-move-step') text = '让角色走一格 · ' + (action.targetEntityId || '未选角色');
     if (action?.type === 'service') text = action.commandId || '调用公开服务操作';
     if (action?.type === 'visual-state') {
       const operation = action.operation ?? 'set';

@@ -177,6 +177,30 @@
       "entityType": "dungeon-entrance",
       "name": "对话机制测试室回程落点",
       "enabled": true
+    },
+    {
+      "enabled": true,
+      "entityType": "dungeon-agent",
+      "id": "test-push-agent",
+      "name": "可推动测试 Agent"
+    },
+    {
+      "id": "actor-teleport-demo",
+      "entityType": "interaction-point",
+      "name": "角色传送机关",
+      "enabled": true
+    },
+    {
+      "id": "actor-step-dialogue-demo",
+      "entityType": "interaction-point",
+      "name": "角色走格对话台",
+      "enabled": true
+    },
+    {
+      "id": "actor-player-teleport-demo",
+      "entityType": "interaction-point",
+      "name": "玩家传送机关",
+      "enabled": true
     }
   ],
   "components": {
@@ -503,6 +527,55 @@
             "tileId": "tile:14,9"
           }
         ]
+      },
+      {
+        "enabled": true,
+        "entityId": "test-push-agent",
+        "id": "test-push-agent:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:4,3"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "id": "actor-teleport-demo:spatial-attachment",
+        "entityId": "actor-teleport-demo",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,4"
+          }
+        ]
+      },
+      {
+        "id": "actor-step-dialogue-demo:spatial-attachment",
+        "entityId": "actor-step-dialogue-demo",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:3,4"
+          }
+        ]
+      },
+      {
+        "id": "actor-player-teleport-demo:spatial-attachment",
+        "entityId": "actor-player-teleport-demo",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,5"
+          }
+        ]
       }
     ],
     "scene-environment": [
@@ -662,6 +735,18 @@
         "pushable": false,
         "initialFacing": "south",
         "movementProfileId": "ground-four-way"
+      },
+      {
+        "activeByDefault": true,
+        "enabled": true,
+        "entityId": "test-push-agent",
+        "id": "test-push-agent:spatial-body",
+        "initialFacing": "south",
+        "mobility": "movable",
+        "movementProfileId": "ground-four-way",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       }
     ],
     "spatial-collider": [
@@ -790,6 +875,21 @@
         "halfHeight": 0.5,
         "offsetX": 0,
         "offsetY": 0
+      },
+      {
+        "enabled": true,
+        "entityId": "test-push-agent",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
+        "id": "test-push-agent:spatial-collider",
+        "offsetX": 0,
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       }
     ],
     "spatial-interaction": [
@@ -848,6 +948,14 @@
         "type": "spatial-interaction",
         "version": 1,
         "onPlayerPush": "swap"
+      },
+      {
+        "enabled": true,
+        "entityId": "test-push-agent",
+        "id": "test-push-agent:spatial-interaction",
+        "onPlayerPush": "push",
+        "type": "spatial-interaction",
+        "version": 1
       }
     ],
     "agent-timing": [
@@ -914,6 +1022,15 @@
         "version": 1,
         "actionPeriod": 1,
         "priority": 0
+      },
+      {
+        "actionPeriod": 1,
+        "enabled": true,
+        "entityId": "test-push-agent",
+        "id": "test-push-agent:agent-timing",
+        "priority": 0,
+        "type": "agent-timing",
+        "version": 1
       }
     ],
     "agent-controller": [
@@ -1038,6 +1155,16 @@
           "moveDurationSeconds": 0.48
         },
         "debugColor": "#f472b6"
+      },
+      {
+        "controllerId": "stationary",
+        "enabled": true,
+        "entityId": "test-push-agent",
+        "id": "test-push-agent:agent-controller",
+        "parameters": {},
+        "type": "agent-controller",
+        "version": 1,
+        "debugColor": "#22d3ee"
       }
     ],
     "event": [
@@ -1442,6 +1569,49 @@
           "presetKey": "village_gate",
           "entryNodeId": "dialogue-event-demo"
         }
+      },
+      {
+        "id": "actor-teleport-demo:event",
+        "entityId": "actor-teleport-demo",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 5,
+        "once": true,
+        "action": {
+          "type": "actor-teleport",
+          "targetEntityId": "test-push-agent",
+          "tileId": "tile:5,3"
+        }
+      },
+      {
+        "id": "actor-step-dialogue-demo:event",
+        "entityId": "actor-step-dialogue-demo",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 5,
+        "action": {
+          "type": "dialogue",
+          "presetKey": "dungeon_actor_action_demo",
+          "entryNodeId": "intro"
+        }
+      },
+      {
+        "id": "actor-player-teleport-demo:event",
+        "entityId": "actor-player-teleport-demo",
+        "type": "event",
+        "version": 2,
+        "trigger": "interact",
+        "targetRule": "self",
+        "priority": 5,
+        "action": {
+          "type": "actor-teleport",
+          "targetEntityId": "$dungeon-player",
+          "tileId": "tile:12,5"
+        }
       }
     ],
     "dungeon-exit": [
@@ -1569,6 +1739,16 @@
           },
           "successMessage": "计数达到 3，封路石障已解除。"
         }
+      }
+    ],
+    "faction": [
+      {
+        "enabled": true,
+        "entityId": "test-push-agent",
+        "factionId": "mechanism",
+        "id": "test-push-agent:faction",
+        "type": "faction",
+        "version": 1
       }
     ]
   }

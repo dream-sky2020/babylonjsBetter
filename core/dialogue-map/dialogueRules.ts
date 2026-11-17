@@ -1,4 +1,5 @@
 import type { DialogueCondition, DialogueEffect, DialogueEditorNode, DialogueEventWait, DialogueMapAction, DialogueRuleCatalog, DialogueScalar, DialogueValue } from './dialogueMap.types.ts';
+import { isDungeonActorActionType } from '../dungeon-interaction/dungeonActorAction.ts';
 import { validateDungeonMapAction } from '../entity/components/event.component.ts';
 import type { DialogueEditorDocument, DialogueTextBindings } from './dialogueMap.types.ts';
 import { dialogueTextVariableNames, isDialogueTextVariableName } from './dialogueText.ts';
@@ -59,7 +60,7 @@ export const parseDialogueEventWait = (value: unknown): DialogueEventWait => {
 
 export const parseDialogueMapAction = (value: unknown): DialogueMapAction => {
   const raw = object(value);
-  if (!['message', 'visual-state', 'shared-variable', 'service'].some(type => raw.type === type)) throw new Error('不支持的对话地图动作。');
+  if (!isDungeonActorActionType(raw.type) && !['message', 'visual-state', 'shared-variable', 'service'].some(type => raw.type === type)) throw new Error('不支持的对话地图动作。');
   const action = structuredClone(raw) as DialogueMapAction;
   const errors = validateDungeonMapAction(action.type === 'shared-variable' && action.variableId === ''
     ? { ...action, variableId: undefined! } : action, false);

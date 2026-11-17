@@ -24,6 +24,9 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
   const server = await createServer({ configFile: false, resolve: { alias: { '@': resolve('') } },
     cacheDir: `node_modules/.cache/vite-tests/dialogue-canvas-${process.pid}`,
     plugins: [{ name: 'mock-dialogue-storage', enforce: 'pre', load(id) {
+      if (id.replaceAll('\\\\', '/').endsWith('/dungeonMapPresetRepository.ts')) return 'export const loadDungeonMapDocumentLibraryV2 = async () => (' + JSON.stringify({
+        demo: { identity: { name: '参考场景' }, grid: { width: 2, tileIds: ['tile:0,0', 'tile:1,0'] }, entities: [{ id: 'guard', entityType: 'dungeon-agent', name: '守卫' }] },
+      }) + ')';
       if (id.replaceAll('\\', '/').endsWith('/dialogueMapPresetRepository.ts')) return `
         export const loadDialogueEditorDocumentLibrary = () => globalThis.__dialogueTestLibrary;
         export const saveDialogueEditorDocumentLibrary = async library => { globalThis.__dialogueTestSavedLibrary = structuredClone(library); };
@@ -420,6 +423,28 @@ test('canvas lab keeps hook order when asynchronous loading reveals the full ins
     assert.deepEqual([...connected.edges.values()].map(edge => [edge.from.portId, edge.to.portId]), [[fromPort, toPort]]);
     await zoomFrom(.52, actionView.scale);
     assert.ok(paintedText.includes('地图动作'));
+
+    const actionField = label => [...group('执行地图动作').querySelectorAll('label')]
+      .find(element => element.querySelector(':scope > span')?.textContent === label);
+    const changeSelect = (label, value) => React.act(async () => {
+      const select = actionField(label).querySelector('select');
+      Object.getOwnPropertyDescriptor(dom.window.HTMLSelectElement.prototype, 'value').set.call(select, value);
+      select.dispatchEvent(new dom.window.Event('change', { bubbles: true }));
+    });
+    await changeSelect('动作类型', 'actor-teleport');
+    await changeSelect('参考地图（仅编辑时使用）', 'demo');
+    await changeSelect('目标角色', 'guard');
+    await React.act(async () => [...group('执行地图动作').querySelectorAll('button')]
+      .find(button => button.textContent === '在地图格阵中选择').click());
+    await React.act(async () => group('执行地图动作').querySelector('[aria-label="格子 1,0"]').click());
+    assert.deepEqual((await snapshot('other')).graph.nodes.get(actionNode.id).action,
+      { type: 'actor-teleport', targetEntityId: 'guard', tileId: 'tile:1,0' });
+
+    await changeSelect('动作类型', 'actor-move-step');
+    await changeSelect('目标角色', '$dungeon-player');
+    await changeSelect('移动方向', 'west');
+    assert.deepEqual((await snapshot('other')).graph.nodes.get(actionNode.id).action,
+      { type: 'actor-move-step', targetEntityId: '$dungeon-player', direction: 'west' });
 
   } finally {
     if (root) { const React = await import('react'); await React.act(async () => root.unmount()); }

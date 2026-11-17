@@ -1,4 +1,5 @@
 import { createServiceToken } from '@/core/system-runtime/ServiceToken';
+import { dungeonActorActionOptions } from '@/core/dungeon-interaction/dungeonActorAction';
 import { validateDungeonMapAction, type ExecutableInteractionAction } from '@/core/entity/components/event.component';
 import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import { DUNGEON_PLAYER_STATE_MEMORY } from '../dungeon-runtime/dungeonRuntime.memory';
@@ -42,6 +43,22 @@ export const dungeonMapActionExecutorLabModule: LabModule = {
         const errors = validateDungeonMapAction(action);
         if (errors.length) throw new Error(errors.join('\n'));
         const origin = { sessionId: input.loadId, actorId: input.actorId, source: input.sourceEntityId };
+        const showText = (text: string | undefined) => {
+          if (text?.trim()) context.services.invoke(LAB_MESSAGE_BAR, 'show', [{
+            text: input.actorLabel ? `${input.actorLabel} · ${text}` : text,
+            durationSeconds: action.type === 'message' ? action.durationSeconds : undefined, channel,
+          }], origin);
+        };
+        const invokeAction = (id: string, parameters: Readonly<Record<string, unknown>>, successMessage?: string) => {
+          const target = typeof parameters.entityId === 'string' ? parameters.entityId : undefined;
+          const complete = (accepted: boolean) => {
+            if (!accepted) throw new Error(`交互服务指令「${id}」拒绝执行。`);
+            if (player.current?.loadId === input.loadId) showText(successMessage);
+          };
+          const result = context.services.invokeAction(id, parameters, { ...origin, target });
+          if (typeof result === 'boolean') return complete(result);
+          return result.then(complete);
+        };
         let text: string | undefined;
         switch (action.type) {
           case 'dialogue': {
@@ -75,20 +92,17 @@ export const dungeonMapActionExecutorLabModule: LabModule = {
             }).catch(error => console.error('发布共享变量变化失败。', error));
             break;
           }
-          case 'service': {
-            const parameters = action.parameters ?? {};
-            const target = typeof parameters.entityId === 'string' ? parameters.entityId : undefined;
-            if (!context.services.invokeAction(action.commandId, parameters, { ...origin, target })) {
-              throw new Error(`交互服务指令「${action.commandId}」拒绝执行。`);
-            }
-            text = action.successMessage;
-            break;
+          case 'actor-teleport':
+          case 'actor-move-step': {
+            const commandId = dungeonActorActionOptions.find(option => option.value === action.type)!.commandId;
+            const target = { entityId: action.targetEntityId };
+            return invokeAction(commandId, action.type === 'actor-teleport'
+              ? { ...target, tileId: action.tileId } : { ...target, direction: action.direction });
           }
+          case 'service':
+            return invokeAction(action.commandId, action.parameters ?? {}, action.successMessage);
         }
-        if (text?.trim()) context.services.invoke(LAB_MESSAGE_BAR, 'show', [{
-          text: input.actorLabel ? `${input.actorLabel} · ${text}` : text,
-          durationSeconds: action.type === 'message' ? action.durationSeconds : undefined, channel,
-        }], origin);
+        showText(text);
       },
     };
     context.services.set(DUNGEON_MAP_ACTION_EXECUTOR, executor);

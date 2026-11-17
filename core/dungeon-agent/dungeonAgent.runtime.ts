@@ -291,6 +291,20 @@ export const startDungeonAgentMovement = (
   return { started: true, completed: durationSeconds === 0, entityId, fromTileIndex, toTileIndex };
 };
 
+export function teleportDungeonAgent(state: DungeonAgentRuntimeState, entityId: string, tileIndex: number): void {
+  const agent = getAgent(state, entityId)?.agent;
+  if (!agent?.enabled || agent.movement || state.movementResolver.isBusy(entityId)) {
+    throw new Error('目标 Agent 当前无法传送。');
+  }
+  state.traversal.moveActor(entityId, tileIndex);
+  agent.tileIndex = tileIndex;
+  agent.navigationPlan = undefined;
+  state.traversal.clearReservations(entityId);
+  agent.reservationPlanSequence = undefined;
+  agent.reservationStartIndex = undefined;
+  deactivateAgent(state, agent);
+}
+
 const CLOCKWISE_DIRECTIONS = DUNGEON_EIGHT_WAY_MOVEMENT_DIRECTIONS;
 
 export function requestDungeonAgentInteraction(state: DungeonAgentRuntimeState, entityId: string): boolean {

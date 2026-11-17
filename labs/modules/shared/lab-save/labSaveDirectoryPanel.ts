@@ -159,7 +159,7 @@ export function mountLabSaveDirectory(element: HTMLElement, context: LabContext)
       return;
     }
     busy = true;
-    message = action === 'load' ? '正在读取存档……' : '正在处理存档……';
+    message = action === 'load' ? '正在读取存档……' : action.startsWith('delete:') ? '正在删除存档……' : '正在处理存档……';
     render();
     try {
       const item = rows.find(row => row.id === selected);
@@ -173,6 +173,11 @@ export function mountLabSaveDirectory(element: HTMLElement, context: LabContext)
         if (disposed) return;
         await labState.restoreCheckpoint(JSON.parse(text));
         message = `已读取「${item.name}」。`;
+      } else if (item && action === `delete:${item.id}`) {
+        await storage.delete(item.id, item.revision);
+        rows = rows.filter(row => row.id !== item.id);
+        selected = rows[0]?.id ?? null;
+        message = `已删除「${item.name}」。`;
       } else if (action === 'refresh') { await refreshRows(); message = ''; }
     } catch (error) { message = errorMessage(error); }
     finally { busy = false; if (!disposed) render(); }
