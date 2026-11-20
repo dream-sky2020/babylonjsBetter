@@ -91,6 +91,14 @@ export const resolveDungeonObstacleDebugLayout = (
       true,
     );
   }
+  if (binding.placement.kind === 'shared-point') {
+    const { gridX, gridY } = binding.placement;
+    const point = resolveDungeonMapTileWorldLayout(component, mapWidth, mapHeight, gridX - 0.5, gridY - 0.5);
+    const [x, y, z] = point.center;
+    const width = Math.max(0.45, Math.min(point.size[0], point.size[2]) * 0.08);
+    const height = Math.max(0.8, point.size[1]);
+    return { center: [x, y + point.size[1] / 2 + height / 2, z], size: [width, height, width] };
+  }
   return resolveDungeonEdgeDebugLayout(
     component,
     mapWidth,

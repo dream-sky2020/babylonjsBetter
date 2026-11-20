@@ -436,3 +436,30 @@ test('editor creates a boundary body, moves a tile body, and preserves identitie
   const packed=encodeDungeonMapDocumentV3(store.getDocument()),restored=parseDungeonMapDocumentV3(packed);
   assert.equal(compileSpatialDefinitions(restored).bodies.find(b=>b.entityId==='box')!.id,'box:body');
 });
+
+test('public point blockers have an obstacle state while their collision stays on the swept path', () => {
+  const { doc, spawn } = spatialFixture();
+  const id = 'corner-post';
+  doc.entities.push({ id, entityType: 'spatial-object', name: 'Corner post' });
+  (doc.components['spatial-attachment'] ??= []).push({
+    id: id + ':attachment', entityId: id, type: 'spatial-attachment', version: 1,
+    targets: [{ kind: 'point', pointId: 'point:5,4' }],
+  });
+  (doc.components['spatial-body'] ??= []).push({
+    ...bodyComponent.createDefault(), id: id + ':body', entityId: id,
+  });
+  (doc.components['spatial-collider'] ??= []).push({
+    ...colliderComponent.createDefault(), id: id + ':collider', entityId: id, shape: 'point',
+  });
+  const runtime = createDungeonRuntime(doc, spawn, 'south');
+  const world = runtime.traversal;
+  const player = world.body('$dungeon-player')!;
+  const from = { x: 4, y: 3 }, to = { x: 5, y: 4 };
+  assert.deepEqual(runtime.obstacles.find(binding => binding.entity.id === id)?.placement,
+    { kind: 'shared-point', sharedPointId: 'point:5,4', gridX: 5, gridY: 4 });
+  assert.equal(runtime.obstacleStates.get(id), true);
+  assert.deepEqual(world.inspectStep(player.id, 3 * doc.grid.width + 4, 'east').blockingEntityIds, []);
+  assert.deepEqual(sweepSpatialBody(world.spatial, player, from, to), [id]);
+  runtime.obstacleStates.set(id, false);
+  assert.deepEqual(sweepSpatialBody(world.spatial, player, from, to), []);
+});

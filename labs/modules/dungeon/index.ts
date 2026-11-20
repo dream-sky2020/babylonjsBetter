@@ -27,6 +27,7 @@ import { dungeonObstacleLabModule } from './dungeon-obstacle';
 import { dungeonRuntimeLabModule } from './dungeon-runtime';
 import { dungeonMapLoaderLabModule } from './dungeon-map-loader';
 import { playerMovementLabModule } from './player-movement';
+import { playerAppearanceLabModule } from './player-appearance/playerAppearance.labModule';
 import { playerSpawnLabModule } from './player-spawn';
 
 const dungeonModules: LabModuleCatalog = {
@@ -56,6 +57,7 @@ const dungeonModules: LabModuleCatalog = {
   [dungeonRuntimeLabModule.id]: dungeonRuntimeLabModule,
   [dungeonObstacleLabModule.id]: dungeonObstacleLabModule,
   [playerMovementLabModule.id]: playerMovementLabModule,
+  [playerAppearanceLabModule.id]: playerAppearanceLabModule,
   [dungeonRuntimeSaveSwitchLabModule.id]: dungeonRuntimeSaveSwitchLabModule,
   [dungeonTransitionLabModule.id]: dungeonTransitionLabModule,
 };

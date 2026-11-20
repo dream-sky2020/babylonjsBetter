@@ -298,6 +298,7 @@ export default defineConfig({
         dungeonPlayerMovementLab: path.resolve(__dirname, 'labs/composable/dungeon-player-movement-lab/index.html'),
         dungeonFirstPersonCameraLab: path.resolve(__dirname, 'labs/composable/dungeon-first-person-camera-lab/index.html'),
         dungeonOverheadViewLab: path.resolve(__dirname, 'labs/composable/dungeon-overhead-view-lab/index.html'),
+        dungeonArtTuningLab: path.resolve(__dirname, 'labs/composable/dungeon-art-tuning-lab/index.html'),
         dungeonTransitionLab: path.resolve(__dirname, 'labs/composable/dungeon-transition-lab/index.html'),
         dungeonSpatialActionsLab: path.resolve(__dirname, 'labs/composable/dungeon-spatial-actions-lab/index.html'),
         dungeonAgentLab: path.resolve(__dirname, 'labs/composable/dungeon-agent-lab/index.html'),

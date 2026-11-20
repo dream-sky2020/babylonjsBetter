@@ -7,7 +7,7 @@ const config = loaded.config;
 config.configFile = false;
 config.build = { ...config.build, outDir: 'node_modules/.cache/camera-labs-build', copyPublicDir: false,
   rollupOptions: { ...config.build?.rollupOptions, input: Object.fromEntries([
-    'camera-scene-lab', 'dungeon-first-person-camera-lab', 'dungeon-overhead-view-lab', 'scene-environment-lab',
+    'camera-scene-lab', 'dungeon-first-person-camera-lab', 'dungeon-overhead-view-lab', 'dungeon-art-tuning-lab', 'scene-environment-lab',
     'model-shake-lab', 'model-asset-normalization-lab', 'animation-workbench-lab',
   ].map(name => {
     const entry = Object.values(config.build.rollupOptions.input).find(file => path.basename(path.dirname(file)) === name);

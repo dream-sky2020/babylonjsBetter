@@ -1,0 +1,313 @@
+{
+  "presetKey": "dungeon-art-tuning-ground",
+  "name": "美术调试场 · 连续地面",
+  "clearColor": "#232a32",
+  "lights": [
+    {
+      "id": "light",
+      "name": "环境光",
+      "intensity": 1,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "groundColor": "#3b4650"
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "floor",
+      "name": "连续地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 153,
+        "height": 117
+      },
+      "position": [
+        0,
+        0.25,
+        0
+      ],
+      "color": "#657177"
+    },
+    {
+      "id": "art-tile-center",
+      "name": "格内 · 中心圆柱",
+      "geometry": {
+        "primitive": "cylinder",
+        "height": 3.25,
+        "diameterTop": 4.5,
+        "diameterBottom": 4.5,
+        "tessellation": 16
+      },
+      "position": [
+        -18,
+        1.875,
+        -18
+      ],
+      "color": "#be8657"
+    },
+    {
+      "id": "art-tile-full",
+      "name": "格内 · 整格方块",
+      "geometry": {
+        "primitive": "box",
+        "width": 8.4375,
+        "height": 2.5,
+        "depth": 8.4375
+      },
+      "position": [
+        18,
+        1.5,
+        -18
+      ],
+      "color": "#946a4d"
+    },
+    {
+      "id": "art-side-north",
+      "name": "独立边 · 北",
+      "geometry": {
+        "primitive": "box",
+        "width": 6,
+        "height": 2.75,
+        "depth": 1
+      },
+      "position": [
+        -27,
+        1.625,
+        -3.71875
+      ],
+      "color": "#56a5be"
+    },
+    {
+      "id": "art-side-east",
+      "name": "独立边 · 东",
+      "geometry": {
+        "primitive": "box",
+        "width": 1,
+        "height": 2.75,
+        "depth": 6
+      },
+      "position": [
+        -14.28125,
+        1.625,
+        9
+      ],
+      "color": "#56a5be"
+    },
+    {
+      "id": "art-side-south",
+      "name": "独立边 · 南",
+      "geometry": {
+        "primitive": "box",
+        "width": 6,
+        "height": 2.75,
+        "depth": 1
+      },
+      "position": [
+        0,
+        1.625,
+        21.71875
+      ],
+      "color": "#56a5be"
+    },
+    {
+      "id": "art-side-west",
+      "name": "独立边 · 西",
+      "geometry": {
+        "primitive": "box",
+        "width": 1,
+        "height": 2.75,
+        "depth": 6
+      },
+      "position": [
+        14.28125,
+        1.625,
+        9
+      ],
+      "color": "#56a5be"
+    },
+    {
+      "id": "art-edge-east-west",
+      "name": "公用边 · 东西相邻",
+      "geometry": {
+        "primitive": "box",
+        "width": 0.5,
+        "height": 2.75,
+        "depth": 8.4375
+      },
+      "position": [
+        13.5,
+        1.625,
+        -9
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-edge-north-south",
+      "name": "公用边 · 南北相邻",
+      "geometry": {
+        "primitive": "box",
+        "width": 8.4375,
+        "height": 2.75,
+        "depth": 0.5
+      },
+      "position": [
+        0,
+        1.625,
+        -13.5
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-boundary-north",
+      "name": "外缘公用边 · 北",
+      "geometry": {
+        "primitive": "box",
+        "width": 8.4375,
+        "height": 2.75,
+        "depth": 0.5
+      },
+      "position": [
+        0,
+        1.625,
+        -58.5
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-boundary-east",
+      "name": "外缘公用边 · 东",
+      "geometry": {
+        "primitive": "box",
+        "width": 0.5,
+        "height": 2.75,
+        "depth": 8.4375
+      },
+      "position": [
+        76.5,
+        1.625,
+        0
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-boundary-south",
+      "name": "外缘公用边 · 南",
+      "geometry": {
+        "primitive": "box",
+        "width": 8.4375,
+        "height": 2.75,
+        "depth": 0.5
+      },
+      "position": [
+        0,
+        1.625,
+        58.5
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-boundary-west",
+      "name": "外缘公用边 · 西",
+      "geometry": {
+        "primitive": "box",
+        "width": 0.5,
+        "height": 2.75,
+        "depth": 8.4375
+      },
+      "position": [
+        -76.5,
+        1.625,
+        0
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-shared-point",
+      "name": "公用点 · 四格交点",
+      "geometry": {
+        "primitive": "cylinder",
+        "height": 3,
+        "diameterTop": 1.25,
+        "diameterBottom": 1.25,
+        "tessellation": 12
+      },
+      "position": [
+        22.5,
+        1.75,
+        22.5
+      ],
+      "color": "#a290d3"
+    },
+    {
+      "id": "art-enclosure-north",
+      "name": "单格围栏 · 北",
+      "geometry": {
+        "primitive": "box",
+        "width": 9.5,
+        "height": 2.75,
+        "depth": 0.5
+      },
+      "position": [
+        -9,
+        1.625,
+        13.5
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-enclosure-east",
+      "name": "单格围栏 · 东",
+      "geometry": {
+        "primitive": "box",
+        "width": 0.5,
+        "height": 2.75,
+        "depth": 12.227922061357857
+      },
+      "position": [
+        -4.5,
+        1.625,
+        18
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-enclosure-south",
+      "name": "单格围栏 · 南",
+      "geometry": {
+        "primitive": "box",
+        "width": 9.5,
+        "height": 2.75,
+        "depth": 0.5
+      },
+      "position": [
+        -9,
+        1.625,
+        22.5
+      ],
+      "color": "#d6a66e"
+    },
+    {
+      "id": "art-enclosure-west",
+      "name": "单格围栏 · 西",
+      "geometry": {
+        "primitive": "box",
+        "width": 0.5,
+        "height": 2.75,
+        "depth": 12.227922061357857
+      },
+      "position": [
+        -13.5,
+        1.625,
+        18
+      ],
+      "color": "#d6a66e"
+    }
+  ]
+}

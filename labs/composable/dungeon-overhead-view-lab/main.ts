@@ -20,7 +20,7 @@ if (!(root instanceof HTMLElement)) throw new Error('缺少 Lab 根节点 #root�
 const host = await createLab({ labId: 'dungeon-overhead-view-lab',
   root, title: 'Dungeon 俯视比例 Lab', badge: 'Composable Lab · Overhead View',
   description: '统一验证俯视角、格子比例和第一人称切换；显示变形模块可读取地图配置或应用面板草稿，默认不生成测试物体。',
-  modules: ['overhead-view-demo'], catalog: { ...dungeonLabModuleCatalog, [demo.id]: demo },
+  modules: ['overhead-view-demo', 'player-appearance'], catalog: { ...dungeonLabModuleCatalog, [demo.id]: demo },
   initialState: { format: 'lab-state', version: 1, createdAt: '', modules: {
     'dungeon-overhead-view': { settings: { version: 1, data: { enabled: true, draft: { ...DEFAULT_OVERHEAD_VIEW } } } },
   } },

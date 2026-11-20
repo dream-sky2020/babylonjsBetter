@@ -237,6 +237,7 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-controls .lab-panel-content > :not(button) { grid-column: 1 / -1; }
 .lab-controls .lab-field { grid-template-columns: minmax(85px, .85fr) minmax(0, 1.3fr); gap: 5px; align-items: center; font-size: 11px; }
 .lab-controls .lab-field:has(> .lab-json) { grid-template-columns: 1fr; }
+.player-appearance-offset-inputs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 64px); align-items: center; gap: 6px; }
 .lab-controls .lab-switch { display: flex; border: 0; padding-top: 3px; }
 .lab-controls .lab-field input:not([type=checkbox]), .lab-controls .lab-field select { min-width: 0; height: 28px; padding: 0 5px; font-size: 11px; }
 .lab-controls .lab-card button:not(.lab-card-collapse) { min-width: 0; height: auto; min-height: 28px; padding: 3px 6px; font-size: 11px; }

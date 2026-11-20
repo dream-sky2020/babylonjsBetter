@@ -18,7 +18,8 @@ import type { DungeonRuntime, DungeonRuntimePlayerPosition } from '../dungeon-ru
 export type DungeonObstaclePlacement =
   | { kind: 'tile'; tileX: number; tileY: number }
   | { kind: 'tile-edge'; tileX: number; tileY: number; direction: DungeonMapDirection }
-  | { kind: 'shared-edge'; sharedEdgeId: string; side: DungeonMapEdgeEndpoint };
+  | { kind: 'shared-edge'; sharedEdgeId: string; side: DungeonMapEdgeEndpoint }
+  | { kind: 'shared-point'; sharedPointId: string; gridX: number; gridY: number };
 
 export type DungeonObstacleBinding = {
   entity: IEntity;
@@ -105,6 +106,11 @@ const documentObstaclePlacement = (
       side: { x, y, direction: side.direction },
     };
   }
+  if (target.kind === 'point') {
+    const point = query.indexes.pointById.get(target.pointId);
+    if (!point) throw new Error(`阻碍引用了不存在的公用点“${target.pointId}”。`);
+    return { kind: 'shared-point', sharedPointId: point.id, gridX: point.gridX, gridY: point.gridY };
+  }
   return undefined;
 };
 
@@ -119,7 +125,10 @@ export const scanDungeonDocumentObstacles = (
   const controlled = new Set((document.components['agent-controller'] ?? []).map(row => row.entityId));
   return compileSpatialDefinitions(document).bodies.flatMap(body => {
     if (controlled.has(body.entityId)) return [];
-    const placement = documentObstaclePlacement(document,query,body.anchor);
+    if (body.anchor.kind === 'point' && !body.colliders.some(collider => collider.enabled !== false && collider.response === 'block')) {
+      return [];
+    }
+    const placement = documentObstaclePlacement(document, query, body.anchor);
     if (!placement) return [];
     return [{ entity: query.getEntitySnapshot(body.entityId)!, placement,
       component: { id:body.id,type:'movement-obstacle' as const,version:1,
@@ -198,7 +207,7 @@ export const findDungeonMovementObstaclesFromBindings = (
       return (placement.tileX === from.tileX && placement.tileY === from.tileY && placement.direction === direction)
         || (placement.tileX === to.tileX && placement.tileY === to.tileY && placement.direction === enteringDirection);
     }
-    return isSameEndpoint(placement.side, from, direction)
-      || isSameEndpoint(placement.side, to, enteringDirection);
+    return placement.kind === 'shared-edge' && (isSameEndpoint(placement.side, from, direction)
+      || isSameEndpoint(placement.side, to, enteringDirection));
   });
 };

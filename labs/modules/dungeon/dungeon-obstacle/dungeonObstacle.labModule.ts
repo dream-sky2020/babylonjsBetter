@@ -16,7 +16,15 @@ const placementLabel = (binding: DungeonObstacleData): string => {
   const placement = binding.placement;
   if (placement.kind === 'tile') return `格子 (${placement.tileX}, ${placement.tileY})`;
   if (placement.kind === 'tile-edge') return `独立边 (${placement.tileX}, ${placement.tileY}) ${placement.direction}`;
+  if (placement.kind === 'shared-point') return `公用点 (${placement.gridX}, ${placement.gridY})`;
   return `公用边 ${placement.sharedEdgeId}`;
+};
+
+const footprintLabels: Record<DungeonObstacleData['spatialFootprint'], string> = {
+  center: '中心占位',
+  'full-tile': '整格占位',
+  'edge-boundary': '边界阻挡',
+  point: '点碰撞',
 };
 
 export const dungeonObstacleLabModule: LabModule = {
@@ -75,6 +83,8 @@ export const dungeonObstacleLabModule: LabModule = {
         box.position.set(...layout.center);
         box.material = active ? activeMaterial : inactiveMaterial;
         box.parent = root; box.isPickable = false;
+        // 点标记需要盖在柱子等参考模型上，边界位置依然由俯视映射决定。
+        if (binding.placement.kind === 'shared-point') box.renderingGroupId = 3;
         box.enableEdgesRendering();
         box.edgesColor.set(active ? 1 : 0.45, active ? 0.25 : 0.55, active ? 0.18 : 0.62, active ? 1 : 0.5);
         box.edgesWidth = active ? 4 : 2;
@@ -106,9 +116,7 @@ export const dungeonObstacleLabModule: LabModule = {
           refresh();
         });
         const detail = document.createElement('small');
-        const footprint = binding.placement.kind === 'tile'
-          ? binding.spatialFootprint === 'full-tile'
-            ? '整格占位' : '中心占位' : '边界阻挡';
+        const footprint = footprintLabels[binding.spatialFootprint];
         detail.textContent = `${placementLabel(binding)} · ${footprint} · ${binding.entityId}`;
         label.append(text, checkbox); item.append(label, detail);
         return item;

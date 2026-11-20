@@ -18,6 +18,8 @@ export type CreateAtlasSpritePlaneOptions = {
   deformation?: VisualDeformationMetadata | false;
   /** 同一 atlas 路径共享 GPU 纹理（多部件推荐开启） */
   shareTexture?: boolean;
+  /** 像素图使用最近邻采样，不生成 mipmap。 */
+  pixelArt?: boolean;
   /** 世界单位 / 像素，用于按 sourceSize 自动换算尺寸 */
   worldUnitsPerPixel?: number;
   /** 顶点变形需要细分网格；普通图标保持 1 可避免额外顶点成本。 */
@@ -59,6 +61,7 @@ export const createAtlasSpritePlane = (
   options: CreateAtlasSpritePlaneOptions = {}
 ): IconPlaneController => {
   const shareTexture = options.shareTexture === true;
+  const pixelArt = options.pixelArt === true;
   const worldUnitsPerPixel = options.worldUnitsPerPixel;
   const plane = new Mesh('plane', scene);
   let subdivisions = applySubdividedPlaneGeometry(plane, options.subdivisions ?? 1);
@@ -67,8 +70,9 @@ export const createAtlasSpritePlane = (
   let displayScale = 1;
 
   const iconTexture = shareTexture
-    ? acquireSharedAtlasTexture(scene, texturePath)
-    : new Texture(resolveAppAssetUrl(texturePath), scene, false, true, Texture.TRILINEAR_SAMPLINGMODE);
+    ? acquireSharedAtlasTexture(scene, texturePath, pixelArt)
+    : new Texture(resolveAppAssetUrl(texturePath), scene, pixelArt, true,
+      pixelArt ? Texture.NEAREST_SAMPLINGMODE : Texture.TRILINEAR_SAMPLINGMODE);
 
   if (!shareTexture) {
     iconTexture.hasAlpha = true;
@@ -196,7 +200,7 @@ export const createAtlasSpritePlane = (
       surface.dispose();
       iconTexture.dispose();
       if (shareTexture) {
-        releaseSharedAtlasTexture(texturePath);
+        releaseSharedAtlasTexture(texturePath, pixelArt);
       }
       plane.dispose();
     }

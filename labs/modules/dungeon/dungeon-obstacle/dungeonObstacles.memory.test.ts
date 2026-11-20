@@ -48,3 +48,17 @@ test('narrow descriptors and layout parameters preserve tile, independent-edge a
   assert.equal(resolveDungeonObstacleDebugLayout(edge, settings, 4, 4).center[0], 10.64);
   assert.equal(resolveDungeonObstacleDebugLayout(shared, settings, 4, 4).center[0], 12);
 });
+
+test('public point descriptors put the debug marker on the grid intersection', () => {
+  const reader = new LabMemoryRegistry().scope('dungeon-obstacle').acquire(DUNGEON_OBSTACLES_MEMORY);
+  const source = binding({ kind: 'shared-point', sharedPointId: 'point:2,3', gridX: 2, gridY: 3 });
+  reader.replace(createDungeonObstaclesData(1, 'a', [source]));
+  const item = reader.require().items[0];
+  assert.equal(item.spatialFootprint, 'point');
+  assert.deepEqual(resolveDungeonObstacleDebugLayout(item, settings, 4, 4), {
+    center: [12, 3, 20],
+    size: [0.48, 2, 0.48],
+  });
+  const centered = { ...settings, mapAnchorMode: 'map-center' as const };
+  assert.deepEqual(resolveDungeonObstacleDebugLayout(item, centered, 4, 4).center, [0, 2, 8]);
+});

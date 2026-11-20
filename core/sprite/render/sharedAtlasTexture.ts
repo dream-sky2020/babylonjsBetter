@@ -11,19 +11,22 @@ const textureCache = new Map<string, CacheEntry>();
 const normalizeTexturePath = (texturePath: string): string =>
   texturePath.replace(/^\/+/, '').replace(/\\/g, '/');
 
+const cacheKey = (path: string, pixelArt: boolean): string => `${pixelArt}:${path}`;
+
 /**
  * 取得共享图集纹理的独立 clone（共享 GPU 资源，UV 参数互不影响）。
  */
-export const acquireSharedAtlasTexture = (scene: Scene, texturePath: string): Texture => {
-  const key = normalizeTexturePath(texturePath);
+export const acquireSharedAtlasTexture = (scene: Scene, texturePath: string, pixelArt = false): Texture => {
+  const path = normalizeTexturePath(texturePath);
+  const key = cacheKey(path, pixelArt);
   let entry = textureCache.get(key);
   if (!entry) {
     const master = new Texture(
-      resolveAppAssetUrl(key),
+      resolveAppAssetUrl(path),
       scene,
-      false,
+      pixelArt,
       true,
-      Texture.TRILINEAR_SAMPLINGMODE
+      pixelArt ? Texture.NEAREST_SAMPLINGMODE : Texture.TRILINEAR_SAMPLINGMODE
     );
     master.hasAlpha = true;
     master.wrapU = Texture.CLAMP_ADDRESSMODE;
@@ -43,8 +46,8 @@ export const acquireSharedAtlasTexture = (scene: Scene, texturePath: string): Te
 /**
  * 释放一次共享引用。clone 本身应由调用方 dispose。
  */
-export const releaseSharedAtlasTexture = (texturePath: string): void => {
-  const key = normalizeTexturePath(texturePath);
+export const releaseSharedAtlasTexture = (texturePath: string, pixelArt = false): void => {
+  const key = cacheKey(normalizeTexturePath(texturePath), pixelArt);
   const entry = textureCache.get(key);
   if (!entry) return;
   entry.refCount = Math.max(0, entry.refCount - 1);

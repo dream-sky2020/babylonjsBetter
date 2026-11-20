@@ -117,7 +117,7 @@
     "player-movement": {
       "bounds": true,
       "continuous-movement": true,
-      "debug-marker": true,
+      "debug-marker": false,
       "eight-way": true,
       "hold-multiplier": 0.8,
       "hold-offset": 0,
@@ -150,6 +150,13 @@
     },
     "system-keyboard-input": {
       "global-enabled": true
+    },
+    "message-bar": {
+      "ui-preset": "message_bar_default"
+    },
+    "player-appearance": {
+      "foot-offset-x": 0,
+      "foot-offset-z": 10
     }
   }
 }

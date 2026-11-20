@@ -1,0 +1,112 @@
+{
+  "format": "lab-config",
+  "version": 1,
+  "labId": "dungeon-art-tuning-lab",
+  "modules": {
+    "dungeon-config": {
+      "preset": "dungeon_art_tuning"
+    },
+    "dungeon-grid-debug": {
+      "display-mode": "flat",
+      "all-tiles": true,
+      "inspect-x": 8,
+      "inspect-y": 6
+    },
+    "dungeon-obstacle": {
+      "debug-boxes": true
+    },
+    "dungeon-overhead-view": {
+      "orthographicSize": 37.96875,
+      "enabled": true,
+      "restore-in-first-person": false,
+      "pitchDeg": 45,
+      "yawDeg": 0,
+      "projection": "orthographic",
+      "proportion": "compensate",
+      "screenAspect": 1,
+      "scaleX": 1,
+      "scaleZ": 1
+    },
+    "dungeon-player-camera": {
+      "enabled": true,
+      "mode": "overhead",
+      "keyboard-enabled": true,
+      "keyboard-priority": 90,
+      "keyboard-intercept": true,
+      "keyboard-prevent-default": true,
+      "eye-height": 1.65,
+      "pitch": 0,
+      "free-look": true,
+      "horizontal-limit": 60,
+      "look-up-limit": 60,
+      "look-down-limit": 45,
+      "sensitivity": 1,
+      "look-response": 18,
+      "auto-recenter": true,
+      "recenter-duration": 0.3,
+      "projection": "perspective",
+      "orthographic-size": null,
+      "overhead-distance": 240,
+      "overhead-pitch": 55,
+      "overhead-yaw": 0,
+      "overhead-target-height": 0.8,
+      "overhead-response": 50,
+      "follow-area-enabled": false,
+      "follow-area-width": 8,
+      "follow-area-depth": 8,
+      "follow-area-debug": false
+    },
+    "player-appearance": {
+      "world-height": 5.625,
+      "foot-offset-x": 0,
+      "foot-offset-z": 10
+    },
+    "player-movement": {
+      "debug-marker": false,
+      "bounds": true,
+      "obstacles": true,
+      "teleport": false,
+      "keyboard-enabled": true,
+      "continuous-movement": true,
+      "eight-way": true,
+      "hold-multiplier": 0.8,
+      "hold-offset": 0,
+      "keyboard-priority": 75,
+      "keyboard-intercept": true,
+      "keyboard-prevent-default": true,
+      "movement-timing-mode": "world-units-per-second",
+      "movement-timing-values": {
+        "world-units-per-second": "60",
+        "seconds-per-tile": "1"
+      },
+      "swap-duration": 0,
+      "swap-ignore-presentation": false,
+      "turn-timing-mode": "radians-per-second",
+      "turn-timing-values": {
+        "radians-per-second": "360",
+        "seconds-per-turn": ".25"
+      }
+    },
+    "system-keyboard-input": {
+      "global-enabled": true
+    },
+    "system-camera": {
+      "floating-panel": false,
+      "pointer-input": true,
+      "keyboard-input": false,
+      "priority": 50,
+      "intercept": true,
+      "prevent-default": true
+    },
+    "dungeon-traversal": {
+      "debug": true,
+      "direction": "north"
+    },
+    "dungeon-movement": {
+      "debug": true,
+      "commitProgress": 0.5,
+      "playerBasePriority": 1000,
+      "progressWeight": 1
+    }
+  }
+}

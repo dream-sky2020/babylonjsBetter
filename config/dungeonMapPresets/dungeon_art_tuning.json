@@ -1,0 +1,860 @@
+{
+  "schemaVersion": 3,
+  "identity": {
+    "id": "dungeon-map:dungeon_art_tuning",
+    "presetKey": "dungeon_art_tuning",
+    "name": "美术调试场"
+  },
+  "grid": {
+    "width": 17,
+    "height": 13,
+    "topologyMode": "bounded"
+  },
+  "terrain": {
+    "default": {
+      "walkable": true
+    }
+  },
+  "entities": [
+    {
+      "id": "environment",
+      "entityType": "map",
+      "name": "美术调试场",
+      "enabled": true
+    },
+    {
+      "id": "spawn",
+      "entityType": "spawn-point",
+      "name": "玩家出生点",
+      "enabled": true
+    },
+    {
+      "id": "overhead",
+      "entityType": "dungeon-overhead-view",
+      "name": "俯视显示配置",
+      "enabled": true
+    },
+    {
+      "id": "art-tile-center",
+      "entityType": "obstacle",
+      "name": "格内 · 中心圆柱",
+      "enabled": true
+    },
+    {
+      "id": "art-tile-full",
+      "entityType": "obstacle",
+      "name": "格内 · 整格方块",
+      "enabled": true
+    },
+    {
+      "id": "art-side-north",
+      "entityType": "obstacle",
+      "name": "独立边 · 北",
+      "enabled": true
+    },
+    {
+      "id": "art-side-east",
+      "entityType": "obstacle",
+      "name": "独立边 · 东",
+      "enabled": true
+    },
+    {
+      "id": "art-side-south",
+      "entityType": "obstacle",
+      "name": "独立边 · 南",
+      "enabled": true
+    },
+    {
+      "id": "art-side-west",
+      "entityType": "obstacle",
+      "name": "独立边 · 西",
+      "enabled": true
+    },
+    {
+      "id": "art-edge-east-west",
+      "entityType": "obstacle",
+      "name": "公用边 · 东西相邻",
+      "enabled": true
+    },
+    {
+      "id": "art-edge-north-south",
+      "entityType": "obstacle",
+      "name": "公用边 · 南北相邻",
+      "enabled": true
+    },
+    {
+      "id": "art-boundary-north",
+      "entityType": "obstacle",
+      "name": "外缘公用边 · 北",
+      "enabled": true
+    },
+    {
+      "id": "art-boundary-east",
+      "entityType": "obstacle",
+      "name": "外缘公用边 · 东",
+      "enabled": true
+    },
+    {
+      "id": "art-boundary-south",
+      "entityType": "obstacle",
+      "name": "外缘公用边 · 南",
+      "enabled": true
+    },
+    {
+      "id": "art-boundary-west",
+      "entityType": "obstacle",
+      "name": "外缘公用边 · 西",
+      "enabled": true
+    },
+    {
+      "id": "art-shared-point",
+      "entityType": "spatial-object",
+      "name": "公用点 · 四格交点",
+      "enabled": true
+    },
+    {
+      "id": "art-enclosure-north",
+      "entityType": "obstacle",
+      "name": "单格围栏 · 北",
+      "enabled": true
+    },
+    {
+      "id": "art-enclosure-east",
+      "entityType": "obstacle",
+      "name": "单格围栏 · 东",
+      "enabled": true
+    },
+    {
+      "id": "art-enclosure-south",
+      "entityType": "obstacle",
+      "name": "单格围栏 · 南",
+      "enabled": true
+    },
+    {
+      "id": "art-enclosure-west",
+      "entityType": "obstacle",
+      "name": "单格围栏 · 西",
+      "enabled": true
+    }
+  ],
+  "components": {
+    "spatial-attachment": [
+      {
+        "id": "environment:spatial-attachment",
+        "entityId": "environment",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "map"
+          }
+        ]
+      },
+      {
+        "id": "spawn:spatial-attachment",
+        "entityId": "spawn",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:8,6"
+          }
+        ]
+      },
+      {
+        "id": "overhead:spatial-attachment",
+        "entityId": "overhead",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "map"
+          }
+        ]
+      },
+      {
+        "id": "art-tile-center:spatial-attachment",
+        "entityId": "art-tile-center",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:6,4"
+          }
+        ]
+      },
+      {
+        "id": "art-tile-full:spatial-attachment",
+        "entityId": "art-tile-full",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:10,4"
+          }
+        ]
+      },
+      {
+        "id": "art-side-north:spatial-attachment",
+        "entityId": "art-side-north",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "side",
+            "sideId": "tile:5,6:north"
+          }
+        ]
+      },
+      {
+        "id": "art-side-east:spatial-attachment",
+        "entityId": "art-side-east",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "side",
+            "sideId": "tile:6,7:east"
+          }
+        ]
+      },
+      {
+        "id": "art-side-south:spatial-attachment",
+        "entityId": "art-side-south",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "side",
+            "sideId": "tile:8,8:south"
+          }
+        ]
+      },
+      {
+        "id": "art-side-west:spatial-attachment",
+        "entityId": "art-side-west",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "side",
+            "sideId": "tile:10,7:west"
+          }
+        ]
+      },
+      {
+        "id": "art-edge-east-west:spatial-attachment",
+        "entityId": "art-edge-east-west",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared:9,5:east"
+          }
+        ]
+      },
+      {
+        "id": "art-edge-north-south:spatial-attachment",
+        "entityId": "art-edge-north-south",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared:8,4:south"
+          }
+        ]
+      },
+      {
+        "id": "art-boundary-north:spatial-attachment",
+        "entityId": "art-boundary-north",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared-boundary:8,0:north"
+          }
+        ]
+      },
+      {
+        "id": "art-boundary-east:spatial-attachment",
+        "entityId": "art-boundary-east",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared-boundary:16,6:east"
+          }
+        ]
+      },
+      {
+        "id": "art-boundary-south:spatial-attachment",
+        "entityId": "art-boundary-south",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared-boundary:8,12:south"
+          }
+        ]
+      },
+      {
+        "id": "art-boundary-west:spatial-attachment",
+        "entityId": "art-boundary-west",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared-boundary:0,6:west"
+          }
+        ]
+      },
+      {
+        "id": "art-shared-point:spatial-attachment",
+        "entityId": "art-shared-point",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "point",
+            "pointId": "point:11,9"
+          }
+        ]
+      },
+      {
+        "id": "art-enclosure-north:spatial-attachment",
+        "entityId": "art-enclosure-north",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared:7,7:south"
+          }
+        ]
+      },
+      {
+        "id": "art-enclosure-east:spatial-attachment",
+        "entityId": "art-enclosure-east",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared:7,8:east"
+          }
+        ]
+      },
+      {
+        "id": "art-enclosure-south:spatial-attachment",
+        "entityId": "art-enclosure-south",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared:7,8:south"
+          }
+        ]
+      },
+      {
+        "id": "art-enclosure-west:spatial-attachment",
+        "entityId": "art-enclosure-west",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "edge",
+            "edgeId": "shared:6,8:east"
+          }
+        ]
+      }
+    ],
+    "scene-environment": [
+      {
+        "id": "environment:scene-environment",
+        "entityId": "environment",
+        "type": "scene-environment",
+        "version": 3,
+        "presetKey": "dungeon-art-tuning-ground",
+        "mapAnchorMode": "map-center",
+        "mapOffset": [
+          0,
+          0,
+          0
+        ],
+        "tileSpacing": [
+          9,
+          9
+        ],
+        "tileSize": [
+          8.4375,
+          0.5,
+          8.4375
+        ]
+      }
+    ],
+    "actor-spawn": [
+      {
+        "id": "spawn:actor-spawn",
+        "entityId": "spawn",
+        "type": "actor-spawn",
+        "version": 1
+      }
+    ],
+    "dungeon-overhead-view": [
+      {
+        "id": "overhead:camera",
+        "entityId": "overhead",
+        "type": "dungeon-overhead-view",
+        "version": 1,
+        "pitchDeg": 45,
+        "yawDeg": 0,
+        "projection": "orthographic",
+        "orthographicSize": 37.96875,
+        "proportion": "compensate",
+        "screenAspect": 1,
+        "scaleX": 1,
+        "scaleZ": 1,
+        "restoreDisplayInFirstPerson": false
+      }
+    ],
+    "spatial-body": [
+      {
+        "id": "art-tile-center:spatial-body",
+        "entityId": "art-tile-center",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "south",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-tile-full:spatial-body",
+        "entityId": "art-tile-full",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "south",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-side-north:spatial-body",
+        "entityId": "art-side-north",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-side-east:spatial-body",
+        "entityId": "art-side-east",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "east",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-side-south:spatial-body",
+        "entityId": "art-side-south",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "south",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-side-west:spatial-body",
+        "entityId": "art-side-west",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "west",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-edge-east-west:spatial-body",
+        "entityId": "art-edge-east-west",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "east",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-edge-north-south:spatial-body",
+        "entityId": "art-edge-north-south",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "south",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-boundary-north:spatial-body",
+        "entityId": "art-boundary-north",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-boundary-east:spatial-body",
+        "entityId": "art-boundary-east",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "east",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-boundary-south:spatial-body",
+        "entityId": "art-boundary-south",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "south",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-boundary-west:spatial-body",
+        "entityId": "art-boundary-west",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "west",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-shared-point:spatial-body",
+        "entityId": "art-shared-point",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "south",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-enclosure-north:spatial-body",
+        "entityId": "art-enclosure-north",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-enclosure-east:spatial-body",
+        "entityId": "art-enclosure-east",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "east",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-enclosure-south:spatial-body",
+        "entityId": "art-enclosure-south",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "south",
+        "movementProfileId": "ground"
+      },
+      {
+        "id": "art-enclosure-west:spatial-body",
+        "entityId": "art-enclosure-west",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "west",
+        "movementProfileId": "ground"
+      }
+    ],
+    "spatial-collider": [
+      {
+        "id": "art-tile-center:spatial-collider",
+        "entityId": "art-tile-center",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "disc",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-tile-full:spatial-collider",
+        "entityId": "art-tile-full",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "box",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-side-north:spatial-collider",
+        "entityId": "art-side-north",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-side-east:spatial-collider",
+        "entityId": "art-side-east",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-side-south:spatial-collider",
+        "entityId": "art-side-south",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-side-west:spatial-collider",
+        "entityId": "art-side-west",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-edge-east-west:spatial-collider",
+        "entityId": "art-edge-east-west",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-edge-north-south:spatial-collider",
+        "entityId": "art-edge-north-south",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-boundary-north:spatial-collider",
+        "entityId": "art-boundary-north",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-boundary-east:spatial-collider",
+        "entityId": "art-boundary-east",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-boundary-south:spatial-collider",
+        "entityId": "art-boundary-south",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-boundary-west:spatial-collider",
+        "entityId": "art-boundary-west",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-shared-point:spatial-collider",
+        "entityId": "art-shared-point",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "center",
+        "shape": "point",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-enclosure-north:spatial-collider",
+        "entityId": "art-enclosure-north",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-enclosure-east:spatial-collider",
+        "entityId": "art-enclosure-east",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-enclosure-south:spatial-collider",
+        "entityId": "art-enclosure-south",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "art-enclosure-west:spatial-collider",
+        "entityId": "art-enclosure-west",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "boundary",
+        "radius": 0.25,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      }
+    ]
+  }
+}

@@ -16,6 +16,8 @@ export class DungeonObstacleIndex {
     this.states = states;
     obstacles.forEach((binding, order) => {
       const placement = binding.placement;
+      // 公用点的碰撞由空间扫掠按连续位置查找。
+      if (placement.kind === 'shared-point') return;
       const table = placement.kind === 'tile' ? this.tiles : this.sides;
       const key = placement.kind === 'shared-edge' ? sideKey(placement.side.x, placement.side.y, placement.side.direction)
         : placement.kind === 'tile-edge' ? sideKey(placement.tileX, placement.tileY, placement.direction) : tileKey(placement.tileX, placement.tileY);
