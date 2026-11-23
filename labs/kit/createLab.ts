@@ -137,6 +137,13 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   home.href = '../../../index.html';
   home.textContent = '返回工具入口';
   workbench.header.insertBefore(home, workbench.header.querySelector('[data-lab-toggle="objects"]'));
+  const screenshot = document.createElement('button');
+  screenshot.type = 'button';
+  screenshot.textContent = '截图';
+  screenshot.title = '下载当前游戏画布的 PNG';
+  screenshot.dataset.labScreenshot = '';
+  screenshot.disabled = true;
+  home.after(screenshot);
 
   const engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
   const frameClock = new LabFrameClock();
@@ -382,6 +389,35 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     } else {
       labStatePanel.directoryControls.style.display = 'none';
     }
+    let renderedWidth = 0;
+    let renderedHeight = 0;
+    screenshot.onclick = () => {
+      if (viewport.isBabylonRenderingPaused || !canvas.width || !canvas.height
+        || canvas.width !== renderedWidth || canvas.height !== renderedHeight) {
+        ui.setStatus('当前没有可截图的游戏画面。', true);
+        return;
+      }
+      const labName = options.labId ?? (options.title.replace(/[<>:"/\\|?*]/g, '-').trim() || 'lab');
+      const filename = `${labName}-${canvas.width}x${canvas.height}-${new Date().toISOString().replaceAll(':', '-')}.png`;
+      screenshot.disabled = true;
+      const finish = (blob: Blob | null) => {
+        if (!screenshot.onclick) return;
+        screenshot.disabled = false;
+        if (!blob) {
+          ui.setStatus('无法生成游戏画布截图。', true);
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        ui.setStatus('已开始下载游戏画布截图。');
+      };
+      try { canvas.toBlob(finish, 'image/png'); }
+      catch { finish(null); }
+    };
     engine.runRenderLoop(() => {
       const deltaSeconds = frameClock.next(engine.getDeltaTime() / 1000, document.hidden);
       if (deltaSeconds === null) return;
@@ -397,6 +433,9 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
         if (!viewport.isBabylonRenderingPaused) {
           performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('presentation', deltaSeconds));
           performanceStats.measure('lab:host/render', 'host', () => scene.render());
+          if (!renderedWidth) screenshot.disabled = false;
+          renderedWidth = canvas.width;
+          renderedHeight = canvas.height;
         }
         performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('debug', deltaSeconds));
       } catch (error) {
@@ -412,6 +451,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     });
     context.ui.setStatus(`已组合 ${executionPlan.entries.length} 个 Lab 模块。`);
   } catch (error) {
+    screenshot.onclick = null;
+    screenshot.disabled = true;
     disposeConfigToolbar(); ui.disposeConfig();
     disposeFrameClock();
     disposeObjectTree();
@@ -458,6 +499,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     dispose() {
       if (disposed) return;
       disposed = true;
+      screenshot.onclick = null;
+      screenshot.disabled = true;
       disposeConfigToolbar(); ui.disposeConfig();
       disposeFrameClock();
       disposeObjectTree();

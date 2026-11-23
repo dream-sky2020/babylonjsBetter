@@ -25,18 +25,33 @@
   "objects": [
     {
       "id": "floor",
-      "name": "测试地面",
+      "name": "测试地面（原色）",
       "geometry": {
         "primitive": "ground",
-        "width": 128,
+        "width": 64,
         "height": 80
       },
       "position": [
-        60,
+        28,
         0,
         36
       ],
       "color": "#314b54"
+    },
+    {
+      "id": "floor-ivory",
+      "name": "测试地面（米白）",
+      "geometry": {
+        "primitive": "ground",
+        "width": 64,
+        "height": 80
+      },
+      "position": [
+        92,
+        0,
+        36
+      ],
+      "color": "#eee5d2"
     }
   ]
 }

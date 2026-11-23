@@ -1,6 +1,7 @@
 import { TransformNode } from '@babylonjs/core';
 import { getDungeonMovementDirectionVector } from '@/core/dungeon-movement/dungeonMovement.direction';
 import { mapDungeonDisplayPosition } from '@/core/dungeon-view/dungeonOverheadView';
+import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane';
 import type { SpriteFrameRegion } from '@/core/sprite/types/sprite.types';
 import type { LabModule } from '@/labs/kit';
@@ -29,9 +30,23 @@ const frames = {
 };
 
 const moduleId = 'player-appearance';
+const atlasPath = 'resources/神彩怒放主角.png';
+const defaultSampling = 'trilinear';
+const prescaleFactors = {
+  'prescaled-2x': 2,
+  'prescaled-4x': 4,
+  'prescaled-8x': 8,
+  'prescaled-16x': 16,
+} as const;
+type TextureSampling = typeof defaultSampling | keyof typeof prescaleFactors;
 const maxOffsetPercent = 50;
 const centeredOffsets = { 'foot-offset-x': 0, 'foot-offset-z': 0 };
-type PlayerAppearanceConfig = typeof centeredOffsets & { 'world-height': number | null };
+type PlayerAppearanceConfig = typeof centeredOffsets & {
+  'world-height': number | null;
+  'texture-sampling': TextureSampling;
+};
+const isTextureSampling = (value: unknown): value is TextureSampling =>
+  value === defaultSampling || (typeof value === 'string' && Object.hasOwn(prescaleFactors, value));
 const offsetField = {
   defaultValue: 0,
   valid: (value: unknown) => typeof value === 'number' && Number.isFinite(value) && Math.abs(value) <= maxOffsetPercent,
@@ -46,16 +61,35 @@ export const playerAppearanceLabModule: LabModule = {
   dependencies: ['dungeon-map-loader', 'dungeon-overhead-view', 'dungeon-player-camera'],
   setup(context) {
     const config = context.config;
-    const appearance = config ? config.register(moduleId, {
+    const appearance: PlayerAppearanceConfig = config ? config.register(moduleId, {
       'foot-offset-x': offsetField,
       'foot-offset-z': offsetField,
+      'texture-sampling': {
+        defaultValue: defaultSampling,
+        valid: isTextureSampling,
+      },
       'world-height': {
         defaultValue: null,
         valid: value => value === null || (typeof value === 'number' && Number.isFinite(value) && value > 0),
       },
-    }) as PlayerAppearanceConfig : { ...centeredOffsets, 'world-height': null };
+    }) as PlayerAppearanceConfig : { ...centeredOffsets, 'world-height': null, 'texture-sampling': defaultSampling };
 
     const panel = context.ui.addPanel(moduleId, '玩家外观');
+    const samplingRow = document.createElement('label');
+    samplingRow.className = 'lab-field';
+    samplingRow.textContent = '贴图采样';
+    const sampling = document.createElement('select');
+    sampling.dataset.labSetting = 'texture-sampling';
+    sampling.append(
+      new Option('默认三线性', defaultSampling),
+      ...Object.entries(prescaleFactors).map(([value, factor]) => new Option(`最近邻预放大 ${factor}× + 三线性`, value)),
+    );
+    sampling.value = appearance['texture-sampling'];
+    samplingRow.append(sampling);
+    const samplingStatus = createLabStatus('');
+    samplingStatus.setAttribute('role', 'status');
+    samplingStatus.hidden = true;
+    panel.content.append(samplingRow, samplingStatus);
     const readout = createLabStatus('');
     const reset = document.createElement('button');
     reset.type = 'button';
@@ -138,19 +172,88 @@ export const playerAppearanceLabModule: LabModule = {
     root.billboardMode = TransformNode.BILLBOARDMODE_ALL;
     root.setEnabled(false);
 
-    const sprite = createAtlasSpritePlane(context.scene, 'resources/神彩怒放主角.png', 1, {
-      pixelArt: true,
-      deformation: false,
-    });
-    sprite.mesh.name = 'dungeon-player-sprite';
-    sprite.mesh.parent = root;
-    sprite.mesh.isPickable = false;
-    sprite.setFrameRegion(frames.front);
-
+    function createSprite(path: string, name: string) {
+      const sprite = createAtlasSpritePlane(context.scene, path, 1, { deformation: false });
+      sprite.mesh.name = name;
+      sprite.mesh.parent = root;
+      sprite.mesh.isPickable = false;
+      sprite.setFrameRegion(frames.front);
+      return sprite;
+    }
+    const defaultSprite = createSprite(atlasPath, 'dungeon-player-sprite');
+    let prescaledSprite: ReturnType<typeof createSprite> | undefined;
+    let sourceImage: HTMLImageElement | undefined;
+    let displayedSprite = defaultSprite;
     let displayedHeight: number | undefined;
+
+    function showSprite(sprite: ReturnType<typeof createSprite>) {
+      if (sprite === displayedSprite) return;
+      displayedSprite.mesh.setEnabled(false);
+      sprite.mesh.setEnabled(true);
+      displayedSprite = sprite;
+      displayedHeight = undefined;
+    }
+
+    function releasePrescale() {
+      if (sourceImage) {
+        sourceImage.onload = null;
+        sourceImage.onerror = null;
+        sourceImage = undefined;
+      }
+      prescaledSprite?.dispose?.();
+      prescaledSprite = undefined;
+    }
+
+    function loadPrescaledSprite(factor: number) {
+      const image = new Image();
+      sourceImage = image;
+      const showError = () => {
+        sourceImage = undefined;
+        samplingStatus.textContent = '预放大贴图加载失败，当前使用默认三线性。';
+        samplingStatus.hidden = false;
+      };
+      image.onerror = showError;
+      image.onload = () => {
+        sourceImage = undefined;
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = image.naturalWidth * factor;
+          canvas.height = image.naturalHeight * factor;
+          const drawing = canvas.getContext('2d');
+          if (!drawing) {
+            showError();
+            return;
+          }
+          drawing.imageSmoothingEnabled = false;
+          drawing.drawImage(image, 0, 0, canvas.width, canvas.height);
+          // 整张图集等比放大，方向帧的 UV 比例与面片尺寸沿用原值。
+          prescaledSprite = createSprite(canvas.toDataURL('image/png'), 'dungeon-player-sprite-prescaled');
+          prescaledSprite.mesh.setEnabled(false);
+        } catch {
+          showError();
+        }
+      };
+      image.src = resolveAppAssetUrl(atlasPath);
+    }
+
+    sampling.addEventListener('change', () => {
+      const value = sampling.value;
+      if (!isTextureSampling(value)) return;
+      if (config) config.update(moduleId, { 'texture-sampling': value });
+      else appearance['texture-sampling'] = value;
+      samplingStatus.hidden = true;
+      showSprite(defaultSprite);
+      releasePrescale();
+      if (value !== defaultSampling) loadPrescaledSprite(prescaleFactors[value]);
+    });
+    const initialSampling = appearance['texture-sampling'];
+    if (initialSampling !== defaultSampling) loadPrescaledSprite(prescaleFactors[initialSampling]);
+
     const stop = context.scheduler.register({
       id: 'sync-sprite', phase: 'presentation', order: 110, description: '同步玩家精灵的位置与朝向',
       run() {
+        const sprite = prescaledSprite?.texture.isReady() ? prescaledSprite : defaultSprite;
+        showSprite(sprite);
         const player = playerMemory.current;
         const spawn = spawnMemory.current;
         const camera = context.scene.activeCamera;
@@ -191,7 +294,8 @@ export const playerAppearanceLabModule: LabModule = {
 
     return () => {
       stop();
-      sprite.dispose?.();
+      releasePrescale();
+      defaultSprite.dispose?.();
       root.dispose();
     };
   },
