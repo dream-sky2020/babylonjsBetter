@@ -8,7 +8,7 @@
     },
     "dungeon-grid-debug": {
       "display-mode": "flat",
-      "all-tiles": true,
+      "all-tiles": false,
       "inspect-x": 8,
       "inspect-y": 6
     },
@@ -50,7 +50,7 @@
       "overhead-pitch": 55,
       "overhead-yaw": 0,
       "overhead-target-height": 0.8,
-      "overhead-response": 50,
+      "overhead-response": 0,
       "follow-area-enabled": false,
       "follow-area-width": 8,
       "follow-area-depth": 8,
@@ -59,7 +59,11 @@
     "player-appearance": {
       "world-height": 5.625,
       "foot-offset-x": 0,
-      "foot-offset-z": 10
+      "foot-offset-z": 10,
+      "texture-sampling": "prescaled-2x",
+      "debug-directions": true,
+      "debug-compare-atlases": true,
+      "comparison-layout": "crosses"
     },
     "player-movement": {
       "debug-marker": false,

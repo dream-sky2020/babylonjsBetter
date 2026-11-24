@@ -21,19 +21,244 @@
   ],
   "objects": [
     {
-      "id": "floor",
-      "name": "连续地面",
+      "id": "floor-1-1",
+      "name": "地板 · 米白",
       "geometry": {
         "primitive": "ground",
-        "width": 153,
-        "height": 117
+        "width": 54,
+        "height": 54
       },
       "position": [
-        0,
+        -81,
         0.25,
-        0
+        -81
+      ],
+      "color": "#EEE5D2"
+    },
+    {
+      "id": "floor-1-2",
+      "name": "地板 · 暖灰",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        -27,
+        0.25,
+        -81
+      ],
+      "color": "#B9AFA3"
+    },
+    {
+      "id": "floor-1-3",
+      "name": "地板 · 冷白",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        27,
+        0.25,
+        -81
+      ],
+      "color": "#E2E9EA"
+    },
+    {
+      "id": "floor-1-4",
+      "name": "地板 · 炭灰",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        81,
+        0.25,
+        -81
+      ],
+      "color": "#333A43"
+    },
+    {
+      "id": "floor-2-1",
+      "name": "地板 · 灰蓝",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        -81,
+        0.25,
+        -27
+      ],
+      "color": "#7695AE"
+    },
+    {
+      "id": "floor-2-2",
+      "name": "地板 · 砂岩",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        -27,
+        0.25,
+        -27
+      ],
+      "color": "#D8BE9A"
+    },
+    {
+      "id": "floor-2-3",
+      "name": "地板 · 浅苔绿",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        27,
+        0.25,
+        -27
+      ],
+      "color": "#B2BF9C"
+    },
+    {
+      "id": "floor-2-4",
+      "name": "地板 · 鼠尾草绿",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        81,
+        0.25,
+        -27
+      ],
+      "color": "#849878"
+    },
+    {
+      "id": "floor-3-1",
+      "name": "地板 · 赭黄",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        -81,
+        0.25,
+        27
+      ],
+      "color": "#C9A466"
+    },
+    {
+      "id": "floor-3-2",
+      "name": "地板 · 陶土红",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        -27,
+        0.25,
+        27
+      ],
+      "color": "#A86F62"
+    },
+    {
+      "id": "floor",
+      "name": "地板 · 原色",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        27,
+        0.25,
+        27
       ],
       "color": "#657177"
+    },
+    {
+      "id": "floor-3-4",
+      "name": "地板 · 灰紫",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        81,
+        0.25,
+        27
+      ],
+      "color": "#9386A5"
+    },
+    {
+      "id": "floor-4-1",
+      "name": "地板 · 深蓝",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        -81,
+        0.25,
+        81
+      ],
+      "color": "#425D7C"
+    },
+    {
+      "id": "floor-4-2",
+      "name": "地板 · 深松绿",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        -27,
+        0.25,
+        81
+      ],
+      "color": "#395C50"
+    },
+    {
+      "id": "floor-4-3",
+      "name": "地板 · 灰粉",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        27,
+        0.25,
+        81
+      ],
+      "color": "#CC9EA4"
+    },
+    {
+      "id": "floor-4-4",
+      "name": "地板 · 深褐",
+      "geometry": {
+        "primitive": "ground",
+        "width": 54,
+        "height": 54
+      },
+      "position": [
+        81,
+        0.25,
+        81
+      ],
+      "color": "#594641"
     },
     {
       "id": "art-tile-center",
@@ -46,9 +271,9 @@
         "tessellation": 16
       },
       "position": [
-        -18,
+        -13.5,
         1.875,
-        -18
+        -13.5
       ],
       "color": "#be8657"
     },
@@ -62,9 +287,9 @@
         "depth": 8.4375
       },
       "position": [
-        18,
+        22.5,
         1.5,
-        -18
+        -13.5
       ],
       "color": "#946a4d"
     },
@@ -78,9 +303,9 @@
         "depth": 1
       },
       "position": [
-        -27,
+        -22.5,
         1.625,
-        -3.71875
+        0.78125
       ],
       "color": "#56a5be"
     },
@@ -94,9 +319,9 @@
         "depth": 6
       },
       "position": [
-        -14.28125,
+        -9.78125,
         1.625,
-        9
+        13.5
       ],
       "color": "#56a5be"
     },
@@ -110,9 +335,9 @@
         "depth": 1
       },
       "position": [
-        0,
+        4.5,
         1.625,
-        21.71875
+        26.21875
       ],
       "color": "#56a5be"
     },
@@ -126,9 +351,9 @@
         "depth": 6
       },
       "position": [
-        14.28125,
+        18.78125,
         1.625,
-        9
+        13.5
       ],
       "color": "#56a5be"
     },
@@ -142,9 +367,9 @@
         "depth": 8.4375
       },
       "position": [
-        13.5,
+        18.0,
         1.625,
-        -9
+        -4.5
       ],
       "color": "#d6a66e"
     },
@@ -158,9 +383,9 @@
         "depth": 0.5
       },
       "position": [
-        0,
+        4.5,
         1.625,
-        -13.5
+        -9.0
       ],
       "color": "#d6a66e"
     },
@@ -174,9 +399,9 @@
         "depth": 0.5
       },
       "position": [
-        0,
+        4.5,
         1.625,
-        -58.5
+        -108
       ],
       "color": "#d6a66e"
     },
@@ -190,9 +415,9 @@
         "depth": 8.4375
       },
       "position": [
-        76.5,
+        108,
         1.625,
-        0
+        4.5
       ],
       "color": "#d6a66e"
     },
@@ -206,9 +431,9 @@
         "depth": 0.5
       },
       "position": [
-        0,
+        4.5,
         1.625,
-        58.5
+        108
       ],
       "color": "#d6a66e"
     },
@@ -222,9 +447,9 @@
         "depth": 8.4375
       },
       "position": [
-        -76.5,
+        -108,
         1.625,
-        0
+        4.5
       ],
       "color": "#d6a66e"
     },
@@ -239,9 +464,9 @@
         "tessellation": 12
       },
       "position": [
-        22.5,
+        27.0,
         1.75,
-        22.5
+        27.0
       ],
       "color": "#a290d3"
     },
@@ -255,9 +480,9 @@
         "depth": 0.5
       },
       "position": [
-        -9,
+        -4.5,
         1.625,
-        13.5
+        18.0
       ],
       "color": "#d6a66e"
     },
@@ -271,9 +496,9 @@
         "depth": 12.227922061357857
       },
       "position": [
-        -4.5,
+        0.0,
         1.625,
-        18
+        22.5
       ],
       "color": "#d6a66e"
     },
@@ -287,9 +512,9 @@
         "depth": 0.5
       },
       "position": [
-        -9,
+        -4.5,
         1.625,
-        22.5
+        27.0
       ],
       "color": "#d6a66e"
     },
@@ -303,9 +528,9 @@
         "depth": 12.227922061357857
       },
       "position": [
-        -13.5,
+        -9.0,
         1.625,
-        18
+        22.5
       ],
       "color": "#d6a66e"
     }

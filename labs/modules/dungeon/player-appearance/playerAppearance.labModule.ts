@@ -1,11 +1,11 @@
-import { TransformNode } from '@babylonjs/core';
+import { Constants, TransformNode } from '@babylonjs/core';
 import { getDungeonMovementDirectionVector } from '@/core/dungeon-movement/dungeonMovement.direction';
 import { mapDungeonDisplayPosition } from '@/core/dungeon-view/dungeonOverheadView';
 import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane';
 import type { SpriteFrameRegion } from '@/core/sprite/types/sprite.types';
 import type { LabModule } from '@/labs/kit';
-import { createLabStatus } from '@/labs/kit/labUi';
+import { createLabStatus, createLabSwitch } from '@/labs/kit/labUi';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import { DUNGEON_PLAYER_CAMERA_SERVICE_KEY, type DungeonPlayerCameraService } from '../dungeon-player-camera/dungeonPlayerCamera.references';
 import { DUNGEON_PLAYER_STATE_MEMORY } from '../dungeon-runtime/dungeonRuntime.memory';
@@ -17,20 +17,32 @@ const frame = (frameName: string, x: number, y: number): SpriteFrameRegion => ({
   frame: { x, y, ...frameSize },
   spriteSourceSize: { x: 0, y: 0, ...frameSize },
   sourceSize: frameSize,
-  atlasSize: { w: 62, h: 82 },
+  atlasSize: { w: 62, h: 83 },
   rotated: false,
   trimmed: false,
 });
 
 const frames = {
-  back: frame('back', 0, 0),
-  right: frame('right', 32, 0),
-  front: frame('front', 0, 42),
-  left: frame('left', 32, 42),
+  back: frame('back', 0, 1),
+  right: frame('right', 32, 1),
+  front: frame('front', 0, 43),
+  left: frame('left', 32, 43),
 };
+const directionPreviews = [
+  { region: frames.back, x: 0, y: 1 },
+  { region: frames.front, x: 0, y: -1 },
+  { region: frames.left, x: -1, y: 0 },
+  { region: frames.right, x: 1, y: 0 },
+];
 
 const moduleId = 'player-appearance';
 const atlasPath = 'resources/神彩怒放主角.png';
+const additionalAtlasPaths = ['resources/神彩怒放主角2.png', 'resources/神彩怒放主角3.png'];
+const comparisonAtlasPaths = [atlasPath, ...additionalAtlasPaths];
+const comparisonFrames = [frames.front, frames.back, frames.left, frames.right];
+type ComparisonLayout = 'rows' | 'left-rows' | 'crosses';
+const isComparisonLayout = (value: unknown): value is ComparisonLayout =>
+  value === 'rows' || value === 'left-rows' || value === 'crosses';
 const defaultSampling = 'trilinear';
 const prescaleFactors = {
   'prescaled-2x': 2,
@@ -44,6 +56,9 @@ const centeredOffsets = { 'foot-offset-x': 0, 'foot-offset-z': 0 };
 type PlayerAppearanceConfig = typeof centeredOffsets & {
   'world-height': number | null;
   'texture-sampling': TextureSampling;
+  'debug-directions': boolean;
+  'debug-compare-atlases': boolean;
+  'comparison-layout': ComparisonLayout;
 };
 const isTextureSampling = (value: unknown): value is TextureSampling =>
   value === defaultSampling || (typeof value === 'string' && Object.hasOwn(prescaleFactors, value));
@@ -68,11 +83,26 @@ export const playerAppearanceLabModule: LabModule = {
         defaultValue: defaultSampling,
         valid: isTextureSampling,
       },
+      'debug-directions': {
+        defaultValue: false,
+        valid: value => typeof value === 'boolean',
+      },
+      'debug-compare-atlases': {
+        defaultValue: false,
+        valid: value => typeof value === 'boolean',
+      },
+      'comparison-layout': {
+        defaultValue: 'rows',
+        valid: isComparisonLayout,
+      },
       'world-height': {
         defaultValue: null,
         valid: value => value === null || (typeof value === 'number' && Number.isFinite(value) && value > 0),
       },
-    }) as PlayerAppearanceConfig : { ...centeredOffsets, 'world-height': null, 'texture-sampling': defaultSampling };
+    }) as PlayerAppearanceConfig : {
+      ...centeredOffsets, 'world-height': null, 'texture-sampling': defaultSampling,
+      'debug-directions': false, 'debug-compare-atlases': false, 'comparison-layout': 'rows',
+    };
 
     const panel = context.ui.addPanel(moduleId, '玩家外观');
     const samplingRow = document.createElement('label');
@@ -89,7 +119,26 @@ export const playerAppearanceLabModule: LabModule = {
     const samplingStatus = createLabStatus('');
     samplingStatus.setAttribute('role', 'status');
     samplingStatus.hidden = true;
-    panel.content.append(samplingRow, samplingStatus);
+    const debugDirections = createLabSwitch('调试：对比四方向精灵', appearance['debug-directions']);
+    debugDirections.input.dataset.labSetting = 'debug-directions';
+    const debugComparison = createLabSwitch('调试：角色图对比', appearance['debug-compare-atlases']);
+    debugComparison.input.dataset.labSetting = 'debug-compare-atlases';
+    const comparisonLayoutRow = document.createElement('label');
+    comparisonLayoutRow.className = 'lab-field';
+    comparisonLayoutRow.textContent = '对比布局';
+    const comparisonLayout = document.createElement('select');
+    comparisonLayout.dataset.labSetting = 'comparison-layout';
+    comparisonLayout.append(
+      new Option('右侧三行四列', 'rows'),
+      new Option('左侧三行四列', 'left-rows'),
+      new Option('左、右、上各一组四方向', 'crosses'),
+    );
+    comparisonLayout.value = appearance['comparison-layout'];
+    comparisonLayoutRow.append(comparisonLayout);
+    comparisonLayoutRow.hidden = !debugComparison.input.checked;
+    const comparisonStatus = createLabStatus('');
+    comparisonStatus.hidden = !debugComparison.input.checked;
+    panel.content.append(samplingRow, samplingStatus, debugDirections.row, debugComparison.row, comparisonLayoutRow, comparisonStatus);
     const readout = createLabStatus('');
     const reset = document.createElement('button');
     reset.type = 'button';
@@ -172,19 +221,115 @@ export const playerAppearanceLabModule: LabModule = {
     root.billboardMode = TransformNode.BILLBOARDMODE_ALL;
     root.setEnabled(false);
 
-    function createSprite(path: string, name: string) {
+    function createSprite(path: string, name: string, region = frames.front) {
       const sprite = createAtlasSpritePlane(context.scene, path, 1, { deformation: false });
       sprite.mesh.name = name;
       sprite.mesh.parent = root;
       sprite.mesh.isPickable = false;
-      sprite.setFrameRegion(frames.front);
+      sprite.setFrameRegion(region);
       return sprite;
     }
     const defaultSprite = createSprite(atlasPath, 'dungeon-player-sprite');
     let prescaledSprite: ReturnType<typeof createSprite> | undefined;
-    let sourceImage: HTMLImageElement | undefined;
+    let cancelPrescale: (() => void) | undefined;
+    let cancelComparisonPrescale: (() => void)[] = [];
+    let prescaledComparisonPaths: (string | null)[] = [];
     let displayedSprite = defaultSprite;
     let displayedHeight: number | undefined;
+    let previewAtlas: string | undefined;
+    let previewHeight: number | undefined;
+    let previewSprites: ReturnType<typeof createSprite>[] = [];
+    let comparisonPaths: readonly string[] = [];
+    let comparisonHeight: number | undefined;
+    let displayedComparisonLayout: ComparisonLayout | undefined;
+    let comparisonSamplingFailed = false;
+    let comparisonSprites: ReturnType<typeof createSprite>[] = [];
+
+    function createPreview(path: string, name: string, region: SpriteFrameRegion) {
+      const preview = createSprite(path, name, region);
+      // 对比面片跟随屏幕方向，下方的面片需要显示在地板前。
+      preview.surface.material.depthFunction = Constants.ALWAYS;
+      preview.surface.material.disableDepthWrite = true;
+      return preview;
+    }
+
+    function disposePreviews() {
+      for (const preview of previewSprites) preview.dispose?.();
+      previewSprites = [];
+      previewAtlas = undefined;
+      previewHeight = undefined;
+    }
+
+    function syncPreviews(path: string, height: number) {
+      if (path !== previewAtlas) {
+        disposePreviews();
+        previewAtlas = path;
+        previewSprites = directionPreviews.map(({ region }) =>
+          createPreview(path, `dungeon-player-preview-${region.frameName}`, region));
+      }
+      if (height === previewHeight) return;
+      previewHeight = height;
+      const width = height * frameSize.w / frameSize.h;
+      for (const [index, preview] of previewSprites.entries()) {
+        const { x, y } = directionPreviews[index];
+        preview.setDisplayScale(height);
+        preview.mesh.position.set(x * width * 1.2, height / 2 + y * height * 1.2, 0);
+      }
+    }
+
+    function disposeComparison() {
+      for (const preview of comparisonSprites) preview.dispose?.();
+      comparisonSprites = [];
+      comparisonPaths = [];
+      comparisonHeight = undefined;
+    }
+
+    function syncComparison(height: number) {
+      const original = prescaledSprite?.texture;
+      const scaled = prescaledComparisonPaths.filter(path => path !== null);
+      const paths = original?.isReady() && original.url && scaled.length === additionalAtlasPaths.length
+        ? [original.url, ...scaled] : comparisonAtlasPaths;
+      if (paths.some((path, index) => path !== comparisonPaths[index])) {
+        disposeComparison();
+        comparisonPaths = paths;
+        comparisonSprites = paths.flatMap((path, row) => comparisonFrames.map(region => {
+          const preview = createPreview(path, `dungeon-player-comparison-${row + 1}-${region.frameName}`, region);
+          preview.mesh.setEnabled(false);
+          return preview;
+        }));
+      }
+      const layout = appearance['comparison-layout'];
+      if (height !== comparisonHeight || layout !== displayedComparisonLayout) {
+        comparisonHeight = height;
+        displayedComparisonLayout = layout;
+        const width = height * frameSize.w / frameSize.h;
+        for (const [index, preview] of comparisonSprites.entries()) {
+          const column = index % comparisonFrames.length;
+          const row = Math.floor(index / comparisonFrames.length);
+          preview.setDisplayScale(height);
+          if (layout === 'crosses') {
+            const { x, y } = directionPreviews.find(direction => direction.region === comparisonFrames[column])!;
+            const center = appearance['debug-directions'] ? 3.6 : 2.5;
+            const centerX = row === 2 ? 0 : (row === 0 ? -center : center);
+            const centerY = row === 2 ? 0.5 + center : 0.5;
+            preview.mesh.position.set(width * (centerX + x * 1.2), height * (centerY + y * 1.2), 0);
+          } else {
+            const startX = layout === 'left-rows' ? -2.5 - (comparisonFrames.length - 1) * 1.2 : 2.5;
+            preview.mesh.position.set(width * (startX + column * 1.2), height * (0.5 + (1 - row) * 1.2), 0);
+          }
+        }
+      }
+      const ready = comparisonSprites.every(preview => preview.texture.isReady());
+      for (const preview of comparisonSprites) preview.mesh.setEnabled(ready);
+    }
+
+    debugDirections.input.addEventListener('change', () => {
+      const enabled = debugDirections.input.checked;
+      if (config) config.update(moduleId, { 'debug-directions': enabled });
+      else appearance['debug-directions'] = enabled;
+      comparisonHeight = undefined;
+      if (!enabled) disposePreviews();
+    });
 
     function showSprite(sprite: ReturnType<typeof createSprite>) {
       if (sprite === displayedSprite) return;
@@ -195,46 +340,94 @@ export const playerAppearanceLabModule: LabModule = {
     }
 
     function releasePrescale() {
-      if (sourceImage) {
-        sourceImage.onload = null;
-        sourceImage.onerror = null;
-        sourceImage = undefined;
-      }
+      cancelPrescale?.();
+      cancelPrescale = undefined;
       prescaledSprite?.dispose?.();
       prescaledSprite = undefined;
     }
 
-    function loadPrescaledSprite(factor: number) {
+    function loadPrescaledAtlas(path: string, factor: number, onLoad: (url: string) => void, onError: () => void) {
       const image = new Image();
-      sourceImage = image;
-      const showError = () => {
-        sourceImage = undefined;
-        samplingStatus.textContent = '预放大贴图加载失败，当前使用默认三线性。';
-        samplingStatus.hidden = false;
+      const cancel = () => {
+        image.onload = null;
+        image.onerror = null;
       };
-      image.onerror = showError;
+      image.onerror = () => { cancel(); onError(); };
       image.onload = () => {
-        sourceImage = undefined;
+        cancel();
         try {
           const canvas = document.createElement('canvas');
           canvas.width = image.naturalWidth * factor;
           canvas.height = image.naturalHeight * factor;
           const drawing = canvas.getContext('2d');
           if (!drawing) {
-            showError();
+            onError();
             return;
           }
           drawing.imageSmoothingEnabled = false;
           drawing.drawImage(image, 0, 0, canvas.width, canvas.height);
           // 整张图集等比放大，方向帧的 UV 比例与面片尺寸沿用原值。
-          prescaledSprite = createSprite(canvas.toDataURL('image/png'), 'dungeon-player-sprite-prescaled');
-          prescaledSprite.mesh.setEnabled(false);
+          onLoad(canvas.toDataURL('image/png'));
         } catch {
-          showError();
+          onError();
         }
       };
-      image.src = resolveAppAssetUrl(atlasPath);
+      image.src = resolveAppAssetUrl(path);
+      return cancel;
     }
+
+    function loadPrescaledSprite(factor: number) {
+      cancelPrescale = loadPrescaledAtlas(atlasPath, factor, url => {
+        prescaledSprite = createSprite(url, 'dungeon-player-sprite-prescaled');
+        prescaledSprite.mesh.setEnabled(false);
+      }, () => {
+        samplingStatus.textContent = '预放大贴图加载失败，当前使用默认三线性。';
+        samplingStatus.hidden = false;
+      });
+    }
+
+    function syncComparisonStatus() {
+      const legend = appearance['comparison-layout'] === 'crosses'
+        ? '左：主角1 · 右：主角2 · 上：主角3。每组上背、下正，左右对应侧向。'
+        : '从上到下：主角1、主角2、主角3。从左到右：正、背、左、右。';
+      comparisonStatus.textContent = comparisonSamplingFailed
+        ? `${legend} 图集预放大失败，三组均使用默认三线性。` : legend;
+    }
+
+    function refreshComparisonSampling() {
+      cancelComparisonPrescale.forEach(cancel => cancel());
+      cancelComparisonPrescale = [];
+      prescaledComparisonPaths = additionalAtlasPaths.map(() => null);
+      comparisonSamplingFailed = false;
+      syncComparisonStatus();
+      const value = appearance['texture-sampling'];
+      if (appearance['debug-compare-atlases'] && value !== defaultSampling) {
+        cancelComparisonPrescale = additionalAtlasPaths.map((path, index) =>
+          loadPrescaledAtlas(path, prescaleFactors[value], url => {
+            prescaledComparisonPaths[index] = url;
+          }, () => {
+            comparisonSamplingFailed = true;
+            syncComparisonStatus();
+          }));
+      }
+    }
+
+    debugComparison.input.addEventListener('change', () => {
+      const enabled = debugComparison.input.checked;
+      if (config) config.update(moduleId, { 'debug-compare-atlases': enabled });
+      else appearance['debug-compare-atlases'] = enabled;
+      comparisonLayoutRow.hidden = !enabled;
+      comparisonStatus.hidden = !enabled;
+      refreshComparisonSampling();
+      if (!enabled) disposeComparison();
+    });
+    comparisonLayout.addEventListener('change', () => {
+      const value = comparisonLayout.value;
+      if (!isComparisonLayout(value)) return;
+      if (config) config.update(moduleId, { 'comparison-layout': value });
+      else appearance['comparison-layout'] = value;
+      syncComparisonStatus();
+    });
 
     sampling.addEventListener('change', () => {
       const value = sampling.value;
@@ -245,9 +438,11 @@ export const playerAppearanceLabModule: LabModule = {
       showSprite(defaultSprite);
       releasePrescale();
       if (value !== defaultSampling) loadPrescaledSprite(prescaleFactors[value]);
+      refreshComparisonSampling();
     });
     const initialSampling = appearance['texture-sampling'];
     if (initialSampling !== defaultSampling) loadPrescaledSprite(prescaleFactors[initialSampling]);
+    refreshComparisonSampling();
 
     const stop = context.scheduler.register({
       id: 'sync-sprite', phase: 'presentation', order: 110, description: '同步玩家精灵的位置与朝向',
@@ -288,12 +483,17 @@ export const playerAppearanceLabModule: LabModule = {
           ? (right > 0 ? frames.right : frames.left)
           : (up > 0 ? frames.back : frames.front);
         if (region !== sprite.getFrameRegion()) sprite.setFrameRegion(region);
+        if (appearance['debug-directions'] && sprite.texture.url) syncPreviews(sprite.texture.url, height);
+        if (appearance['debug-compare-atlases']) syncComparison(height);
         root.setEnabled(true);
       },
     });
 
     return () => {
       stop();
+      disposePreviews();
+      cancelComparisonPrescale.forEach(cancel => cancel());
+      disposeComparison();
       releasePrescale();
       defaultSprite.dispose?.();
       root.dispose();
