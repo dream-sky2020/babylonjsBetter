@@ -2,6 +2,7 @@
 
 import math
 import re
+from sys import float_info
 
 
 def validate_visual_components(tables, owners, path):
@@ -21,7 +22,8 @@ def validate_visual_components(tables, owners, path):
         for row in rows:
             entity_id = row.get('entityId') if isinstance(row, dict) else None
             owner = owners.get(entity_id) if isinstance(entity_id, str) else None
-            if not owner or owner.get('entityType') != 'visual-object' or entity_id in by_owner or type(row.get('version')) is not int or row['version'] != 1:
+            allowed_owners = ('visual-object', 'dungeon-agent') if kind == 'visual-objects' else ('visual-object',)
+            if not owner or owner.get('entityType') not in allowed_owners or entity_id in by_owner or type(row.get('version')) is not int or row['version'] != 1:
                 errors.append(f'{path}.components.{kind} has an invalid owner, version or duplicate component')
                 continue
             by_owner[entity_id] = row
@@ -49,6 +51,9 @@ def validate_visual_components(tables, owners, path):
             else:
                 model = entry.get('modelPath')
                 valid_object = kind == 'model' and isinstance(model, str) and bool(re.fullmatch(r'resources/[^?#]+\.(glb|gltf)', model, re.I)) and '\\' not in model and all(part not in ('', '.', '..') for part in model.split('/'))
+                if 'scale' in entry:
+                    scale = entry['scale']
+                    valid_object = valid_object and type(scale) in (int, float) and 0 < scale <= float_info.max
             if not valid_offset or not valid_enabled or not valid_object:
                 errors.append(f'{path}.{entity_id}.{name} has invalid visual object parameters')
     for entity_id, row in states.items():

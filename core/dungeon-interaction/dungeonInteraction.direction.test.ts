@@ -31,6 +31,23 @@ const entry = (value: ReturnType<typeof setup>, query: InteractionQuery, entity 
 
 const room = () => JSON.parse(fs.readFileSync(new URL('../../config/dungeonMapPresets/dungeon_interaction_room.json', import.meta.url), 'utf8'));
 
+test('the room box blocks movement and accepts interaction from all four adjacent tiles', () => {
+  const value = setup(room());
+  assert.deepEqual(validateDungeonMapDocumentV2(value.document), []);
+  const box = 'room-cardboard-box-interact';
+  const approaches = [[2, 0, 'south'], [3, 1, 'west'], [2, 2, 'north'], [1, 1, 'east']] as const;
+  for (const [x, y, facing] of approaches) {
+    const step = value.runtime.traversal.inspectStep(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, y * value.runtime.map.width + x, facing);
+    assert.ok(step.blockingEntityIds.includes(box), facing);
+    const match = value.control.find(input(x, y, facing)).find(entry => entry.entityId === box);
+    assert.deepEqual(match?.action, {
+      type: 'visual-state', targetEntityId: 'room-cardboard-box', operation: 'next', groupId: 'lid', feedback: '纸箱已{state}。',
+    });
+  }
+  assert.equal(value.control.find(input(1, 1, 'north')).some(entry => entry.entityId === box), false);
+  assert.equal(value.control.find(input(2, 1, 'east')).some(entry => entry.entityId === box), false);
+});
+
 test('completed Agent step uses its real approach and the rule actor scope', () => {
   const value = setup(room());
   const actorId = 'room-agent-patrol';

@@ -9,6 +9,13 @@ export class DocumentHistory<T> {
   constructor(value: T, changed: (value: T) => void, equal = (a: T, b: T) => a === b || JSON.stringify(a) === JSON.stringify(b)) { this.value = value; this.changed = changed; this.equal = equal; }
   get canUndo() { return this.past.length > 0; }
   get canRedo() { return this.future.length > 0; }
+  /** Use a fresh baseline after loading data from storage. */
+  reset(value: T) {
+    this.start = undefined;
+    this.past = [];
+    this.future = [];
+    this.value = value;
+  }
   set(value: T) {
     if (this.equal(value, this.value)) return;
     if (this.start === undefined) { this.past.push(this.value); this.past = this.past.slice(-100); this.future = []; }

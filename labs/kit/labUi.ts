@@ -25,6 +25,7 @@ type LabUiPreferences = {
 };
 type LabUiWorkspace = {
   diagnostics: HTMLElement;
+  header?: HTMLElement;
   reveal(category: 'modules' | 'diagnostics'): void;
   lockSettingsInput?(): () => void;
 };
@@ -174,6 +175,11 @@ export class LabUi {
   setStatus(message: string, error = false): void {
     this.status.textContent = message;
     this.status.dataset.error = String(error);
+  }
+
+  addHeaderAction(button: HTMLButtonElement): () => void {
+    this.workspace?.header?.append(button);
+    return () => button.remove();
   }
 
   registerSettings(panelId: string, definitions: readonly SettingDefinition[], apply: () => void): { capture(key: string): void; dispose(): void } {

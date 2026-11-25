@@ -6,7 +6,7 @@ type VisualSlot = { name: string; offset: Offset; enabled?: boolean };
 export type VisualObjectDefinition = VisualSlot & (
   | { kind: 'point-light'; color: string; intensity: number; range: number }
   | { kind: 'sphere'; color: string; diameter: number }
-  | { kind: 'model'; modelPath: string }
+  | { kind: 'model'; modelPath: string; scale?: number }
 );
 export interface IVisualObjectsComponent extends IComponent {
   type: 'visual-objects';
@@ -29,7 +29,8 @@ export function validateVisualObjects(component: IVisualObjectsComponent): strin
     const validShape = entry.kind === 'point-light' ? color(entry.color) && Number.isFinite(entry.intensity) && entry.intensity >= 0 && positive(entry.range)
       : entry.kind === 'sphere' ? color(entry.color) && positive(entry.diameter)
       : entry.kind === 'model' && typeof entry.modelPath === 'string' && /^resources\/[^?#]+\.(glb|gltf)$/i.test(entry.modelPath)
-        && !entry.modelPath.includes('\\') && entry.modelPath.split('/').every(part => part && part !== '.' && part !== '..');
+        && !entry.modelPath.includes('\\') && entry.modelPath.split('/').every(part => part && part !== '.' && part !== '..')
+        && (entry.scale === undefined || positive(entry.scale));
     if (!validTransform || !validEnabled || !validShape) errors.push(`视觉对象 ${entry.name} 的类型、偏移或参数无效。`);
   }
   return errors;
@@ -37,7 +38,7 @@ export function validateVisualObjects(component: IVisualObjectsComponent): strin
 
 export const componentDefinition: ComponentDefinition<IVisualObjectsComponent> = {
   type: 'visual-objects', version: 1, label: '加载视觉对象', description: '按本地名称加载灯光、几何体或模型。',
-  allowedEntityTypes: ['visual-object'], allowMultiple: false,
+  allowedEntityTypes: ['visual-object', 'dungeon-agent'], allowMultiple: false,
   fields: [{ path: 'objects', label: '对象列表（JSON）', control: 'json' }],
   createDefault: () => ({ id: createEntityDataId('component'), type: 'visual-objects', version: 1, objects: [
     { name: 'light', kind: 'point-light', offset: [0, 0.5, 0], color: '#ffdc75', intensity: 1.2, range: 3 },

@@ -39,6 +39,20 @@ export class DungeonSceneDraft {
   }
   get preset() { return this.current; }
   get dirty() { return JSON.stringify(this.history.value) !== JSON.stringify(this.saved); }
+  reload(base: SceneEnvironmentPreset): DungeonSceneDraft {
+    const overrides: SceneTransformOverrides = {};
+    if (this.dirty) for (const id of new Set([...Object.keys(this.history.value), ...Object.keys(this.saved)])) {
+      const current = readEnvironmentTransform(this.current, id);
+      const saved = readEnvironmentTransform(this.savedPreset, id);
+      if (JSON.stringify(current) === JSON.stringify(saved)) continue;
+      const next = readEnvironmentTransform(base, id);
+      for (const channel of ['position', 'rotation', 'scaling'] as const) {
+        if (JSON.stringify(current[channel]) !== JSON.stringify(saved[channel])) next[channel] = current[channel];
+      }
+      overrides[id] = next;
+    }
+    return new DungeonSceneDraft(base, this.changed, overrides);
+  }
   private resolve(values: SceneTransformOverrides) {
     let preset = this.base;
     for (const [id, value] of Object.entries(validateSceneTransformOverrides(values))) {

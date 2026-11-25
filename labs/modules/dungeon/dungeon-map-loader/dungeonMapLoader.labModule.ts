@@ -17,13 +17,18 @@ import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
 import type { DungeonRuntime } from '@/core/dungeon-runtime';
 import {
   isDungeonMapDefinitionRefsDelta,
+  loadDungeonMapDocumentV2,
 } from '@/core/map';
+import { loadConfig } from '@/core/config';
+import { loadSceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.loader';
 import {
   isDungeonMapDocumentDeltaV1,
   type DungeonMapDocumentV2,
 } from '@/core/map-document';
 import {
   createDungeonDocumentSceneEnvironmentAsync,
+  parseSceneEnvironmentPresetLibrary,
+  parseShadowQualityPresetLibrary,
   resolveDungeonDocumentSceneEnvironment,
   resolveDungeonMapTileWorldLayout,
   warmupSceneRendering,
@@ -167,6 +172,13 @@ export const dungeonMapLoaderLabModule: LabModule = {
     deltaRefreshButton.textContent = '结算并刷新当前地图 Delta';
     const deltaJson = createLabJson('尚无地图 Delta。');
     const status = createLabStatus('等待地图装载……');
+    const reloadMapButton = document.createElement('button');
+    reloadMapButton.type = 'button';
+    reloadMapButton.textContent = '重新加载当前地图';
+    reloadMapButton.title = '重新读取地图与场景预设，保留当前 Lab 页面';
+    reloadMapButton.dataset.labReloadMap = '';
+    reloadMapButton.disabled = true;
+    const removeReloadMapButton = context.ui.addHeaderAction(reloadMapButton);
     const actionStatus = createLabStatus('');
     const actionDetails = createLabJson(''); actionDetails.hidden = true;
     const reloadActions = document.createElement('button');
@@ -228,7 +240,9 @@ export const dungeonMapLoaderLabModule: LabModule = {
     const sceneDraftChanged = () => { sceneDraftState.markChanged(); objectRegistration?.refresh(); };
     const getSceneDraft = (base: SceneEnvironmentPreset) => {
       let draft = sceneDrafts.get(base.presetKey);
-      if (!draft) { draft = new DungeonSceneDraft(base, sceneDraftChanged, restoredSceneDrafts[base.presetKey]); sceneDrafts.set(base.presetKey, draft); }
+      if (!draft) draft = new DungeonSceneDraft(base, sceneDraftChanged, restoredSceneDrafts[base.presetKey]);
+      else if (JSON.stringify(draft.base) !== JSON.stringify(base)) draft = draft.reload(base);
+      sceneDrafts.set(base.presetKey, draft);
       return draft;
     };
     const objectRegistration = context.objects?.register({
@@ -525,15 +539,16 @@ export const dungeonMapLoaderLabModule: LabModule = {
     const loader = {
       async switchDungeon(presetKey: string, options?: {
         entranceId?: string;
+        reloadPresets?: boolean;
         checkpoint?: { store: DungeonMapDeltaStore; runtime: SavedDungeonRuntimeStates; apply: LabCheckpointLoad['apply'] };
       }): Promise<boolean> {
         if (checkpointSwitching) throw new Error('正在读取存档，请等待地图准备完成。');
         const checkpoint = options?.checkpoint;
-        const libraries = librariesReference.require();
-        const preset = Object.hasOwn(libraries.maps, presetKey) ? libraries.maps[presetKey] : undefined;
-        if (!preset) throw new Error(`找不到地牢预设“${presetKey}”。`);
+        let libraries = librariesReference.require();
+        if (!Object.hasOwn(libraries.maps, presetKey)) throw new Error(`找不到地牢预设“${presetKey}”。`);
         checkpointSwitching = Boolean(checkpoint);
         const loadId = ++generation;
+        reloadMapButton.disabled = true;
         sceneEditingBusy = true; objectRegistration?.refresh();
         if (!checkpoint) assembly.beginSession(loadId);
         const releasePause = assembly.acquirePause();
@@ -551,6 +566,23 @@ export const dungeonMapLoaderLabModule: LabModule = {
           pendingLoad?.abort();
           abort = new AbortController();
           pendingLoad = abort;
+          if (options?.reloadPresets) {
+            const [map, environments, shadows] = await Promise.all([
+              loadDungeonMapDocumentV2(presetKey, undefined, { requireDevSource: true }),
+              loadSceneEnvironmentDeclarations(),
+              loadConfig<unknown>('shadowQualityPresets.json', {
+                devApiPath: '/api/shadow-quality-presets',
+                selectDevPayload: payload => (payload as Record<string, unknown>).data,
+              }),
+            ]);
+            if (abort.signal.aborted || loadId !== generation) return false;
+            libraries = {
+              maps: { ...libraries.maps, [presetKey]: map },
+              environments: parseSceneEnvironmentPresetLibrary(environments),
+              shadows: parseShadowQualityPresetLibrary(shadows),
+            };
+          }
+          const preset = libraries.maps[presetKey];
           const baseDocument = preset;
           const liveDocument = (checkpoint?.store ?? dungeonMapDeltaStore).restore(presetKey, baseDocument);
           const transitionIssues = validateDungeonTransitionDocument(liveDocument);
@@ -649,6 +681,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
             const previousPresetKey = activePresetKey;
             const previousInstance = activeInstance;
             const previousSceneEditing = sceneEditing;
+            if (options?.reloadPresets) librariesReference.replace(libraries);
             activeInstance = instance;
             activeSceneBase = binding.preset;
             sceneEditing = bindSceneEditing(instance, sceneDraft);
@@ -736,12 +769,16 @@ export const dungeonMapLoaderLabModule: LabModule = {
           throw error;
         } finally {
           if (checkpoint) checkpointSwitching = false;
-          if (loadId === generation) { sceneEditingBusy = false; objectRegistration?.refresh(); }
+          if (loadId === generation) {
+            reloadMapButton.disabled = !activePresetKey;
+            sceneEditingBusy = false; objectRegistration?.refresh();
+          }
           if (pendingLoad === abort) pendingLoad = null;
           loadingLayer?.dispose(); releasePause();
         }
       },
       dispose() {
+        removeReloadMapButton();
         objectRegistration?.dispose();
         offSceneView(); sceneEditing?.dispose(); sceneEditing = null; sceneDraftState.unregister(); sceneDrafts.clear();
         stopSimulation();
@@ -778,6 +815,18 @@ export const dungeonMapLoaderLabModule: LabModule = {
         loadedStateRegistration.markChanged();
       },
     };
+    reloadMapButton.addEventListener('click', () => { void (async () => {
+      const key = activePresetKey;
+      if (!key || pendingLoad || reloadMapButton.disabled) return;
+      reloadMapButton.textContent = '正在重新加载…';
+      try {
+        if (await loader.switchDungeon(key, { reloadPresets: true })) context.ui.setStatus(`已重新加载当前地图：${key}`);
+      } catch (error) {
+        context.ui.setStatus(`重新加载地图失败：${error instanceof Error ? error.message : String(error)}`, true);
+      } finally {
+        reloadMapButton.textContent = '重新加载当前地图';
+      }
+    })(); });
     reloadActions.addEventListener('click',async()=>{
       if(!activePresetKey)return;
       reloadActions.disabled=true;

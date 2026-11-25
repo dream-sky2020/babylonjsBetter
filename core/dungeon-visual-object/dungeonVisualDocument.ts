@@ -6,6 +6,7 @@ import type { DungeonMapDocumentV2, DungeonMapSpatialAttachmentComponent } from 
 
 export type DungeonEntityVisualDefinition = {
   entityId: string;
+  entityType: 'visual-object' | 'dungeon-agent';
   label: string;
   tileX: number;
   tileY: number;
@@ -18,8 +19,9 @@ export function readDungeonEntityVisuals(document: DungeonMapDocumentV2) {
   const errors: string[] = [];
   const query = new DungeonMapDocumentQuery(document);
   for (const entity of document.entities) {
-    if (entity.entityType !== 'visual-object' || entity.enabled === false) continue;
+    if ((entity.entityType !== 'visual-object' && entity.entityType !== 'dungeon-agent') || entity.enabled === false) continue;
     const objects = query.getComponents(entity.id, 'visual-objects').filter(component => component.enabled !== false) as unknown as IVisualObjectsComponent[];
+    if (entity.entityType === 'dungeon-agent' && !objects.length) continue;
     const states = query.getComponents(entity.id, 'visual-state').filter(component => component.enabled !== false) as unknown as IVisualStateComponent[];
     const targets = query.getComponents<DungeonMapSpatialAttachmentComponent>(entity.id, 'spatial-attachment')
       .filter(component => component.enabled !== false).flatMap(component => component.targets ?? []);
@@ -41,7 +43,7 @@ export function readDungeonEntityVisuals(document: DungeonMapDocumentV2) {
       errors.push(...issues.map(issue => `${entity.id}: ${issue}`));
       continue;
     }
-    definitions.set(entity.id, { entityId: entity.id, label: entity.name ?? entity.id,
+    definitions.set(entity.id, { entityId: entity.id, entityType: entity.entityType, label: entity.name ?? entity.id,
       tileX: index % document.grid.width, tileY: Math.floor(index / document.grid.width), objects: objects[0].objects, states: state });
   }
   for (const raw of [...(document.components.event ?? []), ...(document.components['variable-trigger'] ?? [])]) {

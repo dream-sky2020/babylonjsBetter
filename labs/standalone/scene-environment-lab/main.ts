@@ -16,6 +16,7 @@ import { parseShadowQualityPresetLibrary } from '@/core/scene/shadowQualityPrese
 import { resolveShadowQuality } from '@/core/scene/resolveShadowQuality';
 import type { SceneEnvironmentInstance, SceneEnvironmentPresetLibrary, SceneEnvironmentPreset } from '@/core/scene/sceneEnvironment.types';
 import type { ShadowQualityPresetLibrary } from '@/core/scene/shadowQualityPreset.types';
+import type { ModelEntity } from '@/core/model';
 import { loadSceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.loader';
 import { prepareSceneEnvironmentDeclaration, type SceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.catalog';
 import { loadConfig, downloadConfigJson } from '@/core/config';
@@ -32,6 +33,9 @@ import { modelUvTextures, meshesUvTextures, type UvCoverage, type UvTexture } fr
 import { collectEnvironmentTextures, releaseTexturePreviews } from './sceneEnvironmentTextures';
 import { collectEnvironmentMaterials } from './sceneEnvironmentMaterials';
 import { createEnvironmentSelectionEdges } from './sceneEnvironmentSelectionEdges';
+import { canPreviewToon, createPreviewShading, environmentShaderPreviews, type EnvironmentShaderPreview } from './sceneEnvironmentToonPreview';
+import { getSceneOutline, defaultOutlineStyle, outlineBrushes, outlineWidthLimit, pressureWidthLimit,
+  type OutlineRegistration, type OutlineStyle } from '@/core/render-outline';
 import './scene-environment-editor.css';
 
 const requireElement = <T extends Element>(selector: string, constructor: { new(): T }): T => {
@@ -44,6 +48,7 @@ const canvas = requireElement('#preview', HTMLCanvasElement);
 const stage = requireElement('#stage', HTMLElement);
 const presetSelect = requireElement('#preset', HTMLSelectElement);
 const loadButton = requireElement('#load', HTMLButtonElement);
+const reloadPresetButton = requireElement('#reload-preset', HTMLButtonElement);
 const currentSceneKeyInput = requireElement('#current-scene-key', HTMLInputElement);
 const copySceneKeyButton = requireElement('#copy-scene-key', HTMLButtonElement);
 const csmDebugToggle = requireElement('#csm-debug', HTMLInputElement);
@@ -148,10 +153,36 @@ let previewPreset: SceneEnvironmentPreset | null = null;
 let loadGeneration = 0;
 let loadAbort: AbortController | null = null;
 let warmupInProgress = false;
+let reloadInProgress = false;
 let binding: ReturnType<typeof createEnvironmentAdapter> | null = null;
 let textureStats: ReturnType<typeof collectModelTextureStats> | undefined;
 let materialEntries: ReturnType<typeof collectEnvironmentMaterials> = [];
 let textureEntries: ReturnType<typeof collectEnvironmentTextures> = [];
+const shaderPreviewModes = new WeakMap<ModelEntity, EnvironmentShaderPreview>();
+const outlineStyles = new WeakMap<ModelEntity, OutlineStyle>();
+const outlineRegistrations = new Map<ModelEntity, OutlineRegistration>();
+function refreshOutlinePreview() {
+  const outlined = new Set<ModelEntity>();
+  for (const { entity } of currentInstance?.models ?? []) {
+    if (!environmentShaderPreviews[shaderPreviewModes.get(entity) ?? 'source'].outline) continue;
+    const meshes = entity.meshes.filter(mesh => mesh.getTotalVertices() > 0);
+    if (!meshes.length) continue;
+    outlined.add(entity);
+    const style = outlineStyles.get(entity) ?? defaultOutlineStyle;
+    const registration = outlineRegistrations.get(entity);
+    if (registration) registration.update({ meshes, style });
+    else outlineRegistrations.set(entity, getSceneOutline(scene).register({ root: entity.root, meshes, style }));
+  }
+  for (const [entity, registration] of outlineRegistrations) {
+    if (outlined.has(entity)) continue;
+    registration.dispose();
+    outlineRegistrations.delete(entity);
+  }
+}
+function clearOutlinePreviews() {
+  outlineRegistrations.forEach(registration => registration.dispose());
+  outlineRegistrations.clear();
+}
 const selectionEdges = createEnvironmentSelectionEdges(scene, id => {
   if (!currentInstance) return [];
   if (id.startsWith('model:')) return currentInstance.models.find(model => `model:${model.definition.id}` === id)?.entity.meshes ?? [];
@@ -195,6 +226,7 @@ function analyzeUvCoverage() {
 }
 function refreshTextureStats() {
   if (!currentInstance) return;
+  refreshOutlinePreview();
   textureStats = collectModelTextureStats(currentInstance);
   materialEntries = collectEnvironmentMaterials(currentInstance);
   releaseTexturePreviews(textureEntries);
@@ -222,7 +254,7 @@ const history = new DocumentHistory<SceneEnvironmentDeclarations>({}, value => {
   setStatus('场景预设草稿已更新；点击保存预设写入配置');
   if (!previewQueued) {
     previewQueued = true;
-    queueMicrotask(() => { previewQueued = false; void loadByComponentPresetKey(activeKey, true); });
+    queueMicrotask(() => { previewQueued = false; void loadByComponentPresetKey(activeKey, { previewChanges: true }); });
   }
 }, (a, b) => a === b || Object.keys(a).length === Object.keys(b).length
   && Object.keys(a).every(key => a[key] === b[key] || JSON.stringify(a[key]) === JSON.stringify(b[key])));
@@ -267,6 +299,57 @@ const prepareMove = (preset: SceneEnvironmentPreset, intent: EditorHierarchyDrop
   if (dropPreview.error) throw dropPreview.error;
   return dropPreview.result!;
 };
+const findPreviewModel = (id: string) => currentInstance?.presetKey === activeKey
+  ? currentInstance.models.find(model => `model:${model.definition.id}` === id)?.entity
+  : undefined;
+const getShaderPreview = (id: string) => {
+  const entity = findPreviewModel(id);
+  if (!entity) return undefined;
+  return {
+    mode: shaderPreviewModes.get(entity) ?? 'source',
+    supportsToon: entity.meshes.some(mesh => mesh.getTotalVertices() > 0 && mesh.subMeshes?.some(part => canPreviewToon(part.getMaterial()))),
+    outline: outlineStyles.get(entity) ?? defaultOutlineStyle,
+  };
+};
+const setShaderPreview = async (id: string, mode: EnvironmentShaderPreview) => {
+  const entity = findPreviewModel(id);
+  const model = previewPreset?.models.find(model => `model:${model.id}` === id);
+  const current = getShaderPreview(id);
+  if (!editor.enabled || !entity || !model || !current || current.mode === mode) return;
+  const { shading, label } = environmentShaderPreviews[mode];
+  if (shading !== 'source' && !current.supportsToon) return;
+  if (shading === environmentShaderPreviews[current.mode].shading) {
+    shaderPreviewModes.set(entity, mode);
+    refreshOutlinePreview();
+    editor.refresh();
+    setStatus(`当前模型着色预览：${label}`);
+    return;
+  }
+
+  loadAbort?.abort();
+  const abort = new AbortController();
+  loadAbort = abort;
+  const generation = ++loadGeneration;
+  editor.cancel();
+  editor.enabled = false;
+  editor.refresh();
+  setStatus('正在准备着色预览……');
+  try {
+    const prepared = await entity.prepareMaterialBindings(model.materialOverrides, abort.signal, createPreviewShading(shading));
+    try {
+      abort.signal.throwIfAborted();
+      prepared.commit();
+      prepared.finalize();
+    } finally { prepared.dispose(); }
+    shaderPreviewModes.set(entity, mode);
+    refreshTextureStats();
+    setStatus(`当前模型着色预览：${label}`);
+  } catch (error) {
+    if (generation === loadGeneration) setStatus(`着色预览失败：${String(error)}`, true);
+  } finally {
+    if (generation === loadGeneration) { editor.enabled = true; editor.refresh(); }
+  }
+};
 const editorHost = {
   read: () => library[activeKey],
   write: writePreset,
@@ -282,6 +365,21 @@ const editorHost = {
   modelUvCoverage: (id: string) => id.startsWith('model:') ? uvCoverage.get(id) : undefined,
   setUvCoverageVisible: (visible: boolean) => { uvEnabled = visible; analyzeUvCoverage(); },
   modelMaterials: (id: string) => currentInstance?.models.find(m => `model:${m.definition.id}` === id)?.entity.materialSlots() ?? [],
+  shaderPreview: getShaderPreview,
+  setShaderPreview,
+  setOutlineStyle: (id: string, change: Partial<OutlineStyle>) => {
+    const entity = findPreviewModel(id);
+    if (!editor.enabled || !entity || !environmentShaderPreviews[shaderPreviewModes.get(entity) ?? 'source'].outline) return;
+    const style = { ...outlineStyles.get(entity) ?? defaultOutlineStyle, ...change };
+    if (!Number.isFinite(style.width) || !/^#[0-9a-f]{6}$/i.test(style.color) || !outlineBrushes.includes(style.brush)) return;
+    if ([style.minWidth, style.maxWidth].some(value => value !== undefined && !Number.isFinite(value))) return;
+    style.width = Math.max(1, Math.min(outlineWidthLimit, Math.round(style.width)));
+    if (style.minWidth !== undefined) style.minWidth = Math.max(0, Math.min(style.width, Math.round(style.minWidth * 2) / 2));
+    if (style.maxWidth !== undefined) style.maxWidth = Math.max(style.width, Math.min(pressureWidthLimit, Math.round(style.maxWidth * 2) / 2));
+    outlineStyles.set(entity, style);
+    refreshOutlinePreview();
+    editor.refresh();
+  },
   setMarkersVisible: (visible: boolean) => { markersVisible = visible; binding?.setMarkersVisible(visible); editor.refresh(); },
   canMove: (intent: EditorHierarchyDropIntent) => {
     const preset = library[activeKey];
@@ -391,8 +489,17 @@ const fetchPresetLibraries = async (): Promise<{
   };
 };
 
-const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previewChanges = false) => {
-  if (disposed) return;
+const updatePresetChoices = (selectedKey: string) => {
+  presetSelect.replaceChildren(...Object.values(library).map(preset =>
+    new Option(`${preset.name} · ${preset.presetKey}`, preset.presetKey)));
+  if (library[selectedKey]) presetSelect.value = selectedKey;
+};
+
+const loadByComponentPresetKey = async (
+  requestedKey = presetSelect.value,
+  { previewChanges = false, reloadSaved = false } = {},
+) => {
+  if (disposed || (reloadInProgress && !reloadSaved)) return;
   const nextPreset = library[requestedKey];
   if (previewChanges && currentInstance && binding && previewPreset && nextPreset
     && currentInstance.presetKey === requestedKey && isEnvironmentTransformOnlyChange(previewPreset, nextPreset)) {
@@ -412,18 +519,38 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
   editor.cancel(); editor.enabled = false; editor.refresh();
   loadAbort?.abort(); loadAbort = new AbortController();
   const generation = ++loadGeneration;
-  component.presetKey = requestedKey;
-  activeKey = requestedKey;
-  editor.refresh();
-  componentJson.textContent = JSON.stringify(component, null, 2);
-  const preset = library[component.presetKey];
+  let reloaded: Awaited<ReturnType<typeof fetchPresetLibraries>> | undefined;
+  let nextRawLibrary = rawLibrary;
+  let nextLibrary = library;
+  if (reloadSaved) {
+    setStatus(`正在重新读取场景“${requestedKey}”的预设……`);
+    try {
+      reloaded = await fetchPresetLibraries();
+      if (disposed || generation !== loadGeneration) return;
+      if (!reloaded.library[requestedKey]) throw new Error(`预设“${requestedKey}”已从目录移除`);
+      // Keep edits in other scenes, even when their shared base has changed on disk.
+      const otherDrafts = Object.entries(rawLibrary).filter(([key, declaration]) =>
+        key !== requestedKey && JSON.stringify(declaration) !== JSON.stringify(savedDeclarations[key]));
+      nextRawLibrary = otherDrafts.length ? { ...reloaded.rawLibrary, ...Object.fromEntries(otherDrafts) } : reloaded.rawLibrary;
+      nextLibrary = otherDrafts.length ? parseSceneEnvironmentPresetLibrary(nextRawLibrary) : reloaded.library;
+    } catch (error) {
+      if (!disposed && generation === loadGeneration) setStatus(`重新读取预设失败，当前场景已保留：${String(error)}`, true);
+      return;
+    }
+  } else {
+    component.presetKey = requestedKey;
+    activeKey = requestedKey;
+    editor.refresh();
+    componentJson.textContent = JSON.stringify(component, null, 2);
+  }
+  const preset = nextLibrary[requestedKey];
   if (!preset) {
     editor.enabled = true; editor.refresh();
     setStatus(`找不到 presetKey：${component.presetKey}`, true);
     return;
   }
   loadButton.disabled = true;
-  if (currentInstance && previewPreset && currentInstance.presetKey === requestedKey) {
+  if (!reloadSaved && currentInstance && previewPreset && currentInstance.presetKey === requestedKey) {
     try {
       if (await updateSceneModelMaterials(currentInstance, previewPreset, preset, loadAbort.signal)) {
         if (generation !== loadGeneration) return;
@@ -435,7 +562,7 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
       return;
     }
   }
-  setStatus(`正在加载场景“${component.presetKey}”及 ${preset.models.length} 个本地模型……`);
+  setStatus(`正在加载场景“${requestedKey}”及 ${preset.models.length} 个本地模型……`);
   if (generation !== loadGeneration) return;
   let nextInstance: SceneEnvironmentInstance;
   const loadSignal = loadAbort.signal;
@@ -443,20 +570,35 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
     nextInstance = await createSceneEnvironmentAsync(scene, preset, {
       staged: true,
       signal: loadAbort.signal,
-      shadowQualityPresets: shadowQualityLibrary,
+      shadowQualityPresets: reloaded?.shadowQualityLibrary ?? shadowQualityLibrary,
       cascadedShadowDebug: csmDebugToggle.checked,
     });
   } catch (error) {
     if (generation === loadGeneration) setStatus(`加载失败：${error instanceof Error ? error.message : String(error)}`, true);
     return;
   } finally {
-    if (generation === loadGeneration) { loadButton.disabled = false; editor.enabled = true; editor.refresh(); }
+    if (!reloadSaved && generation === loadGeneration) { loadButton.disabled = false; editor.enabled = true; editor.refresh(); }
   }
   if (disposed || generation !== loadGeneration) {
     nextInstance.dispose();
     return;
   }
+  if (reloaded) {
+    if (JSON.stringify(rawLibrary) !== JSON.stringify(nextRawLibrary) || savedSnapshot !== JSON.stringify(reloaded.rawLibrary)) {
+      history.reset(nextRawLibrary);
+    }
+    rawLibrary = nextRawLibrary;
+    library = nextLibrary;
+    resolvedHistory.set(rawLibrary, library);
+    shadowQualityLibrary = reloaded.shadowQualityLibrary;
+    savedDeclarations = reloaded.rawLibrary;
+    savedSnapshot = JSON.stringify(savedDeclarations);
+    activeKey = component.presetKey = requestedKey;
+    updatePresetChoices(requestedKey);
+    componentJson.textContent = JSON.stringify(component, null, 2);
+  }
   editor.select(null); binding?.dispose(); binding = null;
+  clearOutlinePreviews();
   currentInstance?.dispose();
   currentInstance = nextInstance;
   previewPreset = preset;
@@ -515,12 +657,13 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
     } finally {
       mask.remove(); warmupInProgress = false;
       if (!disposed && generation === loadGeneration) {
-        cameraController.setInputEnabled(inputEnabled); editor.enabled = true; loadButton.disabled = false; editor.refresh();
+        cameraController.setInputEnabled(inputEnabled);
+        if (!reloadSaved) { editor.enabled = true; loadButton.disabled = false; editor.refresh(); }
       }
     }
     if (disposed || generation !== loadGeneration) return;
   }
-  setStatus(`已通过 presetKey “${component.presetKey}” 创建 ${preset.objects.length} 个几何体、${currentInstance.models.length} 个本地模型和 ${preset.lights.length} 个光源，其中 ${enabledShadowSettings.length} 个启用阴影（${generatorLabels.join('、')}）${hasCascadedShadow && csmDebugToggle.checked ? '；级联 Debug 已开启' : ''}。`);
+  setStatus(`已通过 presetKey “${component.presetKey}” 创建 ${preset.objects.length} 个几何体、${currentInstance.models.length} 个本地模型和 ${preset.lights.length} 个光源，其中 ${enabledShadowSettings.length} 个启用阴影（${generatorLabels.join('、')}）${hasCascadedShadow && csmDebugToggle.checked ? '；级联 Debug 已开启' : ''}。${reloadSaved ? ' 已重新读取预设。' : ''}`);
 };
 
 const saveButton = requireElement('#save-preset', HTMLButtonElement);
@@ -555,6 +698,23 @@ const historyKey = (event: KeyboardEvent) => {
 };
 window.addEventListener('keydown', historyKey);
 loadButton.addEventListener('click', () => { void loadByComponentPresetKey(); });
+reloadPresetButton.addEventListener('click', () => { void (async () => {
+  const key = currentInstance?.presetKey ?? presetSelect.value;
+  if (!key || !editor.enabled || loadButton.disabled || saveButton.disabled) return;
+  const hasDraft = editor.editing || JSON.stringify(rawLibrary[key]) !== JSON.stringify(savedDeclarations[key]);
+  if (hasDraft && !window.confirm('重新加载会丢弃当前场景未保存的修改。继续吗？')) return;
+  reloadInProgress = true;
+  reloadPresetButton.disabled = loadButton.disabled = presetSelect.disabled = csmDebugToggle.disabled = true;
+  try {
+    await loadByComponentPresetKey(key, { reloadSaved: true });
+  } finally {
+    reloadInProgress = false;
+    if (!disposed) {
+      reloadPresetButton.disabled = loadButton.disabled = presetSelect.disabled = csmDebugToggle.disabled = false;
+      editor.enabled = true; editor.refresh();
+    }
+  }
+})(); });
 currentSceneKeyInput.addEventListener('click', () => currentSceneKeyInput.select());
 copySceneKeyButton.addEventListener('click', () => {
   const sceneKey = currentSceneKeyInput.value;
@@ -581,21 +741,18 @@ void fetchPresetLibraries().then((result) => {
   library = result.library; rawLibrary = result.rawLibrary; history.value = rawLibrary; savedDeclarations = structuredClone(rawLibrary); savedSnapshot = JSON.stringify(rawLibrary);
   resolvedHistory.set(rawLibrary, library);
   shadowQualityLibrary = result.shadowQualityLibrary;
-  presetSelect.replaceChildren(...Object.values(library).map((preset) => {
-    const option = document.createElement('option');
-    option.value = preset.presetKey;
-    option.textContent = `${preset.name} · ${preset.presetKey}`;
-    return option;
-  }));
   const modelTestPresetKey = library['local-model-loading-test']
     ? 'local-model-loading-test'
     : Object.values(library).find((preset) => preset.models.length > 0)?.presetKey;
-  if (modelTestPresetKey) presetSelect.value = modelTestPresetKey;
+  updatePresetChoices(modelTestPresetKey ?? '');
   if (Object.keys(library).length === 0) {
     setStatus('配置中没有场景预设。', true);
     return;
   }
-  void loadByComponentPresetKey().then(() => setStatus(`${statusElement.textContent} 来源：${result.source}`));
+  void loadByComponentPresetKey().then(() => {
+    reloadPresetButton.disabled = false;
+    setStatus(`${statusElement.textContent} 来源：${result.source}`);
+  });
 }).catch((error: unknown) => setStatus(`加载失败：${error instanceof Error ? error.message : String(error)}`, true));
 
 engine.runRenderLoop(() => {
@@ -610,6 +767,7 @@ const dispose = () => {
   if (disposed) return;
   disposed = true; loadGeneration++; loadAbort?.abort();
   selectionEdges.dispose();
+  clearOutlinePreviews();
   releaseTexturePreviews(textureEntries);
   uvWorker?.terminate(); uvWorker = undefined;
   editor.dispose(); binding?.dispose(); editorView.dispose();

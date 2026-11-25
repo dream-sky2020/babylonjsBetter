@@ -20,6 +20,12 @@ import type { UvCoverage } from './sceneEnvironmentUvCoverage';
 import type { EnvironmentMaterialEntry } from './sceneEnvironmentMaterials';
 import type { EnvironmentTextureEntry } from './sceneEnvironmentTextures';
 import { EnvironmentWorkspace, WorkspaceButtons, createWorkspacePreferences } from './sceneEnvironmentWorkspace';
+import { environmentShaderPreviews, type EnvironmentShaderPreview } from './sceneEnvironmentToonPreview';
+import { outlineWidthLimit, outlineWidthRange, pressureWidthLimit, type OutlineBrush, type OutlineStyle } from '@/core/render-outline';
+
+const outlineBrushLabels: Record<OutlineBrush, string> = {
+  hard: '硬笔', pressure: '毛笔（粗细变化）', dry: '干墨', wash: '淡墨',
+};
 export type EnvironmentEditorHost = {
   read(): SceneEnvironmentPreset | undefined; write(preset: SceneEnvironmentPreset): void;
   create(kind: EnvironmentObjectKind, modelPath?: string, parentId?: string | null): void;
@@ -38,6 +44,9 @@ export type EnvironmentEditorHost = {
   resourceUvCoverage?(id: string): UvCoverage | undefined;
   setSelectionEdges?(ids: readonly string[], visible: boolean): void;
   modelMaterials?(id: string): { gltfMaterialIndex: number; name: string; textures: Record<string, string | null> }[];
+  shaderPreview(id: string): { mode: EnvironmentShaderPreview; supportsToon: boolean; outline: Readonly<OutlineStyle> } | undefined;
+  setShaderPreview(id: string, mode: EnvironmentShaderPreview): Promise<void>;
+  setOutlineStyle(id: string, change: Partial<OutlineStyle>): void;
 };
 
 const modelExtension = /\.(glb|gltf)$/i;
@@ -168,7 +177,43 @@ function DeclarationForm({ editor, host, preset }: { editor: SceneEditor; host: 
   const type = target.geometry as { primitive: string } | undefined ?? target.light as { primitive: string } | undefined;
   const asset = id?.startsWith('model:') ? host.modelAssetProperties(id) : undefined;
   const textureStats = id?.startsWith('model:') ? host.modelTextureStats?.(id) : undefined;
+  const shaderPreview = id?.startsWith('model:') ? host.shaderPreview(id) : undefined;
+  const pressureRange = shaderPreview?.outline.brush === 'pressure' ? outlineWidthRange(shaderPreview.outline) : undefined;
   return <InspectorPanel title={String(target.name)} status={dirty ? '未应用' : '草稿预览'}>
+    {id?.startsWith('model:') && <InspectorSection title="着色预览" subtitle="临时效果，不写入预设">
+      <fieldset disabled={!editor.enabled || shaderPreview === undefined} className="environment-fields">
+        <label><span>着色模式</span>
+          <select aria-label="着色模式" value={shaderPreview?.mode ?? 'source'} onChange={event => {
+            void host.setShaderPreview(id, event.currentTarget.value as EnvironmentShaderPreview);
+          }}>
+            {Object.entries(environmentShaderPreviews).map(([mode, settings]) =>
+              <option key={mode} value={mode} disabled={settings.shading !== 'source' && !shaderPreview?.supportsToon}>{settings.label}</option>)}
+          </select>
+        </label>
+        {shaderPreview && environmentShaderPreviews[shaderPreview.mode].outline && <>
+          <label><span>{pressureRange ? '毛笔基准线宽' : '细描边宽度'}</span>
+            <input aria-label="细描边宽度" type="range" min={1} max={outlineWidthLimit} step={1} value={shaderPreview.outline.width}
+              aria-valuetext={pressureRange ? `基准 ${shaderPreview.outline.width} 像素，范围 ${pressureRange.min} 到 ${pressureRange.max} 像素` : `${shaderPreview.outline.width} 像素`}
+              onChange={event => host.setOutlineStyle(id, { width: event.currentTarget.valueAsNumber })} />
+            <output>{shaderPreview.outline.width} px</output>
+          </label>
+          {pressureRange && <>
+            <label><span>最小线宽</span><input aria-label="最小线宽" type="range" min={0} max={shaderPreview.outline.width} step={0.5} value={pressureRange.min}
+              onChange={event => host.setOutlineStyle(id, { minWidth: event.currentTarget.valueAsNumber })} /><output>{pressureRange.min} px</output></label>
+            <label><span>最大线宽</span><input aria-label="最大线宽" type="range" min={shaderPreview.outline.width} max={pressureWidthLimit} step={0.5} value={pressureRange.max}
+              onChange={event => host.setOutlineStyle(id, { maxWidth: event.currentTarget.valueAsNumber })} /><output>{pressureRange.max} px</output></label>
+          </>}
+          <label><span>平滑描边（抗锯齿）</span><input aria-label="平滑描边" type="checkbox" checked={shaderPreview.outline.smooth}
+            onChange={event => host.setOutlineStyle(id, { smooth: event.currentTarget.checked })} /></label>
+          <label><span>描边颜色</span><input aria-label="描边颜色" type="color" value={shaderPreview.outline.color}
+            onChange={event => host.setOutlineStyle(id, { color: event.currentTarget.value })} /></label>
+          <label><span>描线笔触</span><select aria-label="描线笔触" value={shaderPreview.outline.brush}
+            onChange={event => host.setOutlineStyle(id, { brush: event.currentTarget.value as OutlineBrush })}>
+            {Object.entries(outlineBrushLabels).map(([brush, label]) => <option key={brush} value={brush}>{label}</option>)}
+          </select></label>
+        </>}
+      </fieldset>
+    </InspectorSection>}
     {id && id !== 'scene' && <ParentField editor={editor} host={host} preset={preset} id={id} />}
     <InspectorSection title={id && id !== 'scene' ? `声明 · ${type?.primitive ?? (id.startsWith('transform:') ? target.role ?? 'empty' : 'model')}` : '场景配置'} subtitle={String(target.id ?? preset.presetKey)}>
       <p>编辑后点击“应用并预览”。位置、旋转与缩放相对于父节点；旋转使用弧度。改父节点会放弃尚未应用的字段输入。</p>

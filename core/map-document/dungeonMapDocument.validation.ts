@@ -192,7 +192,8 @@ export const validateDungeonMapDocumentV2 = (
     (document.components[kind] ?? []).forEach((component, index) => {
       const path = `components.${kind}[${index}]`;
       const owner = document.entities.find(entity => entity.id === component.entityId);
-      if (owner?.entityType !== 'visual-object' || owners.has(component.entityId)) add('visual.owner', '视觉组件必须属于视觉对象实体，每类组件最多一个。', path);
+      const validOwner = owner?.entityType === 'visual-object' || (kind === 'visual-objects' && owner?.entityType === 'dungeon-agent');
+      if (!validOwner || owners.has(component.entityId)) add('visual.owner', '视觉组件的实体类型无效，或同类组件重复。', path);
       owners.add(component.entityId);
       const errors = kind === 'visual-objects' ? validateVisualObjects(component as unknown as IVisualObjectsComponent)
         : validateVisualState(component as unknown as IVisualStateComponent);

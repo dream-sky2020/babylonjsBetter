@@ -14,7 +14,6 @@ import { applyDungeonViewToNode } from '@/core/dungeon-view/dungeonOverheadView.
 import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import { TransformNode } from '@babylonjs/core';
 import {
-  getDungeonMovementDirectionYaw,
   resolveDungeonMovementProfile,
   type DungeonMovementDirection,
 } from '@/core/dungeon-movement';
@@ -42,6 +41,7 @@ import {
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import { createDungeonAgentDebugMarker, type DungeonAgentDebugMarker } from './dungeonAgentDebugMarker';
+import { resolveDungeonAgentPose } from './dungeonAgentPose';
 import { dungeonAgentInteractionEvent, dungeonAgentsChangedEvent, dungeonAgentsLoadedEvent } from './dungeonAgent.protocol';
 
 const FACTION_COLORS: Readonly<Record<string, string>> = {
@@ -65,13 +65,6 @@ const createDurationInput = (): HTMLInputElement => {
   input.value = '0.3';
   return input;
 };
-
-const shortestAngleDelta = (from: number, to: number): number => {
-  const fullTurn = Math.PI * 2;
-  return ((to - from + Math.PI) % fullTurn + fullTurn) % fullTurn - Math.PI;
-};
-
-const lerp = (from: number, to: number, progress: number): number => from + (to - from) * progress;
 
 export const dungeonAgentLabModule: LabModule = {
   id: 'dungeon-agent',
@@ -243,47 +236,15 @@ export const dungeonAgentLabModule: LabModule = {
       };
     };
 
-    const tileWorldPosition = (tileIndex: number): readonly [number, number, number] => {
-      if (!loaded) return [0, 0, 0];
-      const { tileX, tileY } = tilePosition(tileIndex);
-      return resolveDungeonMapTileWorldLayout(
-        loaded,
-        loaded.width,
-        loaded.height,
-        tileX,
-        tileY,
-      ).center;
-    };
-
     const syncMarker = (entityId: string) => {
       const marker = markers.get(entityId);
       const data = agentStateMemory.current;
       const agent = data?.loadId === loaded?.loadId ? data?.agents.get(entityId) : undefined;
-      if (!marker || !agent) return;
+      if (!loaded || !marker || !agent) return;
       const color = colorFor(entityId);
       if (markerColors.get(entityId) !== color) { marker.setColor(color); markerColors.set(entityId, color); }
-      const physicalPosition = agent.poseX === undefined || agent.poseY === undefined || !loaded ? null
-        : resolveDungeonMapTileWorldLayout(loaded,loaded.width,loaded.height,agent.poseX,agent.poseY).center;
-      if (!agent.movementKind) {
-        marker.setPose(physicalPosition ?? tileWorldPosition(agent.tileIndex), getDungeonMovementDirectionYaw(agent.facing));
-        return;
-      }
-      const progress = agent.visualProgress ?? (agent.durationSeconds! <= 0
-        ? 1
-        : Math.min(1, agent.elapsedSeconds! / agent.durationSeconds!));
-      const from = tileWorldPosition(agent.fromTileIndex!);
-      const to = tileWorldPosition(agent.toTileIndex!);
-      const fromYaw = getDungeonMovementDirectionYaw(agent.fromFacing!);
-      const rotationProgress = agent.rotationProgress ?? progress;
-      const yaw = fromYaw + shortestAngleDelta(
-        fromYaw,
-        getDungeonMovementDirectionYaw(agent.toFacing!),
-      ) * rotationProgress;
-      marker.setPose(physicalPosition ?? [
-        lerp(from[0], to[0], progress),
-        lerp(from[1], to[1], progress),
-        lerp(from[2], to[2], progress),
-      ], yaw);
+      const { position, yaw } = resolveDungeonAgentPose(agent, loaded, loaded.width, loaded.height);
+      marker.setPose(position, yaw);
     };
 
     const renderMarkers = () => {

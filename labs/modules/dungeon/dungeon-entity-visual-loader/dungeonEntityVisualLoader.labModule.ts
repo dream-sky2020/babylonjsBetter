@@ -5,6 +5,9 @@ import { readDungeonEntityVisuals, type DungeonEntityVisualDefinition } from '@/
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene/dungeonMapSceneLayout';
 import { mapDungeonDisplayPosition, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView';
 import type { LabModule } from '@/labs/kit';
+import { DUNGEON_AGENT_STATE_MEMORY } from '../dungeon-agent/dungeonAgent.memory';
+import { resolveDungeonAgentPose } from '../dungeon-agent/dungeonAgentPose';
+import { dungeonAgentsLoadedEvent } from '../dungeon-agent/dungeonAgent.protocol';
 import { DUNGEON_MAP_VISUAL_PREPARATION, type DungeonMapVisualCandidate } from '../dungeon-map-loader/dungeonMapVisualPreparation';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 
@@ -23,6 +26,7 @@ export const dungeonEntityVisualLoaderLabModule: LabModule = {
   setup(context) {
     const map = context.services.get(DUNGEON_MAP_VISUAL_PREPARATION);
     const overhead = context.services.get<DungeonOverheadViewService>(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY);
+    const agentState = context.memory.acquire(DUNGEON_AGENT_STATE_MEMORY);
     const sessions = new Map<number, DungeonLoadedVisualEntities>();
     const initializers = new Set<(entities: DungeonLoadedVisualEntities) => void>();
     const releases = new Set<() => void>();
@@ -35,11 +39,27 @@ export const dungeonEntityVisualLoaderLabModule: LabModule = {
       const group = new TransformNode(`entity-visuals:${loadId}`, context.scene);
       group.parent = root;
       const placements: { root: TransformNode; position: [number, number, number] }[] = [];
+      const movingAnchors = new Map<string, TransformNode>();
+      const { width, height } = document.grid;
       const resources: (() => void)[] = [];
       const syncView = (view: ResolvedDungeonView | null) => {
         for (const entry of placements) entry.root.position.set(...mapDungeonDisplayPosition(view, entry.position));
       };
       const offView = overhead.subscribe(() => syncView(overhead.displayedView));
+      const syncAgents = () => {
+        // A candidate can coexist with the old scene while its models load.
+        const state = agentState.current;
+        const agents = state?.loadId === loadId ? state.agents : undefined;
+        const view = overhead.displayedView;
+        for (const [entityId, anchor] of movingAnchors) {
+          const agent = agents?.get(entityId);
+          if (anchor.isEnabled(false) !== (agent?.enabled === true)) anchor.setEnabled(agent?.enabled === true);
+          if (!agent?.enabled) continue;
+          const { position, yaw } = resolveDungeonAgentPose(agent, layout, width, height);
+          anchor.position.set(...mapDungeonDisplayPosition(view, [position[0], position[1] + layout.tileSize[1] / 2, position[2]]));
+          anchor.rotation.y = yaw;
+        }
+      };
       const release = () => {
         if (!releases.delete(release)) return;
         offView();
@@ -53,8 +73,13 @@ export const dungeonEntityVisualLoaderLabModule: LabModule = {
         for (const definition of definitions.values()) {
           const anchor = new TransformNode(`visual-entity:${definition.entityId}`, context.scene);
           anchor.parent = group;
-          const tile = resolveDungeonMapTileWorldLayout(layout, document.grid.width, document.grid.height, definition.tileX, definition.tileY);
-          placements.push({ root: anchor, position: [tile.center[0], tile.center[1] + tile.size[1] / 2, tile.center[2]] });
+          if (definition.entityType === 'dungeon-agent') {
+            anchor.setEnabled(false);
+            movingAnchors.set(definition.entityId, anchor);
+          } else {
+            const tile = resolveDungeonMapTileWorldLayout(layout, width, height, definition.tileX, definition.tileY);
+            placements.push({ root: anchor, position: [tile.center[0], tile.center[1] + tile.size[1] / 2, tile.center[2]] });
+          }
           const objects = new Map<string, LoadedVisual>();
           for (const object of definition.objects) {
             signal.throwIfAborted();
@@ -65,6 +90,7 @@ export const dungeonEntityVisualLoaderLabModule: LabModule = {
               const model = await createModelEntity(context.scene, object.modelPath, { parent: anchor, name, signal });
               if (signal.aborted || !releases.has(release)) { model.dispose(); throw new Error('实体视觉加载已取消。'); }
               resources.push(() => model.dispose());
+              if (object.scale !== undefined) model.root.scaling.setAll(object.scale);
               node = model.root;
             } else if (object.kind === 'point-light') {
               const light = new PointLight(name, Vector3.Zero(), context.scene);
@@ -90,6 +116,13 @@ export const dungeonEntityVisualLoaderLabModule: LabModule = {
           entities.set(definition.entityId, { definition, objects });
         }
         syncView(overhead.displayedView);
+        if (movingAnchors.size) {
+          const observer = context.scene.onBeforeRenderObservable.add(syncAgents);
+          resources.push(() => { context.scene.onBeforeRenderObservable.remove(observer); });
+          resources.push(context.communication.on(dungeonAgentsLoadedEvent, ({ loadId: loadedId }) => {
+            if (loadedId === loadId) syncAgents();
+          }));
+        }
         for (const initialize of initializers) initialize(entities);
         sessions.set(loadId, entities);
         return release;

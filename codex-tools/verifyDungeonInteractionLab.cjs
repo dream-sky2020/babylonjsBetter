@@ -4,6 +4,7 @@ const { registerAppMemoryHandler } = require('../electron/appMemory.cjs');
 const { registerLabSaveStorage } = require('../electron/labSaveStorage.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
+const { pathToFileURL } = require('node:url');
 const assert = require('node:assert/strict');
 const testUserData = path.join(process.cwd(), 'user-data');
 fs.mkdirSync(testUserData);
@@ -23,7 +24,19 @@ app.whenReady().then(async () => {
     return window;
   };
   let win = createWindow();
-  win.webContents.session.webRequest.onBeforeRequest({ urls: ['http://*/*', 'https://*/*'] }, (details, callback) => { network.push(details.url); callback({ cancel: true }); });
+  // The verification build skips copying public assets. Resolve runtime model files locally.
+  const builtResources = pathToFileURL(resolveRepoPath('node_modules/.cache/dungeon-interaction-build/resources') + path.sep).href;
+  const publicResources = pathToFileURL(resolveRepoPath('public/resources') + path.sep).href;
+  win.webContents.session.webRequest.onBeforeRequest({ urls: ['http://*/*', 'https://*/*', 'file://*/*'] }, (details, callback) => {
+    if (details.url.startsWith(builtResources)) {
+      callback({ redirectURL: publicResources + details.url.slice(builtResources.length) });
+    } else if (details.url.startsWith('file:')) {
+      callback({ cancel: false });
+    } else {
+      network.push(details.url);
+      callback({ cancel: true });
+    }
+  });
   const page = source => win.webContents.executeJavaScript(source).catch(error => {
     throw new Error(`页面验证脚本执行失败：${source.slice(0, 240)}`, { cause: error });
   });
@@ -541,6 +554,26 @@ app.whenReady().then(async () => {
     })()`);
     await wait(`${messages}.length === 0`);
     checks.push('map actions advance, reverse and randomly choose states; the control panel and map action share a shuffle round');
+    const selectVisual = entityId => page(`(() => {
+      const select = document.querySelector('${visualPanel} select');
+      select.value = ${JSON.stringify(entityId)};
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    })()`);
+    await selectVisual('room-cardboard-box');
+    assert.equal(await page(lampState), 'closed', 'the cardboard box starts closed');
+    await teleport(1, 1); await face('north');
+    await key('KeyE');
+    assert.equal(await page(lampState), 'closed', 'facing away from the box cannot open it');
+    for (const [x, y, facing, state, message] of [
+      [1, 1, 'east', 'open', '纸箱已打开。'], [2, 0, 'south', 'closed', '纸箱已关闭。'],
+      [3, 1, 'west', 'open', '纸箱已打开。'], [2, 2, 'north', 'closed', '纸箱已关闭。'],
+    ]) {
+      await teleport(x, y); await face(facing); await key('KeyE');
+      await wait(`${lampState} === '${state}' && Array.from(${messages}).some(item => item.textContent === '${message}')`);
+    }
+    await wait(`${messages}.length === 0`);
+    await selectVisual('room-agent-lamp');
+    checks.push('front interaction toggles the cardboard box from all four adjacent tiles');
     await teleport(14, 2);
     await move('south', 14, 3);
     assert.equal(await page(`${messages}.length`), 0, 'the player takes the same north approach without triggering an Agent-only plate');

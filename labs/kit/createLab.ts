@@ -190,7 +190,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const registerTask = (owner: string, task: SystemTask) => runner.register(owner, profileSystemTask(performanceStats, owner, task));
   const services = new LabServiceRegistry();
   const memory = new LabMemoryRegistry();
-  const ui = new LabUi(panels, status, { diagnostics: workbench.diagnostics,
+  const ui = new LabUi(panels, status, { diagnostics: workbench.diagnostics, header: workbench.header,
     lockSettingsInput: () => { const lock = keyboard.acquireLock({ ownerId: 'lab:settings', label: '管理需要记住的设置' }); return () => lock.release(); },
     reveal: category => category === 'diagnostics' ? workbench.showDiagnostics() : workbench.showModules() });
   if (configuration) ui.useConfig(configuration);

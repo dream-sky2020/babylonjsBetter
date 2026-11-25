@@ -124,6 +124,7 @@ export const loadDungeonMapPreset = async (
 export const loadDungeonMapDocumentV2 = async (
   presetKey: string,
   catalog?: DungeonMapPresetCatalog,
+  { requireDevSource = false } = {},
 ): Promise<DungeonMapDocumentV2> => {
   const resolvedCatalog = catalog ?? await loadDungeonMapPresetCatalog();
   const entry = resolvedCatalog.presets[presetKey];
@@ -137,7 +138,8 @@ export const loadDungeonMapDocumentV2 = async (
       const payload = await response.json() as { success?: boolean; data?: unknown; message?: string };
       if (!response.ok || payload.success === false) throw new Error(payload.message ?? `HTTP ${response.status}`);
       return parseStoredDungeonMapDocument(payload.data, entry);
-    } catch {
+    } catch (error) {
+      if (requireDevSource) throw error;
       // Python 服务未启动或读取失败时回退到打包文件。
     }
   }

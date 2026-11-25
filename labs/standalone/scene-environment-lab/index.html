@@ -17,7 +17,11 @@
           <div class="scene-info-content"><div class="scene-info-controls">
           <label for="preset">场景预设</label>
           <select id="preset"></select>
-          <button id="load" type="button">应用 / 重载当前草稿</button><button id="save-preset" type="button">保存预设 / 正式构建导出</button>
+          <div class="scene-preset-actions">
+            <button id="load" type="button" disabled>应用 / 重载当前草稿</button>
+            <button id="reload-preset" type="button" title="重新读取当前展示场景的预设" disabled>重新加载预设</button>
+            <button id="save-preset" type="button">保存预设 / 正式构建导出</button>
+          </div>
           <label class="scene-key-label" for="current-scene-key">当前展示的场景 Key</label>
           <div class="key-copy-row">
             <input id="current-scene-key" type="text" readonly spellcheck="false" aria-label="当前展示的场景 Key" />

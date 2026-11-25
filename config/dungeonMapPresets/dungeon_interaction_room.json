@@ -147,6 +147,18 @@
       "entityType": "interaction-point",
       "name": "灯色 · 洗牌轮替",
       "enabled": true
+    },
+    {
+      "id": "room-cardboard-box",
+      "entityType": "visual-object",
+      "name": "开合纸箱",
+      "enabled": true
+    },
+    {
+      "id": "room-cardboard-box-interact",
+      "entityType": "obstacle",
+      "name": "开合纸箱",
+      "enabled": true
     }
   ],
   "components": {
@@ -413,6 +425,30 @@
             "tileId": "tile:19,7"
           }
         ]
+      },
+      {
+        "id": "room-cardboard-box:spatial-attachment",
+        "entityId": "room-cardboard-box",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,1"
+          }
+        ]
+      },
+      {
+        "id": "room-cardboard-box-interact:spatial-attachment",
+        "entityId": "room-cardboard-box-interact",
+        "type": "spatial-attachment",
+        "version": 1,
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,1"
+          }
+        ]
       }
     ],
     "scene-environment": [
@@ -553,6 +589,17 @@
         "pushable": false,
         "initialFacing": "east",
         "movementProfileId": "ground-four-way"
+      },
+      {
+        "id": "room-cardboard-box-interact:spatial-body",
+        "entityId": "room-cardboard-box-interact",
+        "type": "spatial-body",
+        "version": 1,
+        "activeByDefault": true,
+        "mobility": "fixed",
+        "pushable": false,
+        "initialFacing": "north",
+        "movementProfileId": "ground-four-way"
       }
     ],
     "spatial-collider": [
@@ -662,6 +709,20 @@
         "response": "block",
         "footprint": "center",
         "shape": "disc",
+        "radius": 0.3,
+        "halfWidth": 0.5,
+        "halfHeight": 0.5,
+        "offsetX": 0,
+        "offsetY": 0
+      },
+      {
+        "id": "room-cardboard-box-interact:spatial-collider",
+        "entityId": "room-cardboard-box-interact",
+        "type": "spatial-collider",
+        "version": 1,
+        "response": "block",
+        "footprint": "full-tile",
+        "shape": "box",
         "radius": 0.3,
         "halfWidth": 0.5,
         "halfHeight": 0.5,
@@ -1319,6 +1380,31 @@
           "groupId": "colors",
           "feedback": "机关灯切换为 {state}。"
         }
+      },
+      {
+        "id": "room-cardboard-box-interact:interact",
+        "entityId": "room-cardboard-box-interact",
+        "type": "event",
+        "version": 2,
+        "ruleName": "面向纸箱开合",
+        "trigger": "interact",
+        "targetRule": "front",
+        "priority": 0,
+        "actorScope": "player",
+        "directionSpace": "world",
+        "worldSides": [
+          "north",
+          "east",
+          "south",
+          "west"
+        ],
+        "action": {
+          "type": "visual-state",
+          "targetEntityId": "room-cardboard-box",
+          "operation": "next",
+          "groupId": "lid",
+          "feedback": "纸箱已{state}。"
+        }
       }
     ],
     "dungeon-exit": [
@@ -1451,6 +1537,37 @@
             "enabled": false
           }
         ]
+      },
+      {
+        "id": "room-cardboard-box:visual-objects",
+        "entityId": "room-cardboard-box",
+        "type": "visual-objects",
+        "version": 1,
+        "objects": [
+          {
+            "name": "closed-box",
+            "kind": "model",
+            "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox03.glb",
+            "scale": 5,
+            "offset": [
+              0,
+              -0.49,
+              0
+            ]
+          },
+          {
+            "name": "open-box",
+            "kind": "model",
+            "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox03.glb",
+            "scale": 5,
+            "offset": [
+              0,
+              -0.49,
+              0
+            ],
+            "enabled": false
+          }
+        ]
       }
     ],
     "visual-state": [
@@ -1516,6 +1633,40 @@
               "blue",
               "green",
               "red"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "room-cardboard-box:visual-state",
+        "entityId": "room-cardboard-box",
+        "type": "visual-state",
+        "version": 1,
+        "initialState": "closed",
+        "states": [
+          {
+            "id": "closed",
+            "label": "关闭",
+            "enabled": {
+              "closed-box": true,
+              "open-box": false
+            }
+          },
+          {
+            "id": "open",
+            "label": "打开",
+            "enabled": {
+              "closed-box": false,
+              "open-box": true
+            }
+          }
+        ],
+        "rotationGroups": [
+          {
+            "id": "lid",
+            "stateIds": [
+              "closed",
+              "open"
             ]
           }
         ]

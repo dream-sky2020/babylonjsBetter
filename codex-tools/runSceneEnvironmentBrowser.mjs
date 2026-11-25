@@ -19,15 +19,19 @@ const base = { presetKey: 'base', name: 'Browser Base', clearColor: '#123456', o
   { id: 'point', name: 'Browser Point', intensity: 1, color, light: { primitive: 'point', position: [2, 4, 0], range: 15 } },
 ] };
 const child = { presetKey: 'child', name: 'Browser Child', extendsPresetKey: 'base' };
-await writeFile(path.join(dir, 'index.json'), JSON.stringify({ version: 1, presets: { base: 'base.json', child: 'child.json' } }));
+const toon = { presetKey: 'toon', name: 'Browser Toon', extendsPresetKey: 'base', models: [
+  base.models[0], { ...base.models[0], id: 'sibling', name: 'Browser Sibling', position: [-4, 1, 4] },
+] };
+await writeFile(path.join(dir, 'index.json'), JSON.stringify({ version: 1, presets: { base: 'base.json', child: 'child.json', toon: 'toon.json' } }));
 await writeFile(path.join(dir, 'base.json'), JSON.stringify(base));
 await writeFile(path.join(dir, 'child.json'), JSON.stringify(child));
+await writeFile(path.join(dir, 'toon.json'), JSON.stringify(toon));
 await writeFile(path.join(temporary, 'shadowQualityPresets.json'), await readFile('config/shadowQualityPresets.json'));
 const originalBase = await readFile(path.join(dir, 'base.json'), 'utf8');
 const server = await createServer({ cacheDir: `node_modules/.cache/vite-tests/scene-environment-browser-${process.pid}`, server: { host: '127.0.0.1', port: 5191, strictPort: false, open: false }, plugins: [{
   name: 'scene-environment-browser-verification',
   resolveId(id) { if (id === 'virtual:scene-environment-verification') return id; },
-  load(id) { if (id === 'virtual:scene-environment-verification') return `import { EngineStore } from '@babylonjs/core'; export const scene = () => EngineStore.Instances[0].scenes.find(s => s.getMeshByName('box'));`; },
+  load(id) { if (id === 'virtual:scene-environment-verification') return `import { EngineStore } from '@babylonjs/core'; export { Camera, FreeCamera, TransformNode } from '@babylonjs/core'; export { getSceneOutline, defaultOutlineStyle } from '/core/render-outline/index.ts'; export const scene = () => EngineStore.Instances[0].scenes.find(s => s.getMeshByName('box'));`; },
 }] });
 // Exercise the real storage boundary with temporary data, never repository preset writes.
 server.middlewares.stack.unshift({ route: '', handle: async (req, res, next) => {
